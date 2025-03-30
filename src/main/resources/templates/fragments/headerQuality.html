@@ -1,0 +1,115 @@
+
+
+  <script type="text/javascript" th:src="@{/js/adminJs/validatePage.js}"></script>
+  <script type="text/javascript" th:src="@{/js/pagejs/header.js}"></script>
+  <script type="text/javascript" th:src="@{/js/pagejs/Common_Rep.js}"></script>
+  <script type="text/javascript" th:src="@{/js/pagejs/changePswd.js}"></script>
+
+<!--Navbar-->
+<nav class="navbar navbar-default navbar-static-top example6">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand text-hide" >ECI </a> 
+    </div>
+    <div id="" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-left visible-lg"> 
+
+        <li id="nav2" class="navLinkLI"><a class="nav_menu_links" href="QualityReports">Reports</a></li>
+        
+       <!--  <li id="nav3" class="navLinkLI"><a class="nav_menu_links" href="CustomerReports">Customer Reports</a></li>
+    -->
+        
+<!--         <li><a class="nav_menu_links" href="#">Customer</a></li>
+ -->        
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown rightnav "> 
+        <a href="" class="dropdown-toggle login_username" data-toggle="dropdown" role="button" aria-expanded="false" ><span id="logName"></span><span class="caret caret-class"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a id="pswdChangeAction" type="submit" data-target="#pswd_userdiv"> <span class="fa fa-key"></span> &nbsp;Change Password</a> </li>
+            <li class="divider cust-divider2"></li>
+            
+            <li><a href="#" onClick="OnSignOut()"> <span class="fa fa-power-off" ></span> &nbsp;Signout</a> </li>
+            
+          </ul>
+        </li> 
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--Navbar--> 
+
+<!--Change Password-->       
+<div id="pswd_userdiv" class="modal fade in" role="dialog" aria-hidden="false" style="display: none;">
+  <div class="modal-dialog"> 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header cust-hd">
+        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
+        <h4 class="modal-title"><i class="fa fa-fw fa-edit"></i>&nbsp;&nbsp;Change Password</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="">
+          <label for="" class="col-sm-4 control-label pass_label" >Log In User  :<div id="logName1"> </div></label>
+          
+          <label for="" class="col-sm-6 control-label pass_label" id="pswdemail"> :</label>
+          <div class="clearfix"></div>
+          <label for="" class="col-sm-4 control-label pass_label">Old Password : <span class="fa fa-asterisk"></span></label>
+          <div class="col-sm-8 my_form">
+            <input type="password" class="form-control pass_input" name="password" id="txtoldpswd" placeholder="Enter your Old Password" required="">
+          </div>
+          <div class="clearfix"></div>
+          <label for="" class="col-sm-4 control-label pass_label">New Password : <span class="fa fa-asterisk"></span></label>
+          <div class="col-sm-8 my_form">
+            <input type="password" class="form-control pass_input" name="password" id="txtnewpswd" placeholder="Enter your New Password" required="">
+          </div>
+          <div class="clearfix"></div>
+          <label for="" class="col-sm-4 control-label pass_label"> Confirm New Password : <span class="fa fa-asterisk"></span></label>
+          <div class="col-sm-8 my_form">
+            <input type="password" class="form-control pass_input" name="password" id="txtcnfmpswd" placeholder="Confirm Your Password" required="">
+          </div>
+          <br>
+          <div id="passErr" class="Err"></div>
+        </form>
+      </div>
+      <div class="clearfix"></div>
+	      <div class="modal-footer">
+		        <div class="col-sm-12">
+		          <button class="btn cust-btn2" id="AddChangePswd" type="submit">Submit</button> 
+		        </div>
+	      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Nav active--> 
+<script>
+$(document).ready(function(){
+	var navMenuLinks = $('.navLinkLI');
+	for(i=1; i<=navMenuLinks.length; i++){
+		if(i == nav){
+			$('#nav' + i).addClass('active1');
+		}else{
+			$('#nav' + i).removeClass('active1');
+		}
+	}
+});
+</script>
+
+<!--Change Password--> 
+<!-- <script type="text/javascript">
+function ValidatePswd() {
+        var password = document.getElementById("txtnewpswd").value;
+        var confirmPassword = document.getElementById("txtcnfmpswd").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script> --> 
+
+<!--Nav active--> 
+

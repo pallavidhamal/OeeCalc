@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Job Card Tracker | Purchase Order</title>
+
+<div th:replace="~{fragments/headerJS}"></div>  
+<script type="text/javascript" th:src="@{/js/pagejs/subcontractorforward.js}"></script>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.1/js/dataTables.min.js"></script> -->
+<!-- <script type="text/javascript" th:src="@{js/jquery/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{js/jquery/jquery.dataTables.min.js"></script>
+<script type="text/javascript" th:src="@{js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{js/adminjs/adminLogInJS.js"></script>
+
+
+<script type="text/javascript" th:src="@{/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" th:src="@{/js/buttons.flash.min.js"></script>
+<script type="text/javascript" th:src="@{/js/adminJs/pdfmake.min.js"></script>
+<script type="text/javascript" th:src="@{/js/adminJs/jszip.min.js"></script>
+<script type="text/javascript" th:src="@{/js/adminJs/vfs_fonts.js"></script>
+<script type="text/javascript" th:src="@{/js/adminJs/buttons.html5.min.js"></script>
+<script type="text/javascript" th:src="@{/js/buttons.print.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.rowspanizer.js"></script>
+
+<script type="text/javascript" th:src="@{/js/pagejs/common_Rep.js"></script>
+
+<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript" th:src="@{/js/adminJs/validatePage.js"></script>
+<script type="text/javascript" th:src="@{/js/pagejs/PurchaseOrder.js"></script>
+
+
+
+<link th:href="@{/css/style.css}" rel="stylesheet"/>
+<link th:href="@{/css/animate.css}" rel="stylesheet"/>
+<link th:href="@{/css/animate.min.css}" rel="stylesheet"/>
+<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+<link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet"/>
+<link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet"/>
+<link th:href="@{/css/responsive.bootstrap.min.css}" rel="stylesheet"/>
+<link th:href="@{/css/BootStrap/bootstrap.min.css}" rel="stylesheet"/>
+<link th:href="@{/css/adminCss/animate.css}" rel="stylesheet"/>
+<link th:href="@{/css/style.css}" rel="stylesheet"/>
+ -->
+
+<style>
+#inserttbl{
+overflow: auto;
+    height: 250px !important;
+}
+#remtbl{
+overflow: auto;
+    height: 250px !important;
+}
+.orDiv {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 9;
+    background-color: rgba(5, 5, 5, 0.75);
+    background-repeat: repeat;
+}
+.loader, .loader:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+textarea.form-control {
+    height: 120px !important; 
+    resize: none;
+}
+.loader {
+    margin: 20% auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-right: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-bottom: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-left: 1.1em solid #e89933;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+0% {
+-webkit-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+@keyframes load8 {
+0% {
+-webkit-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+.headtag1{
+text-align: center;
+    background: #97b1ff;
+   
+}
+.headtag{
+ margin-top: 10%;
+text-align: center;
+    background: #ef8b8b;
+}
+.modbox{
+    width: max-content;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+label {
+    padding-top: 7px;
+}
+.form-control {
+    height: 30px !IMPORTANT;
+    margin-top: 2px !IMPORTANT;
+}
+.form-group {
+    margin-top: 2px !IMPORTANT;
+}
+/* table th:nth-child(3), td:nth-child(3) {
+  display: none;
+} */
+</style>
+
+<script>
+	let nav = 3;
+</script>
+</head>
+
+<body>
+<div th:replace="~{fragments/admin_navbar}"></div>
+ <div class="content-wrapper" >
+<!--Content-->
+<div class="col-sm-12 orDiv" id="progressBar" style="display:none" > 
+  
+  <div class="loader">Loading...</div>
+</div>
+<br>
+<section> 
+  <!--container-fluid-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12"> 
+        <!--box-->
+        <div class="box"> 
+          <!--box-header-->
+          <div class="box-header">
+            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Sub Contractor -Job Cards  </h3>
+            <div class="box-tools pull-right">
+            
+           <!--  <a href="../ProApp/SampleExcel/sampleNew.xlsx"target="_blank" download>  -->
+          <a data-auto-download href="/ProApp/SampleExcel/POSampleFile.xlsx" > 
+             <!-- <a href="../ProApp/SampleExcel/sampleNew.xlsx" download>  -->  
+<!--              <button class="btn theme_btn" type="button"> Sample Excel</button> 
+-->              </a>
+                                  
+              
+              <button class="btn theme_btn" data-toggle="modal" data-target="#add_po" id="purchaseAddAction">Add Purchase Order </button>
+              <!--  <button class="btn theme_btn" type="submit">Export to Excel </button> -->
+<!--               <button class="btn theme_btn"  id="impbtn" data-toggle="modal" data-target="#import_excel">Import from Excel </button>
+-->               <input type="text"  style="display:none;" class="form-control" id="hidendelId" >
+               
+              </div>
+              <div class="clearfix"></div>
+          </div>
+          <!--box-header--> 
+        
+          <!--box-body-->
+          <div class="box-body">
+          <div class="col-md-12"> 
+            <table class="table table-bordered table-striped table-hover table-responsive" id="purchaseOrderList" >
+              <thead>
+                <tr class="orange">
+					<th>Job Number </th>
+	                <th>Customer</th>
+	                <th>Part</th>
+					<th>RM size </th>
+	                <th>RM Vendor</th>
+	                <th>Due Date</th>					  
+					  
+                  <!-- <th>Delete</th> -->
+                </tr>
+              </thead>
+              <tbody>
+     
+              </tbody >
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Content--> 
+
+<div id="add_po" class="modal fade in" role="dialog">
+  <div class="modal-dialog modal-lg"> 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header cust-hd">
+        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
+        <h4 class="modal-title">Add Purchase Order</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form"  class="" name="myform">
+            <div class="col-sm-12 margin-top15">
+            <div class="col-sm-12">
+	            <label class="col-sm-4 control-label cust_label">Purchase Order Number : <span class="fa fa-asterisk"></span></label>
+	            <div class="col-sm-8 my_form">
+	              <input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Purchase Order Number">
+	            </div>
+            </div>
+            </div>
+            <div class="col-sm-12 margin-top15">
+            	<div class="col-sm-12">
+	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
+	            <div class="col-sm-8 my_form">
+	             <select class="form-control" id="customerListadd"></select>
+	              	<!-- <option>- Select Customer -</option>
+	              	<option>Customer 1</option>
+	              	<option>Customer 2</option> 
+	              </select> -->
+	            </div>
+	            </div>
+            </div>
+            <div class="col-sm-12 margin-top15">
+            	<div class="col-sm-6">
+		            <label for="" class="col-sm-3 control-label cust_label">PO Date : <span class="fa fa-asterisk"></span></label>
+		            <div class="col-sm-8 my_form">
+		             	<input type="date" class="form-control" id = "poDate">
+		            </div>
+	            </div>
+	            <div class="col-sm-6">
+		            <label for="" class="col-sm-4 control-label cust_label">PO End Date : <span class="fa fa-asterisk"></span></label>
+		            <div class="col-sm-8 my_form">
+		             	<input type="date" class="form-control" id = "poEndDate">
+		            </div>
+	            </div>
+            </div>
+            <div class="col-sm-12 margin-top15">
+	            
+            </div>
+        </form>
+        <div><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>
+         <div class="col-sm-12 margin-top20">
+        	<table class="table table-border po_table" id="po_table_modal">
+        	<thead>
+			  <tr>
+			    <th class="table_hd">Line ID</th>
+			    <th class="table_hd">Product</th>
+			     <th class="table_hd">Catalog Code</th>
+			    <th class="table_hd display_block">Description</th>
+			    <th class="table_hd">Region</th>
+			    <th class="table_hd">PO Qty.</th>
+			    <th class="table_hd">&nbsp;</th>
+			  </tr>
+			  </thead>
+			  <tbody id="myTbody">
+			   <tr class="tr_clone" roCnt = "0">
+			    <td class="table_input"><input type="text" class="form-control width80 line" id="line0"></td>
+			     <td class="table_input">
+				     <select class="form-control width120 prodListadd"  id="prodList0" >
+				     	 <option>Select Product -</option>
+				     	
+				     </select>
+			     </td>
+			      <td class="table_input">
+				   <select class="form-control width120 catCodeListadd" id="catCodeList0">
+				   <option>Select Catalog -</option></select>
+			     </td>
+			    <td class="table_input display_block">
+			    <select class="form-control width120 descListadd" id="descList0">
+				 <option>Select Description-</option></select>
+			    </td>
+			    
+			     <td class="table_input">
+				  <select class="form-control width120 regListadd"  id="regList0">
+				  <option>Select Region-</option></select>
+			     </td>
+			     <td class="table_input"><input type="text"  class="form-control width80 qtyListadd" id="poQty0"></td>
+			     <td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>
+			     <!-- <td class="table_input">&nbsp;</td> -->
+			  </tr> 
+			  </tbody>
+			</table>
+        </div> 
+        <div class="clearfix"></div>
+        
+         <div class="col-md-offset-4 col-md-8">
+	         <div id="poErrAdd" class="Err" ></div>
+	          <div class="clearfix"></div>
+          </div>
+    </div>
+    
+   <div class="clearfix"></div>
+    
+    <div class="modal-footer">
+        <div class="col-md-4 col-md-offset-4 pull-left">
+          <button class="btn btn-block cust-btn" type="submit" id = "addPurchaseData">Submit</button>
+        </div>
+    </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div id="edit_po" class="modal fade in" role="dialog">
+  <div class="modal-dialog modal-lg"> 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header cust-hd">
+        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
+        <h4 class="modal-title">Update Purchase Order</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form"  class="" name="myform">
+            <div class="col-sm-12 margin-top15">
+	            <label class="col-sm-4 control-label cust_label">Purchase Order Number : <span class="fa fa-asterisk"></span></label>
+	            <div class="col-sm-8 my_form">
+	              <input type="text" class="form-control" name="ponumber" id="ponumberEdt" placeholder="Enter Purchase Order Number">
+	            </div>
+            </div>
+            <div class="col-sm-12 margin-top15">
+	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
+	            <div class="col-sm-8 my_form">
+	             <select class="form-control" id="customerListEdt"></select>
+	              	<!-- <option>- Select Customer -</option>
+	              	<option>Customer 1</option>
+	              	<option>Customer 2</option> 
+	              </select> -->
+	            </div>
+            </div>
+            <div class="col-sm-12 margin-top15">
+	            <label for="" class="col-sm-4 control-label cust_label">Purchase Order Date : <span class="fa fa-asterisk"></span></label>
+	            <div class="col-sm-8 my_form">
+	             	<input type="date" class="form-control" id = "poDateEdt">
+	            </div>
+            </div>
+            <div class="col-sm-12 margin-top15">
+	            <label for="" class="col-sm-4 control-label cust_label">Purchase Order End Date : <span class="fa fa-asterisk"></span></label>
+	            <div class="col-sm-8 my_form">
+	             	<input type="date" class="form-control" id = "poEndDateEdt">
+	            </div>
+            </div>
+        </form>
+        <div><a href="#" class="table_add_link table_add_linkEdt"><i class="fa fa-plus"></i> Add Row</a></div>
+         <div class="col-sm-12 margin-top20">
+        	<table class="table table-border po_table" id="po_table_modal">
+        	<thead>
+			  <tr>
+			  <th class="table_hd" style="display:none;">PO ID</th> 
+			    <th class="table_hd">Line ID</th>
+			    <th class="table_hd">Product</th>
+			    <th class="table_hd">Catalog Code</th>
+			    <th class="table_hd display_block">Description</th>
+			    <th class="table_hd">Region</th>
+			    <th class="table_hd">PO Qty.</th>
+			    <th class="table_hd">Bal Qty.</th>
+			    <th class="table_hd">&nbsp;</th>
+			  </tr>
+			  </thead>
+			  <tbody id="myTbodyEdt">
+			   <!-- <tr class="tr_clone">
+			    <td class="table_input"><input type="text" class="form-control width80 line" id="line"></td>
+			     <td class="table_input">
+				     <select class="form-control width120 prodList"  id="prodListEdt0" >
+				     	 <option>Select Product -</option>
+				     	
+				     </select>
+			     </td>
+			    <td class="table_input display_block">
+			    <select class="form-control width120 descList" id="descList0">
+				 <option>Select Description-</option></select>
+			    </td>
+			     <td class="table_input">
+				   <select class="form-control width120 catCodeList" id="catCodeListEdt0">
+				   <option>Select Category -</option></select>
+			     </td>
+			     <td class="table_input">
+				  <select class="form-control width120 regList"  id="regListEdt0">
+				  <option>Select Region-</option></select>
+			     </td>
+			     <td class="table_input"><input type="text"  class="form-control width80 qtyList" id="poQtyEdt0"></td>
+			     <td class="table_input">&nbsp;</td>
+			  </tr>  -->
+			  </tbody>
+			</table>
+        </div> 
+     
+        <div class="clearfix"></div>
+        
+         <div class="col-md-offset-4 col-md-8">
+	         <div id="poErredt" class="Err" ></div>
+	          <div class="clearfix"></div>
+          </div>
+        
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-4 col-md-offset-4 pull-left">
+          <button class="btn btn-block cust-btn" type="submit" id = "savePurchaseData">Submit</button>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="import_excel" class="modal fade in" role="dialog">
+  <div class="modal-dialog"> 
+    <!-- Modal content-->
+    <div class="modal-content">
+     <!--  <div class="modal-header cust-hd">
+        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
+        <h4 class="modal-title">Import from Excel</h4>
+      </div> -->
+      
+      
+      <div class="modal-body bodypadd0">
+        <!--  <form action="UploadFile" method="post" enctype="multipart/form-data" onsubmit="return Validate(this);" >  -->
+      <!--    <form method="POST" enctype="multipart/form-data" id="fileUploadForm" > -->
+         
+
+            <div class="col-sm-12">
+            	
+            	<h3>Import your data from excel file</h3>
+            	
+            	<div style="display: none;"></div>
+            	
+	            <label class="control-label cust_label2">Upload Excel File: <span class="fa fa-asterisk"></span></label>
+	            
+	            <div class="my_form upload_form">
+	             
+	              <!-- <input type="file" id="myFileread"   name="file" class="upload_excel_btn"  onchange="ValidateSingleInput(this);"/> -->
+	            
+	            <input type="file" name="file"  class="GroupFileClassMEx"  id="fileGroupIdMEx"  onchange="ValidateSingleInput(this);"/>
+	          	  
+	          	<!-- <button class="btn btn-block cust-btn"   type="submit" id="#" value="upload"/>Submit</button> -->
+	             <!--  <input type="submit" id="uploadpo" value="upload"/> -->
+	              <!-- 
+	              <div class="col-md-4 col-md-offset-4 pull-left">
+        		  <button class="btn btn-block cust-btn"  type="submit" value="upload">Submit</button>
+     			   </div> -->
+	              
+	              <p id="demo"></p>
+	            </div>
+            </div>
+      <!--   </form>   -->
+        
+        <!--  
+          <form action="UploadFile" method="post" enctype="multipart/form-data" onsubmit="return Validate(this);" >
+                <input type="file" name="file"   onchange="ValidateSingleInput(this);"/>
+                <input type="submit" id="uploadpo" value="upload"/>
+            </form>
+       --> 
+ 
+    </div>
+   
+    <div class="modal-footer">
+       <!--  <div class="col-md-4 col-md-offset-4 pull-left">
+          <button class="btn btn-block cust-btn"  type="submit" value="upload">Submit</button>
+        </div> -->
+    </div>
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+
+   <div class="modal fade" id="dataview" role="dialog">
+    <div class="modal-dialog modal-lg modbox">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         
+          <h4 class="modal-title headtag1"> Successfully Saved Purchase Order</h4>
+        </div>
+        <div class="modal-body">
+        <div id="remtbl">
+      <table class="table table-bordered table-striped table-hover table-responsive" id="TestTbl" >
+    <thead>
+    
+    <tr>
+   <th>PO_Number</th>
+   <th>PO_Date</th>
+   <th>PO_EndDate</th>
+   <th>CustomerId</th>
+   
+   <th>LineId</th>
+   <th>CatalogId</th>
+   <th>Description</th>
+   <th>ProductId</th>
+   <th>RegionId</th>
+   <th>PO_Qty</th>
+   <th>Balace_Qty</th>
+   <th>Status</th>
+ 	</tr>
+      </thead>
+    <tbody>
+    </tbody >
+  </table>
+  </div>
+     <h4 class="modal-title headtag"> Not  Saved Purchase Order</h4>
+     <div id="inserttbl">
+       <table class="table table-bordered table-striped table-hover table-responsive" id="insertdatatbl" >
+    <thead>
+    
+    <tr>
+   <th>PO_Number</th>
+   <th>PO_Date</th>
+   <th>PO_EndDate</th>
+   <th>CustomerId</th>
+   
+   <th>LineId</th>
+   <th>CatalogId</th>
+   <th>Description</th>
+   <th>ProductId</th>
+   <th>RegionId</th>
+   <th>PO_Qty</th>
+   <th>Balace_Qty</th>
+   <th>Status</th>
+ 	</tr>
+      </thead>
+    <tbody>
+    </tbody >
+  </table>
+  </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ <script>
+
+ var _validFileExtensions = [".xlsx"];    
+ function ValidateSingleInput(oInput) {
+     if (oInput.type == "file") {
+         var sFileName = oInput.value;
+          if (sFileName.length > 0) {
+             var blnValid = false;
+             for (var j = 0; j < _validFileExtensions.length; j++) {
+                 var sCurExtension = _validFileExtensions[j];
+                 if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                     blnValid = true;
+                     break;
+                 }
+             }
+              
+             if (!blnValid) {
+                 alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                 oInput.value = "";
+                 return false;
+             }
+         }
+     }
+     return true;
+ }
+ </script>
+ 
+ 
+ 
+ 
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('#purchaseOrderTable').DataTable( {
+        responsive: true
+    } );
+} );
+</script>
+
+
+
+
+
+
+
+<script>
+	/* var $link = $(".table_add_link");
+	$(".table_add_link").on('click', function() {
+	    var $tr    = $(this).closest('.tr_clone');
+	    var $clone = $tr.clone();
+	    $clone.find(':text').val('');
+	    $tr.after($clone);
+	});
+	if(i.length > 1){
+		$link.display(none);
+	} */
+
+</script>
+ 
+   </div>
+       <div th:replace="~{fragments/admin_footer}"></div>
+         <!-- sidenav--> 
+  
+</div>
+<!-- wrapper --> 
+<!-- sidenav--> 
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+</script><!-- sidenav
+
+<!-- ToolTip -->
+<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip(); 
+	});
+</script>
+<!-- ToolTip -->
+       
+</body>
+</html>

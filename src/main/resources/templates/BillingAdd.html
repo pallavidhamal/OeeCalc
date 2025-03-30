@@ -1,0 +1,359 @@
+   <!DOCTYPE html>
+   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+   <head>
+   <meta charset="ISO-8859-1">
+   <title>InvoicingApp | Customer Master</title>
+
+
+   <div th:replace="~{fragments/headerJS}"></div>  
+   <style>
+   #pdfViewer 
+   {
+       width: 100%;
+       height: 600px;
+       border: 1px solid #000;
+       margin-bottom: 20px;
+   }
+
+   </style>
+
+
+   <body id="page-top">
+   	<span id="error_block"></span> 
+   	<span id="success_block"></span> 
+<!--   	
+    	<div th:replace="~{fragments/defaultMenu}"></div>
+   	<div th:replace="~{fragments/defaultHeader}"></div>-->
+   	<!--	
+   	<div th:replace="~{fragments/admin_navbar}"></div>
+   		<tiles:insertAttribute name="menu" />
+   	  	<tiles:insertAttribute name="header" />
+    --> 
+     	<div id="wrapper" class="asd" style="margin-left: 260px; -webkit-transition-duration: 0.1s;">     
+    
+
+	<div class="container-fluid">
+	    <div class="row mt-4">
+	    	<div class="col-md-12">
+		    	<div class="white-layer mb-8">
+	    			<h3 class="sub-hd-master">Billing </h3>
+					<div class="row">
+						
+						<div class="col-md-3">
+							<label class="form-label">Bill Date</label>
+							<input type="date" id="datePicker" class="form-input form-control">
+						</div>
+						<div class="col-md-3">
+							<label class="form-label">Bill Type</label>
+							<select name="titles" id="billtype" class="form-input  form-control " >
+		    					<option value="BILL">Bill</option>
+								<option value="CHALLAN ">Challan </option>
+		    					  </select>
+														  
+						</div>
+						<div class="col-md-3">
+							<label class="form-label">Place Of Supply</label>
+							<select name="titles" id="placeOfSupply" class="form-input  form-control " >
+		    					<option value="INTER">Within-State</option>
+								<option value="INTRA">Out-State</option>
+    					  	</select>
+														  
+						</div>
+					</div>
+	    			<div class="row">
+	    				<div class="col-md-3">
+	    					<label class="form-label">Customer<span class="red">*</span></label>	
+	    						<input type="text" id="customer" class="form-input form-control">
+	    					
+	    				</div>
+	    				
+	    				<div class="col-md-3">
+	    					<label class="form-label">Customer Email</label>
+	    					<input type="text" id="customerEmail" class="form-input form-control">
+	    				</div>
+	    				<div class="col-md-3">
+	    					<label class="form-label">Customer Contact</label>
+	    					<input type="text" id="custContact" class="form-input form-control">
+	    				</div>
+    				</div>
+					<div class="row">
+	    				<div class="col-md-4">
+	    					<label class="form-label">Billing Address</label>
+	    					<textarea type="text" id="billingAdd" class="form-input form-control"></textarea>
+	    				</div>
+	    				
+	    			</div>
+	    		
+	    			
+	    		
+	    		
+	    			 <div class="box">
+                        <div class="table_containt">
+                            <div class="table table-responsive mt-3 table-container">
+                                <table id="invoiceCreator" class="display table table-border " style="width: 100%">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <!-- <th>#</th> -->
+                                           <!-- <th style="width: 200px" >Product Category</th>-->
+                                            <th style="width: 24%" >Product</th>
+											<th style="width: 12%" >Buy Price</th>
+											<th style="width: 7%">Qty</th>
+                                           	 <!--	<th>Available Qty</th>
+                                            	<th>Price(Master)</th>-->
+                                            <th style="width: 12%" >Price</th>
+											<th style="width: 7%">Discount type</th>
+												<!--<th>Discount %</th>-->
+                                            <th style="width: 7%">Discount</th>
+                                            <th style="width: 12%" >Amount</th>
+                                            <th  style="width: 7%" >GST</th>
+                                            <th style="width: 12%" >Total</th>
+                                           <!-- <th>GST</th>  -->
+                                            <th class="not-export-col"></th> 
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableBody">
+                                    	<tr class="table-row">
+                                    	<!-- 	 <th scrope="row">1</th>  -->
+                                    		<td><select name="titles" id="productCategory0" class="productCategory form-input form-control" style="width: 100%" ></select>	
+												<select name="titles" id="product0" class="form-input product form-control" style="width: 100%"></select></td>
+											<td><input type="text" id="buyprice0" class="form-input  form-control" disabled></td>
+											<td><input type="text" id="qty0"  class="form-input nuz form-control qty integer">	<input type="text" id="availableQ0" class="form-input form-control" disabled></td>
+                                    		<!--<td><input type="text" id="availableQ0" class="form-input  form-control" disabled></td>
+                                    		<td><input type="text" id="mstprice0" class="form-input form-control" disabled></td>-->
+                                    		
+                                    		<td><input type="text" id="rate0"  class="form-input nuz form-control rate decimal" > <input type="text" id="mstprice0" class="form-input form-control" disabled></td>
+											<!--<td><select name="titles" id="disocunttype" class="form-input disocunttype form-control "  >
+												<option value="VAL">Value </option><option value="PER">Percentage</option>
+											</select></td>-->
+											<td><input type="text" id="disocuntpr"  class="form-input nuz form-control disocuntpr decimal" ><select name="titles" id="disocunttype" class="form-input disocunttype form-control "  >
+												<option value="PER">%</option><option value="VAL">Rs.</option>
+											</select>
+											</td>
+                                    		<td><input type="text" id="disocunt0"  class="form-input nuz form-control disocunt decimal" disabled></td>
+                                    		<td><input type="text" id="amount0" class="form-input form-control rate  amount" disabled></td>
+                                    		<td><input type="text" id="gstpr0"  class="form-input nuz form-control gstpr integer" disabled>	<input type="text" id="gstval0" class="form-input  form-control" disabled></td>
+	    									<td><input type="text" id="totalamount0" class="form-input form-control rate  rtotal" disabled></td>
+	    									
+	    									
+	    									<!--<td><input type="text" id="taxAmt" class="form-input form-control taxAmt" disabled></td>-->
+	    									<td><a  id="addMore" ><img  th:src="@{/images/plus2.png}"  ></a></td>                                       
+	    									 <!-- <td> <img  src="static/images/logo2.png" height= "32px" ></td> -->
+                                    	</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+						<div class="row ">
+						    <div class="col-xl-10 col-lg-8 col-md-6  text-end my-2">
+						        <label class="form-label font-weight-bold">Subtotal (INR)</label>
+						    </div>
+						    <div class="col-xl-2 col-lg-4 col-md-6 my-2">
+						        <input type="text" id="subTotal" class=" form-input form-control" disabled/>
+						    </div>
+						</div>
+						<div class="row" id="igstdiv" style="display: none;">
+								<div class="col-xl-10 col-lg-8 col-md-6  text-end my-2">
+							        <label class="form-label font-weight-bold">iGST </label>
+							    </div>
+							    <div class="col-xl-2 col-lg-4 col-md-6 my-2">
+							         <input type="text" id="igstfv" value="0" class="form-input nuz form-control decimal"  disabled/>
+							    </div>
+						</div>
+						<div class="row" id="csgstdiv">
+							<div class="col-xl-10 col-lg-8 col-md-6  text-end my-2">
+							    <label class="form-label font-weight-bold">CGST </label>
+							</div>
+							<div class="col-xl-2 col-lg-4 col-md-6 my-2">
+							    <input type="text" id="cgstfv" value="0" class="form-input nuz form-control decimal"  disabled/>
+							</div>
+							
+							<div class="col-xl-10 col-lg-8 col-md-6  text-end my-2">
+							    <label class="form-label font-weight-bold">SGST </label>
+							</div>
+							<div class="col-xl-2 col-lg-4 col-md-6 my-2">
+							    <input type="text" id="sgstfv" value="0" class="form-input form-control decimal" disabled />
+							</div>
+						</div>
+						<div class="row ">
+							<div class="col-xl-10 col-lg-8 col-md-6  text-end my-2">
+							    <label class="form-label font-weight-bold">Total (INR)</label>
+							</div>
+							<div class="col-xl-2 col-lg-4 col-md-6 my-2">
+							    <input type="text" id="finaltotal" class="form-input form-control" disabled />
+							</div>														
+						</div>
+						
+                  
+                    </div>
+					
+					
+					<div class="row ">
+	    				<div class="col-md-6">
+	    					<label class="form-label">Message on Bill</label>
+	    					<input type="text" id="invoiceMsg" class="form-input form-control">
+	    				</div>
+	    				<!--<div class="col-md-4">
+	    					<label class="form-label">Message on Statement</label>
+	    					<input type="text" id="statementMsg" class="form-input form-control">
+	    				</div>-->
+						<div class="col-md-6">
+	    					<label class="form-label">Terms</label>
+	    					<input type="text" id="terms" class="form-input form-control">
+	    				</div>
+	    			</div>
+	    			
+	    			
+	    			<div class="row mt-4">
+	    				<div class="col-md-12">
+	    					<input type="submit" id="submitBtn" class="btn form-btn"  value="Submit">
+							<!--<input type="submit" id="submitBtn1" class="btn form-btn"  value="Submit"> -->
+	    						<button class="btn form-btn" onclick="history.back()"> Back</button>
+								
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div>
+    </div>
+    
+		<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered cust-modal-big" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Send email</h5>
+	    <!--     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button> -->
+	      </div>
+	      <div class="modal-body">
+	        <div class="row">
+                <div class="col-md-6">
+                	<div class="col-md-12">
+                    	<label class="form-label">From</label>
+			    		<select class="form-input form-control" id="from">
+			    			<option value="admin@galoresavvytechserv.com">admin@galoresavvytechserv.com</option>
+			    		</select>
+			    	</div>
+			    	<div class="col-md-12 mt-3">
+                    	<label class="form-label">To</label>
+			    		<input type="text" class="form-input form-control" id="to">
+			    	</div>
+			    	<div class="col-md-12 mt-3">
+                    	<label class="form-label">Cc</label>
+			    		<input type="text" class="form-input form-control" id="cc" >
+			    	</div>
+			    	<div class="col-md-12 mt-3">
+                    	<label class="form-label">Bcc</label>
+			    		<input type="text" class="form-input form-control" id="bcc">
+			    	</div>
+			    	<div class="col-md-12 mt-3">
+                    	<label class="form-label">Subject</label>
+			    		<input type="text" class="form-input form-control" id="subject">
+			    	</div>
+			    	<div class="col-md-12 mt-3">
+                    	<label class="form-label">Body</label>
+			    		<textarea class="form-input form-control" id="body"></textarea>
+			    	</div>
+                </div>
+                <div class="col-md-6">
+                	<div class="col-md-12">
+                    	<label class="form-label">From</label>
+			    		<span class="preview-val from2" id="from2" >S Cube Technologies (info@galoresavvytechserv.com)</span>
+			    	</div>
+			    	<div class="col-md-12">
+                    	<label class="form-label">To</label>
+			    		<span class="preview-val" id="to2">hrishikesh@gmail.com</span>
+			    	</div>
+			    	<div class="col-md-12">
+			    		<span class="line"></span>
+			    	</div>
+			    	<div class="col-md-12">
+                    	<h3 class="preview-label">Invoice <span id="invoice2"></span  > from <span id="from3"> S Cube Technologies Pvt. Ltd.</span></h3>
+			    	<div class="col-md-12">
+			    		<div id="preview-scroll">
+                    		<p class="invoice-label">Invoice No.<span id="invoiceN" >****</span></p>
+                    		<img src="static/images/galoresavvyLogo_small.png" alt="logo" class="preview-logo">
+                    		<h3 class="preview-company">Galoresavvy</h3>
+                    		<div class="grey-bg">
+                    			<p class="due-txt">Due <span id="due"></span></p>
+                    			<p class="preview-amt-txt" id="inr"></p>
+                    			<a class="form-btn-preview">Review & Pay</a>
+                    		</div>
+                    	</div>
+			    	</div>
+                </div>
+            </div>
+	      </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Cancel</button>
+	        <button type="button" class="btn form-btn" id="save">Save & Send </button>
+			
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-xl">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="staticBackdropLabel">Invoice</h1>
+	        <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+	      </div>
+	      <div class="modal-body">
+	        <iframe id="pdfViewer"></iframe>
+	      </div>
+	      <div class="modal-footer">
+	        <button class="btn form-btn" href="listBilling"> Back</button>
+			<!--<button class="btn form-btn" > OK</button>-->
+			<a type="button" class="btn form-btn" href="listBilling" >OK</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	  
+	  <!-- DELETE MODAL sample  -->
+	   </div>
+	   
+	   
+	   
+	   
+	   		<!--<div th:replace="~{fragments/defaultFooter}"></div> 
+			<script  th:src="@{/js/pagejs/billingAdd.js}"></script>-->
+	   </body>
+	   </html>
+  
+	
+	<script type="text/javascript">
+
+		
+//		document.getElementById('invoiceDate').valueAsDate = new Date();
+  //tax calculation static
+		/* calculation();
+        $("#qty, #rate,#tax").on("keydown keyup change", function () {
+          calculation();
+        });
+
+        function calculation() {
+          var qty1 = document.getElementById("qty").value;
+          var rate1 =document.getElementById("rate").value;
+          //var tax1 =document.getElementById("tax").value;
+			  var dropdown = document.getElementById("tax");
+ 	      var taxRate = dropdown.options[dropdown.selectedIndex].textContent;
+
+          var result = parseInt(qty1) * parseInt(rate1);
+          var result1 = (result * parseFloat(taxRate)) / 100 + result;
+          if (!isNaN(result)) {
+            document.getElementById("amount").value= result;
+            document.getElementById("total").value = result1;
+          }
+        }
+ */
+        
+	</script>
+    
+         
