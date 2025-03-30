@@ -1,7 +1,7 @@
 var optionsData = "";
 			$(document).ready(function(){
 				
-				alert("add po js")
+			//	alert("add po js")
 				
 				
 				$("#addMore").on("click", function (event) {

@@ -120,7 +120,7 @@ $(document).ready(function() {
 								}
 								if(data.role=="PM")
 								{
-									alert("i ampm");
+									//alert("i ampm");
 									console.log("PM LOGGED IN ");
 									url="Summary";
 								}

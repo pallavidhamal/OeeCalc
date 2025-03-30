@@ -173,7 +173,7 @@ label {
         <div class="box"> 
           <!--box-header-->
           <div class="box-header">
-            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> -->Add Purchase Order </h3>
+            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> -->Add Prodcution Details </h3>
             <div class="box-tools pull-right">
             
            <!--  <a href="../ProApp/SampleExcel/sampleNew.xlsx"target="_blank" download>  -->
@@ -198,12 +198,99 @@ label {
 		            <div class="col-md-12">
 		  		    	<div class="white-layer mb-8">
 <!--		  	    			<h3 class="sub-hd-master">Billing </h3>
--->		  					<div class="row">
+-->		  					
+
+								<div class="row">
 								<div class="col-md-3">
-		  							<label class="form-label">Customer</label>
+		  							<label class="form-label">Date</label>
 		  							<input type="text" id="customer" class=" form-control">
 		  						</div>
 								<div class="col-md-3">
+		  							<label class="form-label">Unit</label>
+		  							<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+		  						<div class="col-md-3">
+		  							<label class="form-label">Workshop</label>
+									<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+								<div class="col-md-3">
+		  							<label class="form-label">Machine</label>
+		  							<input type="text" id="customer" class="form-input form-control">
+		  						</div>
+								
+								<div class="col-md-3">
+		  							<label class="form-label">Item</label>
+		  							<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+		  						<div class="col-md-3">
+		  							<label class="form-label">Shift</label>
+									<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+								</div>
+								
+																
+								<br>
+								<br>
+																
+
+								<div class="row">
+								<div class="col-md-3">
+		  							<label class="form-label">Lunch Time</label>
+		  							<input type="text" id="customer" class=" form-control">
+		  						</div>
+								<div class="col-md-3">
+		  							<label class="form-label">Tea Time</label>
+		  							<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+		  						<div class="col-md-3">
+		  							<label class="form-label">5S and review time</label>
+									<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+								<div class="col-md-3">
+		  							<label class="form-label">Inpection time</label>
+		  							<input type="text" id="customer" class="form-input form-control">
+		  						</div>
+								
+								
+								<div class="col-md-3">
+		  							<label class="form-label">Machine breakdown</label>
+		  							<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+		  						<div class="col-md-3">
+		  							<label class="form-label">Setup change</label>
+									<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+								<div class="col-md-3">
+		  							<label class="form-label">No material</label>
+		  							<input type="text" id="customer" class=" form-control">
+		  						</div>
+								<div class="col-md-3">
+		  							<label class="form-label">No labour</label>
+		  							<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+		  						<div class="col-md-3">
+		  							<label class="form-label">Waiting for inspection</label>
+									<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+								<div class="col-md-3">
+		  							<label class="form-label">Tooling not available</label>
+		  							<input type="text" id="customer" class="form-input form-control">
+		  						</div>
+								
+								
+								<div class="col-md-3">
+		  							<label class="form-label">Drawing not availble</label>
+		  							<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+		  						<div class="col-md-3">
+		  							<label class="form-label">Guages not availble</label>
+									<input type="text" id="ponumber" class="form-input form-control">
+		  						</div>
+								<div class="col-md-3">
+		  							<label class="form-label">Any other management losses </label>
+		  							<input type="text" id="customer" class=" form-control">
+		  						</div>
+								<!--<div class="col-md-3">
 		  							<label class="form-label">PO Number</label>
 		  							<input type="text" id="ponumber" class="form-input form-control">
 		  						</div>
@@ -215,6 +302,8 @@ label {
 		  							<label class="form-label">Upload Drawing</label>
 		  							<input type="text" id="customer" class="form-input form-control">
 		  						</div>
+								
+								
 								<div class="col-md-3">
 		  							<label class="form-label">Remarks</label>
 		  							<input type="text" id="ponumber" class="form-input form-control">
@@ -222,67 +311,105 @@ label {
 		  						<div class="col-md-3">
 		  							<label class="form-label">Delivery required date</label>
 		  							<input type="date" id="datePicker" class="form-input form-control">
-		  						</div>
+		  						</div>-->
 							</div>
 							<br>
 							<br>
-							<div class="row">
+							<!--<div class="row">
 		                          <div class="table_containt">
 		                              <div class="table table-responsive mt-3 table-container">
 		                                  <table id="invoiceCreator" class="display table table-border " style="width: 100% ; background-color: #0000000a;">
 		                                      <thead class="thead-light">
 		                                          <tr>
-		                                              <!-- <th>#</th> -->
-		                                             <!-- <th style="width: 200px" >Product Category</th>-->
+		                                               <th>#</th> 
+		                                              <th style="width: 200px" >Product Category</th>
 		                                              <th style="width: 24%" >Item Code</th>
 		  											<th style="width: 12%" >Item name</th>
 		  											<th style="width: 7%">Quantity</th>
-		                                             	 <!--	<th>Available Qty</th>
-		                                              	<th>Price(Master)</th>-->
+		                                             	 	<th>Available Qty</th>
+		                                              	<th>Price(Master)</th>
 		                                              <th style="width: 12%" >RM</th>
 		  											<th style="width: 7%">Finish size</th>
-		  												<!--<th>Discount %</th>-->
+		  												<th>Discount %</th>
 		                                              <th style="width: 7%">Length</th>
 		                                              <th style="width: 12%" >Width</th>
 		                                              <th  style="width: 7%" >Thickness</th>
-<!--		                                              <th style="width: 12%" >Total</th>
--->		                                             <!-- <th>GST</th>  -->
-		                                             <!-- <th class="not-export-col"></th> -->
+		                                              <th style="width: 12%" >Total</th>
+		                                              <th>GST</th>  
+		                                              <th class="not-export-col"></th> 
 		                                          </tr>
 		                                      </thead>
 		                                      <tbody id="tableBody">
 		                                      	<tr class="table-row">
-		                                      	<!-- 	 <th scrope="row">1</th>  -->
+		                                      	 	 <th scrope="row">1</th>  
 		                                      		<td><select name="titles" id="productCategory0" class="productCategory form-input form-control" style="width: 100%" ></select>	
-		  												<!--<select name="titles" id="product0" class="form-input product form-control" style="width: 100%"></select>--></td>
+		  												<select name="titles" id="product0" class="form-input product form-control" style="width: 100%"></select></td>
 		  											<td><input type="text" id="buyprice0" class="form-input  form-control" disabled></td>
-		  											<td><input type="text" id="qty0"  class="form-input nuz form-control qty integer">	<!--<input type="text" id="availableQ0" class="form-input form-control" disabled>--></td>
-		                                      		<!--<td><input type="text" id="availableQ0" class="form-input  form-control" disabled></td>
-		                                      		<td><input type="text" id="mstprice0" class="form-input form-control" disabled></td>-->
+		  											<td><input type="text" id="qty0"  class="form-input nuz form-control qty integer">	<input type="text" id="availableQ0" class="form-input form-control" disabled></td>
+		                                      		<td><input type="text" id="availableQ0" class="form-input  form-control" disabled></td>
+		                                      		<td><input type="text" id="mstprice0" class="form-input form-control" disabled></td>
 		                                      		
-		                                      		<td><input type="text" id="rate0"  class="form-input nuz form-control rate decimal" > <!--<input type="text" id="mstprice0" class="form-input form-control" disabled>--></td>
-		  											<!--<td><select name="titles" id="disocunttype" class="form-input disocunttype form-control "  >
+		                                      		<td><input type="text" id="rate0"  class="form-input nuz form-control rate decimal" > <input type="text" id="mstprice0" class="form-input form-control" disabled></td>
+		  											<td><select name="titles" id="disocunttype" class="form-input disocunttype form-control "  >
 		  												<option value="VAL">Value </option><option value="PER">Percentage</option>
-		  											</select></td>-->
-		  											<td><input type="text" id="disocuntpr"  class="form-input nuz form-control disocuntpr decimal" ><!--<select name="titles" id="disocunttype" class="form-input disocunttype form-control "  >
+		  											</select></td>
+		  											<td><input type="text" id="disocuntpr"  class="form-input nuz form-control disocuntpr decimal" ><select name="titles" id="disocunttype" class="form-input disocunttype form-control "  >
 		  												<option value="PER">%</option><option value="VAL">Rs.</option>
-		  											</select>-->
+		  											</select>
 		  											</td>
 		                                      		<td><input type="text" id="disocunt0"  class="form-input nuz form-control disocunt decimal" disabled></td>
 		                                      		<td><input type="text" id="amount0" class="form-input form-control rate  amount" disabled></td>
-		                                      		<td><input type="text" id="gstpr0"  class="form-input nuz form-control gstpr integer" disabled>	<!--<input type="text" id="gstval0" class="form-input  form-control" disabled>--></td>
-<!--		  	    									<td><input type="text" id="totalamount0" class="form-input form-control rate  rtotal" disabled></td>
--->		  	    									
+		                                      		<td><input type="text" id="gstpr0"  class="form-input nuz form-control gstpr integer" disabled>	<input type="text" id="gstval0" class="form-input  form-control" disabled></td>
+		  	    									<td><input type="text" id="totalamount0" class="form-input form-control rate  rtotal" disabled></td>
 		  	    									
-		  	    									<!--<td><input type="text" id="taxAmt" class="form-input form-control taxAmt" disabled></td>-->
+		  	    									
+		  	    									<td><input type="text" id="taxAmt" class="form-input form-control taxAmt" disabled></td>
 		  	    									<td><a  id="addMore" ><img  th:src="@{/images/plus2.png}"  ></a></td>                                       
-		  	    									 <!-- <td> <img  src="static/images/logo2.png" height= "32px" ></td> -->
+		  	    									  <td> <img  src="static/images/logo2.png" height= "32px" ></td> 
 		                                      	</tr>
 		                                      </tbody>
 		                                  </table>
 		                              </div>
 		                          </div>
+							  </div>-->
+							  
+							  <!--Productivity-->
+							  
+							  <div class="row">
+	  								<div class="col-md-3">
+	  		  							<label class="form-label">Searching Time</label>
+	  		  							<input type="text" id="customer" class=" form-control">
+	  		  						</div>
+	  								<div class="col-md-3">
+	  		  							<label class="form-label">Personnal Time</label>
+	  		  							<input type="text" id="ponumber" class="form-input form-control">
+	  		  						</div>
+	  		  						<div class="col-md-3">
+	  		  							<label class="form-label">Rework Time</label>
+										<input type="text" id="ponumber" class="form-input form-control">
+	  		  						</div>
+	  								<!--<div class="col-md-3">
+	  		  							<label class="form-label">Inpection time</label>
+	  		  							<input type="text" id="customer" class="form-input form-control">
+	  		  						</div>-->
 							  </div>
+							  <br>
+							  							<br>
+							  
+							  <div class="row">
+	  								<div class="col-md-3">
+	  		  							<label class="form-label">Rejection quantity</label>
+	  		  							<input type="text" id="customer" class=" form-control">
+	  		  						</div>
+	  								<div class="col-md-3">
+	  		  							<label class="form-label">Ok quantity</label>
+	  		  							<input type="text" id="ponumber" class="form-input form-control">
+	  		  						</div>	  		  						
+							  </div>
+							  
+							  
+							  
+							  
 		  	    			
 		  	    			<div class="row mt-4 pull-right">
 		  	    				<div class="col-md-12 ">

@@ -1,4 +1,4 @@
-package com.jobcard.controller;
+package com.oee.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,4 +59,49 @@ public class UserController {
     public String dispatch() {
         return "Dispatch";
     }
+    
+    
+    @GetMapping(value = {"/Equipment"})
+    public String Equipment() {
+        return "Equipment";
+    }
+    
+    @GetMapping(value = {"/EquipmentAdd"})
+    public String EquipmentAdd() {
+        return "EquipmentAdd";
+    }
+    
+    @GetMapping(value = {"/Item"})
+    public String Item() {
+        return "Item";
+    }
+    
+    @GetMapping(value = {"/CycleTime"})
+    public String CycleTime() {
+        return "CycleTime";
+    }
+    
+    @GetMapping(value = {"/ItemAdd"})
+    public String ItemAdd() {
+        return "ItemAdd";
+    }
+    @GetMapping(value = {"/CycleTimeAdd"})
+    public String CycleTimeAdd() {
+        return "CycleTimeAdd";
+    }
+    
+    @GetMapping(value = {"/Operator"})
+    public String Operator() {
+        return "Operator";
+    }
+    @GetMapping(value = {"/OperatorAdd"})
+    public String OperatorAdd() {
+        return "OperatorAdd";
+    }
+    
+    
+    
+    
+    
+    
 }

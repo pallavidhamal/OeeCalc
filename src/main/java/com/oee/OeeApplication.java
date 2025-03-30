@@ -1,13 +1,13 @@
-package com.jobcard;
+package com.oee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JobcardApplication {
+public class OeeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JobcardApplication.class, args);
+		SpringApplication.run(OeeApplication.class, args);
 	}
 
 }
