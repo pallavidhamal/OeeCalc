@@ -200,249 +200,362 @@ label {
 <!--		  	    			<h3 class="sub-hd-master">Billing </h3>
 -->		  					
 
-								<div class="row">
-								<div class="col-md-3">
-		  							<label class="form-label">Date</label>
-		  							<input type="text" id="customer" class=" form-control">
-		  						</div>
-								<div class="col-md-3">
-		  							<label class="form-label">Unit</label>
-		  							<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-		  						<div class="col-md-3">
-		  							<label class="form-label">Workshop</label>
-									<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-								<div class="col-md-3">
-		  							<label class="form-label">Machine</label>
-		  							<input type="text" id="customer" class="form-input form-control">
-		  						</div>
-								
-								<div class="col-md-3">
-		  							<label class="form-label">Item</label>
-		  							<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-		  						<div class="col-md-3">
-		  							<label class="form-label">Shift</label>
-									<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-								</div>
-								
-																
+						<div class="row">
+						<div class="col-md-2">
+  							<label class="form-label">Company</label>
+  							<input type="text" id="customer" class=" form-control" disabled>
+  						</div>
+						<div class="col-md-2">
+							<label class="form-label">Date</label>
+							<input type="text" id="customer" class=" form-control" disabled>
+						</div>
+						<div class="col-md-2">
+  							<label class="form-label">Unit</label>
+  							<select class="form-control" id="customerListadd">
+								<option>-- Select --</option>
+								<option>Unit 1</option>
+								<option>Unit 2</option>
+								<option>Unit 3</option>
+							</select>
+  						</div>
+  						<div class="col-md-2">
+  							<label class="form-label">Workshop</label>
+							<select class="form-control" id="customerListadd">
+								<option>-- Select --</option><option>Workshop 1</option><option>Workshop 2</option><option>Workshop 3</option>
+							</select>
+  						</div>
+						<div class="col-md-2">
+  							<label class="form-label">Shift</label>
+							<select class="form-control" id="customerListadd">
+								<option>-- Select --</option><option>Shift 1</option><option>Shift 2</option><option>Shift 3</option>
+							</select>
+  						</div>
+						<div class="col-md-2">
+  							<label class="form-label">Machine</label>
+  							<select class="form-control" id="customerListadd">
+								<option>-- Select --</option><option>CNC - HT-F- 616</option><option>CNC - HT-F-613</option><option>MSP 1</option>
+							</select>
+  						</div>
+						<div class="col-md-2">
+  							<label class="form-label">Item</label>
+  							<select class="form-control" id="customerListadd">
+								<option>-- Select --</option><option>61M5003</option><option>61M5007</option><option>HT6801-06-06</option>
+							</select>
+  						</div>
+					</div>
+  		    	</div>
+			</div>
+		</div>
+		<br>
+		
+		<div class="box-body">					
+			<div class="col-md-6">
+  		    	<div class="white-layer mb-8">
+					
+					<h4><strong>Availability</strong></h4>
+					<hr style="border-top: 4px solid #ff7726;">
+					<div class="row">
+					<div class="col-md-4">
+						<label class="form-label">Lunch Time</label>
+						<input type="text" id="customer" class=" form-control">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Tea Time</label>
+						<input type="text" id="ponumber" class="form-input form-control">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">5S and review time</label>
+						<input type="text" id="ponumber" class="form-input form-control">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Inpection time</label>
+						<input type="text" id="customer" class="form-input form-control">
+					</div>
+					
+					<div class="col-md-4">
+						<label class="form-label">Machine breakdown</label>
+						<input type="text" id="ponumber" class="form-input form-control">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Setup change</label>
+						<input type="text" id="ponumber" class="form-input form-control">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">No material</label>
+						<input type="text" id="customer" class=" form-control">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">No labour</label>
+						<input type="text" id="ponumber" class="form-input form-control">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Waiting for inspection</label>
+						<input type="text" id="ponumber" class="form-input form-control">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Tooling not available</label>
+						<input type="text" id="customer" class="form-input form-control">
+					</div>
+					
+					<div class="col-md-4">
+						<label class="form-label">Drawing not availble</label>
+						<input type="text" id="ponumber" class="form-input form-control">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Guages not availble</label>
+						<input type="text" id="ponumber" class="form-input form-control">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Any other management losses </label>
+						<input type="text" id="customer" class=" form-control">
+					</div>
+					<div class="col-md-4">
+							<label class="form-label">Calculation </label>
+						<input type="text" id="ponumber" class="form-input form-control">
+						</div>
+					<div class="col-md-4">
+							<label class="form-label">Available time </label>
+						<input type="text" id="ponumber" class="form-input form-control">
+						</div>
+					<div class="col-md-12">
+						<br>
+						<div class="form-group"  style="text-align: right;">
+						    <label for="inputEmail3" class="col-sm-8 control-label">Availability %</label>
+						    <div class="col-sm-4">
+						      <input type="email" class="form-control" id="inputEmail3" disabled>
+						    </div>
+						  </div>
+					</div>								
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="col-md-12">
+		    	<div class="white-layer mb-8">
+					<p><h4><strong>Productivity</strong></h4>  </p>
+					<hr style="border-top: 4px solid #084def;">
+					<div class="row">
+							<div class="col-md-4">
+								<label class="form-label">Searching Time</label>
+								<input type="text" id="customer" class=" form-control">
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Personnal Time</label>
+								<input type="text" id="ponumber" class="form-input form-control">
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Rework Time</label>
+							<input type="text" id="ponumber" class="form-input form-control">
+							</div>
+						<div class="col-md-4">
+								<label class="form-label">Total Production quantity </label>
+							<input type="text" id="ponumber" class="form-input form-control">
+							</div>
+						<div class="col-md-4">
+								<label class="form-label">standard qty </label>
+							<input type="text" id="ponumber" class="form-input form-control">
+							</div>
+						<div class="col-md-12">
+							<br>
+							<div class="form-group"  style="text-align: right;">
+							    <label for="inputEmail3" class="col-sm-8 control-label">Productivity %</label>
+							    <div class="col-sm-4">
+							      <input type="email" class="form-control" id="inputEmail3" disabled>
+							    </div>
+							  </div>
+						</div>
+							<!--<div class="col-md-2">
+								<label class="form-label">Inpection time</label>
+								<input type="text" id="customer" class="form-input form-control">
+							</div>-->
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+		    	<div class="white-layer mb-8">
+					<p><h4><strong>Rejection</strong></h4>  </p>
+					<hr style="border-top: 4px solid rgb(255, 0, 0);">
+												  
+					  <div class="row">
+							<div class="col-md-4">
+	  							<label class="form-label">Rejection quantity</label>
+	  							<input type="text" id="customer" class=" form-control">
+	  						</div>
+							<div class="col-md-4">
+	  							<label class="form-label">Ok quantity</label>
+	  							<input type="text" id="ponumber" class="form-input form-control">
+	  						</div>
+							<div class="col-md-12">
 								<br>
-								<p><h2><strong>Availability</strong></h2>  </p>
-								<br>
-																
-
+								<div class="form-group" style="text-align: right;">
+								    <label for="inputEmail3" class="col-sm-8 control-label">Rejection %</label>
+								    <div class="col-sm-4">
+								      <input type="email" class="form-control" id="inputEmail3" disabled>
+								    </div>
+								  </div>	
+						  </div>	  		  						
+					  </div>
+				  </div>
+			  </div>
+		</div>
+	</div>
+	<br>
+	<div class="box-body">					
+				<div class="col-md-12">
+	  		    	<div class="white-layer mb-8">													
+						  <div class="form-group"  style="text-align: right;">
+						    <label for="inputEmail3" class="col-sm-10 control-label">OEE</label>
+						    <div class="col-sm-2">
+						      <input type="email" class="form-control" id="inputEmail3" disabled>
+						    </div>
+						  </div>
+							
+					</div>
+			  </div>
+		  </div>
+	<!--	<div class="box-body">					
+			<div class="col-md-12">
+  		    	<div class="white-layer mb-8">													
+								<h4><strong>Availability</strong></h4>
+								<hr style="border-top: 4px solid #ff7726;">
 								<div class="row">
-								<div class="col-md-3">
+								<div class="col-md-2">
 		  							<label class="form-label">Lunch Time</label>
 		  							<input type="text" id="customer" class=" form-control">
 		  						</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 		  							<label class="form-label">Tea Time</label>
 		  							<input type="text" id="ponumber" class="form-input form-control">
 		  						</div>
-		  						<div class="col-md-3">
+		  						<div class="col-md-2">
 		  							<label class="form-label">5S and review time</label>
 									<input type="text" id="ponumber" class="form-input form-control">
 		  						</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 		  							<label class="form-label">Inpection time</label>
 		  							<input type="text" id="customer" class="form-input form-control">
 		  						</div>
 								
 								
-								<div class="col-md-3">
+								<div class="col-md-2">
 		  							<label class="form-label">Machine breakdown</label>
 		  							<input type="text" id="ponumber" class="form-input form-control">
 		  						</div>
-		  						<div class="col-md-3">
+		  						<div class="col-md-2">
 		  							<label class="form-label">Setup change</label>
 									<input type="text" id="ponumber" class="form-input form-control">
 		  						</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 		  							<label class="form-label">No material</label>
 		  							<input type="text" id="customer" class=" form-control">
 		  						</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 		  							<label class="form-label">No labour</label>
 		  							<input type="text" id="ponumber" class="form-input form-control">
 		  						</div>
-		  						<div class="col-md-3">
+		  						<div class="col-md-2">
 		  							<label class="form-label">Waiting for inspection</label>
 									<input type="text" id="ponumber" class="form-input form-control">
 		  						</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 		  							<label class="form-label">Tooling not available</label>
 		  							<input type="text" id="customer" class="form-input form-control">
 		  						</div>
 								
 								
-								<div class="col-md-3">
+								<div class="col-md-2">
 		  							<label class="form-label">Drawing not availble</label>
 		  							<input type="text" id="ponumber" class="form-input form-control">
 		  						</div>
-		  						<div class="col-md-3">
+		  						<div class="col-md-2">
 		  							<label class="form-label">Guages not availble</label>
 									<input type="text" id="ponumber" class="form-input form-control">
 		  						</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 		  							<label class="form-label">Any other management losses </label>
 		  							<input type="text" id="customer" class=" form-control">
 		  						</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 										<label class="form-label">Calculation </label>
 									<input type="text" id="ponumber" class="form-input form-control">
 									</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 										<label class="form-label">Available time </label>
 									<input type="text" id="ponumber" class="form-input form-control">
 									</div>
-								<div class="col-md-3">
+								<div class="col-md-2">
 									<label class="form-label">% age achievement </label>
 									<input type="text" id="ponumber" class="form-input form-control">
 								</div>								
-								<!--<div class="col-md-3">
-		  							<label class="form-label">PO Number</label>
-		  							<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-		  						<div class="col-md-3">
-		  							<label class="form-label">PO Date</label>
-		  							<input type="date" id="datePicker" class="form-input form-control">
-		  						</div>
-								<div class="col-md-3">
-		  							<label class="form-label">Upload Drawing</label>
-		  							<input type="text" id="customer" class="form-input form-control">
-		  						</div>
-								
-								
-								<div class="col-md-3">
-		  							<label class="form-label">Remarks</label>
-		  							<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-		  						<div class="col-md-3">
-		  							<label class="form-label">Delivery required date</label>
-		  							<input type="date" id="datePicker" class="form-input form-control">
-		  						</div>-->
 							</div>
-							<br>
-							<p><h2><strong>Productivity</strong></h2>  </p>
-							<br>
-							<!--<div class="row">
-		                          <div class="table_containt">
-		                              <div class="table table-responsive mt-3 table-container">
-		                                  <table id="invoiceCreator" class="display table table-border " style="width: 100% ; background-color: #0000000a;">
-		                                      <thead class="thead-light">
-		                                          <tr>
-		                                               <th>#</th> 
-		                                              <th style="width: 200px" >Product Category</th>
-		                                              <th style="width: 24%" >Item Code</th>
-		  											<th style="width: 12%" >Item name</th>
-		  											<th style="width: 7%">Quantity</th>
-		                                             	 	<th>Available Qty</th>
-		                                              	<th>Price(Master)</th>
-		                                              <th style="width: 12%" >RM</th>
-		  											<th style="width: 7%">Finish size</th>
-		  												<th>Discount %</th>
-		                                              <th style="width: 7%">Length</th>
-		                                              <th style="width: 12%" >Width</th>
-		                                              <th  style="width: 7%" >Thickness</th>
-		                                              <th style="width: 12%" >Total</th>
-		                                              <th>GST</th>  
-		                                              <th class="not-export-col"></th> 
-		                                          </tr>
-		                                      </thead>
-		                                      <tbody id="tableBody">
-		                                      	<tr class="table-row">
-		                                      	 	 <th scrope="row">1</th>  
-		                                      		<td><select name="titles" id="productCategory0" class="productCategory form-input form-control" style="width: 100%" ></select>	
-		  												<select name="titles" id="product0" class="form-input product form-control" style="width: 100%"></select></td>
-		  											<td><input type="text" id="buyprice0" class="form-input  form-control" disabled></td>
-		  											<td><input type="text" id="qty0"  class="form-input nuz form-control qty integer">	<input type="text" id="availableQ0" class="form-input form-control" disabled></td>
-		                                      		<td><input type="text" id="availableQ0" class="form-input  form-control" disabled></td>
-		                                      		<td><input type="text" id="mstprice0" class="form-input form-control" disabled></td>
-		                                      		
-		                                      		<td><input type="text" id="rate0"  class="form-input nuz form-control rate decimal" > <input type="text" id="mstprice0" class="form-input form-control" disabled></td>
-		  											<td><select name="titles" id="disocunttype" class="form-input disocunttype form-control "  >
-		  												<option value="VAL">Value </option><option value="PER">Percentage</option>
-		  											</select></td>
-		  											<td><input type="text" id="disocuntpr"  class="form-input nuz form-control disocuntpr decimal" ><select name="titles" id="disocunttype" class="form-input disocunttype form-control "  >
-		  												<option value="PER">%</option><option value="VAL">Rs.</option>
-		  											</select>
-		  											</td>
-		                                      		<td><input type="text" id="disocunt0"  class="form-input nuz form-control disocunt decimal" disabled></td>
-		                                      		<td><input type="text" id="amount0" class="form-input form-control rate  amount" disabled></td>
-		                                      		<td><input type="text" id="gstpr0"  class="form-input nuz form-control gstpr integer" disabled>	<input type="text" id="gstval0" class="form-input  form-control" disabled></td>
-		  	    									<td><input type="text" id="totalamount0" class="form-input form-control rate  rtotal" disabled></td>
-		  	    									
-		  	    									
-		  	    									<td><input type="text" id="taxAmt" class="form-input form-control taxAmt" disabled></td>
-		  	    									<td><a  id="addMore" ><img  th:src="@{/images/plus2.png}"  ></a></td>                                       
-		  	    									  <td> <img  src="static/images/logo2.png" height= "32px" ></td> 
-		                                      	</tr>
-		                                      </tbody>
-		                                  </table>
-		                              </div>
-		                          </div>
-							  </div>-->
-							  
-							  <!--Productivity-->
+						</div>
+					</div>
+				</div>
+				<br>				
+				<div class="box-body">					
+					<div class="col-md-12">
+		  		    	<div class="white-layer mb-8">
+							<p><h4><strong>Productivity</strong></h4>  </p>
+							<hr style="border-top: 4px solid #084def;">
 							  
 							  <div class="row">
-	  								<div class="col-md-3">
+	  								<div class="col-md-2">
 	  		  							<label class="form-label">Searching Time</label>
 	  		  							<input type="text" id="customer" class=" form-control">
 	  		  						</div>
-	  								<div class="col-md-3">
+	  								<div class="col-md-2">
 	  		  							<label class="form-label">Personnal Time</label>
 	  		  							<input type="text" id="ponumber" class="form-input form-control">
 	  		  						</div>
-	  		  						<div class="col-md-3">
+	  		  						<div class="col-md-2">
 	  		  							<label class="form-label">Rework Time</label>
 										<input type="text" id="ponumber" class="form-input form-control">
 	  		  						</div>
-									<div class="col-md-3">
+									<div class="col-md-2">
 	  		  							<label class="form-label">Total Production quantity </label>
 										<input type="text" id="ponumber" class="form-input form-control">
 	  		  						</div>
-									<div class="col-md-3">
+									<div class="col-md-2">
 	  		  							<label class="form-label">standard qty </label>
 										<input type="text" id="ponumber" class="form-input form-control">
 	  		  						</div>
-									<div class="col-md-3">
+									<div class="col-md-2">
 										<label class="form-label">%age achievement </label>
 										<input type="text" id="ponumber" class="form-input form-control">
 									</div>
-	  								<!--<div class="col-md-3">
-	  		  							<label class="form-label">Inpection time</label>
-	  		  							<input type="text" id="customer" class="form-input form-control">
-	  		  						</div>-->
 							  </div>
-							  <br>
-							  <p><h2><strong>Rejection</strong></h2>  </p>
-							  <br>
+						  </div>
+			  			</div>
+			  		</div>
+			  		<br>				
+			  		<div class="box-body">					
+			  			<div class="col-md-12">
+			    		    	<div class="white-layer mb-8">
+							  <h4><strong>Rejection</strong></h4> 
+							  <hr style="border-top: 4px solid rgb(255, 0, 0);">
 							  
 							  <div class="row">
-	  								<div class="col-md-3">
+	  								<div class="col-md-2">
 	  		  							<label class="form-label">Rejection quantity</label>
 	  		  							<input type="text" id="customer" class=" form-control">
 	  		  						</div>
-	  								<div class="col-md-3">
+	  								<div class="col-md-2">
 	  		  							<label class="form-label">Ok quantity</label>
 	  		  							<input type="text" id="ponumber" class="form-input form-control">
 	  		  						</div>
-									<div class="col-md-3">
+									<div class="col-md-2">
 	  		  							<label class="form-label">% age achievement</label>
 	  		  							<input type="text" id="ageachievement" class="form-input form-control">
 	  		  						</div>	  		  						
 							  </div>
 							  
+							  -->	  
 							  
-							  
-							  
+							  <br>				
+							  			  		<div class="box-body">					
+							  			  			<div class="col-md-12">  
 		  	    			
-		  	    			<div class="row mt-4 pull-right">
+		  	    			<div class="row mt-4 pull">
 		  	    				<div class="col-md-12 ">
 		  	    					<input type="submit" id="submitBtn" class="btn form-btn cust-btn"  value="Submit">
 		  							<!--<input type="submit" id="submitBtn1" class="btn form-btn"  value="Submit"> -->
