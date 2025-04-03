@@ -29,6 +29,11 @@ public class UserController {
      //   return "BillingAdd";
     }
     
+    @GetMapping(value = {"/addPlanning"})
+    public String addPlanning() {
+        return "PlanningAdd";
+     //   return "BillingAdd";
+    }
     
     
     @GetMapping(value = {"/usermaster"})
@@ -48,6 +53,11 @@ public class UserController {
     @GetMapping(value = {"/production"})
     public String production() {
         return "Production";
+    }
+    
+    @GetMapping(value = {"/planning"})
+    public String planning() {
+        return "Planning";
     }
     
     @GetMapping(value = {"/inspection"})

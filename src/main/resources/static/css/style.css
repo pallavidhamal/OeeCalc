@@ -382,15 +382,15 @@ width: auto;
 /*admin*/
 /*sales*/
 .navbar-default .navbar-nav > .active1 > a {
-    background-color: #fff !important;
-    color: #0056FF !important;
+    background-color: #78b8e9  !important;
+    color: #1a1919 !important;
     font-weight: 600;
     width: auto;
     margin: 0 0px;
     z-index: 1;
     height: 64px;
     line-height: 1.1;
-    border-bottom: 3px solid #0056ff;
+    border-bottom: 3px solid #166b93;
 }
 .navbar-nav .active1:before {
     position: absolute;
@@ -1619,7 +1619,7 @@ label {
     font-weight: 600 !important;
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-    color: #0056FF;
+    color: rgb(255, 0, 255);
     background-color: #112e47;
     font-size: 18px !important;
  /*   padding-top: 10px !important; */

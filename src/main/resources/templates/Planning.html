@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Oee | Production</title>
+<title>Oee | Planning</title>
 
 <div th:replace="~{fragments/headerJS}"></div>  
-<script type="text/javascript" th:src="@{/js/pagejs/production.js}"></script>
+<script type="text/javascript" th:src="@{/js/pagejs/planning.js}"></script>
 
 <style>
 #inserttbl{
@@ -112,7 +112,7 @@ label {
 </style>
 
 <script>
-	let nav = 2;
+	let nav = 1;
 </script>
 </head>
 
@@ -134,7 +134,7 @@ label {
         <div class="box"> 
           <!--box-header-->
           <div class="box-header">
-            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Production  </h3>
+            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Planning  </h3>
             <div class="box-tools pull-right">
             
            <!--  <a href="../ProApp/SampleExcel/sampleNew.xlsx"target="_blank" download>  -->
@@ -144,7 +144,7 @@ label {
 -->              </a>
                                   
               
-              <button class="btn theme_btn" data-toggle="modal" data-target="#add_po" id="purchaseAddAction">Update Production </button>
+              <button class="btn theme_btn" data-toggle="modal" data-target="#add_po" id="planningAddAction">ADD Planning </button>
               <!--  <button class="btn theme_btn" type="submit">Export to Excel </button> -->
 <!--               <button class="btn theme_btn"  id="impbtn" data-toggle="modal" data-target="#import_excel">Import from Excel </button>
 -->               <input type="text"  style="display:none;" class="form-control" id="hidendelId" >
@@ -153,20 +153,48 @@ label {
               <div class="clearfix"></div>
           </div>
           <!--box-header--> 
-        
+  		  <div class="box-body">
+	            <div class="col-md-12">
+	  		    	<div class="white-layer mb-8">
+  						<div class="row">
+							<div class="col-md-2">
+    							<label class="form-label">Select Workcentre</label>
+    							<select class="form-control" id="customerListadd">
+  								<option>-- Select --</option>
+  								<option>Unit 1</option>
+  								<option>Unit 2</option>
+  								<option>Unit 3</option>
+  							</select>
+    						</div>
+							<div class="col-md-2">
+    							<label class="form-label">Select Month</label>
+    							<input type="text" id="customer" class=" form-control" disabled>
+    						</div>
+	  						<div class="col-md-2">
+	  							<label class="form-label">Time per shift</label>
+	  							<input type="text" id="customer" class=" form-control" disabled>
+	  						</div>
+						</div>
+		    		</div>
+  				</div>
+  			</div>
+  			<br>
+		  		
           <!--box-body-->
           <div class="box-body">
           <div class="col-md-12"> 
             <table class="table table-bordered table-striped table-hover table-responsive" id="purchaseOrderList" >
               <thead>
                 <tr class="orange">
-                  <th> </th>
-                  <th>Machine</th>
+                  <th>Date</th>
+                  <th>machine </th>
                   <th>Shift</th>
-                  <th>Workshop</th>
-                  <th>Avaliability</th>
-                  <th>Setup time</th>
-                  <th>Production Time</th>
+                  <th>Item code</th>
+                  <th>relevant to the item</th>
+                  <th>Cycle timee</th>
+				  <th>Qty planned</th>
+				  <th>Mins planned</th>
+				  <th>%age Time utilised</th>
                 
                   <!-- <th>Delete</th> -->
                 </tr>
