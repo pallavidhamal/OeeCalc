@@ -5,7 +5,6 @@
 		
 			$(document).ready(function(){
 				
-				alert("hiii");
 				
 				console.log("========dataTableData=======",dataTableData);
 				
@@ -95,11 +94,11 @@
 					
 			});
 			
-			$(document).on("click", "#purchaseAddAction", function(e){
+		/*	$(document).on("click", "#purchaseAddAction", function(e){
 			
 			window.location.href = "addpurchaseorder";	
 
-			});
+			});*/
 	
 			//click on add button
 			$(document).on("click", "#purchaseAddAction", function(e){
@@ -283,13 +282,18 @@
 			    				 data: data,
 			
 								  columns: [
-								{ "data": "jobNumber" },
-		    				    { "data": "namCustomere" },
-		    				    { "data": "Part" },
-		    		            { "data": "Quantity" },
+								{ "data": "machineType" },
+		    				    { "data": "machineNo" },
+		    				    { "data": "uom" },
+								
+								
+							
+
+								
+		    		          /*  { "data": "Quantity" },
 		    		            { "data": "vmcnumber" },
 		    		            { "data": "setupTime" },
-		    		            { "data": "productionTime" },
+		    		            { "data": "productionTime" },*/
 								
 								
 								

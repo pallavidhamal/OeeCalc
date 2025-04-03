@@ -157,8 +157,20 @@ function OnSignOut()
 	
 	
 const dataTableData = [
-  { id: 1,Part: 'p1' ,RMsize: '10*12',vmcnumber: '1512' ,setupTime: '20-10-2024' ,productionTime: '20-10-2024' , Quantity: '10 ' ,DueDate: '20-10-2024' , namCustomere: 'Customere 1', jobNumber: 'job 1', rm: 'RM 1', Vendor: 'Vendor 1', material: 'Material 1', poNumber: 'po001', poDate: '20-10-2024' , deliveryDate: '25-10-2024' , remarks: 'Pending' },
-  { id: 2,Part: 'p2' ,RMsize: '5*6' , vmcnumber: '1342' ,setupTime: '20-10-2024' ,productionTime: '20-10-2024' , Quantity: ' 12' ,DueDate: '20-10-2024' , namCustomere: 'Customere 2', jobNumber: 'job 2', rm: 'RM 2', Vendor: 'Vendor 2', material: 'Material 1', poNumber: 'po002', poDate: '12-10-2024' , deliveryDate: '20-10-2024' , remarks: 'Pending' },
-  { id: 3,Part: 'p3' ,RMsize: '30*8' ,vmcnumber: '1622' ,setupTime: '20-10-2024' ,productionTime: '20-10-2024' , Quantity: '1012' ,DueDate: '20-10-2024' , namCustomere: 'Customere 3', jobNumber: 'job 3', rm: 'RM 3', Vendor: 'Vendor 3', material: 'Material 1', poNumber: 'po003', poDate: '10-10-2024' , deliveryDate: '15-10-2024' , remarks: 'Pending' },
+  { id: 1,Part: 'adapter' ,RMsize: '10*12',vmcnumber: '1512' ,setupTime: '20-10-2024' ,productionTime: '20-10-2024' , Quantity: '10 ' ,DueDate: '20-10-2024' , namCustomere: 'Customere 1', jobNumber: 'job 1', rm: 'RM 1', Vendor: 'Vendor 1', material: 'Material 1', poNumber: 'po001', poDate: '20-10-2024' , deliveryDate: '25-10-2024' , remarks: 'Pending',machineType : 'MSP', machineNo: 'MSP1' ,uom: 'Seconds' },
+  { id: 2,Part: 'elbow' ,RMsize: '5*6' , vmcnumber: '1342' ,setupTime: '20-10-2024' ,productionTime: '20-10-2024' , Quantity: ' 12' ,DueDate: '20-10-2024' , namCustomere: 'Customere 2', jobNumber: 'job 2', rm: 'RM 2', Vendor: 'Vendor 2', material: 'Material 1', poNumber: 'po002', poDate: '12-10-2024' , deliveryDate: '20-10-2024' , remarks: 'Pending' ,machineType : 'CNC', machineNo: 'CNC101' ,uom: 'Seconds'},
+  { id: 3,Part: 'p3' ,RMsize: '30*8' ,vmcnumber: '1622' ,setupTime: '20-10-2024' ,productionTime: '20-10-2024' , Quantity: '1012' ,DueDate: '20-10-2024' , namCustomere: 'Customere 3', jobNumber: 'job 3', rm: 'RM 3', Vendor: 'Vendor 3', material: 'Material 1', poNumber: 'po003', poDate: '10-10-2024' , deliveryDate: '15-10-2024' , remarks: 'Pending',  machineType : 'Plating', machineNo: 'Plant 1' ,uom: 'Kgs'}
+ ,
+  
+  
+  
+/*  machineType : 'Assembly', machineNo: 'Assembly Line 1' ,uom: 'Minutes'
+*/
+  
+  	
+
+
+  
+  
   // Add more data as needed
 ];

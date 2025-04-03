@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Oee | Production</title>
+<title>Oee | Machine Master</title>
 
 <div th:replace="~{fragments/headerJS}"></div>  
-<script type="text/javascript" th:src="@{/js/pagejs/production.js}"></script>
+<script type="text/javascript" th:src="@{/js/pagejs/equipment.js}"></script>
 
 <style>
 #inserttbl{
@@ -112,7 +112,7 @@ label {
 </style>
 
 <script>
-	let nav = 4;
+	let nav = 0;
 </script>
 </head>
 
@@ -134,7 +134,7 @@ label {
         <div class="box"> 
           <!--box-header-->
           <div class="box-header">
-            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Production  </h3>
+            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Machine  </h3>
             <div class="box-tools pull-right">
             
            <!--  <a href="../ProApp/SampleExcel/sampleNew.xlsx"target="_blank" download>  -->
@@ -144,7 +144,7 @@ label {
 -->              </a>
                                   
               
-              <button class="btn theme_btn" data-toggle="modal" data-target="#add_po" id="purchaseAddAction">Update Production </button>
+              <button class="btn theme_btn" data-toggle="modal" data-target="#add_po" id="purchaseAddAction">Add </button>
               <!--  <button class="btn theme_btn" type="submit">Export to Excel </button> -->
 <!--               <button class="btn theme_btn"  id="impbtn" data-toggle="modal" data-target="#import_excel">Import from Excel </button>
 -->               <input type="text"  style="display:none;" class="form-control" id="hidendelId" >
@@ -160,14 +160,17 @@ label {
             <table class="table table-bordered table-striped table-hover table-responsive" id="purchaseOrderList" >
               <thead>
                 <tr class="orange">
-                  <th> </th>
-                  <th>Machine</th>
-                  <th>Shift</th>
-                  <th>Workshop</th>
-                  <th>Avaliability</th>
+                  <th>Machine Type</th>
+                  <th>Machine Number</th>
+                  <th>UOM</th>
+                  <!--<th>Avaliability</th>
                   <th>Setup time</th>
                   <th>Production Time</th>
                 
+				  Machine Type	Machine Number	UOM
+-->
+				  
+				  
                   <!-- <th>Delete</th> -->
                 </tr>
               </thead>
@@ -190,50 +193,62 @@ label {
     <div class="modal-content">
       <div class="modal-header cust-hd">
         <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Add Purchase Order</h4>
+        <h4 class="modal-title">Add Machine</h4>
       </div>
       <div class="modal-body">
         <form role="form"  class="" name="myform">
             <div class="col-sm-12 margin-top15">
             <div class="col-sm-12">
-	            <label class="col-sm-4 control-label cust_label">Purchase Order Number : <span class="fa fa-asterisk"></span></label>
+	            <label class="col-sm-4 control-label cust_label">Machine Type : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
-	              <input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Purchase Order Number">
+				<select class="form-control" id="machintypeSel">
+				
+						              	<option>- Select Machine -</option>
+						              	<option>MSP</option>
+						              	<option>CNC</option> 
+										<option>Plating</option>
+										<option>Assembly</option>
+						              </select>
 	            </div>
             </div>
             </div>
             <div class="col-sm-12 margin-top15">
             	<div class="col-sm-12">
-	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
+	            <label for="" class="col-sm-4 control-label cust_label">Machine Number : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
-	             <select class="form-control" id="customerListadd"></select>
-	              	<!-- <option>- Select Customer -</option>
-	              	<option>Customer 1</option>
-	              	<option>Customer 2</option> 
-	              </select> -->
+					<input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Machine Number"
 	            </div>
 	            </div>
             </div>
             <div class="col-sm-12 margin-top15">
-            	<div class="col-sm-6">
-		            <label for="" class="col-sm-3 control-label cust_label">PO Date : <span class="fa fa-asterisk"></span></label>
+            	<div class="col-sm-12">
+		            <label for="" class="col-sm-4 control-label cust_label">UOM : <span class="fa fa-asterisk"></span></label>
 		            <div class="col-sm-8 my_form">
-		             	<input type="date" class="form-control" id = "poDate">
+						<select class="form-control" id="uomSel">
+							              	 <option>- Select Customer -</option>
+							              	<option>Seconds</option>
+							              	<option>Kgs</option>
+											<option>Minutes</option> 
+							              </select> 
 		            </div>
 	            </div>
-	            <div class="col-sm-6">
+				
+				
+
+				
+	           <!-- <div class="col-sm-6">
 		            <label for="" class="col-sm-4 control-label cust_label">PO End Date : <span class="fa fa-asterisk"></span></label>
 		            <div class="col-sm-8 my_form">
 		             	<input type="date" class="form-control" id = "poEndDate">
 		            </div>
-	            </div>
+	            </div>-->
             </div>
             <div class="col-sm-12 margin-top15">
 	            
             </div>
         </form>
-        <div><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>
-         <div class="col-sm-12 margin-top20">
+<!--        <div><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>
+-->      <!--   <div class="col-sm-12 margin-top20">
         	<table class="table table-border po_table" id="po_table_modal">
         	<thead>
 			  <tr>
@@ -270,11 +285,11 @@ label {
 			     </td>
 			     <td class="table_input"><input type="text"  class="form-control width80 qtyListadd" id="poQty0"></td>
 			     <td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>
-			     <!-- <td class="table_input">&nbsp;</td> -->
+			      <td class="table_input">&nbsp;</td> 
 			  </tr> 
 			  </tbody>
 			</table>
-        </div> 
+        </div> -->
         <div class="clearfix"></div>
         
          <div class="col-md-offset-4 col-md-8">
