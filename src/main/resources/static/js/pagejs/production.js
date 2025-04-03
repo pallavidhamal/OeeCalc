@@ -5,7 +5,6 @@
 		
 			$(document).ready(function(){
 				
-				alert("hiii");
 				
 				console.log("========dataTableData=======",dataTableData);
 				

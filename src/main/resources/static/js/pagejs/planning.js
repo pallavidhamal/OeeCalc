@@ -5,7 +5,7 @@
 		
 			$(document).ready(function(){
 				
-				console.log("========dataTableData=======",dataTableData);
+				console.log("========dataTableData=======",planningTableData);
 				
 			//	alert("HII");
 				
@@ -241,7 +241,7 @@
 					console.log("-------------------Welcome to product getPOList");
 			//		$.get(url+"getPOList", function( data ) { //from API list
 		
-					var data = dataTableData;
+					var data = planningTableData;
 		
 					console.log("------getPOList data----------",data);
 			//		console.log("------getPOList data.result----------",data.result);
@@ -281,22 +281,19 @@
 			    				 data: data,
 			
 								  columns: [
-								{ "data": "jobNumber" },
-		    				    { "data": "namCustomere" },
-		    				    { "data": "Part" },
-		    		            { "data": "Quantity" },
-		    		            { "data": "vmcnumber" },
-		    		            { "data": "setupTime" },
-		    		            { "data": "productionTime" },{ "data": "vmcnumber" },
-		    		            { "data": "setupTime" },
+								{ "data": "date" },
+		    				    { "data": "machine" },
+		    				    { "data": "shift" },
+		    		            { "data": "itemcode" },
+		    		            { "data": "setup" },
+		    		            { "data": "cycletime" },
+		    		            { "data": "plannedqty" },{ "data": "plannedmins" },
+		    		            { "data": "utilised" },
 	    		         
 		    		            ],
-		    		            "order": [[0, 'desc']],
+		    		           // "order": [[0, 'desc']],
 				    			} );
 				
-
-
-				    
 				
 			//		});
 			}

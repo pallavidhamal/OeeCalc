@@ -174,3 +174,17 @@ const dataTableData = [
   
   // Add more data as needed
 ];
+
+
+const planningTableData = [
+  { id: 1,date: '01-04-2025' ,machine : 'MSP 1',shift: 'A' ,itemcode: '61M5003' ,setup: 'MSP setup1' , cycletime : '12 ' ,plannedqty: '1000' , plannedmins: '200', utilised: '98%' },
+  { id: 2,date: '01-04-2025' ,machine : 'MSP 1',shift: 'A' ,itemcode: '61M5007' ,setup: 'MSP setup1' , cycletime : '8 ' ,plannedqty: '1800' , plannedmins: '240', utilised: ' ' },
+  { id: 3,date: '01-04-2025' ,machine : 'MSP 1',shift: 'A' ,itemcode: 'Setup change' ,setup: ' ' , cycletime : '1800 ' ,plannedqty: '1' , plannedmins: '30', utilised: ' ' },
+  
+  { id: 4,date: '01-04-2025' ,machine : 'CNC 10',shift: 'A' ,itemcode: 'HT6801-06-06' ,setup: 'CNC setup1' , cycletime : '12 ' ,plannedqty: '800' , plannedmins: '160', utilised: '89%' },
+  { id: 4,date: '01-04-2025' ,machine : 'CNC 10',shift: 'A' ,itemcode: 'HT5023' ,setup: 'CNC setup2' , cycletime : '20 ' ,plannedqty: '800' , plannedmins: '267', utilised: ' ' },
+  { id: 4,date: '01-04-2025' ,machine : 'CNC 10',shift: 'A' ,itemcode: 'Setup change' ,setup: ' ' , cycletime : '1200 ' ,plannedqty: '1' , plannedmins: '20', utilised: ' ' },
+  
+  
+];
+
