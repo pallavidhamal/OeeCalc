@@ -242,7 +242,7 @@
 					console.log("-------------------Welcome to product getPOList");
 			//		$.get(url+"getPOList", function( data ) { //from API list
 		
-					var data = dataTableData;
+					var data = productionTableData;
 		
 					console.log("------getPOList data----------",data);
 			//		console.log("------getPOList data.result----------",data.result);
@@ -282,13 +282,18 @@
 			    				 data: data,
 			
 								  columns: [
-								{ "data": "jobNumber" },
-		    				    { "data": "namCustomere" },
-		    				    { "data": "Part" },
-		    		            { "data": "Quantity" },
-		    		            { "data": "vmcnumber" },
-		    		            { "data": "setupTime" },
-		    		            { "data": "productionTime" },
+									{ "data": function ( data, type, row ) 
+								        {
+									    	return '<a>'+data.workcentre+'</a>';
+									    }
+									 },
+									{ "data": "date" },
+			    				    { "data": "shift" },
+			    				    { "data": "machine" },
+			    		            { "data": "availability" },
+			    		            { "data": "productivity" },
+			    		            { "data": "quality" },
+			    		            { "data": "oee" },
 								
 								
 								

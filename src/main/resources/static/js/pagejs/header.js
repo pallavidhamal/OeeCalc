@@ -182,9 +182,15 @@ const planningTableData = [
   { id: 3,date: '01-04-2025' ,machine : 'MSP 1',shift: 'A' ,itemcode: 'Setup change' ,setup: ' ' , cycletime : '1800 ' ,plannedqty: '1' , plannedmins: '30', utilised: ' ' },
   
   { id: 4,date: '01-04-2025' ,machine : 'CNC 10',shift: 'A' ,itemcode: 'HT6801-06-06' ,setup: 'CNC setup1' , cycletime : '12 ' ,plannedqty: '800' , plannedmins: '160', utilised: '89%' },
-  { id: 4,date: '01-04-2025' ,machine : 'CNC 10',shift: 'A' ,itemcode: 'HT5023' ,setup: 'CNC setup2' , cycletime : '20 ' ,plannedqty: '800' , plannedmins: '267', utilised: ' ' },
-  { id: 4,date: '01-04-2025' ,machine : 'CNC 10',shift: 'A' ,itemcode: 'Setup change' ,setup: ' ' , cycletime : '1200 ' ,plannedqty: '1' , plannedmins: '20', utilised: ' ' },
+  { id: 5,date: '01-04-2025' ,machine : 'CNC 10',shift: 'A' ,itemcode: 'HT5023' ,setup: 'CNC setup2' , cycletime : '20 ' ,plannedqty: '800' , plannedmins: '267', utilised: ' ' },
+  { id: 6,date: '01-04-2025' ,machine : 'CNC 10',shift: 'A' ,itemcode: 'Setup change' ,setup: ' ' , cycletime : '1200 ' ,plannedqty: '1' , plannedmins: '20', utilised: ' ' },
   
   
+];
+
+const productionTableData = [
+  { id: 1,workcentre :'Cell 1' ,date: '01-02-2025' ,machine : 'MSP 1',shift: 'A' ,availability: '78%' ,productivity: '58%' ,quality: '38%' ,oee: '38%' },
+  { id: 2,workcentre :'Cell 2' ,date: '11-03-2025' ,machine : 'MSP 1',shift: 'A' ,availability: '68%' ,productivity: '38%' ,quality: '48%' ,oee: '68%'},
+  { id: 3,workcentre :'Cell 3' ,date: '21-03-2025' ,machine : 'MSP 1',shift: 'A' ,availability: '88%' ,productivity: '28%' ,quality: '58%' ,oee: '68%' },
 ];
 

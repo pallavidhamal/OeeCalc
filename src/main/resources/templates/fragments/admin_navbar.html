@@ -45,7 +45,7 @@
 		<li id="nav2" class="navLinkLI"><a class="nav_menu_links" href="production">Production</a></li>
 		<!--<li id="nav5" class="navLinkLI"><a class="nav_menu_links" href="inspection">Inspection</a></li>
 		<li id="nav6" class="navLinkLI"><a class="nav_menu_links" href="dispatch">Dispatch</a></li>-->
-		<li id="nav3" class="nav-item dropdown">
+		<li id="nav3" class="navLinkLI nav-item dropdown">
 		    <a href="#" class="nav_menu_links dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Report <span class="caret"></span></a>
 		    <ul class="dropdown-menu">
 	         <!--  <li><a href="#">Open Stage Wise</a></li>
@@ -131,6 +131,7 @@
 <!--Nav active--> 
 <script>
 $(document).ready(function(){
+	console.log("========0========",nav)
 	var navMenuLinks = $('.navLinkLI');
 	for(i=1; i<=navMenuLinks.length; i++){
 		if(i == nav){
