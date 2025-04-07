@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Oee | Cycle Time</title>
+<title>Oee Setup </title>
 
 <div th:replace="~{fragments/headerJS}"></div>  
 <script type="text/javascript" th:src="@{/js/pagejs/CycleTime.js}"></script>
@@ -134,7 +134,7 @@ label {
         <div class="box"> 
           <!--box-header-->
           <div class="box-header">
-            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Cycle Time  </h3>
+            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> SetUp </h3>
             <div class="box-tools pull-right">
             
            <!--  <a href="../ProApp/SampleExcel/sampleNew.xlsx"target="_blank" download>  -->
@@ -144,7 +144,7 @@ label {
 -->              </a>
                                   
               
-              <button class="btn theme_btn" data-toggle="modal" data-target="#add_cycletime" >Add Cycle Time </button>
+              <button class="btn theme_btn" data-toggle="modal" data-target="#add_cycletime" >Add Setup </button>
               <!--  <button class="btn theme_btn" type="submit">Export to Excel </button> -->
 <!--               <button class="btn theme_btn"  id="impbtn" data-toggle="modal" data-target="#import_excel">Import from Excel </button>
 -->               <input type="text"  style="display:none;" class="form-control" id="hidendelId" >
@@ -163,10 +163,10 @@ label {
                   <th> </th>
                   <th>Item Code</th>
                   <th>Item Description</th>
-                  <th>Set up</th>
                   <th>Machine</th>
                   <th>UOM</th>
-                  <th>Cycle Time</th>
+				  <th>Set up</th>
+                  <th>SetUp Time</th>
                 
                   <!-- <th>Delete</th> -->
                 </tr>
@@ -190,7 +190,7 @@ label {
     <div class="modal-content">
       <div class="modal-header cust-hd">
         <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Add Cycle Time</h4>
+        <h4 class="modal-title">Add Set Up</h4>
       </div>
       <div class="modal-body">
         <form role="form"  class="" name="myform">
@@ -215,16 +215,7 @@ label {
 	            </div>
 	            </div>
             </div>
-            <div class="col-sm-12 margin-top15">
-				<div class="col-sm-12">
-					            <label for="" class="col-sm-4 control-label cust_label">Set Up : <span class="fa fa-asterisk"></span></label>
-					            <div class="col-sm-8 my_form">
-									<input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Set up">
-
-					            </div>
-					            </div>
-	           
-            </div>
+           
 			<div class="col-sm-12 margin-top15">
 							<div class="col-sm-12">
 								            <label for="" class="col-sm-4 control-label cust_label">Machine : <span class="fa fa-asterisk"></span></label>
@@ -251,7 +242,30 @@ label {
 											            </div>
 											            </div>
 							           
-						            </div>
+					 </div>
+					 
+					 <div class="col-sm-12 margin-top15">
+					 				 			<div class="col-sm-12">
+					 				 				            <label for="" class="col-sm-4 control-label cust_label">Set : <span class="fa fa-asterisk"></span></label>
+					 				 				            <div class="col-sm-8 my_form">
+					 				 								<input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Set Up ">
+
+					 				 				            </div>
+					 				 				            </div>
+					 				            
+					 				 </div>
+					 		
+					 
+					 <div class="col-sm-12 margin-top15">
+					 			<div class="col-sm-12">
+					 				            <label for="" class="col-sm-4 control-label cust_label">Set Up Time : <span class="fa fa-asterisk"></span></label>
+					 				            <div class="col-sm-8 my_form">
+					 								<input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Set Up Time">
+
+					 				            </div>
+					 				            </div>
+					            
+					 </div>
 			
 			
 			

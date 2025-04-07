@@ -287,11 +287,12 @@
 								
 								
 							
-								{ "data": "machineNo" },
 								
 		    		            { "data": "Quantity" },
 		    		            { "data": "machineNo" },
 		    		            { "data": "uom" },
+								{ "data": "machineNo" },
+
 		    		            { "data": "id" },
 								
 								
