@@ -12,6 +12,8 @@
     <script type="text/javascript" th:src="@{/js/dataTables.responsive.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/dataTables.bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery.rowspanizer.js}"></script>
+	
+	
 
    <!--  Font Awesome -->
     <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
@@ -19,6 +21,10 @@
    <!--  <link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.css}"> -->
     <!-- <script th:src="@{/js/jquery-ui.js}"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<script type="text/javascript" th:src="@{/js/_helpers/api-url.js}"></script>
+	<script type="text/javascript" th:src="@{/js/_helpers/auth-header.js}"></script>
+
 
    <!--  Custom CSS -->
     <link th:href="@{/css/style.css}" rel="stylesheet"/>
@@ -40,6 +46,22 @@
 	<script type="text/javascript" th:src="@{/js/bootstrap/moment.min.js}"></script>
 
 
+	
+	
+	
 <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon" />
 
  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+ 
+ 
+ 
+ <script type="text/javascript">
+
+ 		var authHeader = authHeaderFunction();
+
+ 		console.log("---------authHeader--df-------",authHeader)
+ 		
+ 		//var contextPath='<%=request.getContextPath()%>';
+ 		console.log("---------authHeader--df-------")	 
+ 		 
+ </script> 

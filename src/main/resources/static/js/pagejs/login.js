@@ -96,7 +96,7 @@ $(document).ready(function() {
 								}
 								
 								
-								localStorage.setItem("authkey", data.payload.accessToken);
+								localStorage.setItem("accessToken", data.payload.accessToken);
 								localStorage.setItem("role", data.payload.role);
 								localStorage.setItem("uname", data.payload.username);
 								localStorage.setItem("refreshToken", data.payload.refreshToken);

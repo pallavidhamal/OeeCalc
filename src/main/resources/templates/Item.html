@@ -144,7 +144,7 @@ label {
 -->              </a>
                                   
               
-              <button class="btn theme_btn" data-toggle="modal" data-target="#add_po" id="purchaseAddAction">Add Item </button>
+              <button class="btn theme_btn" data-toggle="modal" data-target="#add_item" id="purchaseAddAction">Add Item </button>
               <!--  <button class="btn theme_btn" type="submit">Export to Excel </button> -->
 <!--               <button class="btn theme_btn"  id="impbtn" data-toggle="modal" data-target="#import_excel">Import from Excel </button>
 -->               <input type="text"  style="display:none;" class="form-control" id="hidendelId" >
@@ -157,7 +157,7 @@ label {
           <!--box-body-->
           <div class="box-body">
           <div class="col-md-12"> 
-            <table class="table table-bordered table-striped table-hover table-responsive" id="purchaseOrderList" >
+            <table class="table table-bordered table-striped table-hover table-responsive" id="itemList" >
               <thead>
                 <tr class="orange">
                   <th>Item Code</th>
@@ -179,7 +179,7 @@ label {
 </section>
 <!--Content--> 
 
-<div id="add_po" class="modal fade in" role="dialog">
+<div id="add_item" class="modal fade in" role="dialog">
   <div class="modal-dialog modal-lg"> 
     <!-- Modal content-->
     <div class="modal-content">
@@ -193,80 +193,25 @@ label {
             <div class="col-sm-12">
 	            <label class="col-sm-4 control-label cust_label">Item Code : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
-	              <input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Item Code">
+	              <input type="text" class="form-control" name="itemcode" id="itemcode" placeholder="Enter Item Code">
 	            </div>
             </div>
             </div>
             <div class="col-sm-12 margin-top15">
             	<div class="col-sm-12">
-	            <label for="" class="col-sm-4 control-label cust_label">Item Desription : <span class="fa fa-asterisk"></span></label>
+	            <label for="" class="col-sm-4 control-label cust_label">Item Description : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
-					<input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Item Desription">
+					<input type="text" class="form-control" name="itemdesc" id="itemdesc" placeholder="Enter Item Desription">
 
 	            </div>
 	            </div>
             </div>
-           <!-- <div class="col-sm-12 margin-top15">
-            	<div class="col-sm-6">
-		            <label for="" class="col-sm-3 control-label cust_label">PO Date : <span class="fa fa-asterisk"></span></label>
-		            <div class="col-sm-8 my_form">
-		             	<input type="date" class="form-control" id = "poDate">
-		            </div>
-	            </div>
-	            <div class="col-sm-6">
-		            <label for="" class="col-sm-4 control-label cust_label">PO End Date : <span class="fa fa-asterisk"></span></label>
-		            <div class="col-sm-8 my_form">
-		             	<input type="date" class="form-control" id = "poEndDate">
-		            </div>
-	            </div>
-            </div>-->
+     
             <div class="col-sm-12 margin-top15">
 	            
             </div>
         </form>
-     <!--   <div><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>
-         <div class="col-sm-12 margin-top20">
-        	<table class="table table-border po_table" id="po_table_modal">
-        	<thead>
-			  <tr>
-			    <th class="table_hd">Line ID</th>
-			    <th class="table_hd">Product</th>
-			     <th class="table_hd">Catalog Code</th>
-			    <th class="table_hd display_block">Description</th>
-			    <th class="table_hd">Region</th>
-			    <th class="table_hd">PO Qty.</th>
-			    <th class="table_hd">&nbsp;</th>
-			  </tr>
-			  </thead>
-			  <tbody id="myTbody">
-			   <tr class="tr_clone" roCnt = "0">
-			    <td class="table_input"><input type="text" class="form-control width80 line" id="line0"></td>
-			     <td class="table_input">
-				     <select class="form-control width120 prodListadd"  id="prodList0" >
-				     	 <option>Select Product -</option>
-				     	
-				     </select>
-			     </td>
-			      <td class="table_input">
-				   <select class="form-control width120 catCodeListadd" id="catCodeList0">
-				   <option>Select Catalog -</option></select>
-			     </td>
-			    <td class="table_input display_block">
-			    <select class="form-control width120 descListadd" id="descList0">
-				 <option>Select Description-</option></select>
-			    </td>
-			    
-			     <td class="table_input">
-				  <select class="form-control width120 regListadd"  id="regList0">
-				  <option>Select Region-</option></select>
-			     </td>
-			     <td class="table_input"><input type="text"  class="form-control width80 qtyListadd" id="poQty0"></td>
-			     <td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>
-			      <td class="table_input">&nbsp;</td> 
-			  </tr> 
-			  </tbody>
-			</table>
-        </div> -->
+    
         <div class="clearfix"></div>
         
          <div class="col-md-offset-4 col-md-8">
@@ -279,7 +224,7 @@ label {
     
     <div class="modal-footer">
         <div class="col-md-4 col-md-offset-4 pull-left">
-          <button class="btn btn-block cust-btn" type="submit" id = "addPurchaseData">Submit</button>
+          <button class="btn btn-block cust-btn" type="submit" id = "addItemData">Submit</button>
         </div>
     </div>
     </div>

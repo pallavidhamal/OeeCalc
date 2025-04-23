@@ -3,7 +3,8 @@
  *//*$(document).ready(function() {
 $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
 });*/
-var url = "http://192.168.29.26:8082/Eci/Eci/";
+var url = "localhost:8080/api/v1/";
+
 var url1 = "http://192.168.29.26:8082/Eci/Eci/";
 
 
