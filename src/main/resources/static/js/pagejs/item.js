@@ -114,7 +114,7 @@
 
 			$(document).on("click", "#addItemData", function(e){
 	
-				
+				alert("on save");
 				 var i =  0 ;
 				 console.log("====save item======","#line"+i);
 				 
@@ -140,8 +140,9 @@
 					 $.ajax({
 							
 						   type: 'POST',
-						   url: url+"add",  //from API add new data
+						   url: server_url+"item/add",  //from API add new data
 						   data : JSON.stringify(dataVal),
+						   headers: authHeader,
 						   processData: false,
 						   contentType: "application/json; charset=utf-8",
 	   
@@ -149,9 +150,9 @@
 	   	
 							console.log("insert--Information result==="+result);
 							
-							if(result.result==true){
+							if(result.payload==true){
 								
-								getPOList();
+								getItemList();
 								
 								$("#add_item").modal("hide");
 							// $('#myTbody').empty();
