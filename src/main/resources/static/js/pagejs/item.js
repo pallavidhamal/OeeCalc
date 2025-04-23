@@ -30,56 +30,52 @@
 					    data: null,
 					    success: function (response) {
 							
-						
-					    	
 							console.log("-------------------Welcome to getItemList",response);
-
 							
 							var data = response.payload;
 									
-												tableData.destroy();
-										        $('#itemList.tbody').empty();
-												
-										        //if(data.result == "success"){
-													
-										        var editIcon = function ( data, type, row ) 
-										        {
-											    if ( type === 'display' ) {
-											           
-											    return '<span class="fa fa-edit sordrEdit" data-toggle="modal" data-target="#edit_item"></span>';
-											        
-											    }
-											       
-											    return data;
-											    };
-											    
-											    var deleteIcon = function ( data, type, row ) 
-											    {
-										        if ( type === 'display' ) {
-										            
-										        return '<span class="fa fa-trash sordrDelete" ></span>';
-										        }
-										        
-										        return data;
-											    };
-											
-											    tableData = $('#itemList').DataTable( {
-												
-											    			dom: 'Blfrtip',   
-											    			buttons: ['excel', 'print'],
-														 	 destroy: true,
-										    				 data: data,
-										
-															  columns: [
-															{ "data": "itemid" },
-									    				    { "data": "itemcode" },
-															{ "data": "itemdesc" },
-									    		            ],
-									    		            "order": [[0, 'desc']],
-											    			} );
-											
+								tableData.destroy();
+						        $('#itemList.tbody').empty();
 								
-															},
+						        //if(data.result == "success"){
+									
+						        var editIcon = function ( data, type, row ) 
+						        {
+							    if ( type === 'display' ) {
+							           
+							    return '<span class="fa fa-edit sordrEdit" data-toggle="modal" data-target="#edit_item"></span>';
+							        
+							    }
+							       
+							    return data;
+							    };
+							    
+							    var deleteIcon = function ( data, type, row ) 
+							    {
+						        if ( type === 'display' ) {
+						            
+						        return '<span class="fa fa-trash sordrDelete" ></span>';
+						        }
+						        
+						        return data;
+							    };
+							
+							    tableData = $('#itemList').DataTable( {
+								
+							    			dom: 'Blfrtip',   
+							    			buttons: ['excel', 'print'],
+										 	 destroy: true,
+						    				 data: data,
+						
+											  columns: [
+					    				    { "data": "itemcode" },
+											{ "data": "itemdesc" },
+					    		            ],
+					    		            "order": [[0, 'desc']],
+							    			} );
+							
+				
+											},
 					    	   
 					    error: function (error) {
 				            /*console.log(error);
