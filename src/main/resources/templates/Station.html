@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Oee | Machine Master</title>
+<title>Oee | Station Master</title>
 
 <div th:replace="~{fragments/headerJS}"></div>  
-<script type="text/javascript" th:src="@{/js/pagejs/equipment.js}"></script>
+<script type="text/javascript" th:src="@{/js/pagejs/station.js}"></script>
 
 <style>
 #inserttbl{
@@ -134,7 +134,7 @@ label {
         <div class="box"> 
           <!--box-header-->
           <div class="box-header">
-            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Machine  </h3>
+            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Station  </h3>
             <div class="box-tools pull-right">
             
            <!--  <a href="../ProApp/SampleExcel/sampleNew.xlsx"target="_blank" download>  -->
@@ -160,14 +160,15 @@ label {
             <table class="table table-bordered table-striped table-hover table-responsive" id="purchaseOrderList" >
               <thead>
                 <tr class="orange">
-                  <th>Machine Type</th>
-                  <th>Machine Number</th>
+                  <th>Station Type</th>
+                  <th>Station Number</th>
+				  <th>Work Station Number</th>
                   <th>UOM</th>
                   <!--<th>Avaliability</th>
                   <th>Setup time</th>
                   <th>Production Time</th>
                 
-				  Machine Type	Machine Number	UOM
+				  Station Type	Station Number	UOM
 -->
 				  
 				  
@@ -193,30 +194,23 @@ label {
     <div class="modal-content">
       <div class="modal-header cust-hd">
         <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Add Machine</h4>
+        <h4 class="modal-title">Add Station</h4>
       </div>
       <div class="modal-body">
         <form role="form"  class="" name="myform">
             <div class="col-sm-12 margin-top15">
             <div class="col-sm-12">
-	            <label class="col-sm-4 control-label cust_label">Machine Type : <span class="fa fa-asterisk"></span></label>
+	            <label class="col-sm-4 control-label cust_label">Station Type : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
-				<select class="form-control" id="machintypeSel">
-				
-						              	<option>- Select Machine -</option>
-						              	<option>MSP</option>
-						              	<option>CNC</option> 
-										<option>Plating</option>
-										<option>Assembly</option>
-						              </select>
+				<select class="form-control" id="addStationType"></select>
 	            </div>
             </div>
             </div>
             <div class="col-sm-12 margin-top15">
             	<div class="col-sm-12">
-	            <label for="" class="col-sm-4 control-label cust_label">Machine Number : <span class="fa fa-asterisk"></span></label>
+	            <label for="" class="col-sm-4 control-label cust_label">Station Number : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
-					<input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Machine Number"
+					<input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Station Number"
 	            </div>
 	            </div>
             </div>

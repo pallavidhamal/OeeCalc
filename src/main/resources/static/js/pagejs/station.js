@@ -1,148 +1,47 @@
 			
-			var delProdID = "";
-			var editProdID = "";
-			var tableData = $('#purchaseOrderList').DataTable();
-		
-			$(document).ready(function(){
-				
-				
-				console.log("========dataTableData=======",dataTableData);
-				
-			//	alert("HII");
-				
-				getPOList();
-				
-			/*	function download(file)
-				{
-					console.log(" hehehrhehrhehrhe");
-					
-				 window.location=file;
-				}
-				
-					console.log("-------------------Welcome to product page-----------------");
-					
-					getPOList();
-					
-					count = 0;
-					$('.table_add_link').on('click',function(){
-						
-						console.log("-------------table_add_link----this---------",$("#myTbody").find('tr').length);
-						
-						count = $("#myTbody").find('tr').length;
-						
-					      $('#myTbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
-								    +'<td class="table_input"><input type="text" class="form-control width80 line" id="line'+count+'"></td>'
-								    +' <td class="table_input">'
-								    +' <select class="form-control width120 prodListadd" id="prodList'+count+'">'
-								    +' <option>Select Product -</option> </select>'
-								    +'</td>'
-								    +' <td class="table_input">'
-								    +'<select class="form-control width120 catCodeListadd" id="catCodeList'+count+'">'
-								    +'<option>Select Category -</option></select>'
-								    +' </td>'
-								    +'<td class="table_input display_block">'
-								    +' <select class="form-control width120 descListadd" id="descList'+count+'">'
-								    +'<option>Select Description-</option></select>'
-								    +'</td>'
-								    +' <td class="table_input">'
-								    +'<select class="form-control width120 regListadd" id="regList'+count+'">'
-								    +'<option>- Select Region -</option>'
-								    +'</select>'
-								    +'</td>'
-								    +'<td class="table_input"><input type="text qtyList" id="poQty'+count+'" class="form-control width80 qtyListadd"></td>'
-								    +'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>'
-								    +'</tr>');
-					      
-					      generateProdList('#prodList'+count, $("#customerListadd").val(),"");
-					      generatecatCodeListCustWise('#catCodeList'+count, $("#customerListadd").val(),"");
-						  generateDescListCustWise('#descList'+count, $("#customerListadd").val(),"");
-					      
-						  getRegionList("#regList"+count,"");
-					      
-					         $('.deleteRow').on('click',function(){
-					       $(this).closest('tr').remove();
-					      });
-					   
-					
-					});
-					
-					//on change of customer get product list
-					$("#customerListadd").change(function(){
-						
-						console.log("on change of cust id======",$("#customerListadd").val());
-						
-						var rowlength=$(".line" ).length
-						
-						for(count=0;count<rowlength;count++)
-						{
-						generateProdList('#prodList'+count, $("#customerListadd").val(),"");						
-						generatecatCodeListCustWise('#catCodeList'+count, $("#customerListadd").val(),"");
-						generateDescListCustWise('#descList'+count, $("#customerListadd").val(),"");
-						}
-						
-						
-					});	
-					
-					$("#customerListEdt").change(function(){
-						
-						console.log("on change of cust id======",$("#customerListEdt").val());
-						
-						generateProdList('#prodListEdt'+count, $("#customerListEdt").val(),"");
-						
-					});	*/
-				
-					
-			});
-			
-		/*	$(document).on("click", "#purchaseAddAction", function(e){
-			
-			window.location.href = "addpurchaseorder";	
+var delProdID = "";
+var editProdID = "";
+var tableData = $('#purchaseOrderList').DataTable();
 
-			});*/
+$(document).ready(function(){
 	
-			//click on add button
-			$(document).on("click", "#purchaseAddAction", function(e){
-				
-				console.log(" click on purchase Add Action");
-				
-				
-				
-				getCustomersList("#customerListadd","0");
-				
-				getRegionList("#regList"+count,"");
-				
-				callAddRemoveClassFunction($("#ponumber"));
-				callAddRemoveClassFunction($("#customerListadd"));
-				callAddRemoveClassFunction($("#poDate"));
-				callAddRemoveClassFunction($("#poEndDate"));
-
-				 $('#myTbody').empty();
-				 $('#poErrAdd').empty();
-				 
-				
+	getPOList();
 		
-			});
+});
 			
-			$(document).on("change", ".prodListadd", function(e){
-				
-				console.log("on change prodListadd====",$(this).parent().parent().attr("roCnt"));
-				
-				
-				var count = $(this).parent().parent().attr("roCnt")
-				
-				
-				console.log("prodList pid pid====",$('#prodList'+count).val());
-				
-				console.log("on change of prod List add===");
-				
-				console.log("on change of prod List add==prd name=",$('#prodList'+count).val());
-				
-				
-				generateDescList("#descList"+count,$('#prodList'+count).val(),$('#prodList'+count).val());
-				
-				generateCategoryList("#catCodeList"+count,$('#prodList'+count).val(),$('#prodList'+count).val());
-				
-			});	
+//click on add button
+$(document).on("click", "#purchaseAddAction", function(e){
+	
+	console.log(" click on purchase Add Action");
+	
+	 $('#machintypeSel').empty();
+	 $('#uomSel').empty();
+	 $('#ponumber').empty();
+	 
+	 getStationTypeList();
+
+});
+			
+$(document).on("change", ".prodListadd", function(e){
+	
+	console.log("on change prodListadd====",$(this).parent().parent().attr("roCnt"));
+	
+	
+	var count = $(this).parent().parent().attr("roCnt")
+	
+	
+	console.log("prodList pid pid====",$('#prodList'+count).val());
+	
+	console.log("on change of prod List add===");
+	
+	console.log("on change of prod List add==prd name=",$('#prodList'+count).val());
+	
+	
+	generateDescList("#descList"+count,$('#prodList'+count).val(),$('#prodList'+count).val());
+	
+	generateCategoryList("#catCodeList"+count,$('#prodList'+count).val(),$('#prodList'+count).val());
+	
+});	
 			
 			
 			function generateDescList(divId, pid , prodId){
@@ -236,256 +135,138 @@
 				
 			}
 			
-			//get purchase order list
-			function getPOList(){  
+//get purchase order list
+function getPOList(){  
 
-					console.log("-------------------Welcome to product getPOList");
-			//		$.get(url+"getPOList", function( data ) { //from API list
+		console.log("-------------------Welcome to product getPOList");
+	$.ajax({
+		    type: 'GET',
+		    url: server_url + "station/allActive",
+		    enctype: 'application/json',
+		    headers: authHeader,
+		    processData: false,
+		    contentType: false,
+		    data: null,
+		    success: function (response) {		
+
+
+			console.log("------response data----------",response);
+
+
+		var data = response.payload;
+
+		console.log("------getPOList data----------",data);
+//		console.log("------getPOList data.result----------",data.result);
+//		
+	
+		tableData.destroy();
+        $('#purchaseOrderList.tbody').empty();
 		
-					var data = dataTableData;
-		
-					console.log("------getPOList data----------",data);
-			//		console.log("------getPOList data.result----------",data.result);
-			//		
-				
-					tableData.destroy();
-			        $('#purchaseOrderList.tbody').empty();
-					
-			        //if(data.result == "success"){
-						
-			        var editIcon = function ( data, type, row ) 
-			        {
-				    if ( type === 'display' ) {
-				           
-				    return '<span class="fa fa-edit sordrEdit" data-toggle="modal" data-target="#edit_po"></span>';
-				        
-				    }
-				       
-				    return data;
-				    };
-				    
-				    var deleteIcon = function ( data, type, row ) 
-				    {
-			        if ( type === 'display' ) {
-			            
-			        return '<span class="fa fa-trash sordrDelete" ></span>';
-			        }
-			        
-			        return data;
-				    };
-				
-				    tableData = $('#purchaseOrderList').DataTable( {
-					
-				    			dom: 'Blfrtip',   
-				    			buttons: ['excel', 'print'],
-							 	 destroy: true,
-			    				 data: data,
+        //if(data.result == "success"){
 			
-								  columns: [
-								{ "data": "machineType" },
-		    				    { "data": "machineNo" },
-		    				    { "data": "uom" },
-								
-								
-							
+        var editIcon = function ( data, type, row ) 
+        {
+	    if ( type === 'display' ) {
+	           
+	    return '<span class="fa fa-edit sordrEdit" data-toggle="modal" data-target="#edit_po"></span>';
+	        
+	    }
+	       
+	    return data;
+	    };
+	    
+	    var deleteIcon = function ( data, type, row ) 
+	    {
+        if ( type === 'display' ) {
+            
+        return '<span class="fa fa-trash sordrDelete" ></span>';
+        }
+        
+        return data;
+	    };
+	
+	    tableData = $('#purchaseOrderList').DataTable( {
+		
+	    			dom: 'Blfrtip',   
+	    			buttons: ['excel', 'print'],
+				 	 destroy: true,
+    				 data: data,
 
-								
-		    		          /*  { "data": "Quantity" },
-		    		            { "data": "vmcnumber" },
-		    		            { "data": "setupTime" },
-		    		            { "data": "productionTime" },*/
-								
-								
-								
-	    		         
-		    		            ],
-		    		            "order": [[0, 'desc']],
-				    			} );
-				
-
-
-				    
-				
-			//		});
+					  columns: [
+					{ "data": "stationtype" },
+				    { "data": "name" },
+				    { "data": "workcenter" },
+				    { "data": "uom" },
+					
+		            ],
+		            "order": [[0, 'desc']],
+	    			} );
 			}
+	})
+//		});
+}
 	//get purchase order list
 
 			
-			//get Customer list
-			function getCustomersList(Div,CId){
-				
-				console.log("getCustomers=====CId======",CId);
+//get StationType list
+function getStationTypeList(){
+		
+	$.ajax({
+	    type: 'GET',
+	    url: server_url + "stationtype/allActive",
+	    enctype: 'application/json',
+	    headers: authHeader,
+	    processData: false,
+	    contentType: false,
+	    data: null,
+	    success: function (response) {
+	
+			console.log("==========response=====",response)
 			
-					$(Div).empty();
-				
-					$.get(url+"getCustomers", function( data ) { //from API list
-						
-						console.log("getCustomers=====data data ======",data.result);
-			
-							//var CtrObj = $.parseJSON(data.data);
-							
-							console.log("getCustomers=====CId======",CId);
-							
-							if(Div=='#customerListadd')	{
-											
-								$(Div).append('<option value=' + 0+ '>  - Select Customer - </option>');
-												
-								$.each(data.result, function( index, value ){
-												
-								$(Div).append('<option value="'+ value.CustomerID + '">'+ value.Cust_Name+' </option>');
 								
-							    });
-							
-							}	
-							if( Div == "#customerListEdt"){
-						
-									$.each(data.result, function( index, value ){
-													
-									if(CId==value.CustomerID){
-														
-									$(Div).append('<option selected value="'+ value.CustomerID + '">'+ value.Cust_Name+' </option>');
-														
-									}else{
-														
-									$(Div).append('<option value="'+ value.CustomerID + '">'+ value.Cust_Name+' </option>');
-									}
-							
-								});
-								}
-					});
-		
-			} //end of get Customer list
-			
-			
-			function generateProdList(divid,customerId,prodId){
-				
-				console.log("-----generateProdList------",divid);
-				console.log("-----generateProdList cid------",customerId);
-				console.log("-----generateProdList prodId------",prodId);
-
-				
-				$.get(url+"getCustWiseProductList/"+customerId, function( data ) { //from API list
+					$("#addStationType").append('<option value=' + 0+ '>  - Select Station Type - </option>');
+									
+					$.each(response.payload, function( index, value ){
+									
+					$("#addStationType").append('<option value="'+ value.id + '">'+ value.name+' </option>');
 					
-					console.log("---------------data----------",data);
-					console.log("---------------data.result----------",data.result);
-					
-					$(divid).empty();
-						
-					$(divid).append('<option value="0">  Select Product </option>');
-						
-					$.each(data.result, function(key,val) {
-						
-						if(prodId==val.ProductId){
-							
-							$(divid).append('<option selected value='+val.ProductId+'>'+val.Name +'</option>');
-						}
-						else{
-							
-							$(divid).append('<option value='+val.ProductId+'>'+val.Name +'</option>');
-							}
-					});
-					
-					// generateDescList("#descListEdt"+cm,"#prodListEdt"+cm,prodId);
-				});
-			}
-			
-			
-	
-function generateDescListCustWise(divid,customerId,prodId){
+				    });
 				
-				console.log("-----generateProdList------",divid);
-				console.log("-----generateProdList cid------",customerId);
-				console.log("-----generateProdList prodId------",prodId);
-
-				
-				$.get(url+"getCustWiseProductList/"+customerId, function( data ) { //from API list
-					
-					console.log("---------------data----------",data);
-					console.log("---------------data.result----------",data.result);
-					
-					$(divid).empty();
-						
-					$(divid).append('<option value="0">  Select Description </option>');
-						
-					$.each(data.result, function(key,val) {
-						
-						if(prodId==val.ProductId){
-							
-							$(divid).append('<option selected value='+val.ProductId+'>'+val.Description +'</option>');
-						}
-						else{
-							
-							$(divid).append('<option value='+val.ProductId+'>'+val.Description +'</option>');
-							}
-					});
-					
-					// generateDescList("#descListEdt"+cm,"#prodListEdt"+cm,prodId);
-				});
-			}
-
-function generatecatCodeListCustWise(divid,customerId,prodId){
-	
-	console.log("-----generateProdList------",divid);
-	console.log("-----generateProdList cid------",customerId);
-	console.log("-----generateProdList prodId------",prodId);
-
-	
-	$.get(url+"getCustWiseProductList/"+customerId, function( data ) { //from API list
-		
-		console.log("---------------data----------",data);
-		console.log("---------------data.result----------",data.result);
-		
-		$(divid).empty();
-			
-		$(divid).append('<option value="0">  Select Catlog Code </option>');
-			
-		$.each(data.result, function(key,val) {
-			
-			if(prodId==val.ProductId){
-				
-				$(divid).append('<option selected value='+val.ProductId+'>'+val.CatCode +'</option>');
-			}
-			else{
-				
-				$(divid).append('<option value='+val.ProductId+'>'+val.CatCode +'</option>');
-				}
+			}	
 		});
-		
-		// generateDescList("#descListEdt"+cm,"#prodListEdt"+cm,prodId);
-	});
-}
-
-			
-	//get Region list
-			function getRegionList(divid,regId){
-				
-				console.log("-----getRegions--divid-----",divid);
-				
-				
-				$.get(url+"getRegions", function( data ) { //from API list
-					
-							console.log("-----getRegions----------data.result----------",data.result);
-					
-							$(divid).empty();
-						
-							$(divid).append('<option value="0">  Select Region </option>');
-							
-								
-							$.each(data.result, function(key,val) {
-								
-								if(regId==val.RegionId){
-								
-									$(divid).append('<option selected value='+val.RegionId+'>'+val.RegionName +'</option>');	
-								}
-								else{
-									$(divid).append('<option value='+val.RegionId+'>'+val.RegionName +'</option>');
-								}
-								});
-							
-				});
-			}
-			
 	
+} //end of get StationType list
+			
+			
+//get StationType list
+function getUOMList(){
+		
+	$.ajax({
+	    type: 'GET',
+	    url: server_url + "stationtype/allActive",
+	    enctype: 'application/json',
+	    headers: authHeader,
+	    processData: false,
+	    contentType: false,
+	    data: null,
+	    success: function (response) {
+	
+			console.log("==========response=====",response)
+			
+								
+					$("#addStationType").append('<option value=' + 0+ '>  - Select Station Type - </option>');
+									
+					$.each(response.payload, function( index, value ){
+									
+					$("#addStationType").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+					
+				    });
+				
+			}	
+		});
+	
+} //end of get StationType list			
+			
 
 			$(document).on("click", "#addPurchaseData", function(e){
 	
