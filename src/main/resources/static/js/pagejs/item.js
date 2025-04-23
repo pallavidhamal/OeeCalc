@@ -68,6 +68,7 @@
 						    				 data: data,
 						
 											  columns: [
+												
 					    				    { "data": "itemcode" },
 											{ "data": "itemdesc" },
 					    		            ],
