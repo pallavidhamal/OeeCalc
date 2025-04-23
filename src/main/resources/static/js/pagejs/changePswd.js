@@ -72,7 +72,7 @@ $(document).ready(function()
 		console.log("old password is  ",$("#txtoldpswd").val());
 		console.log("new password is  ",$("#txtnewpswd").val());		
 		console.log("confirm new password ",$("#txtcnfmpswd").val());
-		console.log("--------url1url1url1url1url1url1-------",url1);
+		console.log("--------url1url1url1url1url1url1-------",server_url);
 		if(NotAllowedNullVal("#passErr","Old Password",$('#txtoldpswd')))
 		if(NotAllowedNullVal("#passErr","New Password",$('#txtnewpswd')))
 		if(NotAllowedNullVal("#passErr","Confirm Password" ,$('#txtcnfmpswd')))

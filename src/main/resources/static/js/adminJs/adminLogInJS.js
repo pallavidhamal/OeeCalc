@@ -92,7 +92,7 @@ $(document).ready(function() {
 				 $.ajax({
 
 						type: 'POST',
-						url: url1+"checkLoginCredential",  //from API on click of edit icon
+						url: server_url+"checkLoginCredential",  //from API on click of edit icon
 						data : JSON.stringify(dataval),
 						contentType: "application/json",
 

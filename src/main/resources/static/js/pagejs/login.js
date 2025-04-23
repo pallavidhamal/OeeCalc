@@ -5,30 +5,6 @@ console.log("--------LOGIN PAGE---------");
 var ErrorDivName;
 var PFlag1 = "";
 
-
-// Local URL
-//var url="http://125.99.153.126:8085/Eci/Eci/";
-//var url1="http://125.99.153.126:8085/Eci/Eci/";
-
-
-var url = "http://192.168.29.26:8082/Eci/Eci/";
-var url1 = "http://192.168.29.26:8082/Eci/Eci/";
-
-
-// Test Server URL
-/*var url="http://125.63.89.98:8080/Eci";
-var url1="http://125.63.89.98:8080/Eci";
-*/
-
-//var URL = "http://125.63.89.98:8080/Eci/Eci/";
-
-
-//var URL = "http://101.53.136.239:4443/Eci/Eci/";
-//var url1="http://101.53.136.239:4443/Eci/Eci/";
-
-//var URL="https://proapp.co.in/Eci/Eci/";
-//var url1="https://proapp.co.in/Eci/Eci/";
-
 $(document).ready(function() {
 	
 	
@@ -50,9 +26,6 @@ $(document).ready(function() {
 	    if (event.keyCode === 13) {
 	        $("#adminLoginAction-js-login").click();
 	    }
-	    
-	    
-
 	    
 	    
 	    
@@ -87,64 +60,46 @@ $(document).ready(function() {
 				 * check login api is working but because of session not set not working*/
 				  
 				var dataval = {
-							"userName":$('#username').val(),
+							"username":$('#username').val(),
 							"password":$('#password').val()
 							}
 				console.log("dataval dataval== : ",dataval);
-				console.log("dataval dataval==url : ",url1);
+				console.log("server_url dataval==server_url : ",server_url);
 				
+
 				
 				 $.ajax({
 
 						type: 'POST',
-						url: url1+"checkLoginCredential",  //from API on click of edit icon
+						url: server_url+"auth/login",  //from API on click of edit icon
 						data : JSON.stringify(dataval),
 						contentType: "application/json",
 
 						success: function(data) {
 							
-							console.log("checkLoginCredential--Information auth key===",data.authkey);
+							console.log("checkLoginCredential--Information auth key===",data);
 							console.log("checkLoginCredential--Information role===",data.role);
 							console.log("checkLoginCredential--Information role===",data.result);   // if true successfule login
 							//result= result.length
 							//var btrue = new Boolean(result);
 							//console.log("checkLoginCredential--Information result===",btrue,result.length);
 							//if(btrue==true){
-							if(data.result===true){
+							if(data.status==="OK"){
 								console.log("if   hiiiiiiiiiii===");					
 								
 								
 								//check for roles PM/HPM/admin and accordingly forward pages
 								
-								if(data.role=="Admin")
+								if(data.payload.role=="AA")
 								{
-									url="MenuPage";
-								}
-								if(data.role=="PM")
-								{									
-									url="Summary";								
-								}
-								if(data.role=="SI Co-Ordinator")
-								{									
-									url="SITaskStatus";								
-								}
-								if(data.role=="HPM")
-								{
-									url="ApproveHPM";
-								}
-								if(data.role=="Customer")
-								{
-									url="CustomerHReports";
-								}
-								if(data.role=="Quality")
-								{
-									url="QualityReports";
+									url="purchaseorder";
 								}
 								
-								localStorage.setItem("authkey", data.authkey);
-								localStorage.setItem("role", data.role);
-								localStorage.setItem("uname", data.uname);
-								localStorage.setItem("userId", data.userId);
+								
+								localStorage.setItem("authkey", data.payload.accessToken);
+								localStorage.setItem("role", data.payload.role);
+								localStorage.setItem("uname", data.payload.username);
+								localStorage.setItem("refreshToken", data.payload.refreshToken);
 								
 							//	setSession(data.uname,url);
 								

@@ -50,7 +50,7 @@ function generateSubContractorList(){
 
 	$("#subContractorList").empty();
 	
-	$.get(url+"getSICompanyList/"+localStorage.getItem("userId"), function( data ) { //from API list
+	$.get(server_url+"getSICompanyList/"+localStorage.getItem("userId"), function( data ) { //from API list
 		
 	console.log("---------------data.result----------",data.result);
 	
@@ -96,7 +96,7 @@ function getlist(dataVal){
 			 $.ajax({
 				
 				type: 'POST',
-				url: url+"getWippendingReport",  //from API update data
+				url: server_url+"getWippendingReport",  //from API update data
 				data : JSON.stringify(dataVal),
 				contentType: "application/json",
 	    

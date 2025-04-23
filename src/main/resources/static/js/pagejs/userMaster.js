@@ -81,7 +81,7 @@
 				
 					$(divId).empty();
 					
-					$.get(url+"selectType", function( data ) { //from API list
+					$.get(server_url+"selectType", function( data ) { //from API list
 						
 						console.log("selectType===========data.result======",data.result);
 							
@@ -177,7 +177,7 @@
 				$.ajax({
 
 				type: 'GET',
-				url: url+"getTypeWiseRole/"+selectedValue,  //from API on click of edit icon
+				url: server_url+"getTypeWiseRole/"+selectedValue,  //from API on click of edit icon
 				data : JSON.stringify(selectedValue),
 				contentType: "application/json",
 
@@ -293,7 +293,7 @@
 							$.ajax({
 					
 									   type: 'POST',
-									   url: url+"insertUser",  //from API add new data
+									   url: server_url+"insertUser",  //from API add new data
 									   data : JSON.stringify(dataVal),
 									   processData: false,
 									   contentType: "application/json; charset=utf-8",
@@ -348,7 +348,7 @@
 				$('#regionListadd').empty();
 				$('#regionListEdt').empty();
 				
-				$.get( url+"getRegions", function( data ) { //from API list
+				$.get( server_url+"getRegions", function( data ) { //from API list
 						console.log("regionListadd===========data.result======",data.result);
 				
 						if ( RegionId == "#regionListadd" ){
@@ -449,7 +449,7 @@
 					$.ajax({
 			
 							type: 'POST',
-						    url: url+"updateUser",  //from API update data
+						    url: server_url+"updateUser",  //from API update data
 						    data : JSON.stringify(dataVal),
 						    contentType: "application/json",
 		    
@@ -512,7 +512,7 @@
 					$.ajax({
 
 								type: 'GET',
-								url: url+"getUserDetail/"+id,  //from API on click of edit icon
+								url: server_url+"getUserDetail/"+id,  //from API on click of edit icon
 								data : JSON.stringify(id),
 								contentType: "application/json",
 				
@@ -559,7 +559,7 @@
 				
 				$('#siCompanylist').append('<option value=0>Select SI Company </option>');
 				
-				$.get(url+"getSiCompanyList", function( data ) { //from API list
+				$.get(server_url+"getSiCompanyList", function( data ) { //from API list
 					
 					console.log("getsiCompanyList===========data.result======",data.result);
 				
@@ -602,7 +602,7 @@
 
 			$(divid).empty();
 			
-			$.get(url+"getCustomers", function( data ) { //from API list
+			$.get(server_url+"getCustomers", function( data ) { //from API list
 				
 			console.log("---------------data.result----------",data.result);
 			
@@ -722,7 +722,7 @@
 			$.ajax({
 
 						type	: 'POST',
-						url		: url+"resetPassword",  //from API on click of edit icon
+						url		: server_url+"resetPassword",  //from API on click of edit icon
 						data 	: JSON.stringify(dataVal),
 					    processData: false,
 						contentType: "application/json; charset=utf-8",
@@ -748,7 +748,7 @@
 			var i = 0;
 			console.log("------getProductList----------");
 			
-			$.get(url+"getUsers", function( data ) { //from API list
+			$.get(server_url+"getUsers", function( data ) { //from API list
 
 			
 			console.log("--getProductList----data----------",data);
@@ -876,7 +876,7 @@
 					    	  $.ajax({
 
 							        type: 'PUT',
-									url: url+"inactivateUser",  //from API on click of edit icon
+									url: server_url+"inactivateUser",  //from API on click of edit icon
 									data : JSON.stringify(dataVal),
 									contentType: "application/json",
 
@@ -893,7 +893,7 @@
 				    	  $.ajax({
 
 						        type: 'PUT',
-								url: url+"activateUser",  //from API on click of edit icon
+								url: server_url+"activateUser",  //from API on click of edit icon
 								data : JSON.stringify(dataVal),
 								contentType: "application/json",
 
