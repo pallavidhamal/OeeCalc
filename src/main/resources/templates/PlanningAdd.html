@@ -159,7 +159,7 @@ label {
   						<div class="row">
 							<div class="col-md-2">
     							<label class="form-label">Select Unit</label>
-    							<select class="form-control" id="customerListadd">
+    							<select class="form-control" id="selUnit">
   								<option>-- Select --</option>
   								<option>Unit 1</option>
   								<option>Unit 2</option>
@@ -168,7 +168,7 @@ label {
     						</div>
 							<div class="col-md-2">
     							<label class="form-label">Select Workcentre</label>
-    							<select class="form-control" id="customerListadd">
+    							<select class="form-control" id="selWorkcenter">
   								<option>-- Select --</option>
   								<option>Workcentre 1</option>
   								<option>Workcentre 2</option>
@@ -177,54 +177,18 @@ label {
     						</div>
 							<div class="col-md-2">
     							<label class="form-label">From Date</label>
-    							<input type="date" id="customer" class=" form-control">
+    							<input type="date" id="frmDate" class=" form-control">
     						</div>
 							
 							<div class="col-md-2">
     							<label class="form-label">To Date</label>
-    							<input type="date" id="customer" class=" form-control">
+    							<input type="date" id="toDate" class=" form-control">
     						</div>
 
 	  						<div class="col-md-2">
 	  							<label class="form-label">Time per shift</label>
-	  							<input type="text" id="customer" class=" form-control">
+	  							<input type="text" id="timePershift" class=" form-control">
 	  						</div>
-							<!--<div class="col-md-2">
-								<label class="form-label">Select machine </label>
-								<select class="form-control" id="customerListadd">
-								<option>-- Select --</option>
-								<option>Unit 1</option>
-								<option>Unit 2</option>
-								<option>Unit 3</option>
-							</select>
-							</div>
-							<div class="col-md-2">
-								<label class="form-label">Select Shift </label>
-								<select class="form-control" id="customerListadd">
-								<option>-- Select --</option>
-								<option>Unit 1</option>
-								<option>Unit 2</option>
-								<option>Unit 3</option>
-							</select>
-							</div>
-							<div class="col-md-2">
-								<label class="form-label">Select Item </label>
-								<select class="form-control" id="customerListadd">
-								<option>-- Select --</option>
-								<option>Unit 1</option>
-								<option>Unit 2</option>
-								<option>Unit 3</option>
-							</select>
-							</div>
-							<div class="col-md-2">
-								<label class="form-label">Select Setup </label>
-								<select class="form-control" id="customerListadd">
-								<option>-- Select --</option>
-								<option>Unit 1</option>
-								<option>Unit 2</option>
-								<option>Unit 3</option>
-							</select>
-							</div>				-->			
 							<div class="col-md-2">
 								
 							</div>							
@@ -256,59 +220,49 @@ label {
 					  <tbody id="myTbody">
 					   <tr class="tr_clone" roCnt = "0">
 					     <td class="table_input">
-							<select class="form-control" id="customerListadd">
+							<select class="form-control" id="selMachine">
 							<option>-- Select --</option>
-							<option>Unit 1</option>
-							<option>Unit 2</option>
-							<option>Unit 3</option>
 							</select>
 					     </td>
 					      <td class="table_input">
-								<select class="form-control" id="customerListadd">
+								<select class="form-control" id="selShift">
 								<option>-- Select --</option>
-								<option>Unit 1</option>
-								<option>Unit 2</option>
-								<option>Unit 3</option>
 							</select>
 					     </td>
 					    <td class="table_input display_block">
-								<select class="form-control" id="customerListadd">
+								<select class="form-control" id="selItem">
 								<option>-- Select --</option>
-								<option>Unit 1</option>
+								<!--<option>Unit 1</option>
 								<option>Unit 2</option>
-								<option>Unit 3</option>
+								<option>Unit 3</option>-->
 							</select>
 					    </td>
 					    
 					     <td class="table_input">
-								<select class="form-control" id="customerListadd">
-								<option>-- Select --</option>
-								<option>Unit 1</option>
-								<option>Unit 2</option>
-								<option>Unit 3</option>
-							</select>
+								<select class="form-control" id="selSetUp">
+								</select>
 					     </td>
 					     <td class="table_input">
-							<input type="text" id="customer" class=" form-control" >
+							<input type="text" id="setUptime" class=" form-control width80" >
 						</td>
 						
 						<td class="table_input">
-							<input type="text" id="customer" class=" form-control" >
-						</td>
-						
-						
-						<td class="table_input">
-							<input type="text" id="customer" class=" form-control" >
+							<input type="text" id="plannedQty" class=" form-control" >
 						</td>
 						
 						
 						<td class="table_input">
-							<input type="text" id="customer" class=" form-control" >
+							<input type="text" id="plannedMins" class=" form-control" >
+						</td>
 						
-							</td>
+						
+						<td class="table_input">
+							<input type="text" id="timeUtilised" class=" form-control" >
+						
+						</td>
 
 						
-					     <td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>
+					     <td class="table_input"><!--<a href="#" class="deleteRow"><i class="fa fa-minus"></i></a>--></td>
 					     <!-- <td class="table_input">&nbsp;</td> -->
 					  </tr> 
 					  </tbody>
@@ -318,7 +272,11 @@ label {
 			<!---->
 			
 			
-			
+			<div class="modal-footer">
+			    <div class="col-md-4 col-md-offset-4 pull-left">
+			      <button class="btn btn-block cust-btn" type="submit" id = "addPlanningData">Submit</button>
+			    </div>
+			</div>
 			
 			
 			
@@ -334,9 +292,9 @@ label {
 </section>
 <!--Content--> 
 
-<div id="add_po" class="modal fade in" role="dialog">
+<!--<div id="add_po" class="modal fade in" role="dialog">
   <div class="modal-dialog modal-lg"> 
-    <!-- Modal content-->
+     Modal content
     <div class="modal-content">
       <div class="modal-header cust-hd">
         <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
@@ -357,10 +315,10 @@ label {
 	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
 	             <select class="form-control" id="customerListadd"></select>
-	              	<!-- <option>- Select Customer -</option>
+	              	 <option>- Select Customer -</option>
 	              	<option>Customer 1</option>
 	              	<option>Customer 2</option> 
-	              </select> -->
+	              </select> 
 	            </div>
 	            </div>
             </div>
@@ -382,7 +340,7 @@ label {
 	            
             </div>
         </form>
-      <!--  <div><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>
+        <div><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>
          <div class="col-sm-12 margin-top20">
         	<table class="table table-border po_table" id="po_table_modal">
         	<thead>
@@ -424,7 +382,7 @@ label {
 			  </tr> 
 			  </tbody>
 			</table>
-        </div> -->
+        </div> 
         <div class="clearfix"></div>
         
          <div class="col-md-offset-4 col-md-8">
@@ -448,7 +406,7 @@ label {
 
 <div id="edit_po" class="modal fade in" role="dialog">
   <div class="modal-dialog modal-lg"> 
-    <!-- Modal content-->
+     Modal content
     <div class="modal-content">
       <div class="modal-header cust-hd">
         <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
@@ -466,10 +424,10 @@ label {
 	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
 	             <select class="form-control" id="customerListEdt"></select>
-	              	<!-- <option>- Select Customer -</option>
+	              	 <option>- Select Customer -</option>
 	              	<option>Customer 1</option>
 	              	<option>Customer 2</option> 
-	              </select> -->
+	              </select> 
 	            </div>
             </div>
             <div class="col-sm-12 margin-top15">
@@ -502,7 +460,7 @@ label {
 			  </tr>
 			  </thead>
 			  <tbody id="myTbodyEdt">
-			   <!-- <tr class="tr_clone">
+			    <tr class="tr_clone">
 			    <td class="table_input"><input type="text" class="form-control width80 line" id="line"></td>
 			     <td class="table_input">
 				     <select class="form-control width120 prodList"  id="prodListEdt0" >
@@ -524,7 +482,7 @@ label {
 			     </td>
 			     <td class="table_input"><input type="text"  class="form-control width80 qtyList" id="poQtyEdt0"></td>
 			     <td class="table_input">&nbsp;</td>
-			  </tr>  -->
+			  </tr>  
 			  </tbody>
 			</table>
         </div> 
@@ -547,65 +505,7 @@ label {
 </div>
 
 
-<div id="import_excel" class="modal fade in" role="dialog">
-  <div class="modal-dialog"> 
-    <!-- Modal content-->
-    <div class="modal-content">
-     <!--  <div class="modal-header cust-hd">
-        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Import from Excel</h4>
-      </div> -->
-      
-      
-      <div class="modal-body bodypadd0">
-        <!--  <form action="UploadFile" method="post" enctype="multipart/form-data" onsubmit="return Validate(this);" >  -->
-      <!--    <form method="POST" enctype="multipart/form-data" id="fileUploadForm" > -->
-         
 
-            <div class="col-sm-12">
-            	
-            	<h3>Import your data from excel file</h3>
-            	
-            	<div style="display: none;"></div>
-            	
-	            <label class="control-label cust_label2">Upload Excel File: <span class="fa fa-asterisk"></span></label>
-	            
-	            <div class="my_form upload_form">
-	             
-	              <!-- <input type="file" id="myFileread"   name="file" class="upload_excel_btn"  onchange="ValidateSingleInput(this);"/> -->
-	            
-	            <input type="file" name="file"  class="GroupFileClassMEx"  id="fileGroupIdMEx"  onchange="ValidateSingleInput(this);"/>
-	          	  
-	          	<!-- <button class="btn btn-block cust-btn"   type="submit" id="#" value="upload"/>Submit</button> -->
-	             <!--  <input type="submit" id="uploadpo" value="upload"/> -->
-	              <!-- 
-	              <div class="col-md-4 col-md-offset-4 pull-left">
-        		  <button class="btn btn-block cust-btn"  type="submit" value="upload">Submit</button>
-     			   </div> -->
-	              
-	              <p id="demo"></p>
-	            </div>
-            </div>
-      <!--   </form>   -->
-        
-        <!--  
-          <form action="UploadFile" method="post" enctype="multipart/form-data" onsubmit="return Validate(this);" >
-                <input type="file" name="file"   onchange="ValidateSingleInput(this);"/>
-                <input type="submit" id="uploadpo" value="upload"/>
-            </form>
-       --> 
- 
-    </div>
-   
-    <div class="modal-footer">
-       <!--  <div class="col-md-4 col-md-offset-4 pull-left">
-          <button class="btn btn-block cust-btn"  type="submit" value="upload">Submit</button>
-        </div> -->
-    </div>
-    </div>
-  </div>
-  
-</div>
 
 
 
@@ -675,7 +575,7 @@ label {
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
  <script>
 
  var _validFileExtensions = [".xlsx"];    
