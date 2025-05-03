@@ -19,7 +19,8 @@ $(document).on("click", "#purchaseAddAction", function(e){
 	 $('#ponumber').empty();
 	 
 	 getStationTypeList();
-
+	 getUOMList();
+	 getWorkCentreList();
 });
 			
 $(document).on("change", ".prodListadd", function(e){
@@ -195,8 +196,9 @@ function getPOList(){
 					  columns: [
 					{ "data": "stationtype" },
 				    { "data": "name" },
-				    { "data": "workcenter" },
 				    { "data": "uom" },
+				    { "data": "workcenter" },
+				    
 					
 		            ],
 		            "order": [[0, 'desc']],
@@ -243,7 +245,7 @@ function getUOMList(){
 		
 	$.ajax({
 	    type: 'GET',
-	    url: server_url + "stationtype/allActive",
+	    url: server_url + "uom/allActive",
 	    enctype: 'application/json',
 	    headers: authHeader,
 	    processData: false,
@@ -254,11 +256,11 @@ function getUOMList(){
 			console.log("==========response=====",response)
 			
 								
-					$("#addStationType").append('<option value=' + 0+ '>  - Select Station Type - </option>');
+					$("#addUom").append('<option value=' + 0+ '>  - Select uom - </option>');
 									
 					$.each(response.payload, function( index, value ){
 									
-					$("#addStationType").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+					$("#addUom").append('<option value="'+ value.id + '">'+ value.name+' </option>');
 					
 				    });
 				
@@ -266,102 +268,91 @@ function getUOMList(){
 		});
 	
 } //end of get StationType list			
-			
 
-			$(document).on("click", "#addPurchaseData", function(e){
+//get StationType list
+function getWorkCentreList(){
+		
+	$.ajax({
+	    type: 'GET',
+	    url: server_url + "workcenter/getAllActive",
+	    enctype: 'application/json',
+	    headers: authHeader,
+	    processData: false,
+	    contentType: false,
+	    data: null,
+	    success: function (response) {
 	
-				var myarray=[];
-				
-				 var i =  0 ;
-				 $("#myTbody").find('tr').each(function (){
-		 
-					 var lineData  = {
-							 
-
-							 lineid 		: $("#myTbody").find('tr').eq(i).find('td').eq(0).find('input').val(),
-							 ProductId 		: $("#myTbody").find('tr').eq(i).find('td').eq(1).find('select').val(),
-							 description	: $("#myTbody").find('tr').eq(i).find('td').eq(2).find('select option:selected').text(),
-							 catlog 		: $("#myTbody").find('tr').eq(i).find('td').eq(3).find('select option:selected').text(),
-							 RegionId		: $("#myTbody").find('tr').eq(i).find('td').eq(4).find('select').val(),
-							 POQty			: $("#myTbody").find('tr').eq(i).find('td').eq(5).find('input').val(),
-							 Balace_Qty		: $("#myTbody").find('tr').eq(i).find('td').eq(5).find('input').val()
-					};
-		 
-					 i++;
-					 myarray.push(lineData);
-					 
-					 console.log("====myarray======",myarray);
-				
-				 });	 
-				 console.log("====linelinelinelinelinelineline======","#line"+i);
-				 
-				 if(NotAllowedNullVal("#poErrAdd","PO Name ",$('#ponumber')))
-					 if(ValidationForSelectBox("#poErrAdd","Customer Name ",$('#customerListadd')))
-						 if(NotAllowedNullVal("#poErrAdd","PO Date ",$('#poDate')))
-							 if(NotAllowedNullVal("#poErrAdd","PO End Date ",$('#poEndDate')))
-								 if(validateLineId("#poErrAdd"))
-									 if(validateProduct())
-									 if(validateRegion())
-									 if(validatePOQty())
-								 //if(NotAllowedNullVal("#poErrAdd","Line ",$("#line"+i)))
-						/*if(checkLength("#usrErrAdd","User Name ",$('#userName')))
-						//if(AllowedOnlyAlphabetsVal("#usrErrAdd","User Name ",$('#userName')))
-						if(NotAllowedNullVal("#usrErrAdd","Address ",$('#addr')))
-						if(NotAllowedNullVal("#usrErrAdd","Phone Number ",$('#phNumber')))
-						if(PhoneNoValidation("#usrErrAdd","Phone Number ",$('#phNumber')))
-						if(NotAllowedNullVal("#usrErrAdd","Email ID ",$('#userEmail')))
-						if(EmailValidation("#usrErrAdd","Email ID",$('#userEmail')))
-						if(ValidationForSelectBox("#usrErrAdd","Select Type ",$('#typeListad')))
-						
-							if(validationForCheckBoxInSelect("#usrErrAdd","Region "))*/
-							{
-					 
-					 var dataVal = {
-					 
-							 PO_NO			: $('#ponumber').val(),
-							 Customer 		: $('#customerListadd').val(),
-							 PODate			: $('#poDate').val(),
-							 POEDate		: $('#poEndDate').val(),
-							 authKey		: localStorage.getItem("authkey"),
-							 lineData       : myarray
-
-						};
-					 
-				 
-					 
-					 console.log("====data==dataVal===",dataVal);
-					 
-					 
-					 $.ajax({
-							
-						   type: 'POST',
-						   url: url+"insertPO",  //from API add new data
-						   data : JSON.stringify(dataVal),
-						   processData: false,
-						   contentType: "application/json; charset=utf-8",
-	   
-						   success: function(result) {
-	   	
-							console.log("insert--Information result==="+result);
-							
-							if(result.result==true){
-								
-								getPOList();
-								
-								$("#add_po").modal("hide");
-							// $('#myTbody').empty();
-								
-							}else if(result.result==false){
-								
-								window.location.href = "sessionOut";
-								
-							}
-							
-							
+			console.log("==========response=====",response)
 			
-						   }
-				});
-			}
+								
+					$("#addWorkCentre").append('<option value=' + 0+ '>  - Select workcenter - </option>');
+									
+					$.each(response.payload, function( index, value ){
+									
+					$("#addWorkCentre").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+					
+				    });
+				
+			}	
+		});
+	
+} 
+
+			
+
+$(document).on("click", "#addPurchaseData", function(e){
+
+
+	 if(ValidationForSelectBox("#poErrAdd","Station Type",$('#addStationType')))
+		 if(NotAllowedNullVal("#poErrAdd","Station Number ",$('#addStationNumber')))
+			 if(ValidationForSelectBox("#poErrAdd","UOM ",$('#addUom')))
+				{
+		 
+		 var dataVal = {
+		 
+				 name				: $('#addStationNumber').val(),
+				 stationtypeid 		: $('#addStationType').val(),
+				 uomid				: $('#addUom').val(),
+				 workcenterid		: $('#addWorkCentre').val(),
+
+			};
+				 
+			 
+				 
+		 	console.log("====data==dataVal===",dataVal);
+				 
+				 
+				 $.ajax({
+						
+					   type: 'POST',
+					   url: server_url+"station/add",  //from API add new data
+					   data : JSON.stringify(dataVal),
+					   processData: false,
+					   headers: authHeader,
+					   contentType: "application/json; charset=utf-8",
+   
+					   success: function(result) {
+   	
+						console.log("insert--Information result==="+result);
+						
+						if(result.status=="CREATED"){
+							
+							getPOList();
+							
+							$("#add_po").modal("hide");
+						// $('#myTbody').empty();
+							
+						}else if(result.result==false){
+							
+							window.location.href = "sessionOut";
+							
+						}
+						
+						
+		
+					   }
+			});
+		}
 });
 			
 			

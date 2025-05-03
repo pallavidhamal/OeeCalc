@@ -86,9 +86,9 @@ public class UserController {
         return "Item";
     }
     
-    @GetMapping(value = {"/CycleTime"})
-    public String CycleTime() {
-        return "CycleTime";
+    @GetMapping(value = {"/SetUp"})
+    public String SetUp() {
+        return "SetUp";
     }
     
     @GetMapping(value = {"/ItemAdd"})

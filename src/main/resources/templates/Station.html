@@ -162,8 +162,9 @@ label {
                 <tr class="orange">
                   <th>Station Type</th>
                   <th>Station Number</th>
-				  <th>Work Station Number</th>
-                  <th>UOM</th>
+				  <th>UOM</th>
+				  <th>Allocated Work Centre</th>
+                  
                   <!--<th>Avaliability</th>
                   <th>Setup time</th>
                   <th>Production Time</th>
@@ -210,7 +211,7 @@ label {
             	<div class="col-sm-12">
 	            <label for="" class="col-sm-4 control-label cust_label">Station Number : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
-					<input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Station Number"
+					<input type="text" class="form-control" name="addStationNumber" id="addStationNumber" placeholder="Enter Station Number"/>
 	            </div>
 	            </div>
             </div>
@@ -218,25 +219,18 @@ label {
             	<div class="col-sm-12">
 		            <label for="" class="col-sm-4 control-label cust_label">UOM : <span class="fa fa-asterisk"></span></label>
 		            <div class="col-sm-8 my_form">
-						<select class="form-control" id="uomSel">
-							              	 <option>- Select Customer -</option>
-							              	<option>Seconds</option>
-							              	<option>Kgs</option>
-											<option>Minutes</option> 
-							              </select> 
+						<select class="form-control" id="addUom">  </select> 
 		            </div>
 	            </div>
-				
-				
-
-				
-	           <!-- <div class="col-sm-6">
-		            <label for="" class="col-sm-4 control-label cust_label">PO End Date : <span class="fa fa-asterisk"></span></label>
-		            <div class="col-sm-8 my_form">
-		             	<input type="date" class="form-control" id = "poEndDate">
-		            </div>
-	            </div>-->
             </div>
+			<div class="col-sm-12 margin-top15">
+				<div class="col-sm-12">
+			        <label for="" class="col-sm-4 control-label cust_label">Allocated Work Centre : <span class="fa fa-asterisk"></span></label>
+			        <div class="col-sm-8 my_form">
+						<select class="form-control" id="addWorkCentre"> </select> 
+			        </div>
+			    </div>
+			</div>
             <div class="col-sm-12 margin-top15">
 	            
             </div>

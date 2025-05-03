@@ -11,7 +11,7 @@
 				
 				getAllItems();
 				getAllMachines();
-				getAllUoms;
+				getAllUoms();
 				
 				
 			});
@@ -223,8 +223,10 @@
 		       contentType: false,
 		       data: null,
 		       success: function (response) {
+					$("#addItem").empty();
+					$("#addItem").append('<option value="0">  Select item </option>');
 		           for (i = 0; i < response.payload.length; ++i) {
-		               $("#selItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+		               $("#addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
 		           }
 		       },
 
@@ -257,15 +259,17 @@
 	{
 		$.ajax({
 				       type: "GET",
-				       url: server_url + `station/all`,
+				       url: server_url + `station/allActive`,
 				       enctype: "application/json",
 				       headers: authHeader,
 				       processData: false,
 				       contentType: false,
 				       data: null,
 				       success: function (response) {
+							$("#addStation").empty();
+							$("#addStation").append('<option value="0">  Select station </option>');
 				           for (i = 0; i < response.payload.length; ++i) {
-				               $("#selStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+				               $("#addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
 				           }
 				       },
 
@@ -297,15 +301,17 @@
 	{
 		$.ajax({
 						       type: "GET",
-						       url: server_url + `station/all`,
+						       url: server_url + `uom/allActive`,
 						       enctype: "application/json",
 						       headers: authHeader,
 						       processData: false,
 						       contentType: false,
 						       data: null,
 						       success: function (response) {
+								$("#adduom").empty();
+								$("#adduom").append('<option value="0">  Select uom </option>');
 						           for (i = 0; i < response.payload.length; ++i) {
-						               $("#selStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+						               $("#adduom").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
 						           }
 						       },
 
@@ -334,6 +340,60 @@
 	}
 					
 
+$(document).on("click", "#addSetup", function(e){
 
+
+	 if(ValidationForSelectBox("#poErrAdd","Item",$('#addItem')))
+		 if(NotAllowedNullVal("#poErrAdd"," Station ",$('#addStation')))
+			 if(ValidationForSelectBox("#poErrAdd","UOM ",$('#adduom')))
+			 	if(ValidationForSelectBox("#poErrAdd","set up ",$('#setupname')))
+			 		if(ValidationForSelectBox("#poErrAdd","set up time ",$('#setuptime')))
+				{
+		 
+		 var dataVal = {
+		 
+				 item				: $('#addItem').val(),
+				 station 			: $('#addStation').val(),
+				 uom				: $('#adduom').val(),
+				 setup				: $('#setupname').val(),
+				 setuptime			: $('#setuptime').val(),
+
+			};
+				 
+		 	console.log("====data==dataVal===",dataVal);
+				 
+				 
+				 $.ajax({
+						
+					   type: 'POST',
+					   url: server_url+"station/add",  //from API add new data
+					   data : JSON.stringify(dataVal),
+					   processData: false,
+					   headers: authHeader,
+					   contentType: "application/json; charset=utf-8",
+   
+					   success: function(result) {
+   	
+						console.log("insert--Information result==="+result);
+						
+						if(result.status=="CREATED"){
+							
+							getPOList();
+							
+							$("#add_po").modal("hide");
+						// $('#myTbody').empty();
+							
+						}else if(result.result==false){
+							
+							window.location.href = "sessionOut";
+							
+						}
+						
+						
+		
+					   }
+			});
+		}
+});
 	
 	
