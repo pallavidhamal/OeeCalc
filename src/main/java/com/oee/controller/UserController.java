@@ -71,14 +71,14 @@ public class UserController {
     }
     
     
-    @GetMapping(value = {"/Equipment"})
-    public String Equipment() {
-        return "Equipment";
+    @GetMapping(value = {"/station"})
+    public String Station() {
+        return "Station";
     }
     
-    @GetMapping(value = {"/EquipmentAdd"})
-    public String EquipmentAdd() {
-        return "EquipmentAdd";
+    @GetMapping(value = {"/stationAdd"})
+    public String StationAdd() {
+        return "StationAdd";
     }
     
     @GetMapping(value = {"/Item"})
