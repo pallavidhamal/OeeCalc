@@ -1,13 +1,14 @@
 			
 			var delProdID = "";
 			var editProdID = "";
-			var tableData = $('#cycleTimeList').DataTable();
+			var setupid="";
+			var tableData = $('#setupList').DataTable();
 		
 			$(document).ready(function(){
 				
 				console.log("-------------------Welcome to authHeader",authHeader);
 
-			//	getCycleTimeList();
+				getSetUpList();
 				
 				getAllItems();
 				getAllMachines();
@@ -22,12 +23,12 @@
 
 			});*/
 		
-			function getCycleTimeList(){  
+			function getSetUpList(){  
 
 				
 				$.ajax({
 					    type: 'GET',
-					    url: server_url + "item/getAllItems",
+					    url: server_url + "setup/all",
 					    enctype: 'application/json',
 					    headers: authHeader,
 					    processData: false,
@@ -35,37 +36,17 @@
 					    data: null,
 					    success: function (response) {
 							
-							console.log("-------------------Welcome to getItemList",response);
+							console.log("-------------------Welcome to setupList",response);
 							
 							var data = response.payload;
 									
 								tableData.destroy();
-						        $('#itemList.tbody').empty();
+						        $('#setupList.tbody').empty();
 								
 						        //if(data.result == "success"){
 									
-						        var editIcon = function ( data, type, row ) 
-						        {
-							    if ( type === 'display' ) {
-							           
-							    return '<span class="fa fa-edit sordrEdit" data-toggle="modal" data-target="#edit_item"></span>';
-							        
-							    }
-							       
-							    return data;
-							    };
-							    
-							    var deleteIcon = function ( data, type, row ) 
-							    {
-						        if ( type === 'display' ) {
-						            
-						        return '<span class="fa fa-trash sordrDelete" ></span>';
-						        }
-						        
-						        return data;
-							    };
 							
-							    tableData = $('#itemList').DataTable( {
+							    tableData = $('#setupList').DataTable( {
 								
 							    			dom: 'Blfrtip',   
 							    			buttons: ['excel', 'print'],
@@ -74,8 +55,24 @@
 						
 											  columns: [
 												
-					    				    { "data": "itemcode" },
+					    				    { "data": "name" },
+											{ "data": "cycletime" },											
+											{ "data": "station" },
+											{ "data": "uom" },											
+											{ "data": "item" },
 											{ "data": "itemdesc" },
+											
+
+											{ 
+												"data":  null,
+											  render: function (data, type, row) {
+											      var id = data.id;
+											      var action = `<a  class="edit-button" id=${data.id}>Edit</a>
+											                    <a  class="delete-button" id=${data.isdeleted}>${data.isdeleted}</a> `;
+											      return action;
+											  },
+											},											
+											
 					    		            ],
 					    		            "order": [[0, 'desc']],
 							    			} );
@@ -188,12 +185,6 @@
 			
 	
 	
-	$("#customerListEdt").change(function(){
-		
-		
-		generateProdList('#prodListEdt'+count, $("#customerListEdt").val(),"");
-		
-	});	
  
 	 var temp;
 	$(document).on("click", ".deleteRow", function()
@@ -352,12 +343,13 @@ $(document).on("click", "#addSetup", function(e){
 		 
 		 var dataVal = {
 		 
-				 item				: $('#addItem').val(),
-				 station 			: $('#addStation').val(),
+				 itemId				: $('#addItem').val(),
+				 stationId 			: $('#addStation').val(),
 				 uom				: $('#adduom').val(),
 				 setup				: $('#setupname').val(),
-				 setuptime			: $('#setuptime').val(),
+				 name				: $('#setuptime').val(),
 
+				 
 			};
 				 
 		 	console.log("====data==dataVal===",dataVal);
@@ -366,7 +358,7 @@ $(document).on("click", "#addSetup", function(e){
 				 $.ajax({
 						
 					   type: 'POST',
-					   url: server_url+"station/add",  //from API add new data
+					   url: server_url+"setup/add",  //from API add new data
 					   data : JSON.stringify(dataVal),
 					   processData: false,
 					   headers: authHeader,
@@ -394,6 +386,39 @@ $(document).on("click", "#addSetup", function(e){
 					   }
 			});
 		}
-});
+});  // add setup
+
+
+
+$(document).on("click", ".edit-button", function(){
+				
+				//alert($(this).attr("itemid"));
+				$('#setupErrEdit').empty();
+				$("#edit_setup").modal("show");
+				
+				setupid=$(this).attr("id");
+				
+				$.ajax({
+
+					type: 'GET',
+					url: server_url+"item/get/"+setupid,  //from API on click of edit icon
+					//data : JSON.stringify(dataVal),
+					contentType: "application/json",
+	
+					success: function(result) {
+						
+						console.log("-----result----------",result);
+						$('#edititemcode').val(result.payload.itemcode);
+						$('#edititemdesc').val(result.payload.itemdesc);
+						$('#edititemcode').val(result.payload.itemcode);
+						$('#edititemdesc').val(result.payload.itemdesc);
+											
+					}
+				
+					});
+				
+		    	});	
+
+
 	
 	

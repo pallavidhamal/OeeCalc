@@ -2,6 +2,7 @@
 			var delProdID = "";
 			var editProdID = "";
 			var tableData = $('#itemList').DataTable();
+			var selitemid="";
 		
 			$(document).ready(function(){
 				
@@ -11,11 +12,6 @@
 				
 			});
 			
-		/*	$(document).on("click", "#purchaseAddAction", function(e){
-			
-			window.location.href = "addpurchaseorder";	
-
-			});*/
 		
 			function getItemList(){  
 
@@ -37,28 +33,7 @@
 								tableData.destroy();
 						        $('#itemList.tbody').empty();
 								
-						        //if(data.result == "success"){
 									
-						        var editIcon = function ( data, type, row ) 
-						        {
-							    if ( type === 'display' ) {
-							           
-							    return '<span class="fa fa-edit sordrEdit" data-toggle="modal" data-target="#edit_item"></span>';
-							        
-							    }
-							       
-							    return data;
-							    };
-							    
-							    var deleteIcon = function ( data, type, row ) 
-							    {
-						        if ( type === 'display' ) {
-						            
-						        return '<span class="fa fa-trash sordrDelete" ></span>';
-						        }
-						        
-						        return data;
-							    };
 							
 							    tableData = $('#itemList').DataTable( {
 								
@@ -71,6 +46,19 @@
 												
 					    				    { "data": "itemcode" },
 											{ "data": "itemdesc" },
+											
+										
+										
+											{ 
+												"data":  null,
+								           render: function (data, type, row) {
+								               var action = `<a  class="edit-button" itemid=${data.itemid}>Edit</a>
+								                             <a  class="delete-button" itemid=${data.itemid}>${data.isdeleted}</a> `;
+								               return action;
+								           },
+							             },
+											
+											
 					    		            ],
 					    		            "order": [[0, 'desc']],
 							    			} );
@@ -101,12 +89,6 @@
 					    }	  
 					  })
 				
-				
-				
-				
-				/*ihii*/
-				
-					
 				}
 
 				    
@@ -118,12 +100,9 @@
 				 var i =  0 ;
 				 console.log("====save item======","#line"+i);
 				 
-			/*	 if(NotAllowedNullVal("#poErrAdd","PO Name ",$('#ponumber')))
-					 if(ValidationForSelectBox("#poErrAdd","Customer Name ",$('#customerListadd')))
-						 if(NotAllowedNullVal("#poErrAdd","PO Date ",$('#poDate')))
-							 if(NotAllowedNullVal("#poErrAdd","PO End Date ",$('#poEndDate')))
-														
-							{*/
+			 if(NotAllowedNullVal("#poErrAdd","Item Code",$('#itemcode')))
+						 if(NotAllowedNullVal("#poErrAdd","Item Description",$('#itemdesc')))
+							{
 					 
 					 var dataVal = {
 					 
@@ -167,45 +146,137 @@
 			
 						   }
 				});
-			//}  //validation if
+			}  //validation if
 });
 			
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+		$(document).on("click", "#editItemData", function(e){
 	
-	
-	$("#customerListEdt").change(function(){
-		
-		
-		generateProdList('#prodListEdt'+count, $("#customerListEdt").val(),"");
-		
-	});	
+				alert("on update");
+				 var i =  0 ;
+				 console.log("====save item======","#line"+i);
+				 
+				 if(NotAllowedNullVal("#itemErredt","Item Code",$('#edititemcode')))
+				 				 if(NotAllowedNullVal("#itemErredt","Item Description",$('#edititemdesc')))						
+							{
+					 
+					 var dataVal = {
+					 
+							 itemid:selitemid,
+							 itemcode		: $('#edititemcode').val(),
+							 itemdesc 		: $('#edititemdesc').val(),
+
+						};
+					 
+				 
+					 
+					 console.log("====data==dataVal===",dataVal);
+					 
+					 
+					 $.ajax({
+							
+						   type: 'PUT',
+						   url: server_url+"item/edit",  //from API add new data
+						   data : JSON.stringify(dataVal),
+						   headers: authHeader,
+						   processData: false,
+						   contentType: "application/json; charset=utf-8",
+	   
+						   success: function(result) {
+	   	
+							console.log("insert--Information result==="+result);
+							
+							if(result.payload==true){
+								
+								getItemList();
+								
+								$("#edit_item").modal("hide");
+							// $('#myTbody').empty();
+								
+							}else if(result.result==false){
+								
+								window.location.href = "sessionOut";
+								
+							}
+							
+							
+			
+						   }
+				});
+			}  //validation if
+});			
+			
+			
  
 	 var temp;
-	$(document).on("click", ".deleteRow", function()
+	$(document).on("click", ".delete-button", function()
 	{		 
 		console.log("---del current row----------");
-		
-		  $(this).closest('tr').remove();
-		  console.log("on change prodList====",$(this).attr("value"));
-		  
-		  temp=$("#hidendelId").val()+$(this).attr("value")+",";
-		  //alert(temp);
-		  $("#hidendelId").val(temp);
-		  
-		  
+		  console.log("on delete====",$(this).attr("itemid"));
+		  selitemid=$(this).attr("itemid");
+		  swal({
+		  text: "Are you sure, please confirm?",
+		  buttons: [
+		   'Cancel',
+		    'Ok'
+
+		  ],
+		  }).then(function (isConfirm) {
+		      if(isConfirm){
+		      
+				 $.ajax({
+								
+							   type: 'PUT',
+							   url: server_url+"item/delete/"+selitemid,  //from API add new data
+							   headers: authHeader,
+							   processData: false,
+							   contentType: "application/json; charset=utf-8",
+
+							   success: function(result) {
+								console.log("insert--Information result==="+result);
+								
+								if(result.payload==true){
+									getItemList();
+									
+								}else if(result.result==false){
+									
+									window.location.href = "sessionOut";
+									
+								}
+							   }
+							});
+		  }
+		  })
 		   
 	});
 
 
 	
+	$(document).on("click", ".edit-button", function(){
+					
+					//alert($(this).attr("itemid"));
+					 $('#itemErredt').empty();
+					$("#edit_item").modal("show");
+					
+					selitemid=$(this).attr("itemid");
+					
+					$.ajax({
+
+						type: 'GET',
+						url: server_url+"item/get/"+selitemid,  //from API on click of edit icon
+						//data : JSON.stringify(dataVal),
+						contentType: "application/json",
+		
+						success: function(result) {
+							
+							console.log("-----result----------",result);
+							$('#edititemcode').val(result.payload.itemcode);
+							$('#edititemdesc').val(result.payload.itemdesc);
+												
+						}
+					
+						});
+					
+			    	});		
 	
