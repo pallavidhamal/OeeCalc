@@ -96,7 +96,6 @@
 
 			$(document).on("click", "#addItemData", function(e){
 	
-				alert("on save");
 				 var i =  0 ;
 				 console.log("====save item======","#line"+i);
 				 
@@ -153,7 +152,6 @@
 			
 		$(document).on("click", "#editItemData", function(e){
 	
-				alert("on update");
 				 var i =  0 ;
 				 console.log("====save item======","#line"+i);
 				 

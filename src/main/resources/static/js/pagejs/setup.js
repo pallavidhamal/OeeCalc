@@ -68,7 +68,7 @@
 											  render: function (data, type, row) {
 											      var id = data.id;
 											      var action = `<a  class="edit-button" id=${data.id}>Edit</a>
-											                    <a  class="delete-button" id=${data.isdeleted}>${data.isdeleted}</a> `;
+											                    <a  class="delete-button" id=${data.id}>${data.isdeleted}</a> `;
 											      return action;
 											  },
 											},											
@@ -113,76 +113,7 @@
 
 				    
 		
-
-			$(document).on("click", "#addItemData", function(e){
 	
-				alert("on save");
-				 var i =  0 ;
-				 console.log("====save item======","#line"+i);
-				 
-			/*	 if(NotAllowedNullVal("#poErrAdd","PO Name ",$('#ponumber')))
-					 if(ValidationForSelectBox("#poErrAdd","Customer Name ",$('#customerListadd')))
-						 if(NotAllowedNullVal("#poErrAdd","PO Date ",$('#poDate')))
-							 if(NotAllowedNullVal("#poErrAdd","PO End Date ",$('#poEndDate')))
-														
-							{*/
-					 
-					 var dataVal = {
-					 
-							 itemcode		: $('#itemcode').val(),
-							 itemdesc 		: $('#itemdesc').val(),
-
-						};
-					 
-				 
-					 
-					 console.log("====data==dataVal===",dataVal);
-					 
-					 
-					 $.ajax({
-							
-						   type: 'POST',
-						   url: server_url+"item/add",  //from API add new data
-						   data : JSON.stringify(dataVal),
-						   headers: authHeader,
-						   processData: false,
-						   contentType: "application/json; charset=utf-8",
-	   
-						   success: function(result) {
-	   	
-							console.log("insert--Information result==="+result);
-							
-							if(result.payload==true){
-								
-								getItemList();
-								
-								$("#add_item").modal("hide");
-							// $('#myTbody').empty();
-								
-							}else if(result.result==false){
-								
-								window.location.href = "sessionOut";
-								
-							}
-							
-							
-			
-						   }
-				});
-			//}  //validation if
-});
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 	
 	
  
@@ -215,9 +146,15 @@
 		       data: null,
 		       success: function (response) {
 					$("#addItem").empty();
+					$("#editItem").empty();
 					$("#addItem").append('<option value="0">  Select item </option>');
+					$("#editItem").append('<option value="0">  Select item </option>');
+
 		           for (i = 0; i < response.payload.length; ++i) {
 		               $("#addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+					   
+					   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+					   
 		           }
 		       },
 
@@ -258,9 +195,13 @@
 				       data: null,
 				       success: function (response) {
 							$("#addStation").empty();
+							$("#editStation").empty();
+							
 							$("#addStation").append('<option value="0">  Select station </option>');
+							$("#editStation").append('<option value="0">  Select station </option>');
 				           for (i = 0; i < response.payload.length; ++i) {
 				               $("#addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+							   $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
 				           }
 				       },
 
@@ -336,7 +277,7 @@ $(document).on("click", "#addSetup", function(e){
 
 	 if(ValidationForSelectBox("#poErrAdd","Item",$('#addItem')))
 		 if(NotAllowedNullVal("#poErrAdd"," Station ",$('#addStation')))
-			 if(ValidationForSelectBox("#poErrAdd","UOM ",$('#adduom')))
+			// if(ValidationForSelectBox("#poErrAdd","UOM ",$('#adduom')))
 			 	if(ValidationForSelectBox("#poErrAdd","set up ",$('#setupname')))
 			 		if(ValidationForSelectBox("#poErrAdd","set up time ",$('#setuptime')))
 				{
@@ -346,8 +287,8 @@ $(document).on("click", "#addSetup", function(e){
 				 itemId				: $('#addItem').val(),
 				 stationId 			: $('#addStation').val(),
 				 uom				: $('#adduom').val(),
-				 setup				: $('#setupname').val(),
-				 name				: $('#setuptime').val(),
+				 name				: $('#setupname').val(),
+				 cycletime				: $('#setuptime').val(),
 
 				 
 			};
@@ -370,9 +311,9 @@ $(document).on("click", "#addSetup", function(e){
 						
 						if(result.status=="CREATED"){
 							
-							getPOList();
+							getSetUpList();
 							
-							$("#add_po").modal("hide");
+							$("#add_setup").modal("hide");
 						// $('#myTbody').empty();
 							
 						}else if(result.result==false){
@@ -390,35 +331,141 @@ $(document).on("click", "#addSetup", function(e){
 
 
 
+
+
 $(document).on("click", ".edit-button", function(){
 				
 				//alert($(this).attr("itemid"));
 				$('#setupErrEdit').empty();
+				
+				
 				$("#edit_setup").modal("show");
 				
 				setupid=$(this).attr("id");
 				
+				//alert(setupid);
+				
 				$.ajax({
 
 					type: 'GET',
-					url: server_url+"item/get/"+setupid,  //from API on click of edit icon
+					url: server_url+"setup/get/"+setupid,  //from API on click of edit icon
 					//data : JSON.stringify(dataVal),
 					contentType: "application/json",
 	
 					success: function(result) {
 						
 						console.log("-----result----------",result);
-						$('#edititemcode').val(result.payload.itemcode);
-						$('#edititemdesc').val(result.payload.itemdesc);
-						$('#edititemcode').val(result.payload.itemcode);
-						$('#edititemdesc').val(result.payload.itemdesc);
-											
-					}
+						$('#editsetupname').val(result.payload.name);
+						$('#editsetuptime').val(result.payload.cycletime);
+						
+						$("#editItem").val(result.payload.itemid);
+						$("#editStation").val(result.payload.stationid);
+						
+						}
 				
 					});
 				
 		    	});	
 
 
-	
-	
+				$(document).on("click", "#editSetup", function(e){
+
+
+					 if(ValidationForSelectBox("#setupErrEdit","Item",$('#editItem')))
+						 if(ValidationForSelectBox("#setupErrEdit"," Station ",$('#editStation')))
+							// if(ValidationForSelectBox("#setupErrEdit","UOM ",$('#adduom')))
+							 	if(ValidationForSelectBox("#setupErrEdit","set up ",$('#editsetupname')))
+							 		if(ValidationForSelectBox("#setupErrEdit","set up time ",$('#editsetuptime')))
+								{
+						 
+						 var dataVal = {
+						 
+								setupid					:setupid,
+								 itemId				: $('#editItem').val(),
+								 stationId 			: $('#editStation').val(),
+								 name				: $('#editsetupname').val(),
+								 cycletime				: $('#editsetuptime').val(),
+
+								 
+							};
+								 
+						 	console.log("====data==dataVal===",dataVal);
+								 
+								 
+								 $.ajax({
+										
+									   type: 'PUT',
+									   url: server_url+"setup/edit",  //from API add new data
+									   data : JSON.stringify(dataVal),
+									   processData: false,
+									   headers: authHeader,
+									   contentType: "application/json; charset=utf-8",
+				   
+									   success: function(result) {
+				   	
+										console.log("edit setup--Information result==="+result);
+										
+										console.log("edit setup--Information result==="+result.payload);
+										console.log("edit setup--Information result==="+result.status);
+										
+										if(result.payload==true){
+											
+											getSetUpList();
+											
+											$("#edit_setup").modal("hide");
+										// $('#myTbody').empty();
+											
+										}else if(result.result==false){
+											
+											window.location.href = "sessionOut";
+											
+										}
+										
+										
+						
+									   }
+							});
+						}
+				});  // add setup
+				
+				
+$(document).on("click", ".delete-button", function()
+	{		 
+		console.log("---del current row----------");
+		  console.log("on delete====",$(this).attr("id"));
+		  selid=$(this).attr("id");
+		  swal({
+		  text: "Are you sure, please confirm?",
+		  buttons: [
+		   'Cancel',
+		    'Ok'
+
+		  ],
+		  }).then(function (isConfirm) {
+		      if(isConfirm){
+		      
+				 $.ajax({
+								
+							   type: 'PUT',
+							   url: server_url+"setup/delete/"+selid,  //from API add new data
+							   headers: authHeader,
+							   processData: false,
+							   contentType: "application/json; charset=utf-8",
+
+							   success: function(result) {
+								console.log("delete result==="+result);
+								
+								if(result.payload==true){
+									getSetUpList();
+									
+								}else if(result.result==false){
+									
+									window.location.href = "sessionOut";
+									
+								}
+							   }
+							});
+		  }
+		  })
+		   
+	});				

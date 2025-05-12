@@ -1,6 +1,7 @@
 			
 var delProdID = "";
 var editProdID = "";
+var editId ="";
 var tableData = $('#purchaseOrderList').DataTable();
 
 $(document).ready(function(){
@@ -29,14 +30,14 @@ $(document).on("click", "#purchaseAddAction", function(e){
 $(document).on("click", ".edit-button", function(e){
 
 
-		var editId = $(this).attr('id');
+		 editId = $(this).attr('id');
 		console.log("editId----",editId);
 
  		getStationTypeList("edit");
 	 	getUOMList("edit");
 	 	getWorkCentreList("edit");
 
-		$("#edit_po").modal("show");
+		$("#edit_station").modal("show");
 
 
 		$.ajax({
@@ -47,13 +48,21 @@ $(document).on("click", ".edit-button", function(e){
 		    processData: false,
 		    contentType: false,
 		    data: null,
-		    success: function (response) {
+		    success: function (result) {
 		
-				console.log("------response ----------",response);
+				console.log("------response ----------",result);
 		
-				var data = response.payload;
-		
+				var data = result.payload;
 				console.log("------response data----------",data);
+
+				
+				$('#editStationType').val(result.payload.stationtype.id);
+				$('#editStationNumber').val(result.payload.name);
+				$("#editUom").val(result.payload.uom.id);
+				$("#editWorkCentre").val(result.payload.workcenter.id);
+
+				
+		
 		
 			}
 		})
@@ -126,7 +135,7 @@ function getStationList(){
 		console.log("-------------------Welcome to product getPOList");
 	$.ajax({
 		    type: 'GET',
-		    url: server_url + "station/allActive",
+		    url: server_url + "station/all",
 		    enctype: 'application/json',
 		    headers: authHeader,
 		    processData: false,
@@ -168,10 +177,10 @@ function getStationList(){
     				 data: data,
 
 					  columns: [
-					{ "data": "stationtype" },
+					{ "data": "stationtype.name" },
 				    { "data": "name" },
-				    { "data": "uom" },
-				    { "data": "workcenter" },
+				    { "data": "uom.name" },
+				    { "data": "workcenter.name" },
 				    { "data":  null,
 			           render: function (data, type, row) {
 			               var id = data.id;
@@ -335,25 +344,99 @@ $(document).on("click", "#addPurchaseData", function(e){
 
 
 
-$(document).on("click", ".delete-button", function () {
+$(document).on("click", "#editStationData", function(e){
 
-var deleteId = $(this).attr('id');
-console.log("deleteId"+deleteId);
 
-swal({
-text: "Are you sure, please confirm?",
-buttons: [
- 'Cancel',
-  'Ok'
+	 if(ValidationForSelectBox("#stationErredit","Station Type",$('#editStationType')))
+		 if(NotAllowedNullVal("#stationErredit","Station Number ",$('#editStationNumber')))
+			 if(ValidationForSelectBox("#stationErredit","UOM ",$('#editUom')))
+				{
+		 
+		 var dataVal = {
+			
+				 stationid			: editId,
+				 name				: $('#editStationNumber').val(),
+				 stationtypeid 		: $('#editStationType').val(),
+				 uomid				: $('#editUom').val(),
+				 workcenterid		: $('#editWorkCentre').val(),
 
-],
-}).then(function (isConfirm) {
-    if(isConfirm){
-    
-        $.ajax({
-            
-   	 	});	
-	}
-})
+			};
+				 
+			 
+				 
+		 	console.log("====data==dataVal===",dataVal);
+				 
+				 
+				 $.ajax({
+						
+					   type: 'PUT',
+					   url: server_url+"station/edit",  //from API add new data
+					   data : JSON.stringify(dataVal),
+			//		   processData: false,
+					   headers: authHeader,
+					   contentType: "application/json; charset=utf-8",
+   
+					   success: function(result) {
+   	
+						console.log("update station--Information result==="+result.payload);
+						console.log("update station--Information result==="+result.status);
+						
+						if(result.payload==true){
+							
+							$("#edit_station").modal("hide");
+							getStationList();
+							
+							
+							
+						}else if(result.result==false){
+							
+							window.location.href = "sessionOut";
+							
+						}
+					}
+			});
+		}
 });
-	
+
+
+
+$(document).on("click", ".delete-button", function()
+	{		 
+		console.log("---del current row----------");
+		  console.log("on delete====",$(this).attr("id"));
+		  selid=$(this).attr("id");
+		  swal({
+		  text: "Are you sure, please confirm?",
+		  buttons: [
+		   'Cancel',
+		    'Ok'
+
+		  ],
+		  }).then(function (isConfirm) {
+		      if(isConfirm){
+		      
+				 $.ajax({
+								
+							   type: 'PUT',
+							   url: server_url+"station/delete/"+selid,  //from API add new data
+							   headers: authHeader,
+							   processData: false,
+							   contentType: "application/json; charset=utf-8",
+
+							   success: function(result) {
+								console.log("delete result==="+result);
+								
+								if(result.payload==true){
+									getStationList();
+									
+								}else if(result.result==false){
+									
+									window.location.href = "sessionOut";
+									
+								}
+							   }
+							});
+		  }
+		  })
+		   
+	});	
