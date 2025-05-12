@@ -1,15 +1,49 @@
-
+var unitid="";
+var machinesOptions;
+var count=1;
 
 $(document).ready(function(){
+	
+	
+	
+	getUnitList("add");	
+
+	getAllMachines();
+	
+	getAllItems();
+	
+
+	
+	
+	
+	
+	$('#addUnit').on('change', function (e) {
+	    var optionSelected = $("option:selected", this);
+	     unitid = this.value;
+		
+		//alert(optionSelected);
+		
+		alert(unitid)
+		
+		getWorkCentreList("add");
+		
+		getUnitShifts();	
+		
+	});
+	
+	
+	
+	
+	
 
 $('.table_add_link').on('click',function(){
 						
 	console.log("-------------table_add_link----this---------",$("#myTbody").find('tr').length);
 	
-	count = $("#myTbody").find('tr').length;
+	//count = $("#myTbody").find('tr').length;
 	
       $('#myTbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
-		+'<td class="table_input"><select class="form-control"  id="selMachine'+count+'" >	</select> </td>'
+		+'<td class="table_input"><select class="form-control addStation"  id="selMachine'+count+'" >	</select> </td>'
 		+'<td class="table_input"><select class="form-control"  id="selShift'+count+'" >	</select> </td>'
 		+'<td class="table_input"><select class="form-control"  id="selItem'+count+'" >	</select> </td>'
 		+'<td class="table_input"><select class="form-control"  id="selSetUp'+count+'" >	</select> </td>'
@@ -23,14 +57,20 @@ $('.table_add_link').on('click',function(){
 	  +'</tr>');
 	  
 	  
+	 // alert(machinesOptions);
 	  
-	  $('.deleteRow').on('click',function(){
-	  	$(this).closest('tr').remove();
-	  });
+	  $("#selMachine"+count).append(machinesOptions);
+
+	  count++;
+
+	  
+	
 	  
 });  //end add row
 
-
+$('.deleteRow').on('click',function(){
+  	$(this).closest('tr').remove();
+  });
 
 
 $(document).on("click", "#addPlanningData", function(e){
@@ -122,5 +162,216 @@ $(document).on("click", "#addPlanningData", function(e){
 });
 
 
+
+function getWorkCentreList(divId){
+		
+	$.ajax({
+	    type: 'GET',
+	    url: server_url + "workcenter/getWorkcenterByUnit/"+unitid,
+	    enctype: 'application/json',
+	    headers: authHeader,
+	    processData: false,
+	    contentType: false,
+	    data: null,
+	    success: function (response) {
+	
+			console.log("==========response=====",response)
+			
+					$("#"+divId+"WorkCentre").empty();			
+					$("#"+divId+"WorkCentre").append('<option value=' + 0+ '>  - Select workcenter - </option>');
+									
+					$.each(response.payload, function( index, value ){
+									
+					$("#"+divId+"WorkCentre").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+					
+				    });
+				
+			}	
+		});
+	
+}
+
+
+function getUnitList(divId){
+		
+	$.ajax({
+	    type: 'GET',
+	    url: server_url + "unit/getActive",
+	    enctype: 'application/json',
+	    headers: authHeader,
+	    processData: false,
+	    contentType: false,
+	    data: null,
+	    success: function (response) {
+	
+			console.log("==========response=====",response)
+			
+					$("#"+divId+"Unit").empty();			
+					$("#"+divId+"Unit").append('<option value=' + 0+ '>  - Select workcenter - </option>');
+									
+					$.each(response.payload, function( index, value ){
+									
+					$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+					
+				    });
+				
+			}	
+		});
+	
+}
+
+
+function	getAllMachines()
+	{
+		
+		
+		$.ajax({
+				       type: "GET",
+				       url: server_url + `station/allActive`,
+				       enctype: "application/json",
+				       headers: authHeader,
+				       processData: false,
+				       contentType: false,
+				       data: null,
+				       success: function (response) {
+							$("#addStation0").empty();
+							//$("#editStation").empty();
+							
+							machinesOptions='<option value="0">  Select station </option>';
+						//	$("#editStation").append('<option value="0">  Select station </option>');
+				           for (i = 0; i < response.payload.length; ++i) {
+							
+							
+							machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
+							
+				           //   $(".addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+							 //  $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+				           }
+						   
+						   $(".addStation").append(machinesOptions);
+						   
+				       },
+
+				       error: function (error) {
+				           /*console.log(error);
+				      		 if (error.status == 401) {
+					    	  window.location.href =  contextPath;
+					      } else {
+					    	if( error.responseJSON != undefined){
+								errmssge=error.responseJSON.status;	
+							
+								if (error.responseJSON.status=="500"){
+									console.log("in errr");
+									 errorBlock("#error_block", error.responseJSON.message);
+								}else{
+											 errorBlock("#error_block", error.responseJSON.errors.message);
+											}
+							}
+							else{
+					   	  		console.log("Server Error! Please contact administrator");
+					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+					     	}
+				     	}*/
+				       },
+				   });
+	}
+
+
+	function getAllItems()
+		{
+			$.ajax({
+			       type: "GET",
+			       url: server_url + `item/getAllItems`,
+			       enctype: "application/json",
+			       headers: authHeader,
+			       processData: false,
+			       contentType: false,
+			       data: null,
+			       success: function (response) {
+						$(".addItem").empty();
+					//	$("#editItem").empty();
+						$(".addItem").append('<option value="0">  Select item </option>');
+					//	$("#editItem").append('<option value="0">  Select item </option>');
+
+			           for (i = 0; i < response.payload.length; ++i) {
+			               $(".addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+						   
+						//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+						   
+			           }
+			       },
+
+			       error: function (error) {
+			           /*console.log(error);
+			      		 if (error.status == 401) {
+				    	  window.location.href =  contextPath;
+				      } else {
+				    	if( error.responseJSON != undefined){
+							errmssge=error.responseJSON.status;	
+						
+							if (error.responseJSON.status=="500"){
+								console.log("in errr");
+								 errorBlock("#error_block", error.responseJSON.message);
+							}else{
+										 errorBlock("#error_block", error.responseJSON.errors.message);
+										}
+						}
+						else{
+				   	  		console.log("Server Error! Please contact administrator");
+				   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+				     	}
+			     	}*/
+			       },
+			   });
+		}
+	
+	
+		function getUnitShifts()
+				{
+					$.ajax({
+					       type: "GET",
+					       url: server_url + `shift/getShiftByUnit/`+unitid,
+					       enctype: "application/json",
+					       headers: authHeader,
+					       processData: false,
+					       contentType: false,
+					       data: null,
+					       success: function (response) {
+								$(".addShift").empty();
+							//	$("#editItem").empty();
+								$(".addShift").append('<option value="0">  Select item </option>');
+							//	$("#editItem").append('<option value="0">  Select item </option>');
+
+					           for (i = 0; i < response.payload.length; ++i) {
+					               $(".addShift").append(`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`);
+								   
+								//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+								   
+					           }
+					       },
+
+					       error: function (error) {
+					           /*console.log(error);
+					      		 if (error.status == 401) {
+						    	  window.location.href =  contextPath;
+						      } else {
+						    	if( error.responseJSON != undefined){
+									errmssge=error.responseJSON.status;	
+								
+									if (error.responseJSON.status=="500"){
+										console.log("in errr");
+										 errorBlock("#error_block", error.responseJSON.message);
+									}else{
+												 errorBlock("#error_block", error.responseJSON.errors.message);
+												}
+								}
+								else{
+						   	  		console.log("Server Error! Please contact administrator");
+						   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+						     	}
+					     	}*/
+					       },
+					   });
+				}
 
 });

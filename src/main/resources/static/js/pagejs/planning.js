@@ -7,88 +7,8 @@
 				
 				console.log("========dataTableData=======",planningTableData);
 				
-			//	alert("HII");
-				
 				getPOList();
 				
-			/*	function download(file)
-				{
-					console.log(" hehehrhehrhehrhe");
-					
-				 window.location=file;
-				}
-				
-					console.log("-------------------Welcome to product page-----------------");
-					
-					getPOList();
-					
-					count = 0;
-					$('.table_add_link').on('click',function(){
-						
-						console.log("-------------table_add_link----this---------",$("#myTbody").find('tr').length);
-						
-						count = $("#myTbody").find('tr').length;
-						
-					      $('#myTbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
-								    +'<td class="table_input"><input type="text" class="form-control width80 line" id="line'+count+'"></td>'
-								    +' <td class="table_input">'
-								    +' <select class="form-control width120 prodListadd" id="prodList'+count+'">'
-								    +' <option>Select Product -</option> </select>'
-								    +'</td>'
-								    +' <td class="table_input">'
-								    +'<select class="form-control width120 catCodeListadd" id="catCodeList'+count+'">'
-								    +'<option>Select Category -</option></select>'
-								    +' </td>'
-								    +'<td class="table_input display_block">'
-								    +' <select class="form-control width120 descListadd" id="descList'+count+'">'
-								    +'<option>Select Description-</option></select>'
-								    +'</td>'
-								    +' <td class="table_input">'
-								    +'<select class="form-control width120 regListadd" id="regList'+count+'">'
-								    +'<option>- Select Region -</option>'
-								    +'</select>'
-								    +'</td>'
-								    +'<td class="table_input"><input type="text qtyList" id="poQty'+count+'" class="form-control width80 qtyListadd"></td>'
-								    +'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>'
-								    +'</tr>');
-					      
-					      generateProdList('#prodList'+count, $("#customerListadd").val(),"");
-					      generatecatCodeListCustWise('#catCodeList'+count, $("#customerListadd").val(),"");
-						  generateDescListCustWise('#descList'+count, $("#customerListadd").val(),"");
-					      
-						  getRegionList("#regList"+count,"");
-					      
-					         $('.deleteRow').on('click',function(){
-					       $(this).closest('tr').remove();
-					      });
-					   
-					
-					});
-					
-					//on change of customer get product list
-					$("#customerListadd").change(function(){
-						
-						console.log("on change of cust id======",$("#customerListadd").val());
-						
-						var rowlength=$(".line" ).length
-						
-						for(count=0;count<rowlength;count++)
-						{
-						generateProdList('#prodList'+count, $("#customerListadd").val(),"");						
-						generatecatCodeListCustWise('#catCodeList'+count, $("#customerListadd").val(),"");
-						generateDescListCustWise('#descList'+count, $("#customerListadd").val(),"");
-						}
-						
-						
-					});	
-					
-					$("#customerListEdt").change(function(){
-						
-						console.log("on change of cust id======",$("#customerListEdt").val());
-						
-						generateProdList('#prodListEdt'+count, $("#customerListEdt").val(),"");
-						
-					});	*/
 				
 					
 			});
