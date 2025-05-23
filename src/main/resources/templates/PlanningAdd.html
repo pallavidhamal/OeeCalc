@@ -135,21 +135,7 @@ label {
           <!--box-header-->
           <div class="box-header">
             <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Add Planning  </h3>
-            <div class="box-tools pull-right">
-            
-           <!--  <a href="../ProApp/SampleExcel/sampleNew.xlsx"target="_blank" download>  -->
-          <a data-auto-download href="/ProApp/SampleExcel/POSampleFile.xlsx" > 
-             <!-- <a href="../ProApp/SampleExcel/sampleNew.xlsx" download>  -->  
-<!--              <button class="btn theme_btn" type="button"> Sample Excel</button> 
--->              </a>
-                                  
-              
-            <!--    <button class="btn theme_btn" data-toggle="modal" data-target="#add_po" id="planningAddAction">ADD Planning </button>
-                <button class="btn theme_btn" type="submit">Export to Excel </button> -->
-<!--               <button class="btn theme_btn"  id="impbtn" data-toggle="modal" data-target="#import_excel">Import from Excel </button>
--->               <input type="text"  style="display:none;" class="form-control" id="hidendelId" >
-               
-              </div>
+
               <div class="clearfix"></div>
           </div>
           <!--box-header--> 
@@ -217,20 +203,20 @@ label {
 
 					  </tr>
 					  </thead>
-					  <tbody id="myTbody">
+					  <tbody id="planningBbody">
 					   <tr class="tr_clone" roCnt = "0">
 					     <td class="table_input">
-							<select class="form-control addStation" id="selMachine">
+							<select class="form-control addStation" id="selMachine0"   roCnt = "0">
 							<!--<option>-- Select --</option>-->
 							</select>
 					     </td>
 					      <td class="table_input">
-								<select class="form-control addShift" id="selShift">
+								<select class="form-control addShift" id="selShift0" roCnt = "0">
 								<option>-- Select --</option>
 							</select>
 					     </td>
 					    <td class="table_input display_block">
-								<select class="form-control addItem" id="selItem">
+								<select class="form-control addItem" id="selItem0" roCnt = "0">
 								<option>-- Select --</option>
 								<!--<option>Unit 1</option>
 								<option>Unit 2</option>
@@ -239,25 +225,25 @@ label {
 					    </td>
 					    
 					     <td class="table_input">
-								<select class="form-control" id="selSetUp">
+								<select class="form-control addSetup" id="selSetUp0" roCnt = "0" >
 								</select>
 					     </td>
 					     <td class="table_input">
-							<input type="text" id="setUptime" class=" form-control width80" >
+							<input type="text" id="setUptime" class=" form-control width80 txtSetUptime" >
 						</td>
 						
 						<td class="table_input">
-							<input type="text" id="plannedQty" class=" form-control" >
-						</td>
-						
-						
-						<td class="table_input">
-							<input type="text" id="plannedMins" class=" form-control" >
+							<input type="text" id="plannedQty" class=" form-control width80 txtPlannedQty" >
 						</td>
 						
 						
 						<td class="table_input">
-							<input type="text" id="timeUtilised" class=" form-control" >
+							<input type="text" id="plannedMins" class=" form-control width80 txtPlannedMins" >
+						</td>
+						
+						
+						<td class="table_input">
+							<input type="text" id="timeUtilised" class=" form-control width80 txtTimeUtilised" >
 						
 						</td>
 
@@ -270,6 +256,10 @@ label {
 			      </div> 
 			
 			<!---->
+			<div class="col-md-offset-4 col-md-8">
+			         <div id="setupErrDiv" class="Err" ></div>
+			          <div class="clearfix"></div>
+			         </div>
 			
 			
 			<div class="modal-footer">
@@ -292,290 +282,6 @@ label {
 </section>
 <!--Content--> 
 
-<!--<div id="add_po" class="modal fade in" role="dialog">
-  <div class="modal-dialog modal-lg"> 
-     Modal content
-    <div class="modal-content">
-      <div class="modal-header cust-hd">
-        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Add Purchase Order</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form"  class="" name="myform">
-            <div class="col-sm-12 margin-top15">
-            <div class="col-sm-12">
-	            <label class="col-sm-4 control-label cust_label">Purchase Order Number : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	              <input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Purchase Order Number">
-	            </div>
-            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-            	<div class="col-sm-12">
-	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             <select class="form-control" id="customerListadd"></select>
-	              	 <option>- Select Customer -</option>
-	              	<option>Customer 1</option>
-	              	<option>Customer 2</option> 
-	              </select> 
-	            </div>
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-            	<div class="col-sm-6">
-		            <label for="" class="col-sm-3 control-label cust_label">PO Date : <span class="fa fa-asterisk"></span></label>
-		            <div class="col-sm-8 my_form">
-		             	<input type="date" class="form-control" id = "poDate">
-		            </div>
-	            </div>
-	            <div class="col-sm-6">
-		            <label for="" class="col-sm-4 control-label cust_label">PO End Date : <span class="fa fa-asterisk"></span></label>
-		            <div class="col-sm-8 my_form">
-		             	<input type="date" class="form-control" id = "poEndDate">
-		            </div>
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            
-            </div>
-        </form>
-        <div><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>
-         <div class="col-sm-12 margin-top20">
-        	<table class="table table-border po_table" id="po_table_modal">
-        	<thead>
-			  <tr>
-			    <th class="table_hd">Line ID</th>
-			    <th class="table_hd">Product</th>
-			     <th class="table_hd">Catalog Code</th>
-			    <th class="table_hd display_block">Description</th>
-			    <th class="table_hd">Region</th>
-			    <th class="table_hd">PO Qty.</th>
-			    <th class="table_hd">&nbsp;</th>
-			  </tr>
-			  </thead>
-			  <tbody id="myTbody">
-			   <tr class="tr_clone" roCnt = "0">
-			    <td class="table_input"><input type="text" class="form-control width80 line" id="line0"></td>
-			     <td class="table_input">
-				     <select class="form-control width120 prodListadd"  id="prodList0" >
-				     	 <option>Select Product -</option>
-				     	
-				     </select>
-			     </td>
-			      <td class="table_input">
-				   <select class="form-control width120 catCodeListadd" id="catCodeList0">
-				   <option>Select Catalog -</option></select>
-			     </td>
-			    <td class="table_input display_block">
-			    <select class="form-control width120 descListadd" id="descList0">
-				 <option>Select Description-</option></select>
-			    </td>
-			    
-			     <td class="table_input">
-				  <select class="form-control width120 regListadd"  id="regList0">
-				  <option>Select Region-</option></select>
-			     </td>
-			     <td class="table_input"><input type="text"  class="form-control width80 qtyListadd" id="poQty0"></td>
-			     <td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>
-			      <td class="table_input">&nbsp;</td> 
-			  </tr> 
-			  </tbody>
-			</table>
-        </div> 
-        <div class="clearfix"></div>
-        
-         <div class="col-md-offset-4 col-md-8">
-	         <div id="poErrAdd" class="Err" ></div>
-	          <div class="clearfix"></div>
-          </div>
-    </div>
-    
-   <div class="clearfix"></div>
-    
-    <div class="modal-footer">
-        <div class="col-md-4 col-md-offset-4 pull-left">
-          <button class="btn btn-block cust-btn" type="submit" id = "addPurchaseData">Submit</button>
-        </div>
-    </div>
-    </div>
-    
-  </div>
-</div>
-
-
-<div id="edit_po" class="modal fade in" role="dialog">
-  <div class="modal-dialog modal-lg"> 
-     Modal content
-    <div class="modal-content">
-      <div class="modal-header cust-hd">
-        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Update Purchase Order</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form"  class="" name="myform">
-            <div class="col-sm-12 margin-top15">
-	            <label class="col-sm-4 control-label cust_label">Purchase Order Number : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	              <input type="text" class="form-control" name="ponumber" id="ponumberEdt" placeholder="Enter Purchase Order Number">
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             <select class="form-control" id="customerListEdt"></select>
-	              	 <option>- Select Customer -</option>
-	              	<option>Customer 1</option>
-	              	<option>Customer 2</option> 
-	              </select> 
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            <label for="" class="col-sm-4 control-label cust_label">Purchase Order Date : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             	<input type="date" class="form-control" id = "poDateEdt">
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            <label for="" class="col-sm-4 control-label cust_label">Purchase Order End Date : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             	<input type="date" class="form-control" id = "poEndDateEdt">
-	            </div>
-            </div>
-        </form>
-        <div><a href="#" class="table_add_link table_add_linkEdt"><i class="fa fa-plus"></i> Add Row</a></div>
-         <div class="col-sm-12 margin-top20">
-        	<table class="table table-border po_table" id="po_table_modal">
-        	<thead>
-			  <tr>
-			  <th class="table_hd" style="display:none;">PO ID</th> 
-			    <th class="table_hd">Line ID</th>
-			    <th class="table_hd">Product</th>
-			    <th class="table_hd">Catalog Code</th>
-			    <th class="table_hd display_block">Description</th>
-			    <th class="table_hd">Region</th>
-			    <th class="table_hd">PO Qty.</th>
-			    <th class="table_hd">Bal Qty.</th>
-			    <th class="table_hd">&nbsp;</th>
-			  </tr>
-			  </thead>
-			  <tbody id="myTbodyEdt">
-			    <tr class="tr_clone">
-			    <td class="table_input"><input type="text" class="form-control width80 line" id="line"></td>
-			     <td class="table_input">
-				     <select class="form-control width120 prodList"  id="prodListEdt0" >
-				     	 <option>Select Product -</option>
-				     	
-				     </select>
-			     </td>
-			    <td class="table_input display_block">
-			    <select class="form-control width120 descList" id="descList0">
-				 <option>Select Description-</option></select>
-			    </td>
-			     <td class="table_input">
-				   <select class="form-control width120 catCodeList" id="catCodeListEdt0">
-				   <option>Select Category -</option></select>
-			     </td>
-			     <td class="table_input">
-				  <select class="form-control width120 regList"  id="regListEdt0">
-				  <option>Select Region-</option></select>
-			     </td>
-			     <td class="table_input"><input type="text"  class="form-control width80 qtyList" id="poQtyEdt0"></td>
-			     <td class="table_input">&nbsp;</td>
-			  </tr>  
-			  </tbody>
-			</table>
-        </div> 
-     
-        <div class="clearfix"></div>
-        
-         <div class="col-md-offset-4 col-md-8">
-	         <div id="poErredt" class="Err" ></div>
-	          <div class="clearfix"></div>
-          </div>
-        
-    </div>
-    <div class="modal-footer">
-        <div class="col-md-4 col-md-offset-4 pull-left">
-          <button class="btn btn-block cust-btn" type="submit" id = "savePurchaseData">Submit</button>
-        </div>
-    </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-   <div class="modal fade" id="dataview" role="dialog">
-    <div class="modal-dialog modal-lg modbox">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-         
-          <h4 class="modal-title headtag1"> Successfully Saved Purchase Order</h4>
-        </div>
-        <div class="modal-body">
-        <div id="remtbl">
-      <table class="table table-bordered table-striped table-hover table-responsive" id="TestTbl" >
-    <thead>
-    
-    <tr>
-   <th>PO_Number</th>
-   <th>PO_Date</th>
-   <th>PO_EndDate</th>
-   <th>CustomerId</th>
-   
-   <th>LineId</th>
-   <th>CatalogId</th>
-   <th>Description</th>
-   <th>ProductId</th>
-   <th>RegionId</th>
-   <th>PO_Qty</th>
-   <th>Balace_Qty</th>
-   <th>Status</th>
- 	</tr>
-      </thead>
-    <tbody>
-    </tbody >
-  </table>
-  </div>
-     <h4 class="modal-title headtag"> Not  Saved Purchase Order</h4>
-     <div id="inserttbl">
-       <table class="table table-bordered table-striped table-hover table-responsive" id="insertdatatbl" >
-    <thead>
-    
-    <tr>
-   <th>PO_Number</th>
-   <th>PO_Date</th>
-   <th>PO_EndDate</th>
-   <th>CustomerId</th>
-   
-   <th>LineId</th>
-   <th>CatalogId</th>
-   <th>Description</th>
-   <th>ProductId</th>
-   <th>RegionId</th>
-   <th>PO_Qty</th>
-   <th>Balace_Qty</th>
-   <th>Status</th>
- 	</tr>
-      </thead>
-    <tbody>
-    </tbody >
-  </table>
-  </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>-->
  <script>
 
  var _validFileExtensions = [".xlsx"];    

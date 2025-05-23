@@ -110,7 +110,6 @@ label {
   display: none;
 } */
 </style>
-
 <script>
 	let nav = 1;
 </script>
@@ -137,17 +136,7 @@ label {
             <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Planning  </h3>
             <div class="box-tools pull-right">
             
-           <!--  <a href="../ProApp/SampleExcel/sampleNew.xlsx"target="_blank" download>  -->
-          <a data-auto-download href="/ProApp/SampleExcel/POSampleFile.xlsx" > 
-             <!-- <a href="../ProApp/SampleExcel/sampleNew.xlsx" download>  -->  
-<!--              <button class="btn theme_btn" type="button"> Sample Excel</button> 
--->              </a>
-                                  
-              
               <button class="btn theme_btn" data-toggle="modal" data-target="#add_po" id="planningAddAction">ADD Planning </button>
-              <!--  <button class="btn theme_btn" type="submit">Export to Excel </button> -->
-<!--               <button class="btn theme_btn"  id="impbtn" data-toggle="modal" data-target="#import_excel">Import from Excel </button>
--->               <input type="text"  style="display:none;" class="form-control" id="hidendelId" >
                
               </div>
               <div class="clearfix"></div>
@@ -159,30 +148,22 @@ label {
   						<div class="row">
 							<div class="col-md-2">
     							<label class="form-label">Select Unit</label>
-    							<select class="form-control" id="customerListadd">
-	  								<!--<option>-- Select --</option>
-	  								<option>Unit 1</option>
-	  								<option>Unit 2</option>
-	  								<option>Unit 3</option>-->
+    							<select class="form-control" id="selUnit">
   								</select>
     						</div>
 							<div class="col-md-2">
     							<label class="form-label">Select Workcentre</label>
-    							<select class="form-control" id="customerListadd">
-	  								<!--<option>-- Select --</option>
-	  								<option>Workcentre 1</option>
-	  								<option>Workcentre 2</option>
-	  								<option>Workcentre 3</option>-->
+    							<select class="form-control" id="selWorkCentre">
   								</select>
     						</div>
 							
 							<div class="col-md-2">
     							<label class="form-label">Select Month</label>
-    							<input type="date" id="customer" class=" form-control">
+    							<input type="date" id="planCalender" class=" form-control">
     						</div>
 	  						<div class="col-md-2">
 	  							<label class="form-label">Time per shift</label>
-								<input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Time per shift">
+								<input type="text" class="form-control" name="txtTimePerShift" id="txtTimePerShift" placeholder="Time per shift">
 
 	  						</div>
 						</div>
@@ -194,20 +175,16 @@ label {
           <!--box-body-->
           <div class="box-body">
           <div class="col-md-12"> 
-            <table class="table table-bordered table-striped table-hover table-responsive" id="purchaseOrderList" >
+            <table class="table table-bordered  table-responsive" id="planningList" >
               <thead>
                 <tr class="orange">
-                  <th>Date</th>
-                  <th>machine </th>
-                  <th>Shift</th>
-                  <th>Item code</th>
-                  <th>relevant to the item</th>
-                  <th>Cycle timee</th>
-				  <th>Qty planned</th>
-				  <th>Mins planned</th>
-				  <th>%age Time utilised</th>
+                  <th>From Date</th>
+                  <th>To Date </th>
+                  <th>Unit</th>
+                  <th>Workcenter</th>
+                  <th>Time Per Shift</th>
                 
-                  <!-- <th>Delete</th> -->
+                   <th>Delete</th> 
                 </tr>
               </thead>
               <tbody>
@@ -223,350 +200,11 @@ label {
 </section>
 <!--Content--> 
 
-<div id="add_po" class="modal fade in" role="dialog">
-  <div class="modal-dialog modal-lg"> 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header cust-hd">
-        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Add Purchase Order</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form"  class="" name="myform">
-            <div class="col-sm-12 margin-top15">
-            <div class="col-sm-12">
-	            <label class="col-sm-4 control-label cust_label">Purchase Order Number : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	              <input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Purchase Order Number">
-	            </div>
-            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-            	<div class="col-sm-12">
-	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             <select class="form-control" id="customerListadd"></select>
-	              	<!-- <option>- Select Customer -</option>
-	              	<option>Customer 1</option>
-	              	<option>Customer 2</option> 
-	              </select> -->
-	            </div>
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-            	<div class="col-sm-6">
-		            <label for="" class="col-sm-3 control-label cust_label">PO Date : <span class="fa fa-asterisk"></span></label>
-		            <div class="col-sm-8 my_form">
-		             	<input type="date" class="form-control" id = "poDate">
-		            </div>
-	            </div>
-	            <div class="col-sm-6">
-		            <label for="" class="col-sm-4 control-label cust_label">PO End Date : <span class="fa fa-asterisk"></span></label>
-		            <div class="col-sm-8 my_form">
-		             	<input type="date" class="form-control" id = "poEndDate">
-		            </div>
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            
-            </div>
-        </form>
-        <div><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>
-         <div class="col-sm-12 margin-top20">
-        	<table class="table table-border po_table" id="po_table_modal">
-        	<thead>
-			  <tr>
-			    <th class="table_hd">Line ID</th>
-			    <th class="table_hd">Product</th>
-			     <th class="table_hd">Catalog Code</th>
-			    <th class="table_hd display_block">Description</th>
-			    <th class="table_hd">Region</th>
-			    <th class="table_hd">PO Qty.</th>
-			    <th class="table_hd">&nbsp;</th>
-			  </tr>
-			  </thead>
-			  <tbody id="myTbody">
-			   <tr class="tr_clone" roCnt = "0">
-			    <td class="table_input"><input type="text" class="form-control width80 line" id="line0"></td>
-			     <td class="table_input">
-				     <select class="form-control width120 prodListadd"  id="prodList0" >
-				     	 <option>Select Product -</option>
-				     	
-				     </select>
-			     </td>
-			      <td class="table_input">
-				   <select class="form-control width120 catCodeListadd" id="catCodeList0">
-				   <option>Select Catalog -</option></select>
-			     </td>
-			    <td class="table_input display_block">
-			    <select class="form-control width120 descListadd" id="descList0">
-				 <option>Select Description-</option></select>
-			    </td>
-			    
-			     <td class="table_input">
-				  <select class="form-control width120 regListadd"  id="regList0">
-				  <option>Select Region-</option></select>
-			     </td>
-			     <td class="table_input"><input type="text"  class="form-control width80 qtyListadd" id="poQty0"></td>
-			     <td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>
-			     <!-- <td class="table_input">&nbsp;</td> -->
-			  </tr> 
-			  </tbody>
-			</table>
-        </div> 
-        <div class="clearfix"></div>
-        
-         <div class="col-md-offset-4 col-md-8">
-	         <div id="poErrAdd" class="Err" ></div>
-	          <div class="clearfix"></div>
-          </div>
-    </div>
-    
-   <div class="clearfix"></div>
-    
-    <div class="modal-footer">
-        <div class="col-md-4 col-md-offset-4 pull-left">
-          <button class="btn btn-block cust-btn" type="submit" id = "addPurchaseData">Submit</button>
-        </div>
-    </div>
-    </div>
-    
-  </div>
-</div>
 
 
-<div id="edit_po" class="modal fade in" role="dialog">
-  <div class="modal-dialog modal-lg"> 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header cust-hd">
-        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Update Purchase Order</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form"  class="" name="myform">
-            <div class="col-sm-12 margin-top15">
-	            <label class="col-sm-4 control-label cust_label">Purchase Order Number : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	              <input type="text" class="form-control" name="ponumber" id="ponumberEdt" placeholder="Enter Purchase Order Number">
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             <select class="form-control" id="customerListEdt"></select>
-	              	<!-- <option>- Select Customer -</option>
-	              	<option>Customer 1</option>
-	              	<option>Customer 2</option> 
-	              </select> -->
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            <label for="" class="col-sm-4 control-label cust_label">Purchase Order Date : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             	<input type="date" class="form-control" id = "poDateEdt">
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            <label for="" class="col-sm-4 control-label cust_label">Purchase Order End Date : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             	<input type="date" class="form-control" id = "poEndDateEdt">
-	            </div>
-            </div>
-        </form>
-        <div><a href="#" class="table_add_link table_add_linkEdt"><i class="fa fa-plus"></i> Add Row</a></div>
-         <div class="col-sm-12 margin-top20">
-        	<table class="table table-border po_table" id="po_table_modal">
-        	<thead>
-			  <tr>
-			  <th class="table_hd" style="display:none;">PO ID</th> 
-			    <th class="table_hd">Line ID</th>
-			    <th class="table_hd">Product</th>
-			    <th class="table_hd">Catalog Code</th>
-			    <th class="table_hd display_block">Description</th>
-			    <th class="table_hd">Region</th>
-			    <th class="table_hd">PO Qty.</th>
-			    <th class="table_hd">Bal Qty.</th>
-			    <th class="table_hd">&nbsp;</th>
-			  </tr>
-			  </thead>
-			  <tbody id="myTbodyEdt">
-			   <!-- <tr class="tr_clone">
-			    <td class="table_input"><input type="text" class="form-control width80 line" id="line"></td>
-			     <td class="table_input">
-				     <select class="form-control width120 prodList"  id="prodListEdt0" >
-				     	 <option>Select Product -</option>
-				     	
-				     </select>
-			     </td>
-			    <td class="table_input display_block">
-			    <select class="form-control width120 descList" id="descList0">
-				 <option>Select Description-</option></select>
-			    </td>
-			     <td class="table_input">
-				   <select class="form-control width120 catCodeList" id="catCodeListEdt0">
-				   <option>Select Category -</option></select>
-			     </td>
-			     <td class="table_input">
-				  <select class="form-control width120 regList"  id="regListEdt0">
-				  <option>Select Region-</option></select>
-			     </td>
-			     <td class="table_input"><input type="text"  class="form-control width80 qtyList" id="poQtyEdt0"></td>
-			     <td class="table_input">&nbsp;</td>
-			  </tr>  -->
-			  </tbody>
-			</table>
-        </div> 
-     
-        <div class="clearfix"></div>
-        
-         <div class="col-md-offset-4 col-md-8">
-	         <div id="poErredt" class="Err" ></div>
-	          <div class="clearfix"></div>
-          </div>
-        
-    </div>
-    <div class="modal-footer">
-        <div class="col-md-4 col-md-offset-4 pull-left">
-          <button class="btn btn-block cust-btn" type="submit" id = "savePurchaseData">Submit</button>
-        </div>
-    </div>
-    </div>
-  </div>
-</div>
-
-
-<div id="import_excel" class="modal fade in" role="dialog">
-  <div class="modal-dialog"> 
-    <!-- Modal content-->
-    <div class="modal-content">
-     <!--  <div class="modal-header cust-hd">
-        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Import from Excel</h4>
-      </div> -->
-      
-      
-      <div class="modal-body bodypadd0">
-        <!--  <form action="UploadFile" method="post" enctype="multipart/form-data" onsubmit="return Validate(this);" >  -->
-      <!--    <form method="POST" enctype="multipart/form-data" id="fileUploadForm" > -->
-         
-
-            <div class="col-sm-12">
-            	
-            	<h3>Import your data from excel file</h3>
-            	
-            	<div style="display: none;"></div>
-            	
-	            <label class="control-label cust_label2">Upload Excel File: <span class="fa fa-asterisk"></span></label>
-	            
-	            <div class="my_form upload_form">
-	             
-	              <!-- <input type="file" id="myFileread"   name="file" class="upload_excel_btn"  onchange="ValidateSingleInput(this);"/> -->
-	            
-	            <input type="file" name="file"  class="GroupFileClassMEx"  id="fileGroupIdMEx"  onchange="ValidateSingleInput(this);"/>
-	          	  
-	          	<!-- <button class="btn btn-block cust-btn"   type="submit" id="#" value="upload"/>Submit</button> -->
-	             <!--  <input type="submit" id="uploadpo" value="upload"/> -->
-	              <!-- 
-	              <div class="col-md-4 col-md-offset-4 pull-left">
-        		  <button class="btn btn-block cust-btn"  type="submit" value="upload">Submit</button>
-     			   </div> -->
-	              
-	              <p id="demo"></p>
-	            </div>
-            </div>
-      <!--   </form>   -->
-        
-        <!--  
-          <form action="UploadFile" method="post" enctype="multipart/form-data" onsubmit="return Validate(this);" >
-                <input type="file" name="file"   onchange="ValidateSingleInput(this);"/>
-                <input type="submit" id="uploadpo" value="upload"/>
-            </form>
-       --> 
- 
-    </div>
    
-    <div class="modal-footer">
-       <!--  <div class="col-md-4 col-md-offset-4 pull-left">
-          <button class="btn btn-block cust-btn"  type="submit" value="upload">Submit</button>
-        </div> -->
-    </div>
-    </div>
-  </div>
-  
-</div>
-
-
-
-
-
-   <div class="modal fade" id="dataview" role="dialog">
-    <div class="modal-dialog modal-lg modbox">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-         
-          <h4 class="modal-title headtag1"> Successfully Saved Purchase Order</h4>
-        </div>
-        <div class="modal-body">
-        <div id="remtbl">
-      <table class="table table-bordered table-striped table-hover table-responsive" id="TestTbl" >
-    <thead>
-    
-    <tr>
-   <th>PO_Number</th>
-   <th>PO_Date</th>
-   <th>PO_EndDate</th>
-   <th>CustomerId</th>
-   
-   <th>LineId</th>
-   <th>CatalogId</th>
-   <th>Description</th>
-   <th>ProductId</th>
-   <th>RegionId</th>
-   <th>PO_Qty</th>
-   <th>Balace_Qty</th>
-   <th>Status</th>
- 	</tr>
-      </thead>
-    <tbody>
-    </tbody >
-  </table>
-  </div>
-     <h4 class="modal-title headtag"> Not  Saved Purchase Order</h4>
-     <div id="inserttbl">
-       <table class="table table-bordered table-striped table-hover table-responsive" id="insertdatatbl" >
-    <thead>
-    
-    <tr>
-   <th>PO_Number</th>
-   <th>PO_Date</th>
-   <th>PO_EndDate</th>
-   <th>CustomerId</th>
-   
-   <th>LineId</th>
-   <th>CatalogId</th>
-   <th>Description</th>
-   <th>ProductId</th>
-   <th>RegionId</th>
-   <th>PO_Qty</th>
-   <th>Balace_Qty</th>
-   <th>Status</th>
- 	</tr>
-      </thead>
-    <tbody>
-    </tbody >
-  </table>
-  </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
  <script>
-
+/*
  var _validFileExtensions = [".xlsx"];    
  function ValidateSingleInput(oInput) {
      if (oInput.type == "file") {
@@ -589,7 +227,7 @@ label {
          }
      }
      return true;
- }
+ }*/
  </script>
  
  
@@ -597,8 +235,8 @@ label {
  
 <script type="text/javascript">
 	$(document).ready(function() {
-    $('#purchaseOrderTable').DataTable( {
-        responsive: true
+    $('#planningList').DataTable( {
+       // responsive: true
     } );
 } );
 </script>
