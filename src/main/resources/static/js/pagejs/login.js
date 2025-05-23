@@ -53,8 +53,8 @@ $(document).ready(function() {
 		console.log("username is : ",username);
 		console.log("password is : ",password);
 		
-		if(NotAllowedNullVal(ErrorDivName,"Username ",$('#username')))
-			if(NotAllowedNullVal(ErrorDivName,"ColumnName",$('#password'))){
+		if(NotAllowedNullVal($('#username'),"Username ","#error_block"))
+			if(NotAllowedNullVal($('#password') , "Password","#error_block")){
 				
 				/*  by ashwini
 				 * check login api is working but because of session not set not working*/
@@ -108,8 +108,7 @@ $(document).ready(function() {
 							}else{
 								
 								console.log("if   hiiiiiiiiiii hhrhr===");	
-								$(ErrorDivName).empty();
-								$(ErrorDivName).append("Please enter valid Email ID or Password");
+								$("#error_block").append("Please enter valid Email ID or Password");
 							}
 							
 						}, 

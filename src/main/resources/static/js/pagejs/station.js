@@ -2,7 +2,7 @@
 var delProdID = "";
 var editProdID = "";
 var editId ="";
-var tableData = $('#purchaseOrderList').DataTable();
+var tableData = $('#stationList').DataTable();
 
 $(document).ready(function(){
 	
@@ -11,9 +11,9 @@ $(document).ready(function(){
 });
 			
 //click on add button
-$(document).on("click", "#purchaseAddAction", function(e){
+$(document).on("click", "#stationAddAction", function(e){
 	
-	console.log(" click on purchase Add Action");
+	console.log(" click on station Add Action");
 	
 	 $('#machintypeSel').empty();
 	 $('#uomSel').empty();
@@ -23,21 +23,21 @@ $(document).on("click", "#purchaseAddAction", function(e){
 	 getUOMList("add");
 	 getWorkCentreList("add");
 	 
-	 $("#add_po").modal("show");
+	 $("#add_station").modal("show");
 });
 
 
 $(document).on("click", ".edit-button", function(e){
 
 
-		 editId = $(this).attr('id');
+		editId = $(this).attr('id');
 		console.log("editId----",editId);
 
  		getStationTypeList("edit");
 	 	getUOMList("edit");
 	 	getWorkCentreList("edit");
 
-		$("#edit_station").modal("show");
+		
 
 
 		$.ajax({
@@ -62,21 +62,40 @@ $(document).on("click", ".edit-button", function(e){
 				$("#editWorkCentre").val(result.payload.workcenter.id);
 
 				
+				$("#edit_station").modal("show");
 		
-		
-			}
+			},
+			error: function (error) {
+	             console.log(error);
+		   		 if (error.status == 401) {
+			    	  window.location.href =  contextPath;
+			      } else {
+			    	if( error.responseJSON != undefined){
+						errmssge=error.responseJSON.status;	
+					
+						if (error.responseJSON.status=="500"){
+							console.log("in errr");
+							 errorBlock("#error_block", error.responseJSON.message);
+						}else{
+						 	 errorBlock("#error_block", error.responseJSON.errors.message);
+						}
+					}
+					else{
+			   	  		console.log("Server Error! Please contact administrator");
+			   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+			     	}
+		     	}
+	        },
 		})
 });
 
 
-$(document).on("click", "#editPurchaseData", function(e){
+$(document).on("click", "#editStationData", function(e){
 
 
  		getStationTypeList("edit");
 	 	getUOMList("edit");
 	 	getWorkCentreList("edit");
-
-$("#edit_po").modal("show");
 
 	 if(ValidationForSelectBox("#poErrAdd","Station Type",$('#addStationType')))
 		 if(NotAllowedNullVal("#poErrAdd","Station Number ",$('#addStationNumber')))
@@ -114,15 +133,32 @@ $("#edit_po").modal("show");
 							
 							getStationList();
 							
-							$("#add_po").modal("hide");
+							$("#edit_station").modal("hide");
 						// $('#myTbody').empty();
 							
-						}else if(result.result==false){
-							
-							window.location.href = "sessionOut";
-							
 						}
-					}
+					},
+					error: function (error) {
+			             console.log(error);
+				   		 if (error.status == 401) {
+					    	  window.location.href =  contextPath;
+					      } else {
+					    	if( error.responseJSON != undefined){
+								errmssge=error.responseJSON.status;	
+							
+								if (error.responseJSON.status=="500"){
+									console.log("in errr");
+									 errorBlock("#error_block", error.responseJSON.message);
+								}else{
+								 	 errorBlock("#error_block", error.responseJSON.errors.message);
+								}
+							}
+							else{
+					   	  		console.log("Server Error! Please contact administrator");
+					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+					     	}
+				     	}
+			        },
 			});
 		}
 });
@@ -147,29 +183,29 @@ function getStationList(){
 			console.log("------response data----------",response);
 
 
-		var data = response.payload;
-
-		console.log("------getPOList data----------",data);
-//		console.log("------getPOList data.result----------",data.result);
-//		
+			var data = response.payload;
 	
-		tableData.destroy();
-        $('#purchaseOrderList.tbody').empty();
+			console.log("------getPOList data----------",data);
+	//		console.log("------getPOList data.result----------",data.result);
+	//		
 		
-        //if(data.result == "success"){
+			tableData.destroy();
+	        $('#stationList.tbody').empty();
 			
-        var editIcon = function ( data, type, row ) 
-        {
-		    if ( type === 'display' ) {
-		           
-		   	 	return '<span class="button" data-toggle="modal" data-target="#edit_po"> Edit </span>';
-		        
-		    }
-	       
-	    	return data;
-	    };
+	        //if(data.result == "success"){
+				
+	        var editIcon = function ( data, type, row ) 
+	        {
+			    if ( type === 'display' ) {
+			           
+			   	 	return '<span class="button" data-toggle="modal" data-target="#edit_po"> Edit </span>';
+			        
+			    }
+		       
+		    	return data;
+		    };
 	    
-	    tableData = $('#purchaseOrderList').DataTable( {
+	    	tableData = $('#stationList').DataTable( {
 		
 	    			dom: 'Blfrtip',   
 	    			buttons: ['excel', 'print'],
@@ -224,7 +260,28 @@ function getStationTypeList(divId){
 				
 			    });
 				
-			}	
+			},
+			error: function (error) {
+	             console.log(error);
+		   		 if (error.status == 401) {
+			    	  window.location.href =  contextPath;
+			      } else {
+			    	if( error.responseJSON != undefined){
+						errmssge=error.responseJSON.status;	
+					
+						if (error.responseJSON.status=="500"){
+							console.log("in errr");
+							 errorBlock("#error_block", error.responseJSON.message);
+						}else{
+						 	 errorBlock("#error_block", error.responseJSON.errors.message);
+						}
+					}
+					else{
+			   	  		console.log("Server Error! Please contact administrator");
+			   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+			     	}
+		     	}
+	        },	
 		});
 	
 } //end of get StationType list
@@ -254,7 +311,28 @@ function getUOMList(divId){
 					
 				    });
 				
-			}	
+			},
+			error: function (error) {
+	             console.log(error);
+		   		 if (error.status == 401) {
+			    	  window.location.href =  contextPath;
+			      } else {
+			    	if( error.responseJSON != undefined){
+						errmssge=error.responseJSON.status;	
+					
+						if (error.responseJSON.status=="500"){
+							console.log("in errr");
+							 errorBlock("#error_block", error.responseJSON.message);
+						}else{
+						 	 errorBlock("#error_block", error.responseJSON.errors.message);
+						}
+					}
+					else{
+			   	  		console.log("Server Error! Please contact administrator");
+			   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+			     	}
+		     	}
+	        },	
 		});
 	
 } //end of get StationType list			
@@ -283,20 +361,41 @@ function getWorkCentreList(divId){
 					
 				    });
 				
-			}	
+			},
+			error: function (error) {
+	             console.log(error);
+		   		 if (error.status == 401) {
+			    	  window.location.href =  contextPath;
+			      } else {
+			    	if( error.responseJSON != undefined){
+						errmssge=error.responseJSON.status;	
+					
+						if (error.responseJSON.status=="500"){
+							console.log("in errr");
+							 errorBlock("#error_block", error.responseJSON.message);
+						}else{
+						 	 errorBlock("#error_block", error.responseJSON.errors.message);
+						}
+					}
+					else{
+			   	  		console.log("Server Error! Please contact administrator");
+			   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+			     	}
+		     	}
+	        },	
 		});
 	
 } 
 
 			
 
-$(document).on("click", "#addPurchaseData", function(e){
+$(document).on("click", "#addStationData", function(e){
 
 
-	 if(ValidationForSelectBox("#poErrAdd","Station Type",$('#addStationType')))
-		 if(NotAllowedNullVal("#poErrAdd","Station Number ",$('#addStationNumber')))
-			 if(ValidationForSelectBox("#poErrAdd","UOM ",$('#addUom')))
-				{
+	 if(SelectBoxNotAllowedNullVal($('#addStationType'),"Station Type","#error_block"))
+		 if(NotAllowedNullVal($('#addStationNumber'),"Station Number ","#error_block"))
+			 if(SelectBoxNotAllowedNullVal($('#addUom'),"UOM ","#error_block"))
+			 	if(SelectBoxNotAllowedNullVal($('#addWorkCentre')," Work Centre","#error_block")){
 		 
 		 var dataVal = {
 		 
@@ -329,15 +428,32 @@ $(document).on("click", "#addPurchaseData", function(e){
 							
 							getStationList();
 							
-							$("#add_po").modal("hide");
+							$("#add_station").modal("hide");
 						// $('#myTbody').empty();
 							
-						}else if(result.result==false){
-							
-							window.location.href = "sessionOut";
-							
 						}
-					}
+					},
+				error: function (error) {
+		             console.log(error);
+			   		 if (error.status == 401) {
+				    	  window.location.href =  contextPath;
+				      } else {
+				    	if( error.responseJSON != undefined){
+							errmssge=error.responseJSON.status;	
+						
+							if (error.responseJSON.status=="500"){
+								console.log("in errr");
+								 errorBlock("#error_block", error.responseJSON.message);
+							}else{
+							 	 errorBlock("#error_block", error.responseJSON.errors.message);
+							}
+						}
+						else{
+				   	  		console.log("Server Error! Please contact administrator");
+				   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+				     	}
+			     	}
+		        },
 			});
 		}
 });
@@ -383,17 +499,34 @@ $(document).on("click", "#editStationData", function(e){
 						
 						if(result.payload==true){
 							
-							$("#edit_station").modal("hide");
+							
 							getStationList();
+							$("#edit_station").modal("hide");
 							
-							
-							
-						}else if(result.result==false){
-							
-							window.location.href = "sessionOut";
 							
 						}
-					}
+					},
+				error: function (error) {
+		             console.log(error);
+			   		 if (error.status == 401) {
+				    	  window.location.href =  contextPath;
+				      } else {
+				    	if( error.responseJSON != undefined){
+							errmssge=error.responseJSON.status;	
+						
+							if (error.responseJSON.status=="500"){
+								console.log("in errr");
+								 errorBlock("#error_block", error.responseJSON.message);
+							}else{
+							 	 errorBlock("#error_block", error.responseJSON.errors.message);
+							}
+						}
+						else{
+				   	  		console.log("Server Error! Please contact administrator");
+				   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+				     	}
+			     	}
+		        },
 			});
 		}
 });
@@ -417,25 +550,42 @@ $(document).on("click", ".delete-button", function()
 		      
 				 $.ajax({
 								
-							   type: 'PUT',
-							   url: server_url+"station/delete/"+selid,  //from API add new data
-							   headers: authHeader,
-							   processData: false,
-							   contentType: "application/json; charset=utf-8",
+					   type: 'PUT',
+					   url: server_url+"station/delete/"+selid,  //from API add new data
+					   headers: authHeader,
+					   processData: false,
+					   contentType: "application/json; charset=utf-8",
 
-							   success: function(result) {
-								console.log("delete result==="+result);
+					   success: function(result) {
+							console.log("delete result==="+result);
+							
+							if(result.payload==true){
+								getStationList();
 								
-								if(result.payload==true){
-									getStationList();
-									
-								}else if(result.result==false){
-									
-									window.location.href = "sessionOut";
-									
+							}
+					   },
+					error: function (error) {
+			             console.log(error);
+				   		 if (error.status == 401) {
+					    	  window.location.href =  contextPath;
+					      } else {
+					    	if( error.responseJSON != undefined){
+								errmssge=error.responseJSON.status;	
+							
+								if (error.responseJSON.status=="500"){
+									console.log("in errr");
+									 errorBlock("#error_block", error.responseJSON.message);
+								}else{
+								 	 errorBlock("#error_block", error.responseJSON.errors.message);
 								}
-							   }
-							});
+							}
+							else{
+					   	  		console.log("Server Error! Please contact administrator");
+					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+					     	}
+				     	}
+			        },
+				});
 		  }
 		  })
 		   

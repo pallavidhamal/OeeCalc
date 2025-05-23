@@ -30,7 +30,34 @@
 
 <script type="text/javascript" th:src="@{/js/pagejs/login.js}"></script>
 
-
+<style>
+	
+	#error_block{
+		position: fixed;
+	    top: 10px;
+	    right: 10px;
+	    display: none;
+	    background: #e3000f;
+	    color: #fff;
+	    z-index: 9999;
+	    padding: 2px 10px;
+	    border-radius: 3px;
+	    min-width: 200px;
+	}
+	#success_block{
+		position: fixed;
+	    top: 100px;
+	    right: 10px;
+	    display: none;
+	    background: #76b827;
+	    color: #fff;
+	    z-index: 9999;
+	    padding: 2px 10px;
+	    border-radius: 3px;
+	    min-width: 200px;
+	}
+	
+</style>
 
 
 
@@ -42,6 +69,10 @@
 	  <img src="images/logo2.png" width="100%" alt="logo">
 	</div>
 </div>
+
+<span id="error_block"> <span class="msg-hd"><img src="static/images/incorrect.png" class="model-icon"> Error</span><br>
+<span class="msg-txt">Error text here</span> </span> <span id="success_block"> <span class="msg-hd-success"><img src="static/images/correct.png" class="model-icon"> Success</span><br>
+<span class="msg-txt-success">Success text here</span> </span> 
 <br>
 <div class="col-md-12 margin_t_60">
 	<div class="col-md-2 col-md-offset-5 cust-frame">
