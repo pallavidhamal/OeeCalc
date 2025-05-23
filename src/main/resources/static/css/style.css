@@ -2951,5 +2951,29 @@ body {
   
 }
 
+#error_block{
+	position: fixed;
+    top: 10px;
+    right: 10px;
+    display: none;
+    background: #e3000f;
+    color: #fff;
+    z-index: 9999;
+    padding: 2px 10px;
+    border-radius: 3px;
+    min-width: 200px;
+}
+#success_block{
+	position: fixed;
+    top: 100px;
+    right: 10px;
+    display: none;
+    background: #76b827;
+    color: #fff;
+    z-index: 9999;
+    padding: 2px 10px;
+    border-radius: 3px;
+    min-width: 200px;
+}
 
     

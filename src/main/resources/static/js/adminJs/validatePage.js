@@ -807,3 +807,29 @@ if ((Date.parse(endDt) < Date.parse(strtDt))) {
 
 
 }
+
+function SelectBoxNotAllowedNullVal(valId , errMsg , errDiv){
+	  if( $.trim($(valId).val()) == "" ||  $.trim($(valId).val()) == "0" || $.trim($(valId).val()) == undefined ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please select '+errMsg+ '!');
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }else{
+    	   return true ;
+       }
+  }
+  
+  function NotAllowedNullVal(valId , errMsg , errDiv){
+	  if( $.trim($(valId).val()) == "" ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please provide your '+errMsg+ '!');
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }else{
+    	   return true ;
+       }
+  }
