@@ -833,3 +833,735 @@ function SelectBoxNotAllowedNullVal(valId , errMsg , errDiv){
     	   return true ;
        }
   }
+  
+  
+  
+  //only numbers for phone number field
+$('.numeric').on('input', function (event) { 
+     this.value = this.value.replace(/[^0-9]/g, '');
+});
+
+// Empty value check
+function NotAllowedNullVal(valId , errMsg , errDiv){
+	  if( $.trim($(valId).val()) == "" ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please provide your '+errMsg+ '!');
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }else{
+    	   return true ;
+       }
+  }
+  function NotAllowedNullPasswordVal(valId , errMsg , errDiv){
+	  if( $.trim($(valId).val()) == "" ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append(errMsg+ ' Missing !');
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }else{
+    	   return true ;
+       }
+  }
+  
+
+function NotAllowedZeroVal(valId , errMsg , errDiv){
+	  if( $.trim($(valId).val()) == 0 ) {
+		  
+    	  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Your '+errMsg+ ' Value is 0 !');
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }else{
+    	   return true ;
+       }
+  }
+function NotAllowedNullTable(valId , errMsg , errDiv){
+	  if( valId > 0 ) {
+		  
+		     return true ;
+		  
+       }else{
+    	   $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Your '+errMsg+ ' is empty  !');
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }
+  }
+
+
+function ValidateNotNull(id,msg)
+	{
+		$(id).each(function() {
+		console.log("temp")
+			 if(NotAllowedNullVal1($(this).val(), msg, "#error_block"))
+		     {
+		    	flag=true; 
+		    	console.log("iff-----");
+		     }
+			 else
+			 {
+				 flag=false;
+				 return flag;
+				 console.log("else-----");
+			 }
+		 });
+		return flag;
+	}
+	
+	function NotAllowedNullVal1(valId , errMsg , errDiv){
+	
+		console.log("valuestart--"+valId+"--");
+
+	  if( valId == "" || (valId == "undefined") ) {
+  		console.log("value--"+valId+"--");
+
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please provide your '+errMsg+ '!');
+		//  $(valId).focus();
+         setTimeout(function(){ $(errDiv).hide(); }, 3000);
+        return false;
+     }else{
+    	 
+ 		console.log(" else value--"+valId+"--");
+
+  	   return true ;
+     }
+}
+
+function SelectBoxNotAllowedNullVal(valId , errMsg , errDiv){
+	  if( $.trim($(valId).val()) == "" ||  $.trim($(valId).val()) == "0" || $.trim($(valId).val()) == undefined ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please select '+errMsg+ '!');
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }else{
+    	   return true ;
+       }
+  }
+
+
+function AllowedNullVal(valId){
+	  if( $.trim($(valId).val()) == "" ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please provide your '+errMsg+ '!');
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }else{
+    	   return true ;
+       }
+  }
+
+function equalPasswordAndconfirmVal(passvalId ,cpassvalId , errDiv){
+	  if( $.trim($(passvalId).val()) != $.trim($(cpassvalId).val()) ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append("Confirm password and Password do not match !");
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }else{
+    	   return true ;
+       }
+  }
+
+
+function passwordCombination(valId , errMsg , errDiv){
+    const passLowercase = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
+    if(passLowercase.test(valId) == false){
+    	  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Your password must contain atleast one uppercase, one lowercase letter & one number!');
+		//  $(valId).focus();
+          setTimeout(function(){ $(errDiv).hide(); }, 3000);
+    	return false;
+    }else{
+ 	   return true ;
+    }
+
+}
+
+// Validate email id content
+function validateEmail(val, errMsg, errDiv){
+	 const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+	 if (reg.test(val) == false) 
+        {
+			$(errDiv).empty();
+		 	$(errDiv).show();
+		 	$(errDiv).append(errMsg + ' is Invalid !');
+          	setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          	return false;
+        }else{
+        	return true;
+        }
+}
+
+//Confirm password 
+function confirmPassword(passwordVal,rePasswordVal,errDiv){
+	 if(passwordVal != rePasswordVal){
+		 $(errDiv).empty();
+		 $(errDiv).show();
+		 $(errDiv).append('Your password does not match!');
+        setTimeout(function(){ $(errDiv).hide(); }, 3000);
+        return false;
+	 }else{
+        	return true;
+        }
+}
+
+//Confirm password 
+function confirmPasswordEdit(passwordVal,rePasswordVal,errDiv){
+	 if(passwordVal != rePasswordVal){
+		 $(errDiv).empty();
+		 $(errDiv).show();
+		 $(errDiv).append('Your new password should be same as confirm password!');
+        setTimeout(function(){ $(errDiv).hide(); }, 3000);
+        return false;
+	 }else{
+        	return true;
+        }
+}
+
+//Same Old Password 
+function sameOldPassword(passwordVal,newPasswordVal,errDiv){
+	 if(passwordVal == newPasswordVal){
+		 $(errDiv).empty();
+		 $(errDiv).show();
+		 $(errDiv).append('Your new password should be different than old password!');
+        setTimeout(function(){ $(errDiv).hide(); }, 3000);
+        return false;
+	 }else{
+        	return true;
+        }
+}
+
+//minimum password length validation
+function minPassword(val, errDiv){
+	 if(val.length < 8){
+		 $(errDiv).empty();
+		 $(errDiv).show();
+		 $(errDiv).append('Password must be atleast 8 characters long!');
+       setTimeout(function(){ $(errDiv).hide(); }, 3000);
+        return false;
+	 }else{
+        	return true;
+        }
+}
+
+//volunteer gender check validation
+function genderCheckVolunteer(errDiv){
+	 if( $("#maleinput").is(":not(:checked)") && $("#femaleinput").is(":not(:checked)") ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please select your gender!');
+         setTimeout(function(){ $(errDiv).hide(); }, 3000);
+         return false;
+      }else{
+        	return true;
+        }
+}
+
+//gender check validation
+function genderCheck(errDiv){
+	 if( $("#maleinput").is(":not(:checked)") && $("#femaleinput").is(":not(:checked)") ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please select your gender!');
+         setTimeout(function(){ $(errDiv).hide(); }, 3000);
+         return false;
+      }else{
+        	return true;
+        }
+}
+
+//gender availer check validation
+function genderAvailerCheck(errDiv){
+	 if( $("#availermale2").is(":not(:checked)") && $("#availerfemale2").is(":not(:checked)") ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please select Availer gender!');
+         setTimeout(function(){ $(errDiv).hide(); }, 3000);
+         return false;
+      }else{
+        	return true;
+        }
+}
+
+//gender second availer check validation
+function genderSecondAvailerCheck(errDiv){
+	 if( $("#availermale3").is(":not(:checked)") && $("#availerfemale3").is(":not(:checked)") ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please select Availer gender!');
+        setTimeout(function(){ $(errDiv).hide(); }, 3000);
+        return false;
+     }else{
+       	return true;
+       }
+}
+
+//phone number validation
+function phoneValidation(valId, errMsg, errDiv){
+//	console.log(val.val());
+	 if((valId.length != 10)){
+		 $(errDiv).empty();
+		 $(errDiv).show();
+		 $(errDiv).append(errMsg + ' is Invalid !');
+        setTimeout(function(){  $(errDiv).hide(); }, 3000);
+		 return false;
+	 }else{
+        	return true;
+        }
+}
+
+function NullPhoneValidation(valId, errMsg, errDiv){
+	console.log("lengh"+valId.length );
+
+if(valId.length==0)
+{
+	return true;
+}else
+	 if((valId.length != 10)){
+		
+		 $(errDiv).empty();
+		 $(errDiv).show();
+		 $(errDiv).append(errMsg + ' is Invalid !');
+        setTimeout(function(){  $(errDiv).hide(); }, 3000);
+		 return false;
+	 }else{
+		
+		if((/^[0-9]+$/).test($.trim(valId))) {
+				return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+        }
+}
+
+// HS code length validation
+function hsLengthCheck(valId , errMsg , errDiv ){
+	console.log(valId);
+//	var len= valId.length;   $.trim($(valId).val())
+//	if(isNaN(valId)){
+//		$(errDiv).empty();
+//		$(errDiv).show();
+//		$(errDiv).append('HS Code cannot be 0');
+//	}
+	  if( valId.length != 10 ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please enter valid HS Code');
+		//  $(valId).focus();
+         setTimeout(function(){ $(errDiv).hide(); }, 3000);
+        return false;
+     }else{
+  	   return true ;
+     }
+}
+
+// checks if length is 0
+function NotZero(len, errMsg, errDiv){
+	if(len.length == 0 ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please provide your '+errMsg+ '!');
+		//  $(valId).focus();
+         setTimeout(function(){ $(errDiv).hide(); }, 3000);
+        return false;
+     }else{
+  	   return true ;
+     }
+}
+
+// Password Match Check
+function reNewMatch(repas, newpas, errDiv){
+	if(newpas !== repas ) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please enter same passwords');
+		//  $(valId).focus();
+//         setTimeout(function(){ $(errDiv).hide(); }, 3000);
+        return false;
+     }else{
+  	   return true ;
+     }
+}
+
+function alphabetCheck(val, errDiv){
+	 const reg = /^[A-Za-z]+$/;
+	 console.log("ALPHABET CHECKKK", val.val());
+	 if (reg.test(val.val()) == false) 
+       {
+			$(errDiv).empty();
+		 	$(errDiv).show();
+		 	$(errDiv).append('Please enter valid name!');
+         	setTimeout(function(){ $(errDiv).hide(); }, 3000);
+         	return false;
+       }else{
+       	return true;
+       }
+}
+
+function codeCheck(val, errDiv){
+const reg = /^[A-Za-z0-9_-]+$/;
+console.log("CODE CHECKKK", val.val());
+if (reg.test(val.val()) == false) 
+  {
+		$(errDiv).empty();
+	 	$(errDiv).show();
+	 	$(errDiv).append('Please enter valid code!');
+    	setTimeout(function(){ $(errDiv).hide(); }, 3000);
+    	return false;
+  }else{
+  	return true;
+  }
+}
+
+
+
+
+
+/*function NotAllowedNull(skuVal , errMsg , errDiv){
+	  if( skuVal ==null) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please upload ecxel with '+errMsg+ '!');
+		//  $(valId).focus();
+         setTimeout(function(){ $(errDiv).hide(); }, 3000);
+        return false;
+     }else{
+  	   return true ;
+     }
+}*/
+
+
+// number validation
+function numberValidation(valId,errMsg, errDiv){
+	
+		if((/^[0-9]+$/).test($.trim(valId))) {
+		return true;
+	}
+	else{
+
+		 $(errDiv).empty();
+		 $(errDiv).show();
+		 $(errDiv).append(errMsg+' can be numeric only!');
+		 setTimeout(function(){ $(errDiv).hide(); }, 3000);
+		 return false;        	
+
+        }
+}
+
+function isAllowDecimalKey(evt, element) {
+	  var charCode = (evt.which) ? evt.which : event.keyCode
+	
+
+	  if (charCode > 31 &&  charCode > 57 && !(charCode == 46 || charCode == 8)){
+		  return false;
+	  }else {
+		  
+		  var len = $(element).val().length;
+		  if(charCode == 46){
+			  if(len < 1 || len > 4){
+					
+					return false;
+				}
+		  }
+		  
+		 /*if(len == 2){
+			  if(charCode != 46){
+				  return false;
+			  }
+		  }
+		  */
+  	    	    
+	    var index = $(element).val().indexOf('.');
+	    if (index > 0 && charCode == 46) {
+	      return false;
+	    }
+	    if (index > 0) {
+	      var CharAfterdot = (len + 1) - index;
+	      if (CharAfterdot > 25) {
+	        return false;
+	      }
+	    }
+
+	  }
+	  return true;
+	}
+	
+	function isNumberKey(evt, element) {
+	  var charCode = (evt.which) ? evt.which : event.keyCode
+	  if (charCode > 31 && (charCode < 48 || charCode > 57) && !(charCode == 46 || charCode == 8)){
+		  return false;
+	  }else {
+		  
+		  var len = $(element).val().length;
+		  if(charCode == 46){
+			  if(len < 2 || len > 3){
+					
+					return false;
+				}
+		  }
+		  
+		/*  if(len == 2){
+			  if(charCode != 46){
+				  return false;
+			  }
+		  }*/
+  	    	    
+	    var index = $(element).val().indexOf('.');
+	    if (index > 0 && charCode == 46) {
+	      return false;
+	    }
+	    if (index > 0) {
+	      var CharAfterdot = (len + 1) - index;
+	      if (CharAfterdot > 4) {
+	        return false;
+	      }
+	    }
+
+	  }
+	  return true;
+	}	
+	
+	
+	function booleanVal(valId , errMsg , errDiv){
+	  if(!valId) {
+		  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Please provide your '+errMsg+ '!');
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }else{
+    	   return true ;
+       }
+  }
+  
+  // Restrict Special Characters
+function restrictSpecialCharacters(evt) {
+	var k = (evt.which) ? evt.which : event.keyCode
+	 //console.log(k);
+	  $return = ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32  || (k >= 48 && k <= 57) || k == 46 || k == 45  || k == 95 || k == 169 || k == 57);
+      if(!$return) {
+        
+         $("#error_block").empty();
+		  $("#error_block").show();
+		  $("#error_block").append("Special characters not allowed");
+           setTimeout(function(){ $("#error_block").hide(); }, 3000);
+        
+      	return false;
+      }
+}
+
+
+/*
+$(function() {
+	
+    $("input.characters").bind("change keyup input", function(evt) {
+   
+    var position = this.selectionStart - 1;
+    //remove all but number and .
+    var fixed = this.value.replace(/[^a-zA-Z0-9 ._-]/g, "");
+    if (fixed.charAt(0) === ".")
+      //can't start with .
+      fixed = fixed.slice(1);
+
+    var pos = fixed.indexOf(".") + 1;
+    if (pos >= 0)
+      //avoid more than one .
+      fixed = fixed.substr(0, pos) + fixed.slice(pos).replace(".", "");
+
+    if (this.value !== fixed) {
+      this.value = fixed;
+      this.selectionStart = position;
+      this.selectionEnd = position;
+	 	$("#error_block").empty();
+		$("#error_block").show();
+		$("#error_block").append("Allow numeric values with decimal");
+        setTimeout(function(){ $("#error_block").hide(); }, 3000);
+	}
+      //\s
+   
+  });
+	
+  $("input.decimal").bind("change keyup input", function() {
+    var position = this.selectionStart - 1;
+    //remove all but number and .
+    var fixed = this.value.replace(/[^0-9\.]/g, "");
+    if (fixed.charAt(0) === ".")
+      //can't start with .
+      fixed = fixed.slice(1);
+
+    var pos = fixed.indexOf(".") + 1;
+    if (pos >= 0)
+      //avoid more than one .
+      fixed = fixed.substr(0, pos) + fixed.slice(pos).replace(".", "");
+
+    if (this.value !== fixed) {
+      this.value = fixed;
+      this.selectionStart = position;
+      this.selectionEnd = position;
+	 	$("#error_block").empty();
+		$("#error_block").show();
+		$("#error_block").append("Allow numeric values with decimal");
+        setTimeout(function(){ $("#error_block").hide(); }, 3000);
+	}
+  });
+
+  $("input.integer").bind("change keyup input", function() {
+    var position = this.selectionStart - 1;
+    //remove all but number and .
+    var fixed = this.value.replace(/[^0-9]/g, "");
+
+    if (this.value !== fixed) {
+      this.value = fixed;
+      this.selectionStart = position;
+      this.selectionEnd = position;
+	 	$("#error_block").empty();
+		$("#error_block").show();
+		$("#error_block").append("Allow only numeric values (without decimal)");
+        setTimeout(function(){ $("#error_block").hide(); }, 3000);
+	}
+  });
+});
+*/
+$(document).on("change keyup input", "input.decimal", function () {
+	
+	var position = this.selectionStart - 1;
+    //remove all but number and .
+    var fixed = this.value.replace(/[^0-9\.]/g, "");
+    if (fixed.charAt(0) === ".")
+      //can't start with .
+      fixed = fixed.slice(1);
+
+    var pos = fixed.indexOf(".") + 1;
+    if (pos >= 0)
+      //avoid more than one .
+      fixed = fixed.substr(0, pos) + fixed.slice(pos).replace(".", "");
+
+    if (this.value !== fixed) {
+      this.value = fixed;
+      this.selectionStart = position;
+      this.selectionEnd = position;
+	 	$("#error_block").empty();
+		$("#error_block").show();
+		$("#error_block").append("Allow numeric values with decimal");
+        setTimeout(function(){ $("#error_block").hide(); }, 3000);
+	}
+});
+
+$(document).on("change keyup input", "input.characters", function () {   
+    var position = this.selectionStart - 1;
+    //remove all but number and .
+    var fixed = this.value.replace(/[^a-zA-Z0-9 /._-]/g, "");
+    if (fixed.charAt(0) === ".")
+      //can't start with .
+      fixed = fixed.slice(1);
+
+    var pos = fixed.indexOf(".") + 1;
+    if (pos >= 0)
+      //avoid more than one .
+      fixed = fixed.substr(0, pos) + fixed.slice(pos).replace(".", "");
+
+    if (this.value !== fixed) {
+      this.value = fixed;
+      this.selectionStart = position;
+      this.selectionEnd = position;
+	 	$("#error_block").empty();
+		$("#error_block").show();
+		$("#error_block").append("Allow SpecialCharacters(/._-) , characters and numeric values.");
+        setTimeout(function(){ $("#error_block").hide(); }, 3000);
+	}
+      //\s
+   
+  });
+  
+  $(document).on("change keyup input", "input.charactersAndInteger", function () {   
+    var position = this.selectionStart - 1;
+    //remove all but number and .
+    var fixed = this.value.replace(/[^a-zA-Z0-9]/g, "");
+    if (fixed.charAt(0) === ".")
+      //can't start with .
+      fixed = fixed.slice(1);
+
+    var pos = fixed.indexOf(".") + 1;
+    if (pos >= 0)
+      //avoid more than one .
+      fixed = fixed.substr(0, pos) + fixed.slice(pos).replace(".", "");
+
+    if (this.value !== fixed) {
+      this.value = fixed;
+      this.selectionStart = position;
+      this.selectionEnd = position;
+	 	$("#error_block").empty();
+		$("#error_block").show();
+		$("#error_block").append("Special character is restricted");
+        setTimeout(function(){ $("#error_block").hide(); }, 3000);
+	}
+      //\s
+   
+  });
+  
+$(document).on("change keyup input", "input.onlycharacters", function () {   
+    var position = this.selectionStart - 1;
+    //remove all but number and .
+    var fixed = this.value.replace(/[^a-zA-Z]/g, "");
+    if (fixed.charAt(0) === ".")
+      //can't start with .
+      fixed = fixed.slice(1);
+
+    var pos = fixed.indexOf(".") + 1;
+    if (pos >= 0)
+      //avoid more than one .
+      fixed = fixed.substr(0, pos) + fixed.slice(pos).replace(".", "");
+
+    if (this.value !== fixed) {
+      this.value = fixed;
+      this.selectionStart = position;
+      this.selectionEnd = position;
+	 	$("#error_block").empty();
+		$("#error_block").show();
+		$("#error_block").append("Allow only characters values.");
+        setTimeout(function(){ $("#error_block").hide(); }, 3000);
+	}
+      //\s
+   
+  });
+
+$(document).on("change keyup input", "input.integer", function () {	
+    var position = this.selectionStart - 1;
+    //remove all but number and .
+    var fixed = this.value.replace(/[^0-9]/g, "");
+
+    if (this.value !== fixed) {
+      this.value = fixed;
+      this.selectionStart = position;
+      this.selectionEnd = position;
+	 	$("#error_block").empty();
+		$("#error_block").show();
+		$("#error_block").append("Allow only numeric values (without decimal)");
+        setTimeout(function(){ $("#error_block").hide(); }, 3000);
+	}
+  });
+  
+  
+  $(document).on("change keyup input", "input.toUpperCase", function () {	
+		$(this).val($(this).val().toUpperCase());
+  });
