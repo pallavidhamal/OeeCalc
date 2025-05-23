@@ -124,6 +124,12 @@ label {
   
   <div class="loader">Loading...</div>
 </div>
+
+
+<span id="error_block"> <span class="msg-hd"><img src="static/images/incorrect.png" class="model-icon"> Error</span><br>
+<span class="msg-txt">Error text here</span> </span> <span id="success_block"> <span class="msg-hd-success"><img src="static/images/correct.png" class="model-icon"> Success</span><br>
+<span class="msg-txt-success">Success text here</span> </span>
+
 <br>
 <section> 
   <!--container-fluid-->
@@ -146,8 +152,8 @@ label {
 							<div class="col-md-2">
     							<label class="form-label">Select Unit</label>
     							<select class="form-control" id="addUnit">
-  								<!--<option>-- Select --</option>
-  								<option>Unit 1</option>
+  								<option>-- Select --</option>
+  								<!--<option>Unit 1</option>
   								<option>Unit 2</option>
   								<option>Unit 3</option>-->
   							</select>
@@ -155,8 +161,8 @@ label {
 							<div class="col-md-2">
     							<label class="form-label">Select Workcentre</label>
     							<select class="form-control" id="addWorkCentre">
-  								<!--<option>-- Select --</option>
-  								<option>Workcentre 1</option>
+  								<option>-- Select --</option>
+  								<!--<option>Workcentre 1</option>
   								<option>Workcentre 2</option>
   								<option>Workcentre 3</option>-->
   							</select>
@@ -212,12 +218,12 @@ label {
 					     </td>
 					      <td class="table_input">
 								<select class="form-control addShift" id="selShift0" roCnt = "0">
-								<option>-- Select --</option>
+								<!--<option>-- Select --</option>-->
 							</select>
 					     </td>
 					    <td class="table_input display_block">
 								<select class="form-control addItem" id="selItem0" roCnt = "0">
-								<option>-- Select --</option>
+								<!--<option>-- Select --</option>-->
 								<!--<option>Unit 1</option>
 								<option>Unit 2</option>
 								<option>Unit 3</option>-->
@@ -226,24 +232,25 @@ label {
 					    
 					     <td class="table_input">
 								<select class="form-control addSetup" id="selSetUp0" roCnt = "0" >
+									<!--<option>-- Select --</option>-->
 								</select>
 					     </td>
 					     <td class="table_input">
-							<input type="text" id="setUptime" class=" form-control width80 txtSetUptime" >
+							<input type="text" id="setUptime0" class=" form-control width80 txtSetUptime" roCnt = "0" >
 						</td>
 						
 						<td class="table_input">
-							<input type="text" id="plannedQty" class=" form-control width80 txtPlannedQty" >
-						</td>
-						
-						
-						<td class="table_input">
-							<input type="text" id="plannedMins" class=" form-control width80 txtPlannedMins" >
+							<input type="text" id="plannedQty0" class=" form-control width80 txtPlannedQty" roCnt = "0">
 						</td>
 						
 						
 						<td class="table_input">
-							<input type="text" id="timeUtilised" class=" form-control width80 txtTimeUtilised" >
+							<input type="text" id="plannedMins0" class=" form-control width80 txtPlannedMins" roCnt = "0" disabled>
+						</td>
+						
+						
+						<td class="table_input">
+							<input type="text" id="timeUtilised0" class=" form-control width80 txtTimeUtilised" roCnt = "0">
 						
 						</td>
 

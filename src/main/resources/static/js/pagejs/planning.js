@@ -12,10 +12,13 @@
 			    day = day < 10 ? '0' + day : day;
 
 			    const formattedToday = `${year}-${month}-${day}`;
+				
+			//	const formattedToday1 = `${year}-${month}-1`;
+				
 			    $('#planCalender').val(formattedToday);
 			  
 			  
-			  
+				$('#planCalender1').val(formattedToday);
 			
 			getUnitList("sel");
 				
@@ -44,6 +47,24 @@
 			});			
 			
 			
+			$(document).on("change", "#selWorkCentre", function(e){
+					getFilterPlanningList();
+			});			
+			
+			
+			$(document).on("change", "#planCalender", function(e){
+					getFilterPlanningList();
+			});
+			
+			$(document).on("change", "#planCalender1", function(e){
+							getFilterPlanningList();
+			});
+			
+			$(document).on("change", "#txtTimePerShift", function(e){
+				getFilterPlanningList();
+			});
+			
+			
 			
 			function getFilterPlanningList(){  
 
@@ -53,7 +74,7 @@
 								 
 					 fromdate		: $('#planCalender').val(),
 					 workcenterid 	: $('#selWorkCentre').val(),
-					 timepershift	: $('#txtTimePerShift').val(),
+					 todate			: $('#planCalender1').val(),
 					 unitid       	: $('#selUnit').val(),
 
 				};

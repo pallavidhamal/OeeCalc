@@ -30,10 +30,6 @@ $(document).ready(function(){
 		 var optionSelected = $("option:selected", this);
 	     stationid = this.value;
 		 rowcount=$(this).attr("rocnt");
-		 
-		// alert("rowcount--"+rowcount);
-		 
-		// alert("stationid--"+stationid);
 		 var itemjqid="#selItem"+rowcount;
 	    	itemid=$(itemjqid).val();
 		 					
@@ -48,12 +44,6 @@ $(document).ready(function(){
 		 var optionSelected = $("option:selected", this);
 	     itemid = this.value;
 		 rowcount=$(this).attr("rocnt");
-		 
-		// alert("rowcount--"+rowcount);
-		 	 
-		 //	 alert("itemid--"+itemid);
-			 
-			 		 
 		 var stationjqid="#selMachine"+rowcount;
 		 stationid=$(stationjqid).val();
 		 
@@ -63,19 +53,64 @@ $(document).ready(function(){
 	
 	
 	
+
+	$(document).on("change", ".txtSetUptime", function () 
+	{
+	   
+		console.log("minn planned cal");
+		var setupTime=this.value;
+		var planQty="";
+		 rowcount=$(this).attr("rocnt");
+		 var planQtyId="#plannedQty"+rowcount;
+		 planQty=$(planQtyId).val();
+		 
+		 console.log("values"+setupTime+"---plqty"+planQty);
+		 
+		 calculateMinPlanned(setupTime,planQty,rowcount);
+		
+	});
 	
+	
+	$(document).on("change", ".txtPlannedQty", function () 
+	{
+	   
+		console.log("minn planned cal");
+		var planQty=this.value;
+		var setupTime="";
+		 rowcount=$(this).attr("rocnt");
+		 var setupTimeId="#setUptime"+rowcount;
+		 setupTime=$(setupTimeId).val();
+		 
+		 console.log("values"+setupTime+"---plqty"+planQty);
+		 
+		 calculateMinPlanned(setupTime,planQty,rowcount);
+		
+	});
+	
+	function calculateMinPlanned(setupTime,planQty,rowcount)
+	{
+		var minPlanned=((setupTime*planQty)/60).toFixed(2);
+		
+		console.log("minPlanned"+minPlanned+"--rowcount"+rowcount);
+		
+		var minPlannedId="#plannedMins"+rowcount;
+		console.log("minPlannedId---"+minPlannedId);
+		
+		$(minPlannedId).val(minPlanned);
+	}
 
 $('.table_add_link').on('click',function(){
 						
+//	SelectBoxNotAllowedNullVal
 	
-	
-	if(ValidationForSelectBox("#setupErrDiv","Unit",$('#addUnit')))
-		if(ValidationForSelectBox("#setupErrDiv","WorkCenter",$('#addWorkCentre')))
-			if(NotAllowedNullVal("#setupErrDiv","From Date",$('#frmDate')))
-				if(NotAllowedNullVal("#setupErrDiv","To Date",$('#toDate')))
-					if(compareDate("#setupErrDiv",$('#frmDate').val(),$('#toDate').val()))
-					if(NotAllowedNullVal("#setupErrDiv","Time per shift ",$('#timePershift')))
-					{
+	if(SelectBoxNotAllowedNullVal($('#addUnit'),"Unit","#error_block"))
+		if(SelectBoxNotAllowedNullVal($('#addWorkCentre'),"WorkCenter","#error_block"))
+			if(NotAllowedNullVal($('#frmDate'),"From Date","#error_block"))
+					if(NotAllowedNullVal($('#toDate'),"To Date","#error_block"))
+						//if(compareDate("#error_block",$('#frmDate').val(),$('#toDate').val()))
+							if(NotAllowedNullVal($('#timePershift'),"Time per shift ","#error_block"))
+							//	if(numberValidation($('#timePershift').val(),"Time per shift ", "#error_block"))
+								{
 	
 	
 	console.log("-------------table_add_link----this---------",$("#planningBbody").find('tr').length);
@@ -84,13 +119,13 @@ $('.table_add_link').on('click',function(){
 	
       $('#planningBbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
 		+'<td class="table_input"><select class="form-control addStation"  id="selMachine'+count+'" rocnt = "'+count+'">	</select> </td>'
-		+'<td class="table_input"><select class="form-control"  id="selShift'+count+'" rocnt = "'+count+'" >	</select> </td>'
+		+'<td class="table_input"><select class="form-control addShift"  id="selShift'+count+'" rocnt = "'+count+'" >	</select> </td>'
 		+'<td class="table_input"><select class="form-control addItem"  id="selItem'+count+'" rocnt = "'+count+'">	</select> </td>'
-		+'<td class="table_input"><select class="form-control addSetup "  id="selSetUp'+count+'" >	</select> </td>'
-		+'<td class="table_input"><input type="text" class="form-control width80 line txtSetUptime " id="setUptime'+count+'"></td>'
-		+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty" id="plannedQty'+count+'"></td>'
-		+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedMins" id="plannedMins'+count+'"></td>'
-		+'<td class="table_input"><input type="text" class="form-control width80 line txtTimeUtilised" id="timeUtilised'+count+'"></td>'
+		+'<td class="table_input"><select class="form-control addSetup"  id="selSetUp'+count+'" rocnt = "'+count+'" >	</select> </td>'
+		+'<td class="table_input"><input type="text" class="form-control width80 line txtSetUptime integer" rocnt = "'+count+'" id="setUptime'+count+'"></td>'
+		+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+count+'" id="plannedQty'+count+'"></td>'
+		+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedMins"  rocnt = "'+count+'" id="plannedMins'+count+'" disabled></td>'
+		+'<td class="table_input"><input type="text" class="form-control width80 line txtTimeUtilised integer" rocnt = "'+count+'" id="timeUtilised'+count+'"></td>'
 		+'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>'
 		
 
@@ -128,17 +163,11 @@ $('.table_add_link').on('click',function(){
 				if (ValidateItem())
 				if (ValidateSetup())
 				if(ValidateDupRow())
-				
 				if(ValidateSetupTimeForBlank())
-					if(ValidateSetupTimeForNum())
-						if(ValidatePlannedQtyForBlank())
-					if(ValidatePlannedQtyForNum())
-						if(ValidatePlannedMinsForBlank())	
-							if(ValidatePlannedMinsForNum())
-					if(ValidateTimeUtilisedForBlank())	
-				if(ValidateTimeUtilisedForNum())
-												
+					if(ValidatePlannedQtyForBlank())
 				{	
+					//if//if(ValidateTimeUtilisedForBlank()) (ValidateSetupTimeForNum())					if(ValidatePlannedQtyForNum())					if(ValidatePlannedMinsForNum())						if(ValidateTimeUtilisedForNum())
+
 				 $("#planningBbody").find('tr').each(function (){
 		 
 					 var lineData  = {
@@ -172,7 +201,7 @@ $('.table_add_link').on('click',function(){
 									 if(validateProduct())
 									 if(validateRegion())
 									 if(validatePOQty())*/
-							{
+						//	{
 					 
 					 var dataVal = {
 					 
@@ -219,7 +248,7 @@ $('.table_add_link').on('click',function(){
 				});
 			}
 			
-			}//else of validation
+		//	}//else of validation
 			
 			
 });
@@ -523,8 +552,8 @@ function ValidateMachine()
 {
 		$(".addStation").each(function() {
 			console.log("in vali sel",$(this).val());
-						
-			if(validationSelectBox($(this).val(),"Station","#setupErrDiv"))
+				
+			if(SelectBoxNotAllowedNullVal($(this),"Station","#error_block"))		
 		     {
 		    	flag=true; 
 		    	console.log("iff-----");
@@ -546,8 +575,10 @@ function ValidateItem()
 			
 			//console.log("in vali ValidateItem",$(this).val());
 						
-			if(validationSelectBox($(this).val(),"Item","#setupErrDiv"))
+		//	if(validationSelectBox($(this).val(),"Item","#setupErrDiv"))
+				if(SelectBoxNotAllowedNullVal($(this),"Item","#error_block"))	
 		     {
+				
 		    	flag=true; 
 		    	console.log("iff-----");
 		     }
@@ -568,7 +599,8 @@ function ValidateShift()
 			
 			console.log("in vali sel",$(this).val());
 						
-			if(validationSelectBox($(this).val(),"Shift","#setupErrDiv"))
+			//if(validationSelectBox($(this).val(),"Shift","#setupErrDiv"))
+				if(SelectBoxNotAllowedNullVal($(this),"Shift","#error_block"))
 		     {
 		    	flag=true; 
 		    	console.log("iff-----");
@@ -589,7 +621,8 @@ function ValidateSetup()
 			
 			console.log("in vali sel",$(this).val());
 						
-			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
+			//if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
+			if(SelectBoxNotAllowedNullVal($(this),"Setup","#error_block"))	
 		     {
 		    	flag=true; 
 		    	console.log("iff-----");
@@ -611,8 +644,7 @@ function ValidateSetupTimeForBlank()
 			
 			console.log("in vali sel",$(this).val());
 			
-//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
-			if(NotAllowedNullVal("#setupErrDiv","Setup Time",$(this)))
+		if(NotAllowedNullVal($(this),"Setup Time","#error_block"))
 		     {
 		    	flag=true; 
 		    	console.log("iff-----");
@@ -658,7 +690,9 @@ function ValidatePlannedQtyForBlank()
 				console.log("in vali sel txtPlannedQty",$(this).val());
 				
 	//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
-				if(NotAllowedNullVal("#setupErrDiv","Planned Quantity",$(this)))
+			//	if(NotAllowedNullVal("#setupErrDiv","Planned Quantity",$(this)))
+					
+				if(NotAllowedNullVal($(this),"Planned Quantity","#error_block"))
 			     {
 			    	flag=true; 
 			    	console.log("iff-----");
@@ -826,7 +860,7 @@ function ValidateDupRow()
 		
 		console.log("dupp found "+key);
 		
-		$(setupErrDiv).append("Please select duplicate row found");
+		$(setupErrDiv).append("Duplicate row found");
 		
 	    duplicateFound = false;
 	    return false; // break out of loop
