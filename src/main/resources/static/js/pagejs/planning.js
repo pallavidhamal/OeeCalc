@@ -280,10 +280,19 @@ function getWorkCentreList(divId){
 		});
 	
 }			
-			
+
+
+$(document).on("click", ".edit-button", function(e){
 	
+	
+	editId = $(this).attr('id');
+	console.log("editId----",editId);
+	window.location.href = "editPlanning?planid="+editId;	
+
+});
 
 			
+	
 			
 			
 

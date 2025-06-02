@@ -3,6 +3,8 @@ var machinesOptions;
 var itemOptions;
 var shiftOptions;
 
+var editId;
+var editWsId;
 var count=1;
 var stationid="";
 var itemid="";
@@ -10,21 +12,135 @@ var rowcount="";
 
 $(document).ready(function(){
 	
-	getUnitList("add");	
+	getUnitList("edit");	
 	getAllMachines();
 	getAllItems();
 	
-	$('#addUnit').on('change', function (e) {
+	//get data for plan edit
+	
+	editId = GetURLParameter('planid');
+	
+	console.log("EditID"+editId);
+
+	$.ajax({
+	    type: 'GET',
+	    url: server_url + `planning/get/${editId}`,
+	    enctype: 'application/json',
+	    headers: authHeader,
+	    processData: false,
+	    contentType: false,
+	    data: null,
+	    success: function (result) {
+
+			console.log("------response ----------",result);
+
+			var data = result.payload;
+			console.log("------response data----------",data);
+
+			$("#frmDate").val(result.payload.fromdate)
+			$("#toDate").val(result.payload.todate)
+
+			$("#editUnit").val(result.payload.unitid);
+
+			$("#timePershift").val(result.payload.timePerShift);
+
+			
+			unitid = result.payload.unitid;
+			
+			editWsId= result.payload.workcenterid
+				//alert(unitid)
+			getWorkCentreList("edit");
+			getUnitShifts();	
+			
+		//	var lineitem=result.payload.planningShiftWork;
+		
+			for (i = 0; i < result.payload.planningShiftWork.length; ++i) {
+				
+			
+				$('#planningBbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
+					+'<td class="table_input"><select class="form-control editStation"  id="selMachine'+count+'" rocnt = "'+count+'">	</select> </td>'
+					+'<td class="table_input"><select class="form-control editShift"  id="selShift'+count+'" rocnt = "'+count+'" >	</select> </td>'
+					+'<td class="table_input"><select class="form-control editItem"  id="selItem'+count+'" rocnt = "'+count+'">	</select> </td>'
+					+'<td class="table_input"><select class="form-control editSetup"  id="selSetUp'+count+'" rocnt = "'+count+'" >	</select> </td>'
+					+'<td class="table_input"><input type="text" class="form-control width80 line txtSetUptime integer" rocnt = "'+count+'" id="setUptime'+count+'"></td>'
+					+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+count+'" id="plannedQty'+count+'"></td>'
+					+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedMins"  rocnt = "'+count+'" id="plannedMins'+count+'" disabled></td>'
+					+'<td class="table_input"><input type="text" class="form-control width80 line txtTimeUtilised integer" rocnt = "'+count+'" id="timeUtilised'+count+'"></td>'
+					+'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>'
+					
+
+				  +'</tr>');
+				  
+				  
+				  
+				//  $("#selMachine"+count).val(lineitem.stationid);
+				  
+			}
+			
+			/*$('#editStationType').val(result.payload.stationtype.id);
+			$('#editStationNumber').val(result.payload.name);
+			$("#editUom").val(result.payload.uom.id);
+			$("#editWorkCentre").val(result.payload.workcenter.id);
+
+			
+			
+			"unitid": "1",
+			       "workcenterid": "1",
+			       "isdeleted": "Inactive",
+			       "fromdate": "2025-05-23",
+			       "todate": "2025-05-23",
+			       "timePerShift": "50",
+			       "unitname": "Shirval",
+			       "workcentername": "workcenter1"*/
+			
+
+		},
+		error: function (error) {
+	         console.log(error);
+	   		 if (error.status == 401) {
+		    	  window.location.href =  contextPath;
+		      } else {
+		    	if( error.responseJSON != undefined){
+					errmssge=error.responseJSON.status;	
+				
+					if (error.responseJSON.status=="500"){
+						console.log("in errr");
+						 errorBlock("#error_block", error.responseJSON.message);
+					}else{
+					 	 errorBlock("#error_block", error.responseJSON.errors.message);
+					}
+				}
+				else{
+		   	  		console.log("Server Error! Please contact administrator");
+		   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+		     	}
+	     	}
+	    },
+	})
+	
+	//end get data for plan edit
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$('#editUnit').on('change', function (e) {
+		
+		alert("unit change");
 	    var optionSelected = $("option:selected", this);
 	     unitid = this.value;
 		//alert(unitid)
-		getWorkCentreList("add");
+		getWorkCentreList("edit");
 		getUnitShifts();	
 		
 	});
 	
 	
-	$(document).on("change", ".addStation", function () 
+	$(document).on("change", ".editStation", function () 
 	{
 	   
 		 var optionSelected = $("option:selected", this);
@@ -38,7 +154,7 @@ $(document).ready(function(){
 	});
 	
 	
-	$(document).on("change", ".addItem", function () 
+	$(document).on("change", ".editItem", function () 
 	{
 	   
 		 var optionSelected = $("option:selected", this);
@@ -103,8 +219,8 @@ $('.table_add_link').on('click',function(){
 						
 //	SelectBoxNotAllowedNullVal
 	
-	if(SelectBoxNotAllowedNullVal($('#addUnit'),"Unit","#error_block"))
-		if(SelectBoxNotAllowedNullVal($('#addWorkCentre'),"WorkCenter","#error_block"))
+	if(SelectBoxNotAllowedNullVal($('#editUnit'),"Unit","#error_block"))
+		if(SelectBoxNotAllowedNullVal($('#editWorkCentre'),"WorkCenter","#error_block"))
 			if(NotAllowedNullVal($('#frmDate'),"From Date","#error_block"))
 					if(NotAllowedNullVal($('#toDate'),"To Date","#error_block"))
 						//if(compareDate("#error_block",$('#frmDate').val(),$('#toDate').val()))
@@ -118,10 +234,10 @@ $('.table_add_link').on('click',function(){
 	//count = $("#planningBbody").find('tr').length;
 	
       $('#planningBbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
-		+'<td class="table_input"><select class="form-control addStation"  id="selMachine'+count+'" rocnt = "'+count+'">	</select> </td>'
-		+'<td class="table_input"><select class="form-control addShift"  id="selShift'+count+'" rocnt = "'+count+'" >	</select> </td>'
-		+'<td class="table_input"><select class="form-control addItem"  id="selItem'+count+'" rocnt = "'+count+'">	</select> </td>'
-		+'<td class="table_input"><select class="form-control addSetup"  id="selSetUp'+count+'" rocnt = "'+count+'" >	</select> </td>'
+		+'<td class="table_input"><select class="form-control editStation"  id="selMachine'+count+'" rocnt = "'+count+'">	</select> </td>'
+		+'<td class="table_input"><select class="form-control editShift"  id="selShift'+count+'" rocnt = "'+count+'" >	</select> </td>'
+		+'<td class="table_input"><select class="form-control editItem"  id="selItem'+count+'" rocnt = "'+count+'">	</select> </td>'
+		+'<td class="table_input"><select class="form-control editSetup"  id="selSetUp'+count+'" rocnt = "'+count+'" >	</select> </td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line txtSetUptime integer" rocnt = "'+count+'" id="setUptime'+count+'"></td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+count+'" id="plannedQty'+count+'"></td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedMins"  rocnt = "'+count+'" id="plannedMins'+count+'" disabled></td>'
@@ -153,7 +269,7 @@ $('.table_add_link').on('click',function(){
   });
 
 
-		$(document).on("click", "#addPlanningData", function(e){
+		$(document).on("click", "#editPlanningData", function(e){
 	
 				var myarray=[];
 				
@@ -210,8 +326,8 @@ $('.table_add_link').on('click',function(){
 							 fromdate		: $('#frmDate').val(),
 							 todate 		: $('#toDate').val(),
 							 timepershift	: $('#timePershift').val(),
-							 unitid       : $('#addUnit').val(),
-							 workcenterid :$('#addWorkCentre').val(),
+							 unitid       : $('#editUnit').val(),
+							 workcenterid :$('#editWorkCentre').val(),
 							 planningShiftWorkIncomingDto:myarray
 
 						};
@@ -221,7 +337,7 @@ $('.table_add_link').on('click',function(){
 					 $.ajax({
 							
 						   type: 'POST',
-						   url: server_url+"planning/add",  //from API add new data
+						   url: server_url+"planning/edit",  //from API edit new data
 						   headers: authHeader,
 						   data : JSON.stringify(dataVal),
 						   processData: false,
@@ -238,7 +354,7 @@ $('.table_add_link').on('click',function(){
 								window.location.href ="planning";
 								//getPOList();
 								
-								//$("#add_po").modal("hide");
+								//$("#edit_po").modal("hide");
 							// $('#planningBbody').empty();
 								
 							}else if(result.result==false){
@@ -279,6 +395,8 @@ function getWorkCentreList(divId){
 					$("#"+divId+"WorkCentre").append('<option value="'+ value.id + '">'+ value.name+' </option>');
 					
 				    });
+					
+					$("#editWorkCentre").val(editWsId);
 				
 			}	
 		});
@@ -328,7 +446,7 @@ function	getAllMachines()
 				       contentType: false,
 				       data: null,
 				       success: function (response) {
-							$("#addStation0").empty();
+							$("#editStation0").empty();
 							//$("#editStation").empty();
 							
 							machinesOptions='<option value="0">  Select Station </option>';
@@ -338,11 +456,11 @@ function	getAllMachines()
 							
 							machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
 							
-				           //   $(".addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+				           //   $(".editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
 							 //  $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
 				           }
 						   
-						   $(".addStation").append(machinesOptions);
+						   $(".editStation").append(machinesOptions);
 						   
 				       },
 
@@ -382,9 +500,9 @@ function	getAllMachines()
 			       contentType: false,
 			       data: null,
 			       success: function (response) {
-						$(".addItem").empty();
+						$(".editItem").empty();
 					//	$("#editItem").empty();
-						//$(".addItem").append('<option value="0">  Select item </option>');
+						//$(".editItem").append('<option value="0">  Select item </option>');
 						
 						itemOptions='<option value="0">  Select Item </option>';
 
@@ -393,14 +511,14 @@ function	getAllMachines()
 
 			           for (i = 0; i < response.payload.length; ++i) {
 			             
-						//  $(".addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+						//  $(".editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
 						   
 						itemOptions=itemOptions+`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`;
 						
 						//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
 			           }
 					   
-					   $(".addItem").append(itemOptions);
+					   $(".editItem").append(itemOptions);
 					   
 			       },
 
@@ -440,9 +558,9 @@ function	getAllMachines()
 					       contentType: false,
 					       data: null,
 					       success: function (response) {
-								$(".addShift").empty();
+								$(".editShift").empty();
 							//	$("#editItem").empty();
-							//	$(".addShift").append('<option value="0">  Select item </option>');
+							//	$(".editShift").append('<option value="0">  Select item </option>');
 								
 								
 								shiftOptions='<option value="0">  Select Shift </option>';
@@ -452,7 +570,7 @@ function	getAllMachines()
 							//	$("#editItem").append('<option value="0">  Select item </option>');
 
 					           for (i = 0; i < response.payload.length; ++i) {
-					            //   $(".addShift").append(`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`);
+					            //   $(".editShift").append(`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`);
 								
 								
 								shiftOptions=shiftOptions+`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`;
@@ -461,7 +579,7 @@ function	getAllMachines()
 								   
 					           }
 							   
-							   $(".addShift").append(shiftOptions);
+							   $(".editShift").append(shiftOptions);
 							   
 					       },
 
@@ -511,7 +629,7 @@ function	getAllMachines()
 							
 								
 									
-								//	$(".addShift").empty();
+								//	$(".editShift").empty();
 								//	$("#editItem").empty();
 									$("#selSetUp"+rowcount).append('<option value="0">  Select Setup </option>');
 								//	$("#editItem").append('<option value="0">  Select item </option>');
@@ -552,7 +670,7 @@ function	getAllMachines()
 
 function ValidateMachine()
 {
-		$(".addStation").each(function() {
+		$(".editStation").each(function() {
 			console.log("in vali sel",$(this).val());
 				
 			if(SelectBoxNotAllowedNullVal($(this),"Station","#error_block"))		
@@ -573,7 +691,7 @@ function ValidateMachine()
 		
 function ValidateItem()
 {
-		$(".addItem").each(function() {
+		$(".editItem").each(function() {
 			
 			//console.log("in vali ValidateItem",$(this).val());
 						
@@ -597,7 +715,7 @@ function ValidateItem()
 
 function ValidateShift()
 {
-		$(".addShift").each(function() {
+		$(".editShift").each(function() {
 			
 			console.log("in vali sel",$(this).val());
 						
@@ -619,7 +737,7 @@ function ValidateShift()
 
 function ValidateSetup()
 {
-		$(".addSetUp").each(function() {
+		$(".editSetUp").each(function() {
 			
 			console.log("in vali sel",$(this).val());
 						
@@ -876,6 +994,18 @@ function ValidateDupRow()
 }
 
 						
-						
+function GetURLParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return decodeURIComponent(sParameterName[1]);
+        }
+    }
+}						
 				
 });

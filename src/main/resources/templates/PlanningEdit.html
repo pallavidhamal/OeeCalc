@@ -5,7 +5,7 @@
 <title>Oee | Planning</title>
 
 <div th:replace="~{fragments/headerJS}"></div>  
-<script type="text/javascript" th:src="@{/js/pagejs/planningAdd.js}"></script>
+<script type="text/javascript" th:src="@{/js/pagejs/planningEdit.js}"></script>
 
 <style>
 #inserttbl{
@@ -151,7 +151,7 @@ label {
   						<div class="row">
 							<div class="col-md-2">
     							<label class="form-label">Select Unit</label>
-    							<select class="form-control" id="addUnit">
+    							<select class="form-control" id="editUnit">
   								<option>-- Select --</option>
   								<!--<option>Unit 1</option>
   								<option>Unit 2</option>
@@ -160,7 +160,7 @@ label {
     						</div>
 							<div class="col-md-2">
     							<label class="form-label">Select Workcentre</label>
-    							<select class="form-control" id="addWorkCentre">
+    							<select class="form-control" id="editWorkCentre">
   								<option>-- Select --</option>
   								<!--<option>Workcentre 1</option>
   								<option>Workcentre 2</option>
@@ -210,28 +210,28 @@ label {
 					  </tr>
 					  </thead>
 					  <tbody id="planningBbody">
-					   <tr class="tr_clone" roCnt = "0">
+					 <!--  <tr class="tr_clone" roCnt = "0">
 					     <td class="table_input">
-							<select class="form-control addStation" id="selMachine0"   roCnt = "0">
-							<!--<option>-- Select --</option>-->
+							<select class="form-control editStation" id="selMachine0"   roCnt = "0">
+							<option>-- Select --</option>
 							</select>
 					     </td>
 					      <td class="table_input">
-								<select class="form-control addShift" id="selShift0" roCnt = "0">
+								<select class="form-control editShift" id="selShift0" roCnt = "0">
 								<<option>-- Select --</option>
 							</select>
 					     </td>
 					    <td class="table_input display_block">
-								<select class="form-control addItem" id="selItem0" roCnt = "0">
+								<select class="form-control editItem" id="selItem0" roCnt = "0">
 								<option>-- Select --</option>
-								<!--<option>Unit 1</option>
+								<option>Unit 1</option>
 								<option>Unit 2</option>
-								<option>Unit 3</option>-->
+								<option>Unit 3</option>
 							</select>
 					    </td>
 					    
 					     <td class="table_input">
-								<select class="form-control addSetup" id="selSetUp0" roCnt = "0" >
+								<select class="form-control editSetup" id="selSetUp0" roCnt = "0" >
 									<option>-- Select --</option>
 								</select>
 					     </td>
@@ -255,9 +255,9 @@ label {
 						</td>
 
 						
-					     <td class="table_input"><!--<a href="#" class="deleteRow"><i class="fa fa-minus"></i></a>--></td>
-					     <!-- <td class="table_input">&nbsp;</td> -->
-					  </tr> 
+					     <td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>
+					      <td class="table_input">&nbsp;</td> 
+					  </tr> -->
 					  </tbody>
 					</table>
 			      </div> 
@@ -271,7 +271,7 @@ label {
 			
 			<div class="modal-footer">
 			    <div class="col-md-4 col-md-offset-4 pull-left">
-			      <button class="btn btn-block cust-btn" type="submit" id = "addPlanningData">Submit</button>
+			      <button class="btn btn-block cust-btn" type="submit" id = "editPlanningData">Submit</button>
 			    </div>
 			</div>
 			
