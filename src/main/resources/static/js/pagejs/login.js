@@ -92,7 +92,7 @@ $(document).ready(function() {
 								
 								if(data.payload.role=="AA")
 								{
-									url="purchaseorder";
+									url="planning";
 								}
 								
 								

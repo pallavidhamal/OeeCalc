@@ -133,8 +133,8 @@
 													 { "data":  null,
 										           render: function (data, type, row) {
 										               var id = data.id;
-										               var action = `<a  class="edit-button" id=${id}>Edit</a>
-													   <a  class="edit-button" id=${id}>View </a>
+										               var action = // `<a  class="edit-button" id=${id}>Edit</a>
+													   `<a  class="edit-button" id=${id}>View </a>
 										                                   <a  class="delete-button" id=${id}>${data.isdeleted}</a> `;
 										               return action;
 										           },
@@ -204,8 +204,8 @@
 										 { "data":  null,
 							           render: function (data, type, row) {
 							               var id = data.id;
-							               var action = `<a  class="edit-button" id=${id}>Edit</a>
-										   <a  class="edit-button" id=${id}>View </a>
+							               var action = //`<a  class="edit-button" id=${id}>Edit</a>
+										   `<a  class="edit-button" id=${id}>View </a>
 							                                   <a  class="delete-button" id=${id}>${data.isdeleted}</a> `;
 							               return action;
 							           },

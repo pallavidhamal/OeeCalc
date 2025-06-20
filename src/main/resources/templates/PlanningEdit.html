@@ -177,12 +177,15 @@ label {
     							<input type="date" id="toDate" class=" form-control">
     						</div>
 
-	  						<div class="col-md-2">
-	  							<label class="form-label">Time per shift</label>
-	  							<input type="text" id="timePershift" class=" form-control">
-	  						</div>
 							<div class="col-md-2">
-								
+								<label class="form-label">Select Shift</label>
+									<select class="form-control" id="editShift">
+									<option>-- Select --</option>
+								</select>		
+							</div>
+							<div class="col-md-2">
+								<label class="form-label">Time per shift</label>
+								<input type="text" id="timePershift" class=" form-control">
 							</div>							
 						</div>
 					</div>
@@ -192,22 +195,27 @@ label {
 			
 			
 			<!---->
-			<div><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>
+			<div><a href="#" id="additemmodal" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i> Add Item</a> </div>
 			       <div class="col-sm-12 margin-top20">
 			      	<table class="table table-border po_table" id="po_table_modal">
 			      	<thead>
-					  <tr>
-					    <th class="table_hd">Machine</th>
-					    <th class="table_hd">Shift</th>
-					     <th class="table_hd">Item</th>
-					    <th class="table_hd">Set up </th>
-					    <th class="table_hd">Set up Time</th>
-					    <th class="table_hd">Planned Quantity</th>
-					    <th class="table_hd">Planned Mins</th>
-						<th class="table_hd">Time Utilised</th>
-						<th class="table_hd"></th>
-
-					  </tr>
+						<thead>
+						  <tr>
+						    <th class="table_hd" rowspan="2">Machine</th>
+							<th class="table_hd" colspan="7"></th>
+							<th class="table_hd" rowspan="2">Machine Time Utilised</th>
+							<th class="table_hd"rowspan="2" > Action</th>
+						  </tr>
+						  <tr>
+		  					<th class="table_hd">Item</th>
+		  				    <th class="table_hd">Set up </th>
+		  				    <th class="table_hd">Set up Time</th>
+		  					<th class="table_hd">Cycle time	</th>
+		  				    <th class="table_hd">Planned Quantity</th>
+		  				    <th class="table_hd">Planned Mins</th>
+		  					<th class="table_hd">Item Time Utilised</th>
+		  				  </tr>
+					  	</thead>
 					  </thead>
 					  <tbody id="planningBbody">
 					 <!--  <tr class="tr_clone" roCnt = "0">
@@ -288,7 +296,172 @@ label {
   </div>
 </section>
 <!--Content--> 
+<div id="add_item" class="modal fade in" role="dialog">
+  <div class="modal-dialog modal-lg"> 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header cust-hd">
+        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
+        <h4 class="modal-title">Add Station</h4>
+      </div>
+      <div class="modal-body">
 
+		<div class="col-md-12">
+	    	<div class="white-layer mb-8">
+				<div class="row">
+					<div class="col-md-5">
+						<label class="form-label">Select Machine</label>
+						<select class="form-control selMachine" id="addSelMachine"  > </select>
+					</div>
+					<div class="col-md-5">
+						<label class="form-label">Machine Time Utilised</label>
+						<input type="text" id="addmachineTimeUtilised" class=" form-control width80 " disabled>
+					</div>
+					<div class="col-md-2" ><a href="#" class="table_add_link add_item_add_row"><i class="fa fa-plus"></i> Add Row</a></div>							
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 margin-top20">
+	      	<table class="table table-border po_table" id="po_table_modal">
+	      	<thead>
+			  <tr>
+			     <th class="table_hd">Item</th>
+			    <th class="table_hd">Set up </th>
+			    <th class="table_hd">Set up Time</th>
+				<th class="table_hd">Cycle time</th>
+			    <th class="table_hd">Planned Quantity</th>
+			    <th class="table_hd">Planned Mins</th>
+				<th class="table_hd">Time Utilised</th>
+				<th class="table_hd"></th>
+			  </tr>
+			  </thead>
+			  <tbody id="addplanningBbody">
+			   <tr class="tr_clone" roCnt = "0">
+			    <td class="table_input display_block">
+						<select class="form-control addItem" id="addselItem0" roCnt = "0">
+						<option>-- Select --</option>
+					</select>
+			    </td>
+			    
+			     <td class="table_input">
+						<select class="form-control addSetup" id="addselSetUp0" roCnt = "0" >
+							<option>-- Select --</option>
+						</select>
+			     </td>
+			     <td class="table_input">
+					<input type="text" id="addsetUptime0" class=" form-control width80 addtxtSetUptime" roCnt = "0" >
+				</td>
+				<td class="table_input">
+					<input type="text" id="addcycletime0" class=" form-control width80 addtxtCycletime" roCnt = "0" disabled>
+				</td>
+				
+				<td class="table_input">
+					<input type="text" id="addplannedQty0" class=" form-control width80 addtxtPlannedQty" roCnt = "0">
+				</td>
+				<td class="table_input">
+					<input type="text" id="addplannedMins0" class=" form-control width80 addtxtPlannedMins" roCnt = "0" disabled>
+				</td>
+				<td class="table_input">
+					<input type="text" id="addtimeUtilised0" class=" form-control width80 addtxtTimeUtilised" roCnt = "0" disabled>
+				</td>
+			     <td class="table_input"><!--<a href="#" class="deleteRow"><i class="fa fa-minus"></i></a>--></td>
+			     <!-- <td class="table_input">&nbsp;</td> -->
+			  </tr> 
+			  </tbody>
+			</table>
+	      </div> 
+    </div>
+   <div class="clearfix"></div>
+    
+    <div class="modal-footer">
+        <div class="col-md-4 col-md-offset-4 pull-left">
+          <button class="btn btn-block cust-btn" type="submit" id = "addItemDataInPlanningTable">Submit</button>
+        </div>
+    </div>
+    </div>
+    
+  </div>
+</div>
+
+<div id="edit_item" class="modal fade in" role="dialog">
+  <div class="modal-dialog modal-lg"> 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header cust-hd">
+        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
+        <h4 class="modal-title">edit Station</h4>
+      </div>
+      <div class="modal-body">
+		<div class="col-md-12">
+	    	<div class="white-layer mb-8">
+				<div class="row">
+					<div class="col-md-5">
+						<label class="form-label">Select Machine</label>
+						<select class="form-control editselMachine" id="editSelMachine"  > </select>
+					</div>
+					<div class="col-md-5">
+						<label class="form-label">Machine Time Utilised</label>
+						<input type="text" id="editmachineTimeUtilised" class=" form-control width80 " disabled>
+					</div>
+					<div class="col-md-2" ><a href="#" class="table_add_link edit_item_add_row"><i class="fa fa-plus"></i> add Row</a></div>							
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 margin-top20">
+	      	<table class="table table-border edit_po_table" id="edit_po_table_modal">
+	      	<thead>
+			  <tr>
+			     <th class="table_hd">Item</th>
+			    <th class="table_hd">Set up </th>
+			    <th class="table_hd">Set up Time</th>
+				<th class="table_hd">Cycle time</th>
+			    <th class="table_hd">Planned Quantity</th>
+			    <th class="table_hd">Planned Mins</th>
+				<th class="table_hd">Time Utilised</th>
+				<th class="table_hd"></th>
+			  </tr>
+			  </thead>
+			  <tbody id="editplanningBbody">
+			   <!--<tr class="tr_clone" roCnt = "0">
+			    <td class="table_input display_block">
+					<select class="form-control editItem" id="editselItem0" roCnt = "0"> <option>-- Select --</option> </select>
+			    </td>
+			     <td class="table_input">
+					<select class="form-control editSetup" id="editselSetUp0" roCnt = "0" > <option>-- Select --</option> </select>
+			     </td>
+			     <td class="table_input">
+					<input type="text" id="editsetUptime0" class=" form-control width80 edittxtSetUptime" roCnt = "0" >
+				</td>
+				<td class="table_input">
+					<input type="text" id="editcycletime0" class=" form-control width80 edittxtCycletime" roCnt = "0" disabled>
+				</td>
+				
+				<td class="table_input">
+					<input type="text" id="editplannedQty0" class=" form-control width80 edittxtPlannedQty" roCnt = "0">
+				</td>
+				<td class="table_input">
+					<input type="text" id="editplannedMins0" class=" form-control width80 edittxtPlannedMins" roCnt = "0" disabled>
+				</td>
+				<td class="table_input">
+					<input type="text" id="edittimeUtilised0" class=" form-control width80 edittxtTimeUtilised" roCnt = "0" disabled>
+				</td>
+			     <td class="table_input"></td>
+			  </tr> -->
+			  </tbody>
+			</table>
+	      </div> 
+    </div>
+   <div class="clearfix"></div>
+    
+    <div class="modal-footer">
+        <div class="col-md-4 col-md-offset-4 pull-left">
+          <button class="btn btn-block cust-btn" type="submit" id = "editItemDataInPlanningTable">Submit</button>
+        </div>
+    </div>
+    </div>
+    
+  </div>
+</div>
  <script>
 
  var _validFileExtensions = [".xlsx"];    

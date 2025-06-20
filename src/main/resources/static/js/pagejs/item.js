@@ -99,9 +99,9 @@
 				 var i =  0 ;
 				 console.log("====save item======","#line"+i);
 				 
-			 if(NotAllowedNullVal("#poErrAdd","Item Code",$('#itemcode')))
-						 if(NotAllowedNullVal("#poErrAdd","Item Description",$('#itemdesc')))
-							{
+			    if(NotAllowedNullVal($('#itemcode'),"Item Code ","#error_block"))
+			     if(NotAllowedNullVal($('#itemdesc'),"Item Description ","#error_block"))
+					{
 					 
 					 var dataVal = {
 					 
@@ -155,22 +155,19 @@
 				 var i =  0 ;
 				 console.log("====save item======","#line"+i);
 				 
-				 if(NotAllowedNullVal("#itemErredt","Item Code",$('#edititemcode')))
-				 				 if(NotAllowedNullVal("#itemErredt","Item Description",$('#edititemdesc')))						
-							{
+		 if(NotAllowedNullVal($('#edititemcode'),"Item Code ","#error_block"))
+	     	if(NotAllowedNullVal($('#edititemdesc'),"Item Description ","#error_block"))						
+					{
 					 
 					 var dataVal = {
 					 
-							 itemid:selitemid,
+							 itemid			: selitemid,
 							 itemcode		: $('#edititemcode').val(),
 							 itemdesc 		: $('#edititemdesc').val(),
 
 						};
 					 
-				 
-					 
 					 console.log("====data==dataVal===",dataVal);
-					 
 					 
 					 $.ajax({
 							
@@ -185,24 +182,22 @@
 	   	
 							console.log("insert--Information result==="+result);
 							
-							if(result.payload==true){
-								
-								getItemList();
-								
-								$("#edit_item").modal("hide");
-							// $('#myTbody').empty();
-								
-							}else if(result.result==false){
-								
-								window.location.href = "sessionOut";
-								
-							}
-							
-							
+								if(result.payload==true){
+									
+									getItemList();
+									
+									$("#edit_item").modal("hide");
+								// $('#myTbody').empty();
+									
+								}else if(result.result==false){
+									
+									window.location.href = "sessionOut";
+									
+								}
 			
 						   }
-				});
-			}  //validation if
+					});
+				}  //validation if
 });			
 			
 			

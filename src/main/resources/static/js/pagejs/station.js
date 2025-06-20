@@ -93,21 +93,21 @@ $(document).on("click", ".edit-button", function(e){
 $(document).on("click", "#editStationData", function(e){
 
 
- 		getStationTypeList("edit");
-	 	getUOMList("edit");
-	 	getWorkCentreList("edit");
+ 	//	getStationTypeList("edit");
+	// 	getUOMList("edit");
+	// 	getWorkCentreList("edit");
 
-	 if(ValidationForSelectBox("#poErrAdd","Station Type",$('#addStationType')))
-		 if(NotAllowedNullVal("#poErrAdd","Station Number ",$('#addStationNumber')))
-			 if(ValidationForSelectBox("#poErrAdd","UOM ",$('#addUom')))
-				{
+ 	 if(SelectBoxNotAllowedNullVal($('#editStationType'),"Station Type","#error_block"))
+		 if(NotAllowedNullVal($('#editStationNumber'),"Station Number ","#error_block"))
+			 if(SelectBoxNotAllowedNullVal($('#editUom'),"UOM ","#error_block"))
+			 	if(SelectBoxNotAllowedNullVal($('#editWorkCentre')," Work Centre","#error_block")) {
 		 
 		 var dataVal = {
 		 
-				 name				: $('#addStationNumber').val(),
-				 stationtypeid 		: $('#addStationType').val(),
-				 uomid				: $('#addUom').val(),
-				 workcenterid		: $('#addWorkCentre').val(),
+				 name				: $('#editStationType').val(),
+				 stationtypeid 		: $('#editStationNumber').val(),
+				 uomid				: $('#editUom').val(),
+				 workcenterid		: $('#editWorkCentre').val(),
 
 			};
 				 
@@ -462,11 +462,10 @@ $(document).on("click", "#addStationData", function(e){
 
 $(document).on("click", "#editStationData", function(e){
 
-
-	 if(ValidationForSelectBox("#stationErredit","Station Type",$('#editStationType')))
-		 if(NotAllowedNullVal("#stationErredit","Station Number ",$('#editStationNumber')))
-			 if(ValidationForSelectBox("#stationErredit","UOM ",$('#editUom')))
-				{
+	 if(SelectBoxNotAllowedNullVal($('#editStationType'),"Station Type","#error_block"))
+		 if(NotAllowedNullVal($('#editStationNumber'),"Station Number ","#error_block"))
+			 if(SelectBoxNotAllowedNullVal($('#editUom'),"UOM ","#error_block"))
+			 	if(SelectBoxNotAllowedNullVal($('#editWorkCentre')," Work Centre","#error_block")){
 		 
 		 var dataVal = {
 			
