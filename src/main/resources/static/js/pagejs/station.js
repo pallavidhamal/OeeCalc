@@ -89,7 +89,7 @@ $(document).on("click", ".edit-button", function(e){
 		})
 });
 
-
+/*
 $(document).on("click", "#editStationData", function(e){
 
 
@@ -162,7 +162,7 @@ $(document).on("click", "#editStationData", function(e){
 			});
 		}
 });
-
+*/
 	
 			
 //get purchase order list

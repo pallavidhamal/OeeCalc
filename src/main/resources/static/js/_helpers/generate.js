@@ -1,0 +1,1 @@
+const randomString = (len = 1) => new Array(len * 2).fill(Math.random()).map(x => parseInt(((x * 100) * Math.random()), 10).toString(36).charAt(0)).filter(Boolean).map((x,i) => i % 2 === 0 ? x.toUpperCase() : x).sort(() => Math.random() - 0.5).join('').substr(0, len)
