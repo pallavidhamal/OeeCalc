@@ -56,12 +56,17 @@ $(document).ready(function(){
 				
 				var buttonDiv = "";
 				
-				if(i == 0){
-					buttonDiv = '<a  class="edit-button" viewid="'+jQuery.trim(result.payload.planningShiftWork[i].stationname)+'_Tbody">View </a> <a  class="delete-button" deleteid="'+jQuery.trim(result.payload.planningShiftWork[i].stationname)+'_Tbody">Delete</a>  ' ;
-				}
+				//if(i == 0){
+					buttonDiv = '<a  class="edit-button" viewid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">View </a> <a  class="delete-button" deleteid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">Delete</a>  ' ;
+				//}
 				
-				$('#planningBbody').append('<tr class="tr_clone  '+jQuery.trim(result.payload.planningShiftWork[i].stationname)+'_Tbody " roCnt = "'+count+'"  id = "'+jQuery.trim(result.payload.planningShiftWork[i].stationname)+'" >'
-					+'<td class="table_input"> '+ (i == 0 ? jQuery.trim(result.payload.planningShiftWork[i].stationname) : " ") + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'"  disabled >  </td>'
+				var lodstId = jQuery.trim(result.payload.planningShiftWork[i].stationid);
+				
+				 console.log("====lodstId=======",lodstId,"====lodstIdEnd=======",lodstIdEnd)
+				
+				$('#planningBbody').append('<tr class="tr_clone  '+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody " roCnt = "'+i+'"  id = "'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'" >'
+					+'<td class="table_input"> '+ (lodstId != lodstIdEnd ? jQuery.trim(result.payload.planningShiftWork[i].stationname) : " ") + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'"  disabled >  </td>'
+					//+'<td class="table_input"> '+  jQuery.trim(result.payload.planningShiftWork[i].stationname)   + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'"  disabled >  </td>'
 					+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].itemname) + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].itemid)+'"  disabled > </td>'
 					+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].setupname) + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].setupid)+'"  disabled >  </td>'
 					+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].setuptime) + '  </td>'
@@ -69,12 +74,17 @@ $(document).ready(function(){
 					+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].plannedquantity) + '  </td>'
 					+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].plannedmins) + '  </td>'
 					+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].itemtimeutilised) + ' % <input type="hidden" id=additemtimeutilised${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].itemtimeutilised)+'"  disabled > </td>'
-					+'<td class="table_input"> '+ (i == 0 ? jQuery.trim(result.payload.planningShiftWork[i].machinetimeutilised) +" %" : " " )  + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].machinetimeutilised)+'"  disabled >  </td>'
+					+'<td class="table_input"> '+ (lodstId != lodstIdEnd ? jQuery.trim(result.payload.planningShiftWork[i].machinetimeutilised) +" %" : " " )  + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].machinetimeutilised)+'"  disabled >  </td>'
 					+'<td class="table_input">'
 //					+'<a  class="edit-button" id=${id}>Edit</a>'
- 					+ buttonDiv + '<input type="hidden" id=shiftworkid${'+i+'} value="'+result.payload.planningShiftWork[i].id+'"  disabled >'
+ 					+ (lodstId != lodstIdEnd ? buttonDiv : " ")+ '<input type="hidden" id=shiftworkid${'+i+'} value="'+result.payload.planningShiftWork[i].id+'"  disabled >'
 					+'</td>'
 				  +'</tr>');
+				  
+				  var lodstIdEnd = jQuery.trim(result.payload.planningShiftWork[i].stationid);
+				  
+				  
+				//  console.log("====lodstId=======",lodstId,"====lodstIdEnd=======",lodstIdEnd)
 			}
 			
 		},
@@ -1209,14 +1219,14 @@ $(document).on("click", "#additemmodal", function(e){
 		
 	//	}
 		if(i == 0){
-			 col1 = " <tr  class='tr_clone  "+jQuery.trim(addSelMachine)+ "_Tbody ' roCnt = '"+count+"'  id = '"+jQuery.trim(addSelMachine)+"'   ><td > "+addSelMachine+ " <input type='hidden' id=addSelMachineId${"+i+"} value="+addSelMachineval+"  disabled > </td> ";
+			 col1 = " <tr  class='tr_clone  "+jQuery.trim(addSelMachineval)+ "_Tbody ' roCnt = '"+count+"'  id = '"+jQuery.trim(addSelMachine)+"'   ><td > "+addSelMachine+ " <input type='hidden' id=addSelMachineId${"+i+"} value="+addSelMachineval+"  disabled > </td> ";
 			 col2 = " <td>"+item +" <input type='hidden' id=itemId${"+i+"} value="+itemId+"  disabled>  </tb><td>"+setup +"  <input type='hidden' id=setupId${"+i+"}  value="+setupId+"  disabled>  </tb><td>"
 			 +setuptime +"</tb><td>"+cycletime +"</tb><td>"+quantity +"</tb><td>"+mins +"</tb><td>"+itemutilised +" % <input type='hidden' id=itemutilisedId${"+i+"} value="+itemutilised+"  disabled> </tb> " ;
-			 col3 = " <td> "+machineutilised+" % <input type='hidden' id=machineutilisedId${"+i+"} value="+machineutilised+"  disabled> </td> <td>  <a  class='edit-button' viewid='"+jQuery.trim(addSelMachine)+"_Tbody'>View</a> <a  class='delete-button' deleteid='"+jQuery.trim(addSelMachine)+"_Tbody'>Delete </a> </td></tr>";
+			 col3 = " <td> "+machineutilised+" % <input type='hidden' id=machineutilisedId${"+i+"} value="+machineutilised+"  disabled> </td> <td>  <a  class='edit-button' viewid='"+jQuery.trim(addSelMachineval)+"_Tbody'>View</a> <a  class='delete-button' deleteid='"+jQuery.trim(addSelMachineval)+"_Tbody'>Delete </a> </td></tr>";
 			 $("#planningBbody").append(col1+col2+col3);
 		}else{
 			
-			 col1 = "<tr  class='tr_clone  "+jQuery.trim(addSelMachine)+ "_Tbody ' roCnt = '"+count+"'  id = '"+jQuery.trim(addSelMachine)+"'  ><td> <input type='hidden' id=addSelMachineId${"+i+"} value="+addSelMachineval+"  disabled > </td> ";
+			 col1 = "<tr  class='tr_clone  "+jQuery.trim(addSelMachineval)+ "_Tbody ' roCnt = '"+count+"'  id = '"+jQuery.trim(addSelMachine)+"'  ><td> <input type='hidden' id=addSelMachineId${"+i+"} value="+addSelMachineval+"  disabled > </td> ";
 			 col2 ="<td>"+item +" <input type='hidden' id=itemId${"+i+"} value="+itemId+"  disabled>  </tb><td>"+setup +"   <input type='hidden' id=setupId${"+i+"}  value="+setupId+"  disabled>  </tb><td>"
 			 +setuptime +"</tb><td>"+cycletime +"</tb><td>"+quantity +"</tb><td>"+mins +"</tb><td>"+itemutilised +"% <input type='hidden' id=itemutilisedId${"+i+"} value="+itemutilised+"  disabled> </tb> " ;
 			 col3 = " <td> <input type='hidden' id=machineutilisedId${"+i+"} value="+machineutilised+"  disabled> </td> <td> </td></tr>";
@@ -1266,10 +1276,10 @@ $(document).on("click", "#additemmodal", function(e){
 				console.log($("#planningBbody").find("tr").eq(i).find("td").length);
 				
 				if(i== 0 ){
-					editstationidId = $("#planningBbody").find('tr').eq(i).find('td').eq(0).find("input").eq(0).val() ;
+					editstationidId = $("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(0).find("input").eq(0).val() ;
 					
 					$("#editSelMachine").val(editstationidId);
-					$("#editmachineTimeUtilised").val($("#planningBbody").find('tr').eq(i).find('td').eq(8).text());
+					$("#editmachineTimeUtilised").val($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(8).text());
 				}
 				
 				
@@ -1288,24 +1298,24 @@ $(document).on("click", "#additemmodal", function(e){
 				+'<td class="table_input"><input type="text" class="form-control width80 line edittxtPlannedQty integer" rocnt = "'+count+'" id="editplannedQty'+count+'"></td>'
 				+'<td class="table_input"><input type="text" class="form-control width80 line edittxtPlannedMins"  rocnt = "'+count+'" id="editplannedMins'+count+'" disabled></td>'
 				+'<td class="table_input"><input type="text" class="form-control width80 line edittxtTimeUtilised integer" rocnt = "'+count+'" id="edittimeUtilised'+count+'" disabled></td>'
-				+'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a><input type="hidden" class="form-control editItemId " id="editItemId'+count+'" disabled> </td>'
+				+'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a><input type="hidden" class="form-control editItemId" id="editItemId'+count+'" disabled> </td>'
 				
 		
 			  +'</tr>');
 			  
-			  var itemid  = $("#planningBbody").find('tr').eq(i).find('td').eq(1).find("input").eq(0).val();
-			  var setupid = $("#planningBbody").find('tr').eq(i).find('td').eq(2).find("input").eq(0).val()
+			  var itemid  = $("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(1).find("input").eq(0).val();
+			  var setupid = $("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(2).find("input").eq(0).val()
 			  $("#editselItem"+count).val(itemid);
 			  
 			  getAndSetSetups("#editselSetUp"+count,editstationidId,itemid,setupid);
 			  
 			  
-			  $("#editsetUptime"+count).val(jQuery.trim($("#planningBbody").find('tr').eq(i).find('td').eq(3).text()));
-			  $("#editcycletime"+count).val(jQuery.trim($("#planningBbody").find('tr').eq(i).find('td').eq(4).text()));
-			  $("#editplannedQty"+count).val(jQuery.trim($("#planningBbody").find('tr').eq(i).find('td').eq(5).text()));
-			  $("#editplannedMins"+count).val(jQuery.trim($("#planningBbody").find('tr').eq(i).find('td').eq(6).text()));
-			  $("#edittimeUtilised"+count).val(jQuery.trim($("#planningBbody").find('tr').eq(i).find('td').eq(7).text()));
-			  $("#editItemId"+count).val($("#planningBbody").find('tr').eq(i).find('td').eq(9).find("input").eq(0).val());
+			  $("#editsetUptime"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(3).text()));
+			  $("#editcycletime"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(4).text()));
+			  $("#editplannedQty"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(5).text()));
+			  $("#editplannedMins"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(6).text()));
+			  $("#edittimeUtilised"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(7).text()));
+			  $("#editItemId"+count).val($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(9).find("input").eq(0).val());
 			  
 			  
 			  count++;
@@ -1502,7 +1512,7 @@ $('.edit_item_add_row').on('click',function(){
 		+'<td class="table_input"><input type="text" class="form-control width80 line edittxtPlannedQty integer" rocnt = "'+count+'" id="editplannedQty'+count+'"></td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line edittxtPlannedMins"  rocnt = "'+count+'" id="editplannedMins'+count+'" disabled></td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line edittxtTimeUtilised integer" rocnt = "'+count+'" id="edittimeUtilised'+count+'" disabled></td>'
-		+'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>'
+		+'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a> <input type="hidden" class="form-control editItemId " id="editItemId'+count+'" disabled="" value=""></td>'
 		
 
 	  +'</tr>');
@@ -1559,7 +1569,7 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 			}
 			*/
 			console.log( $("#"+editSelMachineval).remove() );
-			console.log( $("."+editSelMachineval).remove() );
+			console.log( $("."+editSelMachineval+"_Tbody").remove() );
 	//	}
 	
 	for(i=0 ; i<$("#editplanningBbody").find("tr").length; i++){
@@ -1584,22 +1594,39 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 		
 			var itemutilisedsplit = itemutilised.split("%");
 			var itemutilisedVal = jQuery.trim(itemutilisedsplit[0]);
-		
-		
-		
+			
+			if(itemrowId == undefined){
+				itemrowId = "";
+			}
+			
+			console.log("========itemrowId===========",itemrowId);
+			console.log("========i===========",i);	
 	//	}
 		if(i == 0){
-			 col1 = " <tr class= 'tr_clone "+jQuery.trim(editSelMachineval)+"'  roCnt ='"+count+"'  id = '"+jQuery.trim(editSelMachineval)+"' ><td > "+editSelMachine+ " <input type='hidden' id=editSelMachineId${"+i+"} value="+editSelMachineval+"  disabled > </td> ";
-			 col2 = " <td>"+item+" <input type='hidden' id=itemId${"+i+"} value="+itemId+"  disabled>  </tb><td>"+setup+"  <input type='hidden' id=setupId${"+i+"}  value="+setupId+"  disabled>  </tb><td>"+setuptime+"</tb><td>"+cycletime+"</tb><td>"+quantity+"</tb><td>"+mins+"</tb><td>"+itemutilised+"  <input type='hidden' class='form-control editItemutilisedId '  value="+itemutilisedVal+" id='editItemutilisedId"+count+"' disabled> </tb> " ;
-			 col3 = " <td> "+machineutilised+"  <input type='hidden' class='form-control editItemId '  value="+machineutilisedVal+" id='editItemId"+count+"' disabled>  </td> <td>  <a  class='edit-button' id=${id}>View</a> <a  class='delete-button' id=${id}>Delete </a> <input type='hidden' class='form-control editItemId '  value="+itemrowId+"  id='editItemId"+count+"' disabled> </td></tr>";
+			 col1 = " <tr class= 'tr_clone "+jQuery.trim(editSelMachineval)+"_Tbody'  roCnt ='"+i+"'  id = '"+jQuery.trim(editSelMachineval)+"' ><td > "
+			 		+editSelMachine+ " <input type='hidden' id='editSelMachineId"+i+"' value='"+jQuery.trim(editSelMachineval)+"'  disabled > </td> ";
+			 		
+			 col2 = " <td>"+item+" <input type='hidden' id='itemId"+i+"' value='"+itemId+"'  disabled>  </tb><td>"+setup+"  <input type='hidden' id='setupId"+i+"'  value='"+setupId+"'  disabled>  </tb><td>"
+			 		+setuptime+"</tb><td>"+cycletime+"</tb><td>"+quantity+"</tb><td>"+mins+"</tb><td>"
+			 		+itemutilised+"  <input type='hidden' class='form-control editItemutilisedId '  value='"+itemutilisedVal+"' id='editItemutilisedId"+i+"' disabled> </tb> " ;
+			 
+			 col3 = " <td> "+machineutilised+"  <input type='hidden' class='form-control editItemId '  value='"+machineutilisedVal+"' id='editItemId"+i+"_m' disabled>  </td> <td>  <a  class='edit-button' viewid='"
+			 		+jQuery.trim(editSelMachineval)+"_Tbody'>View</a> <a  class='delete-button'  viewid='"+jQuery.trim(editSelMachineval)+"_Tbody'>Delete </a> <input type='hidden' class='form-control editItemId '   id='editItemId"+i+"' disabled> </td></tr>";
+			 
 			 $("#planningBbody").append(col1+col2+col3);
 		}else{
 			
-			 col1 = "<tr class= 'tr_clone "+jQuery.trim(editSelMachineval)+"'  roCnt ='"+count+"'  id = '"+jQuery.trim(editSelMachineval)+"' ><td> <input type='hidden' id=editSelMachineId${"+i+"} value="+editSelMachineval+"  disabled > </td> ";
-			 col2 ="<td>"+item+" <input type='hidden' id=itemId${"+i+"} value="+itemId+"  disabled>  </tb><td>"+setup+"   <input type='hidden' id=setupId${"+i+"}  value="+setupId+"  disabled>  </tb><td>"+setuptime+"</tb><td>"+cycletime+"</tb><td>"+quantity+"</tb><td>"+mins+"</tb><td>"+itemutilised+"   <input type='hidden' class='form-control editItemutilisedId '  value="+itemutilisedVal+" id='editItemutilisedId"+count+"' disabled> </tb> " ;
-			 col3 = " <td> <input type='hidden' class='form-control editmachineutilisedId '  value="+machineutilisedVal+" id='editmachineutilisedId"+count+"' disabled> </td> <td> <input type='hidden' class='form-control editItemId'  value="+itemrowId+"   id='editItemId"+count+"' disabled> </td></tr>";
+			 col1 = "<tr class= 'tr_clone "+jQuery.trim(editSelMachineval)+"_Tbody'  roCnt ='"+i+"'  id = '"
+			 		+jQuery.trim(editSelMachineval)+"' ><td> <input type='hidden' id='editSelMachineId${"+i+"}' value='"+editSelMachineval+"'  disabled > </td> ";
+			 
+			 col2 ="<td>"+item+" <input type='hidden' id='itemId${"+i+"}' value='"+itemId+"'  disabled>  </tb><td>"+setup+"   <input type='hidden' id='setupId${"+i+"}'  value='"+setupId+"'  disabled>  </tb><td>"
+			 		+setuptime+"</tb><td>"+cycletime+"</tb><td>"+quantity+"</tb><td>"+mins+"</tb><td>"
+			 		+itemutilised+"   <input type='hidden' class='form-control editItemutilisedId '  value='"+itemutilisedVal+"' id='editItemutilisedId"+i+"' disabled> </tb> " ;
+			 col3 = " <td> <input type='hidden' class='form-control editmachineutilisedId '  value='"+machineutilisedVal+"' id='editmachineutilisedId"+i+"' disabled> </td> <td> <input type='hidden' class='form-control editItemId'   id='editItemId"+i+"' disabled> </td></tr>";
 			 $("#planningBbody").append(col1+col2+col3);
 		}
+		
+		$("#editItemId"+i).val(itemrowId)
 		
 	}
 	
@@ -1680,9 +1707,9 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 		
 				 var dataVal = {
 				 		 id								: editId,
-						 /*fromdate						: $('#frmDate').val(),
+						 fromdate						: $('#frmDate').val(),
 						 todate 						: $('#toDate').val(),
-						 timepershift					: $('#timePershift').val(),
+						/* timepershift					: $('#timePershift').val(),
 						 shiftid						: $('#editShift').val(),
 						 unitid       					: $('#editUnit').val(),
 						 workcenterid 					: $('#editWorkCentre').val(),*/
