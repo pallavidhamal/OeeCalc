@@ -1,9 +1,10 @@
 			
 			var tableData = $('#planningList').DataTable();
 		
-			$(document).ready(function(){
+$(document).ready(function()
+{
 				
-			  const today = new Date();
+			  	const today = new Date();
 			    const year = today.getFullYear();
 			    let month = today.getMonth() + 1;
 			    let day = today.getDate();
@@ -16,22 +17,31 @@
 			//	const formattedToday1 = `${year}-${month}-1`;
 				
 			    $('#planCalender').val(formattedToday);
-			  
-			  
 				$('#planCalender1').val(formattedToday);
 			
 			getUnitList("sel");
-				
 			getPlanningList();
 				
-					
+			
+			$('#planCalender').on('change', function (e) 
+			{
+						   	
+						var frmdate=$(this).val();
+						$("#planCalender1").attr("min", frmdate);
+						//$("#myDateField").attr("min", "2023-01-01");
 			});
+			
+					
+});
+
+
 			
 			$(document).on("click", "#planningAddAction", function(e){
 			
 			window.location.href = "addPlanning";	
 
 			});
+			
 			
 			$(document).on("change", "#selUnit", function(e){
 				 

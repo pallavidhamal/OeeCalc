@@ -23,9 +23,9 @@ public class UserController {
         return "PurchaseOrder";
     }
     
-    @GetMapping(value = {"/addpurchaseorder"})
-    public String addPurchaseOrder() {
-        return "AddPurchaseOrder";
+    @GetMapping(value = {"/addProduction"})
+    public String addProduction() {
+        return "AddProduction";
      //   return "BillingAdd";
     }
     

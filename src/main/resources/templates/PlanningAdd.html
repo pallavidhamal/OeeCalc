@@ -174,7 +174,7 @@ label {
 							
 							<div class="col-md-2">
     							<label class="form-label">To Date</label>
-    							<input type="date" id="toDate" class=" form-control">
+    							<input type="date" id="toDate" class=" form-control" >
     						</div>
 							<div class="col-md-2">
 								<label class="form-label">Select Shift</label>
@@ -195,7 +195,7 @@ label {
 			
 			
 			<!---->
-			<div><a href="#" id="additemmodal" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i> Add Item</a></div>
+			<div><a href="#" id="additemmodal" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i> Add Station</a></div>
 			       <div class="col-sm-12 margin-top20">
 					<table id="addPlantList">
 						<thead>
@@ -297,12 +297,6 @@ label {
 			</div>
 			
 			
-			
-			
-			
-			
-			
-			
         </div>
       </div>
     </div>
@@ -317,7 +311,7 @@ label {
     <div class="modal-content">
       <div class="modal-header cust-hd">
         <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Add Station</h4>
+        <h4 class="modal-title">Add Item</h4>
       </div>
       <div class="modal-body">
 
@@ -329,7 +323,7 @@ label {
 						<select class="form-control selMachine" id="addSelMachine"  > </select>
 					</div>
 					<div class="col-md-5">
-						<label class="form-label">Machine Time Utilised</label>
+						<label class="form-label">Machine Time Utilised(%)</label>
 						<input type="text" id="addmachineTimeUtilised" class=" form-control width80 " disabled>
 					</div>
 					<div class="col-md-2" ><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>							
@@ -348,7 +342,7 @@ label {
 							<th class="table_hd">Cycle time</th>
 						    <th class="table_hd">Planned Quantity</th>
 						    <th class="table_hd">Planned Mins</th>
-							<th class="table_hd">Time Utilised</th>
+							<th class="table_hd">Time Utilised(%)</th>
 							<th class="table_hd"></th>
 
 						  </tr>
@@ -367,14 +361,14 @@ label {
 									</select>
 						     </td>
 						     <td class="table_input">
-								<input type="text" id="setUptime0" class=" form-control width80 txtSetUptime" roCnt = "0" >
+								<input type="text" id="setUptime0" class=" form-control width80 txtSetUptime integer" roCnt = "0" >
 							</td>
 							<td class="table_input">
-								<input type="text" id="cycletime0" class=" form-control width80 txtCycletime" roCnt = "0" disabled>
+								<input type="text" id="cycletime0" class=" form-control width80 txtCycletime " roCnt = "0" disabled>
 							</td>
 							
 							<td class="table_input">
-								<input type="text" id="plannedQty0" class=" form-control width80 txtPlannedQty" roCnt = "0">
+								<input type="text" id="plannedQty0" class=" form-control width80 txtPlannedQty integer" roCnt = "0">
 							</td>
 							
 							

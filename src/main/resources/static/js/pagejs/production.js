@@ -94,9 +94,9 @@
 					
 			});
 			
-			$(document).on("click", "#purchaseAddAction", function(e){
+			$(document).on("click", "#addProduction", function(e){
 			
-			window.location.href = "addpurchaseorder";	
+			window.location.href = "addProduction";	
 
 			});
 	
