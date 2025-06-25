@@ -853,9 +853,9 @@ function ValidateMachine()
 }				
 
 		
-function ValidateItem()
+function ValidateItem(classid)
 {
-		$(".editItem").each(function() {
+		$("."+classid+"Item").each(function() {
 			
 			//console.log("in vali ValidateItem",$(this).val());
 						
@@ -899,9 +899,9 @@ function ValidateShift()
 		return flag;
 }	
 
-function ValidateSetup()
+function ValidateSetup(classid)
 {
-		$(".editSetUp").each(function() {
+		$("."+classid+"Setup").each(function() {
 			
 			console.log("in vali sel",$(this).val());
 						
@@ -922,9 +922,9 @@ function ValidateSetup()
 }
 
 
-function ValidateSetupTimeForBlank()  
+function ValidateSetupTimeForBlank(classid)  
 {
-		$(".txtSetUptime").each(function() {
+		$("."+classid+"txtSetUptime").each(function() {
 			
 			console.log("in vali sel",$(this).val());
 			
@@ -944,32 +944,11 @@ function ValidateSetupTimeForBlank()
 }
 
 
-function ValidateSetupTimeForNum()
-{
-		$(".txtSetUptime").each(function() {
-			
-			console.log("ValidateSetupTimeForNum",$(this).val());
-			
-//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
-			if(AllowedOnlyNumberNoDecimal("#setupErrDiv","Setup Time",$(this)))
-		     {
-		    	flag=true; 
-		    	console.log("iff-----");
-		     }
-			 else
-			 {
-				 flag=false;
-				 return flag;
-				 console.log("else-----");
-			 }
-		 });
-		return flag;
-}
 
 
-function ValidatePlannedQtyForBlank()  
+function ValidatePlannedQtyForBlank(classid)  
 {
-			$(".txtPlannedQty").each(function() {
+			$("."+classid+"txtPlannedQty").each(function() {
 				
 				console.log("in vali sel txtPlannedQty",$(this).val());
 				
@@ -991,28 +970,7 @@ function ValidatePlannedQtyForBlank()
 			return flag;
 	}
 
-	
-	function ValidatePlannedQtyForNum()
-	{
-			$(".txtPlannedQty").each(function() {
-				
-				console.log("Validatepln qtyForNum txtPlannedQty",$(this).val());
-				
-	//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
-				if(AllowedOnlyNumberNoDecimal("#setupErrDiv","Planned Quantity",$(this)))
-			     {
-			    	flag=true; 
-			    	console.log("iff-----");
-			     }
-				 else
-				 {
-					 flag=false;
-					 return flag;
-					 console.log("else-----");
-				 }
-			 });
-			return flag;
-	}	
+
 	
 	function ValidatePlannedMinsForBlank()  
 	{
@@ -1037,27 +995,6 @@ function ValidatePlannedQtyForBlank()
 		}
 
 		
-		function ValidatePlannedMinsForNum()
-		{
-				$(".txtPlannedMins").each(function() {
-					
-					console.log("Validatepln qtyForNum txtPlannedMins",$(this).val());
-					
-		//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
-					if(AllowedOnlyNumberNoDecimal("#setupErrDiv","Planned Mins",$(this)))
-				     {
-				    	flag=true; 
-				    	console.log("iff-----");
-				     }
-					 else
-					 {
-						 flag=false;
-						 return flag;
-						 console.log("else-----");
-					 }
-				 });
-				return flag;
-		}		
 	
 	
 function ValidateTimeUtilisedForBlank()  
@@ -1082,50 +1019,30 @@ function ValidateTimeUtilisedForBlank()
 			return flag;
 	}
 
-function ValidateTimeUtilisedForNum()
+
+function ValidateDupRow(classid)
 {
-		$(".txtTimeUtilised").each(function() {
-			
-			console.log("Validatepln  txtTimeUtilised",$(this).val());
-			
-//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
-			if(AllowedOnlyNumberNoDecimal("#setupErrDiv","Time Utilised",$(this)))
-		     {
-		    	flag=true; 
-		    	console.log("iff-----");
-		     }
-			 else
-			 {
-				 flag=false;
-				 return flag;
-				 console.log("else-----");
-			 }
-		 });
-		return flag;
-}
-
-
-
-function ValidateDupRow()
-{
-	$(setupErrDiv).empty();
+	//$(setupErrDiv).empty();
 	var seen = new Set();
 	 var duplicateFound = true;
 	 
-	$('#planningBbody tr').each(function () {
+	$('#'+classid+'_po_table_modal tr').each(function () {
 	
-	  var st = $(this).find('td:eq(0) select').val();
-	  var sht = $(this).find('td:eq(1) select').val();
-	  var it = $(this).find('td:eq(2) select').val();
-	  var sett = $(this).find('td:eq(3) select').val();
+	//  var st = $(this).find('td:eq(0) select').val();
+	//  var sht = $(this).find('td:eq(1) select').val();
+	  var it = $(this).find('td:eq(0) select').val();
+	  var sett = $(this).find('td:eq(1) select').val();
 	  
-	  var key = st + '-' + sht+ '-' +it+ '-' +sett;
+	//  var key = st + '-' + sht+ '-' +it+ '-' +sett;
+	
+	var key = it+ '-' +sett;
 
 	  if (seen.has(key)) {
 		
 		console.log("dupp found "+key);
 		
-		$(setupErrDiv).append("Duplicate row found");
+		//$(setupErrDiv).append("Duplicate row found");
+		errorBlock("#error_block", " Duplicate row for Item and Setup found ")
 		
 	    duplicateFound = false;
 	    return false; // break out of loop
@@ -1177,6 +1094,19 @@ function GetURLParameter(sParam)
  }
 			
 
+ function PercentLimit(value,Msg)	
+ 	{
+ 			
+ 		if(value < 100)
+ 			return true;
+ 		else
+ 		{
+ 			errorBlock("#error_block", Msg+" can not be more than 100")
+ 			return false;
+ 		}
+ 	}	
+ 
+ 
 $(document).on("click", "#additemmodal", function(e){
 	
 	$("#add_item").modal("show");
@@ -1197,6 +1127,16 @@ $(document).on("click", "#additemmodal", function(e){
 	var col2="";
 	var col3="";
 	
+	
+	
+	if(SelectBoxNotAllowedNullVal($("#addselMachine"),"Machine","#error_block"))
+			if (ValidateItem("add"))
+			if (ValidateSetup("add"))
+			if(ValidateSetupTimeForBlank("add"))
+			 if(ValidatePlannedQtyForBlank("add"))
+				if(PercentLimit($("#addmachineTimeUtilised").val(),"Machine Time Utilised"))
+				if(ValidateDupRow("add"))
+	{
 	for(i=0 ; i<$("#addplanningBbody").find("tr").length; i++){
 		
 		console.log($("#addplanningBbody").find("tr").eq(i).find("td"));
@@ -1233,15 +1173,15 @@ $(document).on("click", "#additemmodal", function(e){
 			 $("#planningBbody").append(col1+col2+col3);
 		}
 		
-		 
+		$("#add_item").modal("hide");
+
 		
 	}
 	
-	
+	}//validation if
 //	console.log($("#addPlantListBody").find("tr"))
 	
 	
-			$("#add_item").modal("hide");
 	
 	
 //	$("#add_item").append("<tr><td> "+addSelMachine+ " </td> <td>"+ +"</tb> <td> 60 % </td></tr>")
@@ -1537,7 +1477,7 @@ $('.edit_item_add_row').on('click',function(){
 $(document).on("click", "#editItemDataInPlanningTable", function(e){
 	
 	
-	
+	console.log("in edit save");
 	
 	var editSelMachine = $("#editSelMachine").find(":selected").text();
 	var editSelMachineval = $("#editSelMachine").find(":selected").val();
@@ -1572,7 +1512,16 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 			console.log( $("."+editSelMachineval+"_Tbody").remove() );
 	//	}
 	
-	for(i=0 ; i<$("#editplanningBbody").find("tr").length; i++){
+	
+	if(SelectBoxNotAllowedNullVal($("#editSelMachine"),"Machine","#error_block"))
+		if (ValidateItem("edit"))
+		if (ValidateSetup("edit"))
+		if(ValidateSetupTimeForBlank("edit"))
+		 if(ValidatePlannedQtyForBlank("edit"))
+			if(PercentLimit($("#editmachineTimeUtilised").val(),"Machine Time Utilised"))
+			if(ValidateDupRow("edit"))	
+		{
+		for(i=0 ; i<$("#editplanningBbody").find("tr").length; i++){
 		
 		console.log($("#editplanningBbody").find("tr").eq(i).find("td"));
 		console.log($("#editplanningBbody").find("tr").eq(i).find("td").length);
@@ -1629,10 +1578,12 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 		$("#editItemId"+i).val(itemrowId)
 		
 	}
+	$("#edit_item").modal("hide");
+	}//validation if
 	
 //	console.log($("#addPlantListBody").find("tr"))
 	
-			$("#edit_item").modal("hide");
+			
 	
 //	$("#add_item").append("<tr><td> "+addSelMachine+ " </td> <td>"+ +"</tb> <td> 60 % </td></tr>")
 	
@@ -1750,5 +1701,111 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 					   }
 			});
 	});
+	
+	
+	
+			
+	function ValidateItem()
+	{
+			$(".editItem").each(function() {
+				
+				//console.log("in vali ValidateItem",$(this).val());
+							
+			//	if(validationSelectBox($(this).val(),"Item","#setupErrDiv"))
+					if(SelectBoxNotAllowedNullVal($(this),"Item","#error_block"))	
+			     {
+					
+			    	flag=true; 
+			    	console.log("iff-----");
+			     }
+				 else
+				 {
+					 flag=false;
+					 return flag;
+					 console.log("else-----");
+				 }
+			 });
+			return flag;
+	}	
+	
+	
+	
+	$('#editSelMachine').on('change', function (e) 
+	{
+			
+		var addSelMachine = $("#editSelMachine").find(":selected").text();
+		if(MachineAlreadySelected(addSelMachine,"#error_block"))
+		{
+				$("#po_table_modal").find("tr:gt(1)").remove();
+				
+				$("#editmachineTimeUtilised").val("");
+				$("#po_table_modal").find("tr").eq(1).find("td").eq(2).find("input[type='text']").val('');
+				$("#po_table_modal").find("tr").eq(1).find("td").eq(3).find("input[type='text']").val('');
+				$("#po_table_modal").find("tr").eq(1).find("td").eq(4).find("input[type='text']").val('');
+				$("#po_table_modal").find("tr").eq(1).find("td").eq(5).find("input[type='text']").val('');
+				$("#po_table_modal").find("tr").eq(1).find("td").eq(6).find("input[type='text']").val('');
+				$("#po_table_modal").find("tr").eq(1).find("td").eq(0).find("select").prop("selectedIndex", 0); 
+				$("#po_table_modal").find("tr").eq(1).find("td").eq(1).find("select").prop("selectedIndex", 0); 
+	
+		}else
+		{
+			$("#editselMachine").prop("selectedIndex", 0);
+				return false;
+		}
+	});	
+	
+	$('#addSelMachine').on('change', function (e) 
+	{
+				
+			var addSelMachine = $("#addSelMachine").find(":selected").text();
+			if(MachineAlreadySelected(addSelMachine,"#error_block"))
+			{
+					$("#po_table_modal").find("tr:gt(1)").remove();
+					
+					$("#addmachineTimeUtilised").val("");
+					$("#po_table_modal").find("tr").eq(1).find("td").eq(2).find("input[type='text']").val('');
+					$("#po_table_modal").find("tr").eq(1).find("td").eq(3).find("input[type='text']").val('');
+					$("#po_table_modal").find("tr").eq(1).find("td").eq(4).find("input[type='text']").val('');
+					$("#po_table_modal").find("tr").eq(1).find("td").eq(5).find("input[type='text']").val('');
+					$("#po_table_modal").find("tr").eq(1).find("td").eq(6).find("input[type='text']").val('');
+					$("#po_table_modal").find("tr").eq(1).find("td").eq(0).find("select").prop("selectedIndex", 0); 
+					$("#po_table_modal").find("tr").eq(1).find("td").eq(1).find("select").prop("selectedIndex", 0); 
+		
+			}else
+			{
+				$("#editselMachine").prop("selectedIndex", 0);
+					return false;
+			}
+		});	
+	
+	
+	
+	function MachineAlreadySelected(machineSelected,ErrDivName)	
+	{
+		
+			var firstColumnValues = [];
+			$('#po_table_modal tr').each(function() {
+			    // Select the first <td> (or <th> if it's a header) in the current row
+			    var firstColumnText = $(this).find('td:first').text().trim(); 
+			    // If you have header cells (<th>) in the first column, use:
+			    // var firstColumnText = $(this).find('td:first, th:first').text(); 
+			    firstColumnValues.push(firstColumnText);
+			});
+			
+			console.log("machineSelected"+machineSelected.trim());
+			console.log("machines selected array--"+firstColumnValues);
+			console.log("firstColumnValues.indexOf(machineSelected)=====::"+firstColumnValues.indexOf(machineSelected));
+			
+		if(firstColumnValues.indexOf(machineSelected) == -1)
+			return true;
+		else
+		{
+			
+			errorBlock("#error_block", machineSelected +" is already selected");
+			return false;
+		}
+	}	
+	
+	
 				
 });
