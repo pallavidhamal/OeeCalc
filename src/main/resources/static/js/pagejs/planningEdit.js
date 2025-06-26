@@ -857,6 +857,7 @@ function	getAllMachines()
 		
 function ValidateItem(classid)
 {
+	var flag=false;
 	
 	console.log("in item vali--"+classid+"--");
 		$("."+classid+"Item").each(function() {
@@ -880,6 +881,7 @@ function ValidateItem(classid)
 
 function ValidateShift()
 {
+	var flag=false;
 		$(".editShift").each(function() {
 			
 			console.log("in vali sel",$(this).val());
@@ -901,6 +903,7 @@ function ValidateShift()
 
 function ValidateSetup(classid)
 {
+	var flag=false;
 		$("."+classid+"Setup").each(function() {
 			
 			console.log("in vali sel",$(this).val());
@@ -924,6 +927,7 @@ function ValidateSetup(classid)
 
 function ValidateSetupTimeForBlank(classid)  
 {
+	var flag=false;
 		$("."+classid+"txtSetUptime").each(function() {
 			
 			console.log("in vali sel",$(this).val());
@@ -948,6 +952,8 @@ function ValidateSetupTimeForBlank(classid)
 
 function ValidatePlannedQtyForBlank(classid)  
 {
+	
+	var flag=false;
 			$("."+classid+"txtPlannedQty").each(function() {
 				
 				console.log("in vali sel txtPlannedQty",$(this).val());
@@ -956,6 +962,7 @@ function ValidatePlannedQtyForBlank(classid)
 			//	if(NotAllowedNullVal("#setupErrDiv","Planned Quantity",$(this)))
 					
 				if(NotAllowedNullVal($(this),"Planned Quantity","#error_block"))
+					if(NotAllowedZeroVal($(this),"Planned Quantity","#error_block"))
 			     {
 			    	flag=true; 
 			    	console.log("iff-----");

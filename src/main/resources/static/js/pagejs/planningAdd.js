@@ -1214,15 +1214,15 @@ function ValidateSetupTimeForBlank()
 
 function ValidatePlannedQtyForBlank()  
 {
+	var flag=false;
 			$(".txtPlannedQty").each(function() {
 				
 				console.log("in vali sel txtPlannedQty",$(this).val());
 				
-	//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
-			//	if(NotAllowedNullVal("#setupErrDiv","Planned Quantity",$(this)))
-					
 				if(NotAllowedNullVal($(this),"Planned Quantity","#error_block"))
+				if(NotAllowedZeroVal($(this),"Planned Quantity","#error_block"))
 			     {
+					
 			    	flag=true; 
 			    	console.log("iff-----");
 			     }
@@ -1454,7 +1454,7 @@ function ValidateDupRow()
 			return true;
 		else
 		{
-			errorBlock("#error_block", "al rleast 1 row");
+			errorBlock("#error_block", "Add at least one row of item.");
 			return false;
 		}
 		
