@@ -1243,7 +1243,7 @@ function EmptyModal()
 					editstationidId = $("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(0).find("input").eq(0).val() ;
 					
 					$("#editSelMachine").val(editstationidId);
-					$("#editmachineTimeUtilised").val($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(8).text());
+					$("#editmachineTimeUtilised").val($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(8).find("input").eq(0).val());
 				}
 				
 				
@@ -1278,7 +1278,7 @@ function EmptyModal()
 			  $("#editcycletime"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(4).text()));
 			  $("#editplannedQty"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(5).text()));
 			  $("#editplannedMins"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(6).text()));
-			  $("#edittimeUtilised"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(7).text()));
+			  $("#edittimeUtilised"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(7).find("input").eq(0).val()));
 			  $("#editItemId"+count).val($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(9).find("input").eq(0).val());
 			  
 			  
@@ -1428,7 +1428,7 @@ function EmptyModal()
 		
 		var timeUtilisedVal = (( minPlanned / $("#timePershift").val() ) * 100 ).toFixed(2) ;
 		
-		$("#edittimeUtilised"+rowcount).val(timeUtilisedVal+" %");
+		$("#edittimeUtilised"+rowcount).val(timeUtilisedVal);
 		
 		editcalculateMachinUtilis();
 	}
@@ -1443,7 +1443,7 @@ function EmptyModal()
 			}
 			var minsVal = (( mins / $("#timePershift").val() ) * 100 ).toFixed(2)
 			
-			$("#editmachineTimeUtilised").val(minsVal +" %" );
+			$("#editmachineTimeUtilised").val(minsVal  );
 	}
 	
 	
@@ -1533,7 +1533,9 @@ $(document).on("click", "#editItemDataInPlanningTable", function(e){
 			}
 			*/
 		//	console.log( $("#"+editSelMachineval).remove() );
-			//console.log( $("."+editSelMachineval+"_Tbody").remove() );
+		//	console.log( $("."+editSelMachineval+"_Tbody").remove() );
+			
+			
 	//	}
 	
 	
@@ -1545,6 +1547,11 @@ $(document).on("click", "#editItemDataInPlanningTable", function(e){
 			if(PercentLimit($("#editmachineTimeUtilised").val(),"Machine Time Utilised"))
 			if(ValidateDupRow("edit"))	
 		{
+			
+			
+			$("."+editSelMachineval+"_Tbody").remove()
+	
+			
 		for(i=0 ; i<$("#editplanningBbody").find("tr").length; i++){
 		
 		console.log($("#editplanningBbody").find("tr").eq(i).find("td"));
