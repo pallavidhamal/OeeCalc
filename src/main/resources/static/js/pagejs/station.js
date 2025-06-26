@@ -357,7 +357,7 @@ function getWorkCentreList(divId){
 									
 					$.each(response.payload, function( index, value ){
 									
-					$("#"+divId+"WorkCentre").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+					$("#"+divId+"WorkCentre").append('<option value="'+ value.id + '">'+ value.name+'  ('+ value.unitDto.name +' ) </option>');
 					
 				    });
 				

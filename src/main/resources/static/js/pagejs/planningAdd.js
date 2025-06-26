@@ -520,7 +520,7 @@ $('.table_add_link').on('click',function(){
 							editstationidId = $("#addPlantListBody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(0).find("input").eq(0).val() ;
 							
 							$("#addSelMachine").val(editstationidId);
-							$("#addmachineTimeUtilised").val($("#addPlantListBody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(8).text());
+							$("#addmachineTimeUtilised").val($("#addPlantListBody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(8).find("input").eq(0).val());
 						}
 						
 						/* $('#planningBbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
@@ -557,7 +557,7 @@ $('.table_add_link').on('click',function(){
 					  $("#cycletime"+count).val(jQuery.trim($("#addPlantListBody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(4).text()));
 					  $("#plannedQty"+count).val(jQuery.trim($("#addPlantListBody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(5).text()));
 					  $("#plannedMins"+count).val(jQuery.trim($("#addPlantListBody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(6).text()));
-					  $("#timeUtilised"+count).val(jQuery.trim($("#addPlantListBody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(7).text()));
+					  $("#timeUtilised"+count).val(jQuery.trim($("#addPlantListBody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(7).find("input").eq(0).val()));
 					  $("#ItemId"+count).val($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(9).find("input").eq(0).val());
 					  
 					  
