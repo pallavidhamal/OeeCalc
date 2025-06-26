@@ -854,6 +854,21 @@ function	getAllMachines()
 		return flag;
 }*/				
 
+
+function validateRows(tBodyId)
+{
+	var tbodylen=$("#"+tBodyId).find("tr").length;
+	
+	if(tbodylen > 0)
+		return true;
+	else
+	{
+		errorBlock("#error_block", "Add at least one row of item.");
+		return false;
+	}
+	
+	
+}
 		
 function ValidateItem(classid)
 {
@@ -1159,6 +1174,7 @@ function EmptyModal()
 	var col3="";
 	
 	if(SelectBoxNotAllowedNullVal($("#addSelMachine"),"Machine","#error_block"))
+		if(validateRows("addplanningBbody"))
 			if (ValidateItem("add"))
 			if (ValidateSetup("add"))
 			if(ValidateSetupTimeForBlank("add"))
@@ -1547,6 +1563,7 @@ $(document).on("click", "#editItemDataInPlanningTable", function(e){
 	
 	
 	if(SelectBoxNotAllowedNullVal($("#editSelMachine"),"Machine","#error_block"))
+		if(validateRows("editplanningBbody"))
 		if (ValidateItem("edit"))
 		if (ValidateSetup("edit"))
 		if(ValidateSetupTimeForBlank("edit"))
