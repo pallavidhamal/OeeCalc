@@ -531,7 +531,12 @@ function closeNav() {
 <!-- ToolTip -->
 <script>
 	$(document).ready(function(){
-		$('[data-toggle="tooltip"]').tooltip(); 
+		$('[data-toggle="tooltip"]').tooltip();
+		
+		$("#edit_item,#add_item").modal({
+		show:false,
+		backdrop:'static'
+		}); 
 	});
 </script>
 <!-- ToolTip -->
