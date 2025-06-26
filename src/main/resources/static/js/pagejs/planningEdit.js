@@ -1129,7 +1129,7 @@ $(document).on("click", "#additemmodal", function(e){
 	
 	
 	
-	if(SelectBoxNotAllowedNullVal($("#addselMachine"),"Machine","#error_block"))
+	if(SelectBoxNotAllowedNullVal($("#addSelMachine"),"Machine","#error_block"))
 			if (ValidateItem("add"))
 			if (ValidateSetup("add"))
 			if(ValidateSetupTimeForBlank("add"))
@@ -1733,7 +1733,7 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 	$('#editSelMachine').on('change', function (e) 
 	{
 			
-		var addSelMachine = $("#editSelMachine").find(":selected").text();
+		/*var addSelMachine = $("#editSelMachine").find(":selected").text();
 		if(MachineAlreadySelected(addSelMachine,"#error_block"))
 		{
 				$("#po_table_modal").find("tr:gt(1)").remove();
@@ -1751,13 +1751,13 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 		{
 			$("#editselMachine").prop("selectedIndex", 0);
 				return false;
-		}
+		}*/
 	});	
 	
 	$('#addSelMachine').on('change', function (e) 
 	{
 				
-			var addSelMachine = $("#addSelMachine").find(":selected").text();
+		/*	var addSelMachine = $("#addSelMachine").find(":selected").text();
 			if(MachineAlreadySelected(addSelMachine,"#error_block"))
 			{
 					$("#po_table_modal").find("tr:gt(1)").remove();
@@ -1775,7 +1775,7 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 			{
 				$("#editselMachine").prop("selectedIndex", 0);
 					return false;
-			}
+			}*/
 		});	
 	
 	
