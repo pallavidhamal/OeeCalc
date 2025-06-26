@@ -114,7 +114,6 @@ $(document).ready(function(){
 		// stationid=$("#addSelMachine").val();
 		 
 		 getCycletime(rowcount,setupid);
-		
 	});	
 	
 
@@ -275,7 +274,13 @@ $('.table_add_link').on('click',function(){
 
 	$(document).on("click", ".deleteRow", function(e){	
 	
-  	$(this).closest('tr').remove();
+  	 $(this).closest('tr').remove();
+  	
+  	console.log( $(this).closest('tr').attr("rocnt") );
+  	
+  	var rowcount = $(this).closest('tr').attr("rocnt");
+  	
+  	calculateMinPlanned($("#setUptime"+rowcount).val(),$("#cycletime"+rowcount).val(),$("#plannedQty"+rowcount).val(),rowcount);
   });
   
   
@@ -1072,6 +1077,9 @@ function	getAllMachines()
 								console.log("========response========",response)
 									
 									$("#cycletime"+rowcount).val(response.payload.cycletime);
+								
+								calculateMinPlanned($("#setUptime"+rowcount).val(),response.payload.cycletime,$("#plannedQty"+rowcount).val(),rowcount);	
+									
 						       },
 
 						       error: function (error) {
