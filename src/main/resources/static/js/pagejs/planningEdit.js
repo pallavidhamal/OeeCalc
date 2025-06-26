@@ -185,6 +185,8 @@ $(document).ready(function(){
 	
 	$(document).on("change", ".addtxtCycletime", function () 
 	{
+		
+		
 	   
 		console.log("minn cycletime cal");
 		var cycletime=this.value;
@@ -331,14 +333,14 @@ $('.add_item_add_row').on('click',function(){
 				 var i =  0 ;
 				 
 				 
-				if (ValidateMachine())
+			/*	if (ValidateMachine())
 				if (ValidateShift())	
 				if (ValidateItem())
 				if (ValidateSetup())
 				if(ValidateDupRow())
 				if(ValidateSetupTimeForBlank())
 					if(ValidatePlannedQtyForBlank())
-				{	
+				{*/	
 					//if//if(ValidateTimeUtilisedForBlank()) (ValidateSetupTimeForNum())					if(ValidatePlannedQtyForNum())					if(ValidatePlannedMinsForNum())						if(ValidateTimeUtilisedForNum())
 
 				 $("#planningBbody").find('tr').each(function (){
@@ -419,7 +421,7 @@ $('.add_item_add_row').on('click',function(){
 							}
 						   }
 				});
-			}
+		//	}
 			
 		//	}//else of validation
 			
@@ -832,7 +834,7 @@ function	getAllMachines()
 						   });
 				}	
 
-function ValidateMachine()
+/*function ValidateMachine()
 {
 		$(".editStation").each(function() {
 			console.log("in vali sel",$(this).val());
@@ -850,17 +852,16 @@ function ValidateMachine()
 			 }
 		 });
 		return flag;
-}				
+}*/				
 
 		
 function ValidateItem(classid)
 {
+	
+	console.log("in item vali--"+classid+"--");
 		$("."+classid+"Item").each(function() {
 			
-			//console.log("in vali ValidateItem",$(this).val());
-						
-		//	if(validationSelectBox($(this).val(),"Item","#setupErrDiv"))
-				if(SelectBoxNotAllowedNullVal($(this),"Item","#error_block"))	
+			if(SelectBoxNotAllowedNullVal($(this),"Item","#error_block"))	
 		     {
 				
 		    	flag=true; 
@@ -883,7 +884,6 @@ function ValidateShift()
 			
 			console.log("in vali sel",$(this).val());
 						
-			//if(validationSelectBox($(this).val(),"Shift","#setupErrDiv"))
 				if(SelectBoxNotAllowedNullVal($(this),"Shift","#error_block"))
 		     {
 		    	flag=true; 
@@ -971,7 +971,7 @@ function ValidatePlannedQtyForBlank(classid)
 	}
 
 
-	
+/*	
 	function ValidatePlannedMinsForBlank()  
 	{
 				$(".txtPlannedMins").each(function() {
@@ -992,10 +992,10 @@ function ValidatePlannedQtyForBlank(classid)
 					 }
 				 });
 				return flag;
-		}
+		}*/
 
 		
-	
+/*	
 	
 function ValidateTimeUtilisedForBlank()  
 {
@@ -1018,7 +1018,7 @@ function ValidateTimeUtilisedForBlank()
 			 });
 			return flag;
 	}
-
+*/
 
 function ValidateDupRow(classid)
 {
@@ -1109,25 +1109,47 @@ function GetURLParameter(sParam)
  
 $(document).on("click", "#additemmodal", function(e){
 	
+	
+	EmptyModal();
 	$("#add_item").modal("show");
 	
 });			
+
+
+function EmptyModal()
+{
+	console.log("inside empty");
+	
+	$("#po_table_modal").find("tr:gt(1)").remove();
+	
+	$("#addSelMachine").prop("selectedIndex", 0);
+	$("#addmachineTimeUtilised").val("");
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(2).find("input[type='text']").val('');
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(3).find("input[type='text']").val('');
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(4).find("input[type='text']").val('');
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(5).find("input[type='text']").val('');
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(6).find("input[type='text']").val('');
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(0).find("select").prop("selectedIndex", 0); 
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(1).find("select").prop("selectedIndex", 0); 
+	
+}
 			
 			
  $(document).on("click", "#addItemDataInPlanningTable", function(e){
+	
+	console.log("in add validation");
+	
 	
 	var addSelMachine = $("#addSelMachine").find(":selected").text();
 	var addSelMachineval = $("#addSelMachine").find(":selected").val();
 	var machineutilised = $("#addmachineTimeUtilised").val();
 
 
-	console.log($("#addplanningBbody").find("tr").length)
+	//console.log($("#addplanningBbody").find("tr").length)
 	
 	var col1="";
 	var col2="";
 	var col3="";
-	
-	
 	
 	if(SelectBoxNotAllowedNullVal($("#addSelMachine"),"Machine","#error_block"))
 			if (ValidateItem("add"))
@@ -1139,8 +1161,8 @@ $(document).on("click", "#additemmodal", function(e){
 	{
 	for(i=0 ; i<$("#addplanningBbody").find("tr").length; i++){
 		
-		console.log($("#addplanningBbody").find("tr").eq(i).find("td"));
-		console.log($("#addplanningBbody").find("tr").eq(i).find("td").length);
+	//	console.log($("#addplanningBbody").find("tr").eq(i).find("td"));
+	//	console.log($("#addplanningBbody").find("tr").eq(i).find("td").length);
 		
 		
 		//for(j=0 ; j<$("#planningBbody").find("tr").eq(i).find("td").length; j++){
@@ -1197,6 +1219,8 @@ $(document).on("click", "#additemmodal", function(e){
 	var editstationidId;
 	var editmachinetimeutilised;
 	
+	$("#editSelMachine").prop("disabled", true);
+	
 	$('#editplanningBbody').empty();
 	
 	
@@ -1219,7 +1243,7 @@ $(document).on("click", "#additemmodal", function(e){
 					editstationidId = $("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(0).find("input").eq(0).val() ;
 					
 					$("#editSelMachine").val(editstationidId);
-					$("#editmachineTimeUtilised").val($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(8).text());
+					$("#editmachineTimeUtilised").val($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(8).find("input").eq(0).val());
 				}
 				
 				
@@ -1254,7 +1278,7 @@ $(document).on("click", "#additemmodal", function(e){
 			  $("#editcycletime"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(4).text()));
 			  $("#editplannedQty"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(5).text()));
 			  $("#editplannedMins"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(6).text()));
-			  $("#edittimeUtilised"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(7).text()));
+			  $("#edittimeUtilised"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(7).find("input").eq(0).val()));
 			  $("#editItemId"+count).val($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(9).find("input").eq(0).val());
 			  
 			  
@@ -1404,7 +1428,7 @@ $(document).on("click", "#additemmodal", function(e){
 		
 		var timeUtilisedVal = (( minPlanned / $("#timePershift").val() ) * 100 ).toFixed(2) ;
 		
-		$("#edittimeUtilised"+rowcount).val(timeUtilisedVal+" %");
+		$("#edittimeUtilised"+rowcount).val(timeUtilisedVal);
 		
 		editcalculateMachinUtilis();
 	}
@@ -1419,7 +1443,7 @@ $(document).on("click", "#additemmodal", function(e){
 			}
 			var minsVal = (( mins / $("#timePershift").val() ) * 100 ).toFixed(2)
 			
-			$("#editmachineTimeUtilised").val(minsVal +" %" );
+			$("#editmachineTimeUtilised").val(minsVal  );
 	}
 	
 	
@@ -1487,10 +1511,10 @@ $(document).on("click", "#editItemDataInPlanningTable", function(e){
 	var machineutilisedsplit = machineutilised.split("%");
 	var machineutilisedVal = jQuery.trim(machineutilisedsplit[0]);
 
-console.log("==============editSelMachineval===machineutilisedsplit=====",machineutilisedsplit);
-console.log("==============editSelMachineval===machineutilisedsplit=====",machineutilisedsplit[0]);
+//console.log("==============editSelMachineval===machineutilisedsplit=====",machineutilisedsplit);
+//console.log("==============editSelMachineval===machineutilisedsplit=====",machineutilisedsplit[0]);
 
-	console.log($("#editplanningBbody").find("tr").length)
+	//console.log($("#editplanningBbody").find("tr").length)
 	
 	var col1="";
 	var col2="";
@@ -1508,8 +1532,10 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 				console.log( $("#planningBbody").find('tr').eq(j).remove() );
 			}
 			*/
-			console.log( $("#"+editSelMachineval).remove() );
-			console.log( $("."+editSelMachineval+"_Tbody").remove() );
+		//	console.log( $("#"+editSelMachineval).remove() );
+		//	console.log( $("."+editSelMachineval+"_Tbody").remove() );
+			
+			
 	//	}
 	
 	
@@ -1521,6 +1547,11 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 			if(PercentLimit($("#editmachineTimeUtilised").val(),"Machine Time Utilised"))
 			if(ValidateDupRow("edit"))	
 		{
+			
+			
+			$("."+editSelMachineval+"_Tbody").remove()
+	
+			
 		for(i=0 ; i<$("#editplanningBbody").find("tr").length; i++){
 		
 		console.log($("#editplanningBbody").find("tr").eq(i).find("td"));
@@ -1705,35 +1736,12 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 	
 	
 			
-	function ValidateItem()
-	{
-			$(".editItem").each(function() {
-				
-				//console.log("in vali ValidateItem",$(this).val());
-							
-			//	if(validationSelectBox($(this).val(),"Item","#setupErrDiv"))
-					if(SelectBoxNotAllowedNullVal($(this),"Item","#error_block"))	
-			     {
-					
-			    	flag=true; 
-			    	console.log("iff-----");
-			     }
-				 else
-				 {
-					 flag=false;
-					 return flag;
-					 console.log("else-----");
-				 }
-			 });
-			return flag;
-	}	
 	
-	
-	
+	/*
 	$('#editSelMachine').on('change', function (e) 
 	{
 			
-		/*var addSelMachine = $("#editSelMachine").find(":selected").text();
+		var addSelMachine = $("#editSelMachine").find(":selected").text();
 		if(MachineAlreadySelected(addSelMachine,"#error_block"))
 		{
 				$("#po_table_modal").find("tr:gt(1)").remove();
@@ -1751,13 +1759,13 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 		{
 			$("#editselMachine").prop("selectedIndex", 0);
 				return false;
-		}*/
-	});	
+		}
+	});	*/
 	
 	$('#addSelMachine').on('change', function (e) 
 	{
 				
-		/*	var addSelMachine = $("#addSelMachine").find(":selected").text();
+			var addSelMachine = $("#addSelMachine").find(":selected").text();
 			if(MachineAlreadySelected(addSelMachine,"#error_block"))
 			{
 					$("#po_table_modal").find("tr:gt(1)").remove();
@@ -1775,7 +1783,7 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 			{
 				$("#editselMachine").prop("selectedIndex", 0);
 					return false;
-			}*/
+			}
 		});	
 	
 	
@@ -1784,7 +1792,7 @@ console.log("==============editSelMachineval===machineutilisedsplit=====",machin
 	{
 		
 			var firstColumnValues = [];
-			$('#po_table_modal tr').each(function() {
+			$('#po_table_modal_list tr').each(function() {
 			    // Select the first <td> (or <th> if it's a header) in the current row
 			    var firstColumnText = $(this).find('td:first').text().trim(); 
 			    // If you have header cells (<th>) in the first column, use:
