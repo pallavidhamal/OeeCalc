@@ -297,6 +297,7 @@ $('.table_add_link').on('click',function(){
 	
 	
 	if(SelectBoxNotAllowedNullVal($("#addSelMachine"),"Machine","#error_block"))
+	if(validateRows("planningBbody"))	
 	if (ValidateItem())
 	if (ValidateSetup())
 	//if(ValidateDupRow())
@@ -1445,7 +1446,20 @@ function ValidateDupRow()
 			}
 		}	
 		
+	function validateRows(tBodyId)
+	{
+		var tbodylen=$("#"+tBodyId).find("tr").length;
 		
+		if(tbodylen > 0)
+			return true;
+		else
+		{
+			errorBlock("#error_block", "al rleast 1 row");
+			return false;
+		}
+		
+		
+	}	
 		
 	function getAndSetSetups(divNameAndRowCount,stationid,itemid,setupid)
 	{
