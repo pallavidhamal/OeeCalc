@@ -16,7 +16,7 @@ $(document).ready(function(){
 	setFromDate();
 	
 	getUnitList("add");	
-	getAllMachines();
+	//getAllMachines();
 	getAllItems();
 	
 	
@@ -45,9 +45,23 @@ $(document).ready(function(){
 		    shiftid = this.value;
 			getShiftTime();	
 			
-		});
+	});
 	
+	$('#addWorkCentre').on('change', function (e) {
+		   
+		 var optionSelected = $("option:selected", this);
+		 var wsid = this.value;
 		
+		 getMachinesByWc(wsid);
+
+		 
+		// getShiftTime();	
+			
+	});
+		
+		
+		
+				
 		$('#addSelMachine').on('change', function (e) 
 		{
 				
@@ -771,13 +785,13 @@ function getUnitList(divId){
 }
 
 
-function	getAllMachines()
+function	getMachinesByWc(wsid)
 	{
 		
 		
 		$.ajax({
 				       type: "GET",
-				       url: server_url + `station/allActive`,
+				       url: server_url + `station/getStationByWc/`+wsid,
 				       enctype: "application/json",
 				       headers: authHeader,
 				       processData: false,
