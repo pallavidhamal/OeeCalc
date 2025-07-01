@@ -19,12 +19,18 @@ $(document).on("click", "#stationAddAction", function(e){
 	 $('#uomSel').empty();
 	 $('#ponumber').empty();
 	 
+	 $('#addStationNumber').val('');
+	 
 	 getStationTypeList("add");
 	 getUOMList("add");
 	 getWorkCentreList("add");
 	 
 	 $("#add_station").modal("show");
 });
+
+
+
+
 
 
 $(document).on("click", ".edit-button", function(e){

@@ -302,7 +302,42 @@ $(document).on("click", ".edit-button", function(e){
 });
 
 			
+$(document).on("click", ".delete-button", function(e){
 	
+	
+	var delId = $(this).attr('id');
+	console.log("delId----",delId);
+	
+	swal({
+		  text: "Are you sure, please confirm?",
+		  buttons: [
+		   'Cancel',
+		    'Ok'
+
+		  ],
+		  }).then(function (isConfirm) {
+		      if(isConfirm){
+	
+	$.ajax({
+		    type: 'PUT',
+		    url: server_url + "planning/delete/"+delId,
+		    enctype: 'application/json',
+		    headers: authHeader,
+		    processData: false,
+		    contentType: false,
+		    data: null,
+		    success: function (response) {
+		
+				console.log("==========response=====",response)
+				window.location.href = "planning";	
+
+					
+				}	
+			});
+	
+		}
+		});
+});	
 			
 			
 

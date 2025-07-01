@@ -551,7 +551,7 @@ function	getAllMachines()
 		{
 			$.ajax({
 			       type: "GET",
-			       url: server_url + `item/getAllItems`,
+			       url: server_url + `item/getActiveItems`,
 			       enctype: "application/json",
 			       headers: authHeader,
 			       processData: false,

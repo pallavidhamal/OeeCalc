@@ -91,8 +91,13 @@
 				
 				}
 
-				    
-		
+				
+$(document).on("click", "#purchaseAddAction", function(e){
+
+	$('#itemcode').val('');
+	$('#itemdesc').val('');
+	
+});		
 
 			$(document).on("click", "#addItemData", function(e){
 	
@@ -143,7 +148,29 @@
 							
 							
 			
-						   }
+						   },
+						   error: function (error) {
+						   			             console.log(error);
+						   				   		 if (error.status == 401) {
+						   					    	  window.location.href =  contextPath;
+						   					      } else {
+						   					    	if( error.responseJSON != undefined){
+						   								errmssge=error.responseJSON.status;	
+						   							
+						   								if (error.responseJSON.status=="500"){
+						   									console.log("in errr");
+						   									 errorBlock("#error_block", error.responseJSON.message);
+						   								}else{
+						   								 	 errorBlock("#error_block", error.responseJSON.errors.message);
+						   								}
+						   							}
+						   							else{
+						   					   	  		console.log("Server Error! Please contact administrator");
+						   					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+						   					     	}
+						   				     	}
+						   			        },
+						   
 				});
 			}  //validation if
 });

@@ -138,7 +138,7 @@
 	{
 		$.ajax({
 		       type: "GET",
-		       url: server_url + `item/getAllItems`,
+		       url: server_url + `item/getActiveItems`,
 		       enctype: "application/json",
 		       headers: authHeader,
 		       processData: false,
@@ -274,12 +274,11 @@
 
 $(document).on("click", "#addSetup", function(e){
 
-
-	 if(ValidationForSelectBox("#poErrAdd","Item",$('#addItem')))
-		 if(NotAllowedNullVal("#poErrAdd"," Station ",$('#addStation')))
-			// if(ValidationForSelectBox("#poErrAdd","UOM ",$('#adduom')))
-			 	if(ValidationForSelectBox("#poErrAdd","set up ",$('#setupname')))
-			 		if(ValidationForSelectBox("#poErrAdd","set up time ",$('#setuptime')))
+						
+	if(SelectBoxNotAllowedNullVal($('#addItem'),"Item","#error_block"))
+		if(SelectBoxNotAllowedNullVal($('#addStation'),"Station","#error_block"))
+		  if(NotAllowedNullVal($('#setupname'),"set up","#error_block"))
+			if(NotAllowedNullVal($('#setuptime'),"set up time ","#error_block"))
 				{
 		 
 		 var dataVal = {
@@ -371,11 +370,10 @@ $(document).on("click", ".edit-button", function(){
 				$(document).on("click", "#editSetup", function(e){
 
 
-					 if(ValidationForSelectBox("#setupErrEdit","Item",$('#editItem')))
-						 if(ValidationForSelectBox("#setupErrEdit"," Station ",$('#editStation')))
-							// if(ValidationForSelectBox("#setupErrEdit","UOM ",$('#adduom')))
-							 	if(ValidationForSelectBox("#setupErrEdit","set up ",$('#editsetupname')))
-							 		if(ValidationForSelectBox("#setupErrEdit","set up time ",$('#editsetuptime')))
+					if(SelectBoxNotAllowedNullVal($('#editItem'),"Item","#error_block"))
+							if(SelectBoxNotAllowedNullVal($('#editStation'),"Station","#error_block"))
+							  if(NotAllowedNullVal($('#editsetupname'),"set up","#error_block"))
+								if(NotAllowedNullVal($('#editsetuptime'),"set up time ","#error_block"))										
 								{
 						 
 						 var dataVal = {
