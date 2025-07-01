@@ -15,6 +15,9 @@ var addstationid="";
 var additemid="";
 var addrowcount="";
 var flag;
+var deleteItem = [];
+var deleteStationItem = [];
+var deleteViewItem = [];
 
 $(document).ready(function(){
 	
@@ -57,14 +60,14 @@ $(document).ready(function(){
 				var buttonDiv = "";
 				
 				//if(i == 0){
-					buttonDiv = '<a  class="edit-button" viewid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">View </a> <a  class="delete-button" deleteid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">Delete</a>  ' ;
+					buttonDiv = '<a  class="edit-button" viewid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">View </a> <a  class="delete-button rowdelete" deleteid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">Delete</a>  ' ;
 				//}
 				
 				var lodstId = jQuery.trim(result.payload.planningShiftWork[i].stationid);
 				
 				 console.log("====lodstId=======",lodstId,"====lodstIdEnd=======",lodstIdEnd)
 				
-				$('#planningBbody').append('<tr class="tr_clone  '+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody " roCnt = "'+i+'"  id = "'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'" >'
+				$('#planningBbody').append('<tr class="tr_clone  '+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody " roCnt = "'+i+'"  id = "'+jQuery.trim(result.payload.planningShiftWork[i].id)+'" >'
 					+'<td class="table_input"> '+ (lodstId != lodstIdEnd ? jQuery.trim(result.payload.planningShiftWork[i].stationname) : " ") + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'"  disabled >  </td>'
 					//+'<td class="table_input"> '+  jQuery.trim(result.payload.planningShiftWork[i].stationname)   + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'"  disabled >  </td>'
 					+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].itemname) + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].itemid)+'"  disabled > </td>'
@@ -157,7 +160,7 @@ $(document).ready(function(){
 		 
 		// stationid=$("#addSelMachine").val();
 		 
-		 getCycletime("#addcycletime"+rowcount,addsetupid);
+		 getCycletime("#add","cycletime",addsetupid,rowcount);
 	});	
 	
 
@@ -322,10 +325,59 @@ $('.add_item_add_row').on('click',function(){
 
 	$(document).on("click", ".deleteRow", function(e){	
 	
-  	$(this).closest('tr').remove();
+//  	$(this).closest('tr').remove();
+  	
+  	 $(this).closest('tr').remove();
+  	
+  	console.log( $(this).closest('tr').attr("rocnt") );
+  	
+  	var rowcount = $(this).closest('tr').attr("rocnt");
+  	
+  	calculateMinPlanned($("#addsetUptime"+rowcount).val(),$("#addcycletime"+rowcount).val(),$("#addplannedQty"+rowcount).val(),rowcount);
+  	
+  });
+  
+  
+  	$(document).on("click", ".editdeleteRow", function(e){	
+	
+//  	$(this).closest('tr').remove();
+  	
+	  	$(this).closest('tr').remove();
+	  	
+	  	console.log( $(this).closest('tr').attr("rocnt") );
+	  	
+	  	console.log( $(this).closest('td').find("input").val() );
+	  	
+	  	var data = {};
+	  	
+	  	data.id = $(this).closest('td').find("input").val();
+	  	
+	  	deleteViewItem.push(data);
+	  	
+	  	console.log( "=======deleteItem================",deleteViewItem );
+	  	
+	  	
+	  	var rowcount = $(this).closest('tr').attr("rocnt");
+	  	
+	  	editcalculateMinPlanned($("#editsetUptime"+rowcount).val(),$("#editcycletime"+rowcount).val(),$("#editplannedQty"+rowcount).val(),rowcount);
+
   });
 
+  	$(document).on("click", ".neweditdeleteRow", function(e){	
+	
+//  	$(this).closest('tr').remove();
+  	
+	  	$(this).closest('tr').remove();
+	  	
+	  	console.log( $(this).closest('tr').attr("rocnt") );
+	  	
+	  	var rowcount = $(this).closest('tr').attr("rocnt");
+	  	
+	  	editcalculateMinPlanned($("#editsetUptime"+rowcount).val(),$("#editcycletime"+rowcount).val(),$("#editplannedQty"+rowcount).val(),rowcount);
 
+  });
+
+/*
 		$(document).on("click", "#editPlanningData", function(e){
 	
 				var myarray=[];
@@ -333,14 +385,14 @@ $('.add_item_add_row').on('click',function(){
 				 var i =  0 ;
 				 
 				 
-			/*	if (ValidateMachine())
-				if (ValidateShift())	
-				if (ValidateItem())
-				if (ValidateSetup())
-				if(ValidateDupRow())
-				if(ValidateSetupTimeForBlank())
-					if(ValidatePlannedQtyForBlank())
-				{*/	
+		//		if (ValidateMachine())
+		//		if (ValidateShift())	
+		//		if (ValidateItem())
+		//		if (ValidateSetup())
+		//		if(ValidateDupRow())
+		//		if(ValidateSetupTimeForBlank())
+		//			if(ValidatePlannedQtyForBlank())
+		//		{
 					//if//if(ValidateTimeUtilisedForBlank()) (ValidateSetupTimeForNum())					if(ValidatePlannedQtyForNum())					if(ValidatePlannedMinsForNum())						if(ValidateTimeUtilisedForNum())
 
 				 $("#planningBbody").find('tr').each(function (){
@@ -368,14 +420,14 @@ $('.add_item_add_row').on('click',function(){
 				 });	 
 				 console.log("====linelinelinelinelinelineline======","#line"+i);
 				 
-			/*	 if(NotAllowedNullVal("#poErrAdd","PO Name ",$('#ponumber')))
-					 if(ValidationForSelectBox("#poErrAdd","Customer Name ",$('#customerListadd')))
-						 if(NotAllowedNullVal("#poErrAdd","PO Date ",$('#poDate')))
-							 if(NotAllowedNullVal("#poErrAdd","PO End Date ",$('#poEndDate')))
-								 if(validateLineId("#poErrAdd"))
-									 if(validateProduct())
-									 if(validateRegion())
-									 if(validatePOQty())*/
+			//	 if(NotAllowedNullVal("#poErrAdd","PO Name ",$('#ponumber')))
+			//		 if(ValidationForSelectBox("#poErrAdd","Customer Name ",$('#customerListadd')))
+			//			 if(NotAllowedNullVal("#poErrAdd","PO Date ",$('#poDate')))
+			//				 if(NotAllowedNullVal("#poErrAdd","PO End Date ",$('#poEndDate')))
+			//					 if(validateLineId("#poErrAdd"))
+			//						 if(validateProduct())
+			//						 if(validateRegion())
+			//						 if(validatePOQty()) 
 						//	{
 					 
 					 var dataVal = {
@@ -427,7 +479,7 @@ $('.add_item_add_row').on('click',function(){
 			
 			
 });
-
+*/
 
 
 function getWorkCentreList(divId){
@@ -785,11 +837,11 @@ function	getAllMachines()
 				}				
 								
 				
-		function getCycletime(dvinameAndrowcount,setupid)
+		function getCycletime(divType,dviname,setupid,rowcount)
 				{
 					
 
-					console.log(rowcount,setupid);
+					console.log(divType+dviname+rowcount);
 										
 						$.ajax({
 						       type: "GET",
@@ -802,12 +854,25 @@ function	getAllMachines()
 						       success: function (response) {
 								
 							//	'#product'+counter
-								$(dvinameAndrowcount).empty();
+								$(divType+dviname+rowcount).empty();
 							
 								
 								console.log("========response========",response)
+								console.log("========response========",divType+dviname+rowcount)
 									
-									$(dvinameAndrowcount).val(response.payload.cycletime);
+								console.log("========response========",	$(divType+"setUptime"+rowcount).val(),response.payload.cycletime,$(divType+"plannedQty"+rowcount).val(),rowcount);
+									
+									$(divType+dviname+rowcount).val(response.payload.cycletime);
+									
+									if(divType == "#add"){
+										calculateMinPlanned($(divType+"setUptime"+rowcount).val(),response.payload.cycletime,$(divType+"plannedQty"+rowcount).val(),rowcount);	
+									}
+									
+									if(divType == "#edit"){
+										editcalculateMinPlanned($(divType+"setUptime"+rowcount).val(),response.payload.cycletime,$(divType+"plannedQty"+rowcount).val(),rowcount);	
+									}
+										
+									
 						       },
 
 						       error: function (error) {
@@ -1207,7 +1272,8 @@ function EmptyModal()
 			 col1 = " <tr  class='tr_clone  "+jQuery.trim(addSelMachineval)+ "_Tbody ' roCnt = '"+count+"'  id = '"+jQuery.trim(addSelMachine)+"'   ><td > "+addSelMachine+ " <input type='hidden' id=addSelMachineId${"+i+"} value="+addSelMachineval+"  disabled > </td> ";
 			 col2 = " <td>"+item +" <input type='hidden' id=itemId${"+i+"} value="+itemId+"  disabled>  </tb><td>"+setup +"  <input type='hidden' id=setupId${"+i+"}  value="+setupId+"  disabled>  </tb><td>"
 			 +setuptime +"</tb><td>"+cycletime +"</tb><td>"+quantity +"</tb><td>"+mins +"</tb><td>"+itemutilised +" % <input type='hidden' id=itemutilisedId${"+i+"} value="+itemutilised+"  disabled> </tb> " ;
-			 col3 = " <td> "+machineutilised+" % <input type='hidden' id=machineutilisedId${"+i+"} value="+machineutilised+"  disabled> </td> <td>  <a  class='edit-button' viewid='"+jQuery.trim(addSelMachineval)+"_Tbody'>View</a> <a  class='delete-button' deleteid='"+jQuery.trim(addSelMachineval)+"_Tbody'>Delete </a> </td></tr>";
+			 col3 = " <td> "+machineutilised+" % <input type='hidden' id=machineutilisedId${"+i+"} value="+machineutilised+"  disabled> </td> <td>  <a  class='edit-button' viewid='"+jQuery.trim(addSelMachineval)+"_Tbody'>View</a> <a  class='delete-button newrowdelete' deleteid='"+jQuery.trim(addSelMachineval)+"_Tbody'>Delete </a> </td></tr>";
+			 
 			 $("#planningBbody").append(col1+col2+col3);
 		}else{
 			
@@ -1241,6 +1307,10 @@ function EmptyModal()
 	
 	var editstationidId;
 	var editmachinetimeutilised;
+	
+	deleteViewItem = [];
+	
+	console.log("=======deleteItem===========",deleteViewItem)
 	
 	$("#editSelMachine").prop("disabled", true);
 	
@@ -1285,7 +1355,7 @@ function EmptyModal()
 				+'<td class="table_input"><input type="text" class="form-control width80 line edittxtPlannedQty integer" rocnt = "'+count+'" id="editplannedQty'+count+'"></td>'
 				+'<td class="table_input"><input type="text" class="form-control width80 line edittxtPlannedMins"  rocnt = "'+count+'" id="editplannedMins'+count+'" disabled></td>'
 				+'<td class="table_input"><input type="text" class="form-control width80 line edittxtTimeUtilised integer" rocnt = "'+count+'" id="edittimeUtilised'+count+'" disabled></td>'
-				+'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a><input type="hidden" class="form-control editItemId" id="editItemId'+count+'" disabled> </td>'
+				+'<td class="table_input"><a href="#" class="editdeleteRow"><i class="fa fa-minus"></i></a><input type="hidden" class="form-control editItemId" id="editItemId'+count+'" disabled> </td>'
 				
 		
 			  +'</tr>');
@@ -1360,7 +1430,8 @@ function EmptyModal()
 		 
 		// stationid=$("#editSelMachine").val();
 		 
-		 getCycletime("#editcycletime"+rowcount,setupid);
+//		 getCycletime("#editcycletime"+rowcount,setupid);
+		 getCycletime("#edit","cycletime",setupid,rowcount);
 	});	
 	
 
@@ -1499,7 +1570,7 @@ $('.edit_item_add_row').on('click',function(){
 		+'<td class="table_input"><input type="text" class="form-control width80 line edittxtPlannedQty integer" rocnt = "'+count+'" id="editplannedQty'+count+'"></td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line edittxtPlannedMins"  rocnt = "'+count+'" id="editplannedMins'+count+'" disabled></td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line edittxtTimeUtilised integer" rocnt = "'+count+'" id="edittimeUtilised'+count+'" disabled></td>'
-		+'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a> <input type="hidden" class="form-control editItemId " id="editItemId'+count+'" disabled="" value=""></td>'
+		+'<td class="table_input"><a href="#" class="neweditdeleteRow"><i class="fa fa-minus"></i></a> <input type="hidden" class="form-control editItemId " id="editItemId'+count+'" disabled="" value=""></td>'
 		
 
 	  +'</tr>');
@@ -1519,6 +1590,48 @@ $('.edit_item_add_row').on('click',function(){
   }//validation if
 	  
 });
+
+$(document).on("click", ".newrowdelete", function(e){
+
+	console.log($(this).attr("deleteid"));
+
+	$("."+$(this).attr("deleteid")).remove()
+	
+	$("#planningBbody")
+	
+});
+
+
+$(document).on("click", ".rowdelete", function(e){
+
+	console.log($(this).attr("deleteid"));
+
+		for(i=0 ; i<$("#planningBbody").find("tr."+$(this).attr("deleteid")).length; i++){
+				
+				//console.log($("#planningBbody").find("tr."+$(this).attr('deleteid')).eq(i).find("td"));
+				//console.log($("#planningBbody").find("tr."+$(this).attr('deleteid')).eq(i).find("td").length);
+				
+				
+				//console.log($("#planningBbody").find('tr.'+$(this).attr("deleteid")).eq(i).find('td').eq(9).find("input").eq(0).val());
+				
+				//if(i== 0 ){
+					editstationidId = $("#planningBbody").find('tr.'+$(this).attr("deleteid")).eq(i).find('td').eq(9).find("input").eq(0).val() ;
+					
+					
+					var data = {};
+	  	
+				  	data.id = editstationidId;
+				  	
+				  	deleteStationItem.push(data);
+				  	
+					console.log("----------rowdelete-----",deleteStationItem);
+			//	}
+		}
+
+	$("."+$(this).attr("deleteid")).remove()
+	
+});
+
 
 
 $(document).on("click", "#editItemDataInPlanningTable", function(e){
@@ -1562,84 +1675,83 @@ $(document).on("click", "#editItemDataInPlanningTable", function(e){
 	//	}
 	
 	
-	if(SelectBoxNotAllowedNullVal($("#editSelMachine"),"Machine","#error_block"))
+		if(SelectBoxNotAllowedNullVal($("#editSelMachine"),"Machine","#error_block"))
 		if(validateRows("editplanningBbody"))
-		if (ValidateItem("edit"))
-		if (ValidateSetup("edit"))
+		if(ValidateItem("edit"))
+		if(ValidateSetup("edit"))
 		if(ValidateSetupTimeForBlank("edit"))
-		 if(ValidatePlannedQtyForBlank("edit"))
-			if(PercentLimit($("#editmachineTimeUtilised").val(),"Machine Time Utilised"))
-			if(ValidateDupRow("edit"))	
-		{
-			
+		if(ValidatePlannedQtyForBlank("edit"))
+		if(PercentLimit($("#editmachineTimeUtilised").val(),"Machine Time Utilised"))
+		if(ValidateDupRow("edit"))	
+			{
 			
 			$("."+editSelMachineval+"_Tbody").remove()
 	
+			for(i=0 ; i<$("#editplanningBbody").find("tr").length; i++){
 			
-		for(i=0 ; i<$("#editplanningBbody").find("tr").length; i++){
-		
-		console.log($("#editplanningBbody").find("tr").eq(i).find("td"));
-		console.log($("#editplanningBbody").find("tr").eq(i).find("td").length);
-		
-		//for(j=0 ; j<$("#planningBbody").find("tr").eq(i).find("td").length; j++){
+				console.log($("#editplanningBbody").find("tr").eq(i).find("td"));
+				console.log($("#editplanningBbody").find("tr").eq(i).find("td").length);
+				
+				//for(j=0 ; j<$("#planningBbody").find("tr").eq(i).find("td").length; j++){
+				
+				var itemrowcount  = $("#editplanningBbody").find("tr").eq(i).find("td").length;
+				var item = $("#editplanningBbody").find("tr").eq(i).find("td").eq(0).find("select option:selected").text();
+				var itemId = $("#editplanningBbody").find("tr").eq(i).find("td").eq(0).find("select option:selected").val();
+				var setup = $("#editplanningBbody").find("tr").eq(i).find("td").eq(1).find("select option:selected").text();
+				var setupId = $("#editplanningBbody").find("tr").eq(i).find("td").eq(1).find("select option:selected").val();
+				
+				var setuptime = jQuery.trim($("#editplanningBbody").find("tr").eq(i).find("td").eq(2).find("input[type='text']").val());
+				var cycletime = jQuery.trim($("#editplanningBbody").find("tr").eq(i).find("td").eq(3).find("input[type='text']").val());
+				var quantity = jQuery.trim($("#editplanningBbody").find("tr").eq(i).find("td").eq(4).find("input[type='text']").val());
+				var mins = jQuery.trim($("#editplanningBbody").find("tr").eq(i).find("td").eq(5).find("input[type='text']").val());
+				var itemutilised = jQuery.trim($("#editplanningBbody").find("tr").eq(i).find("td").eq(6).find("input[type='text']").val());
+				var itemrowId = $("#editplanningBbody").find("tr").eq(i).find("td").eq(7).find("input[type='hidden']").val();
 			
-			var itemrowcount  = $("#editplanningBbody").find("tr").eq(i).find("td").length;
-			var item = $("#editplanningBbody").find("tr").eq(i).find("td").eq(0).find("select option:selected").text();
-			var itemId = $("#editplanningBbody").find("tr").eq(i).find("td").eq(0).find("select option:selected").val();
-			var setup = $("#editplanningBbody").find("tr").eq(i).find("td").eq(1).find("select option:selected").text();
-			var setupId = $("#editplanningBbody").find("tr").eq(i).find("td").eq(1).find("select option:selected").val();
-			
-			var setuptime = jQuery.trim($("#editplanningBbody").find("tr").eq(i).find("td").eq(2).find("input[type='text']").val());
-			var cycletime = jQuery.trim($("#editplanningBbody").find("tr").eq(i).find("td").eq(3).find("input[type='text']").val());
-			var quantity = jQuery.trim($("#editplanningBbody").find("tr").eq(i).find("td").eq(4).find("input[type='text']").val());
-			var mins = jQuery.trim($("#editplanningBbody").find("tr").eq(i).find("td").eq(5).find("input[type='text']").val());
-			var itemutilised = jQuery.trim($("#editplanningBbody").find("tr").eq(i).find("td").eq(6).find("input[type='text']").val());
-			var itemrowId = $("#editplanningBbody").find("tr").eq(i).find("td").eq(7).find("input[type='hidden']").val();
-		
-			var itemutilisedsplit = itemutilised.split("%");
-			var itemutilisedVal = jQuery.trim(itemutilisedsplit[0]);
-			
-			if(itemrowId == undefined){
-				itemrowId = "";
+				var itemutilisedsplit = itemutilised.split("%");
+				var itemutilisedVal = jQuery.trim(itemutilisedsplit[0]);
+				
+				if(itemrowId == undefined){
+					itemrowId = "";
+				}
+				
+					console.log("========itemrowId===========",itemrowId);
+					console.log("========i===========",i);	
+			//	}
+				if(i == 0){
+					 col1 = " <tr class= 'tr_clone "+jQuery.trim(editSelMachineval)+"_Tbody'  roCnt ='"+i+"'  id = '"+jQuery.trim(editSelMachineval)+"' ><td > "
+					 		+editSelMachine+ " <input type='hidden' id='editSelMachineId"+i+"' value='"+jQuery.trim(editSelMachineval)+"'  disabled > </td> ";
+					 		
+					 col2 = " <td>"+item+" <input type='hidden' id='itemId"+i+"' value='"+itemId+"'  disabled>  </tb><td>"+setup+"  <input type='hidden' id='setupId"+i+"'  value='"+setupId+"'  disabled>  </tb><td>"
+					 		+setuptime+"</tb><td>"+cycletime+"</tb><td>"+quantity+"</tb><td>"+mins+"</tb><td>"
+					 		+itemutilised+"  <input type='hidden' class='form-control editItemutilisedId '  value='"+itemutilisedVal+"' id='editItemutilisedId"+i+"' disabled> </tb> " ;
+					 
+					 col3 = " <td> "+machineutilised+"  <input type='hidden' class='form-control editItemId '  value='"+machineutilisedVal+"' id='editItemId"+i+"_m' disabled>  </td> <td>  <a  class='edit-button' viewid='"
+					 		+jQuery.trim(editSelMachineval)+"_Tbody'>View</a> <a  class='delete-button rowdelete'  deleteid='"+jQuery.trim(editSelMachineval)+"_Tbody'>Delete </a> <input type='hidden' class='form-control editItemId '   id='editItemId"+i+"' disabled> </td></tr>";
+					 
+					 $("#planningBbody").append(col1+col2+col3);
+				}else{
+					
+					 col1 = "<tr class= 'tr_clone "+jQuery.trim(editSelMachineval)+"_Tbody'  roCnt ='"+i+"'  id = '"
+					 		+jQuery.trim(editSelMachineval)+"' ><td> <input type='hidden' id='editSelMachineId${"+i+"}' value='"+editSelMachineval+"'  disabled > </td> ";
+					 
+					 col2 ="<td>"+item+" <input type='hidden' id='itemId${"+i+"}' value='"+itemId+"'  disabled>  </tb><td>"+setup+"   <input type='hidden' id='setupId${"+i+"}'  value='"+setupId+"'  disabled>  </tb><td>"
+					 		+setuptime+"</tb><td>"+cycletime+"</tb><td>"+quantity+"</tb><td>"+mins+"</tb><td>"
+					 		+itemutilised+"   <input type='hidden' class='form-control editItemutilisedId '  value='"+itemutilisedVal+"' id='editItemutilisedId"+i+"' disabled> </tb> " ;
+					 col3 = " <td> <input type='hidden' class='form-control editmachineutilisedId '  value='"+machineutilisedVal+"' id='editmachineutilisedId"+i+"' disabled> </td> <td> <input type='hidden' class='form-control editItemId'   id='editItemId"+i+"' disabled> </td></tr>";
+					 $("#planningBbody").append(col1+col2+col3);
+				}
+				
+				$("#editItemId"+i).val(itemrowId)
+				
 			}
-			
-			console.log("========itemrowId===========",itemrowId);
-			console.log("========i===========",i);	
-	//	}
-		if(i == 0){
-			 col1 = " <tr class= 'tr_clone "+jQuery.trim(editSelMachineval)+"_Tbody'  roCnt ='"+i+"'  id = '"+jQuery.trim(editSelMachineval)+"' ><td > "
-			 		+editSelMachine+ " <input type='hidden' id='editSelMachineId"+i+"' value='"+jQuery.trim(editSelMachineval)+"'  disabled > </td> ";
-			 		
-			 col2 = " <td>"+item+" <input type='hidden' id='itemId"+i+"' value='"+itemId+"'  disabled>  </tb><td>"+setup+"  <input type='hidden' id='setupId"+i+"'  value='"+setupId+"'  disabled>  </tb><td>"
-			 		+setuptime+"</tb><td>"+cycletime+"</tb><td>"+quantity+"</tb><td>"+mins+"</tb><td>"
-			 		+itemutilised+"  <input type='hidden' class='form-control editItemutilisedId '  value='"+itemutilisedVal+"' id='editItemutilisedId"+i+"' disabled> </tb> " ;
-			 
-			 col3 = " <td> "+machineutilised+"  <input type='hidden' class='form-control editItemId '  value='"+machineutilisedVal+"' id='editItemId"+i+"_m' disabled>  </td> <td>  <a  class='edit-button' viewid='"
-			 		+jQuery.trim(editSelMachineval)+"_Tbody'>View</a> <a  class='delete-button'  viewid='"+jQuery.trim(editSelMachineval)+"_Tbody'>Delete </a> <input type='hidden' class='form-control editItemId '   id='editItemId"+i+"' disabled> </td></tr>";
-			 
-			 $("#planningBbody").append(col1+col2+col3);
-		}else{
-			
-			 col1 = "<tr class= 'tr_clone "+jQuery.trim(editSelMachineval)+"_Tbody'  roCnt ='"+i+"'  id = '"
-			 		+jQuery.trim(editSelMachineval)+"' ><td> <input type='hidden' id='editSelMachineId${"+i+"}' value='"+editSelMachineval+"'  disabled > </td> ";
-			 
-			 col2 ="<td>"+item+" <input type='hidden' id='itemId${"+i+"}' value='"+itemId+"'  disabled>  </tb><td>"+setup+"   <input type='hidden' id='setupId${"+i+"}'  value='"+setupId+"'  disabled>  </tb><td>"
-			 		+setuptime+"</tb><td>"+cycletime+"</tb><td>"+quantity+"</tb><td>"+mins+"</tb><td>"
-			 		+itemutilised+"   <input type='hidden' class='form-control editItemutilisedId '  value='"+itemutilisedVal+"' id='editItemutilisedId"+i+"' disabled> </tb> " ;
-			 col3 = " <td> <input type='hidden' class='form-control editmachineutilisedId '  value='"+machineutilisedVal+"' id='editmachineutilisedId"+i+"' disabled> </td> <td> <input type='hidden' class='form-control editItemId'   id='editItemId"+i+"' disabled> </td></tr>";
-			 $("#planningBbody").append(col1+col2+col3);
-		}
 		
-		$("#editItemId"+i).val(itemrowId)
+		deleteItem = deleteViewItem.slice()
 		
-	}
-	$("#edit_item").modal("hide");
-	}//validation if
+		
+		$("#edit_item").modal("hide");
+		}//validation if
 	
 //	console.log($("#addPlantListBody").find("tr"))
-	
-			
-	
 //	$("#add_item").append("<tr><td> "+addSelMachine+ " </td> <td>"+ +"</tb> <td> 60 % </td></tr>")
 	
 });	
@@ -1711,15 +1823,21 @@ $(document).on("click", "#editItemDataInPlanningTable", function(e){
 		});
 		
 		
+		 deleteItem = $.merge(deleteItem, deleteStationItem)
+		 
+		 console.log("====deleteItem======",deleteItem);
+		
+		
 				 var dataVal = {
-				 		 id								: editId,
-						 fromdate						: $('#frmDate').val(),
-						 todate 						: $('#toDate').val(),
-						/* timepershift					: $('#timePershift').val(),
-						 shiftid						: $('#editShift').val(),
-						 unitid       					: $('#editUnit').val(),
-						 workcenterid 					: $('#editWorkCentre').val(),*/
-						 planningShiftWorkIncomingDto	: myarray
+				 		 id									: editId,
+						 fromdate							: $('#frmDate').val(),
+						 todate 							: $('#toDate').val(),
+						/* timepershift						: $('#timePershift').val(),
+						 shiftid							: $('#editShift').val(),
+						 unitid       						: $('#editUnit').val(),
+						 workcenterid 						: $('#editWorkCentre').val(),*/
+						 planningShiftWorkIncomingDto		: myarray,
+						 planningShiftWorkDeleteIncomingDto : deleteItem
 
 					};
 				 
