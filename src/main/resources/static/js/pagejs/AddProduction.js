@@ -1,5 +1,7 @@
 var optionsData = "";
 //var count=1;
+var stationId;
+var planId;
 
 $(document).ready(function()
 {
@@ -7,6 +9,7 @@ $(document).ready(function()
 	getUnitList("add");	
 	//getAllMachines();
 //	getAllItems();
+	getOpertors();
 
 	
 	
@@ -19,18 +22,43 @@ $(document).ready(function()
 		getWorkCentreList("add");
 		getUnitShifts();	
 		
-		
-		
-		
 	});
 	
 	
-	$('#addShift').on('change', function (e) {
+	$('#addStation').on('change', function (e) {
 		
-		alert("here");
+		var optionSelected = $("option:selected", this);
+		stationId = this.value;
 
-	getFilterPlanningList();
+		getShiftWorkItemList();
 });
+
+
+
+/*$('#addWorkCenter').on('change', function (e) {
+	   
+	 var optionSelected = $("option:selected", this);
+	 var wsid = this.value;
+	
+	 getMachinesByWc(wsid);
+
+	 
+	// getShiftTime();	
+		
+});*/
+
+
+$('#addShift').on('change', function (e) {
+	   
+	// var optionSelected = $("option:selected", this);
+	// var wsid = this.value;
+	alert();
+	 getMachinesByPlanFilter();
+	 
+	// getShiftTime();	
+		
+});
+
 	
 			//	alert("add po js")
 				
@@ -40,7 +68,8 @@ $(document).ready(function()
 
 							  
 							  alert("add button")
-								counter++;
+								
+							  counter++;
 
 						      var newRow = $("<tr>");
 						      var cols = "";
@@ -340,6 +369,69 @@ function	getAllMachines()
 					   });
 				}
 
+				
+	function getShiftWorkItemList()
+	{
+		var dataVal = 
+		{
+						 
+			 id		: planId,
+			 stationid 	: stationId
+		};
+		
+			console.log("-------------------Welcome to getShiftWorkItemList"+JSON.stringify(dataVal));
+									$.ajax({
+										    type: 'POST',
+										    url: server_url + "planningshift/getShiftWorkDtlsByPlanAndStation",
+										    enctype: 'application/json',
+										    headers: authHeader,
+										    processData: false,
+										    contentType: "application/json; charset=utf-8",
+										    data: JSON.stringify(dataVal),
+											
+											success: function (response) {		
+
+											console.log("------response data----------",response);
+
+
+										var data = response.payload;
+
+										console.log("------getPOList data----------",data);
+									
+//										tableData.destroy();
+								        $('#planProdTbody').empty();
+										
+									$.each(response.payload, function( index1, value1 ){
+			
+										//console.log("------first for----------"+value.planningShiftWork);
+									//	$.each(value.planningShiftWork, function( index1, value1 ){
+								   
+											console.log("------second for----------");
+
+											
+							$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
+								+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation integer" rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem integer" rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup integer" rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty integer" rocnt = "'+index1+'" id="producedQty'+index1+'"></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty" integer rocnt = "'+index1+'" id="rejectedQty'+index1+'" ></td>'
+								
+
+							  +'</tr>');
+									
+							//  }); //for each of response.payload.planningShiftWork
+
+									
+						}); //for each of response.payload
+						
+								}
+						})//ajax
+		
+	}			
+				
+				
+				
 			
 	//		 var counter = 0;
 	function getFilterPlanningList(){  
@@ -352,7 +444,7 @@ function	getAllMachines()
 						 workcenterid 	: $('#addWorkCenter').val(),
 						 todate			: $('#prodDate').val(),
 						 unitid       	: $('#addUnit').val(),
-
+						 stationid       	: $('#addUnit').val(),
 					};
 					
 					
@@ -413,6 +505,37 @@ function	getAllMachines()
 
 					$(document).on("click", "#addProduction", function(e){
 
+						
+						var myarray=[];
+						var i =  0 ;
+						
+						
+						$("#planProdTbody").find('tr').each(function (){
+									
+									
+									console.log($("#planProdTbody").find('tr').eq(i).find('td').eq(0).text());
+									console.log($("#planProdTbody").find('tr').eq(i).find('td').eq(0).find("input").eq(0).val());
+									
+									console.log("=========stationidVal==text=========",$("#planProdTbody").find('tr').eq(i).find('td').eq(0).text());
+									
+									 var lineData  = {
+											 
+											 stationid 			 : stationId,
+											 planid				 : planId,	
+											 itemid			 	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(1).find("input").eq(0).val(),
+											 setupid			 : $("#planProdTbody").find('tr').eq(i).find('td').eq(2).find("input").eq(0).val(),											 
+											 plannedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val(),
+											 producedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val(),
+											 rejectedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val(),
+
+										};
+								 	  i++;
+								 	  
+									 myarray.push(lineData);
+									 
+									 console.log("====myarray======",myarray);
+								});						
+						
 
 						/* if(SelectBoxNotAllowedNullVal($('#addStationType'),"Station Type","#error_block"))
 							 if(NotAllowedNullVal($('#addStationNumber'),"Station Number ","#error_block"))
@@ -451,6 +574,7 @@ function	getAllMachines()
 									 rejection_rejection_qty : $('#rejectQty').val(),
 									 rejection_ok_qty : $('#okQty').val(),
 									 rejection_per : $('#rejectionP').val(),
+									 productionPlanningIncomingDto	: myarray
 									 
 
 								};
@@ -501,7 +625,195 @@ function	getAllMachines()
 									     	}
 								     	}
 							        },
-								});
+								});   
 							//}  //validation if
 					});
+
 					
+function getMachinesByWc(wsid)
+{
+		
+		$.ajax({
+				       type: "GET",
+				       url: server_url + `station/getStationByWc/`+wsid,
+				       enctype: "application/json",
+				       headers: authHeader,
+				       processData: false,
+				       contentType: false,
+				       data: null,
+				       success: function (response) {
+							$("#addStation").empty();
+							//$("#editStation").empty();
+							
+							machinesOptions='<option value="0">  Select Station </option>';
+						//	$("#editStation").append('<option value="0">  Select station </option>');
+				           for (i = 0; i < response.payload.length; ++i) {
+							
+							
+							machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
+							
+				           //   $(".addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+							 //  $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+				           }
+						   
+						   $("#addStation").append(machinesOptions);
+						   
+				       },
+
+				       error: function (error) {
+				           /*console.log(error);
+				      		 if (error.status == 401) {
+					    	  window.location.href =  contextPath;
+					      } else {
+					    	if( error.responseJSON != undefined){
+								errmssge=error.responseJSON.status;	
+							
+								if (error.responseJSON.status=="500"){
+									console.log("in errr");
+									 errorBlock("#error_block", error.responseJSON.message);
+								}else{
+											 errorBlock("#error_block", error.responseJSON.errors.message);
+											}
+							}
+							else{
+					   	  		console.log("Server Error! Please contact administrator");
+					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+					     	}
+				     	}*/
+				       },
+				   });
+	}		
+	
+	function getMachinesByPlanFilter()
+	{
+		
+		
+		var dataVal = 
+			{
+							 
+				 fromdate		: $('#prodDate').val(),
+				 workcenterid 	: $('#addWorkCenter').val(),
+				 todate			: $('#prodDate').val(),
+				 unitid       	: $('#addUnit').val(),
+				 shiftid		:$('#addShift').val(),
+
+			};
+			
+			
+			console.log("dataval--in getMachinesByPlanFilter",JSON.stringify(dataVal));
+			
+			
+			$.ajax({
+				
+				 		 type: "POST",
+					       url: server_url + `planning/getPlanningByFilter`,
+					       enctype: "application/json",
+					       headers: authHeader,
+					       processData: false,
+					       contentType: "application/json; charset=utf-8",
+					       data: JSON.stringify(dataVal),
+					       success: function (response) {
+								$("#addStation").empty();
+								
+								
+								planId=response.payload.id;
+								
+								machinesOptions='<option value="0">  Select Station </option>';
+							
+							console.log("response.payload.length--"+response.payload.planningShiftWork.length);
+							
+								for (i1 = 0; i1 < response.payload.planningShiftWork.length; ++i1) {
+									
+									console.log("for down--"+i1);
+								
+									machinesOptions=machinesOptions+`<option value="${response.payload.planningShiftWork[i1].stationid}">${response.payload.planningShiftWork[i1].stationname}</option>`;
+								
+					           }
+							   
+							   $("#addStation").append(machinesOptions);
+							   
+					       },
+
+					       error: function (error) {
+					           /*console.log(error);
+					      		 if (error.status == 401) {
+						    	  window.location.href =  contextPath;
+						      } else {
+						    	if( error.responseJSON != undefined){
+									errmssge=error.responseJSON.status;	
+								
+									if (error.responseJSON.status=="500"){
+										console.log("in errr");
+										 errorBlock("#error_block", error.responseJSON.message);
+									}else{
+												 errorBlock("#error_block", error.responseJSON.errors.message);
+												}
+								}
+								else{
+						   	  		console.log("Server Error! Please contact administrator");
+						   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+						     	}
+					     	}*/
+					       },
+					   });
+		}		
+	
+function getOpertors()
+{
+	
+	
+	console.log("oper");
+	$.ajax({
+				       type: "GET",
+				       url: server_url + `operator/allActive`,
+				       enctype: "application/json",
+				       headers: authHeader,
+				       processData: false,
+				       contentType: false,
+				       data: null,
+				       success: function (response) {
+							$("#addOperator").empty();
+						//	$("#editItem").empty();
+							//$(".addItem").append('<option value="0">  Select item </option>');
+							
+							itemOptions='<option value="0">  Select Operator </option>';
+
+							
+						//	$("#editItem").append('<option value="0">  Select item </option>');
+
+				           for (i = 0; i < response.payload.length; ++i) {
+				             
+							//  $(".addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+							   
+							itemOptions=itemOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
+							
+							//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+				           }
+						   
+						   $("#addOperator").append(itemOptions);
+						   
+				       },
+
+				       error: function (error) {
+				           /*console.log(error);
+				      		 if (error.status == 401) {
+					    	  window.location.href =  contextPath;
+					      } else {
+					    	if( error.responseJSON != undefined){
+								errmssge=error.responseJSON.status;	
+							
+								if (error.responseJSON.status=="500"){
+									console.log("in errr");
+									 errorBlock("#error_block", error.responseJSON.message);
+								}else{
+											 errorBlock("#error_block", error.responseJSON.errors.message);
+											}
+							}
+							else{
+					   	  		console.log("Server Error! Please contact administrator");
+					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+					     	}
+				     	}*/
+				       },
+				   });
+}									

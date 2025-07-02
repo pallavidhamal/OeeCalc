@@ -20,7 +20,6 @@ $(document).ready(function(){
 	getAllItems();
 	
 	
-	
 	$('#frmDate').on('change', function (e) {
 		   	
 		var frmdate=$(this).val();
@@ -899,6 +898,10 @@ function	getMachinesByWc(wsid)
 		}
 	
 	
+		
+		
+		
+		
 		function getUnitShifts()
 		{
 			
