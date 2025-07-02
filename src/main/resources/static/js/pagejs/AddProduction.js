@@ -1,12 +1,12 @@
 var optionsData = "";
-
+//var count=1;
 
 $(document).ready(function()
 {
 				
 	getUnitList("add");	
-	getAllMachines();
-	getAllItems();
+	//getAllMachines();
+//	getAllItems();
 
 	
 	
@@ -19,8 +19,18 @@ $(document).ready(function()
 		getWorkCentreList("add");
 		getUnitShifts();	
 		
+		
+		
+		
 	});
 	
+	
+	$('#addShift').on('change', function (e) {
+		
+		alert("here");
+
+	getFilterPlanningList();
+});
 	
 			//	alert("add po js")
 				
@@ -332,5 +342,166 @@ function	getAllMachines()
 
 			
 	//		 var counter = 0;
+	function getFilterPlanningList(){  
 
+					
+					var dataVal = 
+					{
+									 
+						 fromdate		: $('#prodDate').val(),
+						 workcenterid 	: $('#addWorkCenter').val(),
+						 todate			: $('#prodDate').val(),
+						 unitid       	: $('#addUnit').val(),
+
+					};
+					
+					
+										console.log("-------------------Welcome to product getplanningList"+JSON.stringify(dataVal));
+									$.ajax({
+										    type: 'POST',
+										    url: server_url + "planning/filterPlanning",
+										    enctype: 'application/json',
+										    headers: authHeader,
+										    processData: false,
+										    contentType: "application/json; charset=utf-8",
+										    data: JSON.stringify(dataVal),
+											
+											success: function (response) {		
+
+											console.log("------response data----------",response);
+
+
+										var data = response.payload;
+
+										console.log("------getPOList data----------",data);
+								//		console.log("------getPOList data.result----------",data.result);
+								//		
+									
+//										tableData.destroy();
+								        $('#planProdTbody.tbody').empty();
+									$.each(response.payload, function( index, value ){
+			
+										console.log("------first for----------"+value.planningShiftWork);
+										$.each(value.planningShiftWork, function( index1, value1 ){
+								   
+											console.log("------second for----------");
+
+											
+							$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
+								+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation integer" rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem integer" rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup integer" rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty integer" rocnt = "'+index1+'" id="producedQty'+index1+'"></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty" integer rocnt = "'+index1+'" id="rejectedQty'+index1+'" ></td>'
+								
+
+							  +'</tr>');
+									
+							  }); //for each of response.payload.planningShiftWork
+
+									
+									}); //for each of response.payload
+									
+											}
+									})//ajax
+								}// function
+					//get planning list
 			 
+					
+					
+
+					$(document).on("click", "#addProduction", function(e){
+
+
+						/* if(SelectBoxNotAllowedNullVal($('#addStationType'),"Station Type","#error_block"))
+							 if(NotAllowedNullVal($('#addStationNumber'),"Station Number ","#error_block"))
+								 if(SelectBoxNotAllowedNullVal($('#addUom'),"UOM ","#error_block"))
+								 	if(SelectBoxNotAllowedNullVal($('#addWorkCentre')," Work Centre","#error_block")){*/
+							 
+							 var dataVal = {
+							 
+									
+									 
+									 availability_lunchtime : $('#lunchT').val(),
+									 availability_teatime : $('#teaT').val(),
+									 availability_reviewtime : $('#reviewT').val(),
+									 availability_inpectiontime : $('#inspecT').val(),
+									 availability_machinebreakdown : $('#machineBrkT').val(),
+									 availability_setupchange : $('#setupT').val(),
+									 availability_nomaterial : $('#noMatT').val(),
+									 availability_nolabour : $('#noLabT').val(),
+									 availability_inspection : $('#waitInspecT').val(),
+									  
+									 availability_tooling : $('#noToolT').val(),
+									 availability_drawing : $('#noDrawT').val(),
+									 availability_guages : $('#noGaugT').val(),
+									 availability_otherlosses : $('#anyLossT').val(),
+									 availability_calculation : $('#calculation').val(),
+									 availability_time : $('#availableT').val(),
+									 availability_per : $('#availableP').val(),
+									  
+									 productivity_searching : $('#searchT').val(),
+									 productivity_personnal : $('#personnalT').val(),
+									 productivity_rework : $('#reworkT').val(),
+									 productivity_Production_qty : $('#totalProdQty').val(),
+									 productivity_standard_qty : $('#stdQty').val(),
+									 productivity_per : $('#productvityP').val(),
+									  
+									 rejection_rejection_qty : $('#rejectQty').val(),
+									 rejection_ok_qty : $('#okQty').val(),
+									 rejection_per : $('#rejectionP').val(),
+									 
+
+								};
+									 
+								 
+									 
+							 	console.log("====data==dataVal===",dataVal);
+									 
+									 
+									 $.ajax({
+											
+										   type: 'POST',
+										   url: server_url+"production/add",  //from API add new data
+										   data : JSON.stringify(dataVal),
+								//		   processData: false,
+										   headers: authHeader,
+										   contentType: "application/json; charset=utf-8",
+					   
+										   success: function(result) {
+					   	
+											console.log("insert--Information result==="+result.status);
+											
+											if(result.status=="CREATED"){
+												
+											 window.location.href = "production";
+												
+												
+											}
+										},
+									error: function (error) {
+							             console.log(error);
+								   		 if (error.status == 401) {
+									    	  window.location.href =  contextPath;
+									      } else {
+									    	if( error.responseJSON != undefined){
+												errmssge=error.responseJSON.status;	
+											
+												if (error.responseJSON.status=="500"){
+													console.log("in errr");
+													 errorBlock("#error_block", error.responseJSON.message);
+												}else{
+												 	 errorBlock("#error_block", error.responseJSON.errors.message);
+												}
+											}
+											else{
+									   	  		console.log("Server Error! Please contact administrator");
+									   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+									     	}
+								     	}
+							        },
+								});
+							//}  //validation if
+					});
+					

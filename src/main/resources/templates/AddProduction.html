@@ -207,7 +207,7 @@ label {
   						</div>
 						<div class="col-md-2">
 							<label class="form-label">Date</label>
-							<input type="date" id="customer" class=" form-control" >
+							<input type="date" id="prodDate" class=" form-control" >
 						</div>
 						<div class="col-md-2">
   							<label class="form-label">Unit</label>
@@ -232,8 +232,8 @@ label {
 								<!--<option>Shift 1</option><option>Shift 2</option><option>Shift 3</option>-->
 							</select>
   						</div>
-						<div class="col-md-2">
-  							<label class="form-label">Machine</label>
+					<!--	<div class="col-md-2">
+  							<label class="form-label">Station</label>
   							<select class="form-control" id="customerListadd">
 								<option>-- Select --</option><option>CNC - HT-F- 616</option><option>CNC - HT-F-613</option><option>MSP 1</option>
 							</select>
@@ -243,7 +243,7 @@ label {
   							<select class="form-control" id="customerListadd">
 								<option>-- Select --</option><option>61M5003</option><option>61M5007</option><option>HT6801-06-06</option>
 							</select>
-  						</div>
+  						</div>-->
 					</div>
   		    	</div>
 			</div>
@@ -261,6 +261,7 @@ label {
 									<table class="table table-bordered table-striped table-hover table-responsive" id="purchaseOrderList" >
 									              <thead>
 									                <tr class="orange">
+														<th>Station</th>
 									                  <th>Item Number</th>
 									                  <th>Setup </th>
 									                  <th>Qty planned </th>
@@ -268,21 +269,9 @@ label {
 									                  <th>Qty Rejected </th>
 									                </tr>
 									              </thead>
-									              <tbody>
-													<tr role="row" class="odd">
-														<td class="sorting_1">61M5003</td>
-														<td>MSP setup1</td>
-														<td><input type="text" id="customer" class=" form-control" value="1000"></td>
-														<td><input type="text" id="customer" class=" form-control" value="800"></td>
-														<td><input type="text" id="customer" class=" form-control" value="15"></td>
-													</tr>
-													<tr role="row" class="even">
-														<td class="sorting_1">61M5007</td>
-														<td>MSP setup1</td>
-														<td><input type="text" id="customer" class=" form-control" value="1800"></td>
-														<td><input type="text" id="customer" class=" form-control" value="1200"></td>
-														<td><input type="text" id="customer" class=" form-control" value="20"></td>
-													</tr>
+									              <tbody  id="planProdTbody">
+												
+												
 									              </tbody >
 									            </table>
 							</div>
@@ -300,72 +289,72 @@ label {
 					<div class="row">
 					<div class="col-md-4">
 						<label class="form-label">Lunch Time</label>
-						<input type="text" id="customer" class=" form-control">
+						<input type="text" id="lunchT" class=" form-control">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Tea Time</label>
-						<input type="text" id="ponumber" class="form-input form-control">
+						<input type="text" id="teaT" class="form-input form-control">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">5S and review time</label>
-						<input type="text" id="ponumber" class="form-input form-control">
+						<input type="text" id="reviewT" class="form-input form-control">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Inpection time</label>
-						<input type="text" id="customer" class="form-input form-control">
+						<input type="text" id="inspecT" class="form-input form-control">
 					</div>
 					
 					<div class="col-md-4">
 						<label class="form-label">Machine breakdown</label>
-						<input type="text" id="ponumber" class="form-input form-control">
+						<input type="text" id="machineBrkT" class="form-input form-control">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Setup change</label>
-						<input type="text" id="ponumber" class="form-input form-control">
+						<input type="text" id="setupT" class="form-input form-control">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">No material</label>
-						<input type="text" id="customer" class=" form-control">
+						<input type="text" id="noMatT" class=" form-control">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">No labour</label>
-						<input type="text" id="ponumber" class="form-input form-control">
+						<input type="text" id="noLabT" class="form-input form-control">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Waiting for inspection</label>
-						<input type="text" id="ponumber" class="form-input form-control">
+						<input type="text" id="waitInspecT" class="form-input form-control">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Tooling not available</label>
-						<input type="text" id="customer" class="form-input form-control">
+						<input type="text" id="noToolT" class="form-input form-control">
 					</div>
 					
 					<div class="col-md-4">
 						<label class="form-label">Drawing not availble</label>
-						<input type="text" id="ponumber" class="form-input form-control">
+						<input type="text" id="noDrawT" class="form-input form-control">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Guages not availble</label>
-						<input type="text" id="ponumber" class="form-input form-control">
+						<input type="text" id="noGaugT" class="form-input form-control">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Any other management losses </label>
-						<input type="text" id="customer" class=" form-control">
+						<input type="text" id="anyLossT" class=" form-control">
 					</div>
 					<div class="col-md-4">
 							<label class="form-label">Calculation </label>
-						<input type="text" id="ponumber" class="form-input form-control">
+						<input type="text" id="calculation" class="form-input form-control">
 						</div>
 					<div class="col-md-4">
 							<label class="form-label">Available time </label>
-						<input type="text" id="ponumber" class="form-input form-control">
+						<input type="text" id="availableT" class="form-input form-control">
 						</div>
 					<div class="col-md-12">
 						<br>
 						<div class="form-group"  style="text-align: right;">
 						    <label for="inputEmail3" class="col-sm-8 control-label">Availability %</label>
 						    <div class="col-sm-4">
-						      <input type="email" class="form-control" id="inputEmail3" disabled>
+						      <input type="availableP" class="form-control" id="inputEmail3" disabled>
 						    </div>
 						  </div>
 					</div>								
@@ -380,30 +369,30 @@ label {
 					<div class="row">
 							<div class="col-md-4">
 								<label class="form-label">Searching Time</label>
-								<input type="text" id="customer" class=" form-control">
+								<input type="text" id="searchT" class=" form-control">
 							</div>
 							<div class="col-md-4">
 								<label class="form-label">Personnal Time</label>
-								<input type="text" id="ponumber" class="form-input form-control">
+								<input type="text" id="personnalT" class="form-input form-control">
 							</div>
 							<div class="col-md-4">
 								<label class="form-label">Rework Time</label>
-							<input type="text" id="ponumber" class="form-input form-control">
+							<input type="text" id="reworkT" class="form-input form-control">
 							</div>
 						<div class="col-md-4">
 								<label class="form-label">Total Production quantity </label>
-							<input type="text" id="ponumber" class="form-input form-control">
+							<input type="text" id="totalProdQty" class="form-input form-control">
 							</div>
 						<div class="col-md-4">
 								<label class="form-label">standard qty </label>
-							<input type="text" id="ponumber" class="form-input form-control">
+							<input type="text" id="stdQty" class="form-input form-control">
 							</div>
 						<div class="col-md-12">
 							<br>
 							<div class="form-group"  style="text-align: right;">
 							    <label for="inputEmail3" class="col-sm-8 control-label">Productivity %</label>
 							    <div class="col-sm-4">
-							      <input type="email" class="form-control" id="inputEmail3" disabled>
+							      <input type="productvityP" class="form-control" id="inputEmail3" disabled>
 							    </div>
 							  </div>
 						</div>
@@ -422,18 +411,18 @@ label {
 					  <div class="row">
 							<div class="col-md-4">
 	  							<label class="form-label">Rejection quantity</label>
-	  							<input type="text" id="customer" class=" form-control">
+	  							<input type="text" id="rejectQty" class=" form-control">
 	  						</div>
 							<div class="col-md-4">
 	  							<label class="form-label">Ok quantity</label>
-	  							<input type="text" id="ponumber" class="form-input form-control">
+	  							<input type="text" id="okQty" class="form-input form-control">
 	  						</div>
 							<div class="col-md-12">
 								<br>
 								<div class="form-group" style="text-align: right;">
 								    <label for="inputEmail3" class="col-sm-8 control-label">Rejection %</label>
 								    <div class="col-sm-4">
-								      <input type="email" class="form-control" id="inputEmail3" disabled>
+								      <input type="rejectionP" class="form-control" id="inputEmail3" disabled>
 								    </div>
 								  </div>	
 						  </div>	  		  						
@@ -600,7 +589,7 @@ label {
 		  	    			
 		  	    			<div class="row mt-4 pull">
 		  	    				<div class="col-md-12 ">
-		  	    					<input type="submit" id="submitBtn" class="btn form-btn cust-btn"  value="Submit">
+		  	    					<input type="submit" id="addProduction" class="btn form-btn cust-btn"  value="Submit">
 		  							<!--<input type="submit" id="submitBtn1" class="btn form-btn"  value="Submit"> -->
 		  	    						<button class="btn btn-secondary" onclick="history.back()"> Back</button>
 		  								
