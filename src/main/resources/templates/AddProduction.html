@@ -163,6 +163,12 @@ label {
   
   <div class="loader">Loading...</div>
 </div>
+
+<span id="error_block"> <span class="msg-hd"><img src="static/images/incorrect.png" class="model-icon"> Error</span><br>
+<span class="msg-txt">Error text here</span> </span> <span id="success_block"> <span class="msg-hd-success"><img src="static/images/correct.png" class="model-icon"> Success</span><br>
+<span class="msg-txt-success">Success text here</span> </span>
+
+
 <br>
 <section> 
   <!--container-fluid-->
@@ -289,66 +295,82 @@ label {
 					<div class="row">
 					<div class="col-md-4">
 						<label class="form-label">Lunch Time</label>
-						<input type="text" id="lunchT" class=" form-control">
+						<input type="text" id="lunchT" class=" form-control decimal" value="30">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Tea Time</label>
-						<input type="text" id="teaT" class="form-input form-control">
+						<input type="text" id="teaT" class="form-input form-control decimal" value="10">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">5S and review time</label>
-						<input type="text" id="reviewT" class="form-input form-control">
+						<input type="text" id="reviewT" class="form-input form-control decimal" value="10">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Inpection time</label>
-						<input type="text" id="inspecT" class="form-input form-control">
+						<input type="text" id="inspecT" class="form-input form-control decimal" value="10">
 					</div>
 					
 					<div class="col-md-4">
 						<label class="form-label">Machine breakdown</label>
-						<input type="text" id="machineBrkT" class="form-input form-control">
+						<input type="text" id="machineBrkT" class="form-input form-control decimal" value="0">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Setup change</label>
-						<input type="text" id="setupT" class="form-input form-control">
+						<input type="text" id="setupT" class="form-input form-control decimal" value="0">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">No material</label>
-						<input type="text" id="noMatT" class=" form-control">
+						<input type="text" id="noMatT" class=" form-control decimal" value="0">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">No labour</label>
-						<input type="text" id="noLabT" class="form-input form-control">
+						<input type="text" id="noLabT" class="form-input form-control decimal" value="0">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Waiting for inspection</label>
-						<input type="text" id="waitInspecT" class="form-input form-control">
+						<input type="text" id="waitInspecT" class="form-input form-control decimal" value="0">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Tooling not available</label>
-						<input type="text" id="noToolT" class="form-input form-control">
+						<input type="text" id="noToolT" class="form-input form-control decimal" value="0">
 					</div>
 					
 					<div class="col-md-4">
 						<label class="form-label">Drawing not availble</label>
-						<input type="text" id="noDrawT" class="form-input form-control">
+						<input type="text" id="noDrawT" class="form-input form-control decimal" value="0">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Guages not availble</label>
-						<input type="text" id="noGaugT" class="form-input form-control">
+						<input type="text" id="noGaugT" class="form-input form-control decimal" value="0">
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Any other management losses </label>
-						<input type="text" id="anyLossT" class=" form-control">
+						<input type="text" id="anyLossT" class=" form-control decimal" value="0">
 					</div>
 					<div class="col-md-4">
-							<label class="form-label">Calculation </label>
-						<input type="text" id="calculation" class="form-input form-control">
-						</div>
+							<label class="form-label">Overtime </label>
+						<input type="text" id="Overtime" class="form-input form-control decimal " value="0">
+					</div>
+					<div class="col-md-4">
+							<label class="form-label">Total time </label>
+						<input type="text" id="totaltime" class="form-input form-control decimal" value="0" disabled>
+					</div>
+					<div class="col-md-4">
+							<label class="form-label">Standard losses </label>
+						<input type="text" id="Stdlosses" class="form-input form-control decimal" value="0" disabled>
+					</div>
+					<div class="col-md-4">
+							<label class="form-label">Special losses </label>
+						<input type="text" id="Spllosses" class="form-input form-control decimal" value="0" disabled>
+					</div>					
+					<div class="col-md-4">
+							<label class="form-label">Total losses </label>
+						<input type="text" id="Totallosses" class="form-input form-control decimal" value="0" disabled>
+					</div>	
 					<div class="col-md-4">
 							<label class="form-label">Available time </label>
-						<input type="text" id="availableT" class="form-input form-control">
-						</div>
+						<input type="text" id="availableT" class="form-input form-control decimal" value="0" disabled>
+					</div>
 					<div class="col-md-12">
 						<br>
 						<div class="form-group"  style="text-align: right;">
@@ -380,12 +402,12 @@ label {
 							<input type="text" id="reworkT" class="form-input form-control">
 							</div>
 						<div class="col-md-4">
-								<label class="form-label">Total Production quantity </label>
-							<input type="text" id="totalProdQty" class="form-input form-control">
+								<label class="form-label">Total Production </label>
+							<input type="text" id="totalProdQty" class="form-input form-control" disabled>
 							</div>
 						<div class="col-md-4">
-								<label class="form-label">standard qty </label>
-							<input type="text" id="stdQty" class="form-input form-control">
+								<label class="form-label">Total Plan </label>
+							<input type="text" id="totalPlanQty" class="form-input form-control" disabled>
 							</div>
 						<div class="col-md-12">
 							<br>
@@ -405,22 +427,22 @@ label {
 			</div>
 			<div class="col-md-12">
 		    	<div class="white-layer mb-8">
-					<p><h4><strong>Rejection</strong></h4>  </p>
+					<p><h4><strong>Quality</strong></h4>  </p>
 					<hr style="border-top: 4px solid rgb(255, 0, 0);">
 												  
 					  <div class="row">
 							<div class="col-md-4">
-	  							<label class="form-label">Rejection quantity</label>
-	  							<input type="text" id="rejectQty" class=" form-control">
+	  							<label class="form-label">Total Rejected qty</label>
+	  							<input type="text" id="rejectQty" class=" form-control" disabled>
 	  						</div>
 							<div class="col-md-4">
-	  							<label class="form-label">Ok quantity</label>
-	  							<input type="text" id="okQty" class="form-input form-control">
+	  							<label class="form-label">total production</label>
+	  							<input type="text" id="okQty" class="form-input form-control" disabled>
 	  						</div>
 							<div class="col-md-12">
 								<br>
 								<div class="form-group" style="text-align: right;">
-								    <label for="inputEmail3" class="col-sm-8 control-label">Rejection %</label>
+								    <label for="inputEmail3" class="col-sm-8 control-label">Quality %</label>
 								    <div class="col-sm-4">
 								      <input type="rejectionP" class="form-control" id="inputEmail3" disabled>
 								    </div>
@@ -609,217 +631,6 @@ label {
 </section>
 <!--Content--> 
 
-<!--<div id="add_po" class="modal fade in" role="dialog">
-  <div class="modal-dialog modal-lg"> 
-     Modal content
-    <div class="modal-content">
-      <div class="modal-header cust-hd">
-        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Add Purchase Order</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form"  class="" name="myform">
-            <div class="col-sm-12 margin-top15">
-            <div class="col-sm-12">
-	            <label class="col-sm-4 control-label cust_label">Purchase Order Number : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	              <input type="text" class="form-control" name="ponumber" id="ponumber" placeholder="Enter Purchase Order Number">
-	            </div>
-            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-            	<div class="col-sm-12">
-	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             <select class="form-control" id="customerListadd"></select>
-	              	 <option>- Select Customer -</option>
-	              	<option>Customer 1</option>
-	              	<option>Customer 2</option> 
-	              </select> 
-	            </div>
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-            	<div class="col-sm-6">
-		            <label for="" class="col-sm-3 control-label cust_label">PO Date : <span class="fa fa-asterisk"></span></label>
-		            <div class="col-sm-8 my_form">
-		             	<input type="date" class="form-control" id = "poDate">
-		            </div>
-	            </div>
-	            <div class="col-sm-6">
-		            <label for="" class="col-sm-4 control-label cust_label">PO End Date : <span class="fa fa-asterisk"></span></label>
-		            <div class="col-sm-8 my_form">
-		             	<input type="date" class="form-control" id = "poEndDate">
-		            </div>
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            
-            </div>
-        </form>
-        <div><a href="#" class="table_add_link"><i class="fa fa-plus"></i> Add Row</a></div>
-         <div class="col-sm-12 margin-top20">
-        	<table class="table table-border po_table" id="po_table_modal">
-        	<thead>
-			  <tr>
-			    <th class="table_hd">Line ID</th>
-			    <th class="table_hd">Product</th>
-			     <th class="table_hd">Catalog Code</th>
-			    <th class="table_hd display_block">Description</th>
-			    <th class="table_hd">Region</th>
-			    <th class="table_hd">PO Qty.</th>
-			    <th class="table_hd">&nbsp;</th>
-			  </tr>
-			  </thead>
-			  <tbody id="myTbody">
-			   <tr class="tr_clone" roCnt = "0">
-			    <td class="table_input"><input type="text" class="form-control width80 line" id="line0"></td>
-			     <td class="table_input">
-				     <select class="form-control width120 prodListadd"  id="prodList0" >
-				     	 <option>Select Product -</option>
-				     	
-				     </select>
-			     </td>
-			      <td class="table_input">
-				   <select class="form-control width120 catCodeListadd" id="catCodeList0">
-				   <option>Select Catalog -</option></select>
-			     </td>
-			    <td class="table_input display_block">
-			    <select class="form-control width120 descListadd" id="descList0">
-				 <option>Select Description-</option></select>
-			    </td>
-			    
-			     <td class="table_input">
-				  <select class="form-control width120 regListadd"  id="regList0">
-				  <option>Select Region-</option></select>
-			     </td>
-			     <td class="table_input"><input type="text"  class="form-control width80 qtyListadd" id="poQty0"></td>
-			     <td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>
-			      <td class="table_input">&nbsp;</td> 
-			  </tr> 
-			  </tbody>
-			</table>
-        </div> 
-        <div class="clearfix"></div>
-        
-         <div class="col-md-offset-4 col-md-8">
-	         <div id="poErrAdd" class="Err" ></div>
-	          <div class="clearfix"></div>
-          </div>
-    </div>
-    
-   <div class="clearfix"></div>
-    
-    <div class="modal-footer">
-        <div class="col-md-4 col-md-offset-4 pull-left">
-          <button class="btn btn-block cust-btn" type="submit" id = "addPurchaseData">Submit</button>
-        </div>
-    </div>
-    </div>
-    
-  </div>
-</div>-->
-
-
-<div id="edit_po" class="modal fade in" role="dialog">
-  <div class="modal-dialog modal-lg"> 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header cust-hd">
-        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Update Purchase Order</h4>
-      </div>
-      <div class="modal-body">
-        <form role="form"  class="" name="myform">
-            <div class="col-sm-12 margin-top15">
-	            <label class="col-sm-4 control-label cust_label">Purchase Order Number : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	              <input type="text" class="form-control" name="ponumber" id="ponumberEdt" placeholder="Enter Purchase Order Number">
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            <label for="" class="col-sm-4 control-label cust_label">Customer : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             <select class="form-control" id="customerListEdt"></select>
-	              	<!-- <option>- Select Customer -</option>
-	              	<option>Customer 1</option>
-	              	<option>Customer 2</option> 
-	              </select> -->
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            <label for="" class="col-sm-4 control-label cust_label">Purchase Order Date : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             	<input type="date" class="form-control" id = "poDateEdt">
-	            </div>
-            </div>
-            <div class="col-sm-12 margin-top15">
-	            <label for="" class="col-sm-4 control-label cust_label">Purchase Order End Date : <span class="fa fa-asterisk"></span></label>
-	            <div class="col-sm-8 my_form">
-	             	<input type="date" class="form-control" id = "poEndDateEdt">
-	            </div>
-            </div>
-        </form>
-        <div><a href="#" class="table_add_link table_add_linkEdt"><i class="fa fa-plus"></i> Add Row</a></div>
-         <div class="col-sm-12 margin-top20">
-        	<table class="table table-border po_table" id="po_table_modal">
-        	<thead>
-			  <tr>
-			  <th class="table_hd" style="display:none;">PO ID</th> 
-			    <th class="table_hd">Line ID</th>
-			    <th class="table_hd">Product</th>
-			    <th class="table_hd">Catalog Code</th>
-			    <th class="table_hd display_block">Description</th>
-			    <th class="table_hd">Region</th>
-			    <th class="table_hd">PO Qty.</th>
-			    <th class="table_hd">Bal Qty.</th>
-			    <th class="table_hd">&nbsp;</th>
-			  </tr>
-			  </thead>
-			  <tbody id="myTbodyEdt">
-			   <!-- <tr class="tr_clone">
-			    <td class="table_input"><input type="text" class="form-control width80 line" id="line"></td>
-			     <td class="table_input">
-				     <select class="form-control width120 prodList"  id="prodListEdt0" >
-				     	 <option>Select Product -</option>
-				     	
-				     </select>
-			     </td>
-			    <td class="table_input display_block">
-			    <select class="form-control width120 descList" id="descList0">
-				 <option>Select Description-</option></select>
-			    </td>
-			     <td class="table_input">
-				   <select class="form-control width120 catCodeList" id="catCodeListEdt0">
-				   <option>Select Category -</option></select>
-			     </td>
-			     <td class="table_input">
-				  <select class="form-control width120 regList"  id="regListEdt0">
-				  <option>Select Region-</option></select>
-			     </td>
-			     <td class="table_input"><input type="text"  class="form-control width80 qtyList" id="poQtyEdt0"></td>
-			     <td class="table_input">&nbsp;</td>
-			  </tr>  -->
-			  </tbody>
-			</table>
-        </div> 
-     
-        <div class="clearfix"></div>
-        
-         <div class="col-md-offset-4 col-md-8">
-	         <div id="poErredt" class="Err" ></div>
-	          <div class="clearfix"></div>
-          </div>
-        
-    </div>
-    <div class="modal-footer">
-        <div class="col-md-4 col-md-offset-4 pull-left">
-          <button class="btn btn-block cust-btn" type="submit" id = "savePurchaseData">Submit</button>
-        </div>
-    </div>
-    </div>
-  </div>
-</div>
 
 
 <div id="import_excel" class="modal fade in" role="dialog">
@@ -883,74 +694,6 @@ label {
 </div>
 
 
-
-
-
-   <div class="modal fade" id="dataview" role="dialog">
-    <div class="modal-dialog modal-lg modbox">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-         
-          <h4 class="modal-title headtag1"> Successfully Saved Purchase Order</h4>
-        </div>
-        <div class="modal-body">
-        <div id="remtbl">
-      <table class="table table-bordered table-striped table-hover table-responsive" id="TestTbl" >
-    <thead>
-    
-    <tr>
-   <th>PO_Number</th>
-   <th>PO_Date</th>
-   <th>PO_EndDate</th>
-   <th>CustomerId</th>
-   
-   <th>LineId</th>
-   <th>CatalogId</th>
-   <th>Description</th>
-   <th>ProductId</th>
-   <th>RegionId</th>
-   <th>PO_Qty</th>
-   <th>Balace_Qty</th>
-   <th>Status</th>
- 	</tr>
-      </thead>
-    <tbody>
-    </tbody >
-  </table>
-  </div>
-     <h4 class="modal-title headtag"> Not  Saved Purchase Order</h4>
-     <div id="inserttbl">
-       <table class="table table-bordered table-striped table-hover table-responsive" id="insertdatatbl" >
-    <thead>
-    
-    <tr>
-   <th>PO_Number</th>
-   <th>PO_Date</th>
-   <th>PO_EndDate</th>
-   <th>CustomerId</th>
-   
-   <th>LineId</th>
-   <th>CatalogId</th>
-   <th>Description</th>
-   <th>ProductId</th>
-   <th>RegionId</th>
-   <th>PO_Qty</th>
-   <th>Balace_Qty</th>
-   <th>Status</th>
- 	</tr>
-      </thead>
-    <tbody>
-    </tbody >
-  </table>
-  </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
  <script>
 
  var _validFileExtensions = [".xlsx"];    

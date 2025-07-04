@@ -2,6 +2,7 @@ var optionsData = "";
 //var count=1;
 var stationId;
 var planId;
+var timePerShiftVal = 0;
 
 $(document).ready(function()
 {
@@ -30,9 +31,13 @@ $(document).ready(function()
 		var optionSelected = $("option:selected", this);
 		stationId = this.value;
 
-		getShiftWorkItemList();
+		getPlanningItemList();
 });
 
+$('#Overtime').on('change', function (e) {
+	
+	totaltimeCal();
+})
 
 
 /*$('#addWorkCenter').on('change', function (e) {
@@ -52,7 +57,7 @@ $('#addShift').on('change', function (e) {
 	   
 	// var optionSelected = $("option:selected", this);
 	// var wsid = this.value;
-	alert();
+	// alert();
 	 getMachinesByPlanFilter();
 	 
 	// getShiftTime();	
@@ -374,63 +379,109 @@ function	getAllMachines()
 	{
 		var dataVal = 
 		{
-						 
-			 id		: planId,
+			 id			: planId,
 			 stationid 	: stationId
 		};
 		
 			console.log("-------------------Welcome to getShiftWorkItemList"+JSON.stringify(dataVal));
-									$.ajax({
-										    type: 'POST',
-										    url: server_url + "planningshift/getShiftWorkDtlsByPlanAndStation",
-										    enctype: 'application/json',
-										    headers: authHeader,
-										    processData: false,
-										    contentType: "application/json; charset=utf-8",
-										    data: JSON.stringify(dataVal),
-											
-											success: function (response) {		
+				$.ajax({
+					    type: 'POST',
+					    url: server_url + "planningshift/getShiftWorkDtlsByPlanAndStation",
+					    enctype: 'application/json',
+					    headers: authHeader,
+					    processData: false,
+					    contentType: "application/json; charset=utf-8",
+					    data: JSON.stringify(dataVal),
+						
+						success: function (response) {		
 
-											console.log("------response data----------",response);
+						console.log("------response data----------",response);
 
 
-										var data = response.payload;
+						var data = response.payload;
 
-										console.log("------getPOList data----------",data);
+						console.log("------getPOList data----------",data);
 									
 //										tableData.destroy();
-								        $('#planProdTbody').empty();
-										
-									$.each(response.payload, function( index1, value1 ){
+				        $('#planProdTbody').empty();
+						
+					$.each(response.payload, function( index1, value1 ){
 			
-										//console.log("------first for----------"+value.planningShiftWork);
-									//	$.each(value.planningShiftWork, function( index1, value1 ){
-								   
-											console.log("------second for----------");
-
+					//console.log("------first for----------"+value.planningShiftWork);
+				//	$.each(value.planningShiftWork, function( index1, value1 ){
+			   
+						console.log("------second for----------");
 											
-							$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
-								+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation integer" rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
-								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem integer" rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
-								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup integer" rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty integer" rocnt = "'+index1+'" id="producedQty'+index1+'"></td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty" integer rocnt = "'+index1+'" id="rejectedQty'+index1+'" ></td>'
-								
+						$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
+							+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation integer" rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem integer" rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup integer" rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty integer" rocnt = "'+index1+'" id="producedQty'+index1+'"></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty" integer rocnt = "'+index1+'" id="rejectedQty'+index1+'" ></td>'
 
-							  +'</tr>');
+						  +'</tr>');
 									
 							//  }); //for each of response.payload.planningShiftWork
+				}); //for each of response.payload
+			}
+		})//ajax
 
-									
-						}); //for each of response.payload
-						
-								}
-						})//ajax
-		
 	}			
 				
-				
+	function getPlanningItemList()
+		{
+	/*	var dataVal = 
+		{
+			 id			: planId,
+			 stationid 	: stationId
+		};
+		
+			console.log("-------------------Welcome to getShiftWorkItemList"+JSON.stringify(dataVal));
+	*/			$.ajax({
+					    type: 'GET',
+					    url: server_url + "planning/get/"+planId+"/"+stationId,
+					    enctype: 'application/json',
+					    headers: authHeader,
+					    processData: false,
+					    contentType: "application/json; charset=utf-8",
+				//	    data: JSON.stringify(dataVal),
+						
+						success: function (response) {		
+
+						console.log("------response data----------",response);
+
+
+						var data = response.payload;
+
+						console.log("------getPOList data----------",data);
+									
+//										tableData.destroy();
+				        $('#planProdTbody').empty();
+						
+					$.each(response.payload, function( index1, value1 ){
+			
+					//console.log("------first for----------"+value.planningShiftWork);
+				//	$.each(value.planningShiftWork, function( index1, value1 ){
+			   
+						console.log("------second for----------");
+											
+						$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
+							+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation integer" rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem integer" rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup integer" rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty integer" rocnt = "'+index1+'" id="producedQty'+index1+'"></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty" integer rocnt = "'+index1+'" id="rejectedQty'+index1+'" ></td>'
+
+						  +'</tr>');
+									
+							//  }); //for each of response.payload.planningShiftWork
+				}); //for each of response.payload
+			}
+		})//ajax
+
+	}				
 				
 			
 	//		 var counter = 0;
@@ -715,8 +766,9 @@ function getMachinesByWc(wsid)
 					       success: function (response) {
 								$("#addStation").empty();
 								
-								
-								planId=response.payload.id;
+								console.log("======response=========",response)
+								timePerShiftVal = response.payload.timePerShift;
+								planId = response.payload.id;
 								
 								machinesOptions='<option value="0">  Select Station </option>';
 							
@@ -816,4 +868,59 @@ function getOpertors()
 				     	}*/
 				       },
 				   });
-}									
+}								
+
+
+
+function totaltimeCal(){
+	
+	
+/*	var sumoftotaltime = 
+	Number($("#lunchT").val()) +
+	Number($("#teaT").val()) +
+	Number($("#reviewT").val()) +
+	Number($("#inspecT").val()) +
+	Number($("#machineBrkT").val()) +
+	Number($("#setupT").val()) +
+	Number($("#noMatT").val()) +
+	Number($("#noLabT").val()) +
+	Number($("#waitInspecT").val()) +
+	Number($("#noToolT").val()) +
+	Number($("#noDrawT").val()) +
+	Number($("#noGaugT").val()) +
+	Number($("#anyLossT").val()) +
+	Number($("#Overtime").val()) ;
+*/	
+	
+	
+	var sumoftotaltime = 
+	Number($("#Overtime").val()) +Number(timePerShiftVal)
+	
+	
+	$("#totaltime").val(sumoftotaltime);
+	
+}
+
+function StdlossesCal(){
+	
+	
+	var sumoftotaltime = 
+	Number($("#Overtime").val()) +Number(timePerShiftVal)
+	
+	
+	$("#Stdlosses").val(sumoftotaltime);
+	
+}
+
+function SpllossesCal(){
+	
+	
+	var sumoftotaltime = 
+	Number($("#Overtime").val()) +Number(timePerShiftVal)
+	
+	
+	$("#Spllosses").val(sumoftotaltime);
+	
+}
+
+	
