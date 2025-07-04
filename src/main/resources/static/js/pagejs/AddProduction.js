@@ -31,7 +31,7 @@ $(document).ready(function()
 		var optionSelected = $("option:selected", this);
 		stationId = this.value;
 
-		getPlanningItemList();
+		getShiftWorkItemList();
 });
 
 $('#Overtime').on('change', function (e) {
@@ -39,6 +39,15 @@ $('#Overtime').on('change', function (e) {
 	totaltimeCal();
 })
 
+$('.Stdlosses').on('change', function (e) {
+	
+	StdlossesCal();
+})
+
+$('.Spllosses').on('change', function (e) {
+	
+	SpllossesCal();
+})
 
 /*$('#addWorkCenter').on('change', function (e) {
 	   
@@ -904,22 +913,33 @@ function totaltimeCal(){
 function StdlossesCal(){
 	
 	
-	var sumoftotaltime = 
-	Number($("#Overtime").val()) +Number(timePerShiftVal)
+	var sumofStdlosses = 
+	Number($("#lunchT").val()) +
+	Number($("#teaT").val()) +
+	Number($("#reviewT").val()) +
+	Number($("#inspecT").val()) +
+	Number($("#machineBrkT").val()) ; 
 	
 	
-	$("#Stdlosses").val(sumoftotaltime);
+	$("#Stdlosses").val(sumofStdlosses);
 	
 }
 
 function SpllossesCal(){
 	
 	
-	var sumoftotaltime = 
-	Number($("#Overtime").val()) +Number(timePerShiftVal)
+	var sumofSpllosses = 
+	Number($("#setupT").val()) +
+	Number($("#noMatT").val()) +
+	Number($("#noLabT").val()) +
+	Number($("#waitInspecT").val()) +
+	Number($("#noToolT").val()) +
+	Number($("#noDrawT").val()) +
+	Number($("#noGaugT").val()) +
+	Number($("#anyLossT").val()); 
 	
 	
-	$("#Spllosses").val(sumoftotaltime);
+	$("#Spllosses").val(sumofSpllosses);
 	
 }
 
