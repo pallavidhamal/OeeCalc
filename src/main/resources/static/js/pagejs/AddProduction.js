@@ -4,6 +4,8 @@ var stationId;
 var planId;
 var timePerShiftVal = 0;
 
+var totalplannedquantity = 0 ; 
+
 $(document).ready(function()
 {
 				
@@ -11,7 +13,7 @@ $(document).ready(function()
 	//getAllMachines();
 //	getAllItems();
 	getOpertors();
-
+StdlossesCal();
 	
 	
 	$('#addUnit').on('change', function (e) {
@@ -414,12 +416,15 @@ function	getAllMachines()
 //										tableData.destroy();
 				        $('#planProdTbody').empty();
 						
+						
 					$.each(response.payload, function( index1, value1 ){
 			
 					//console.log("------first for----------"+value.planningShiftWork);
 				//	$.each(value.planningShiftWork, function( index1, value1 ){
 			   
 						console.log("------second for----------");
+						
+						totalplannedquantity += Number(value1.plannedquantity) ;
 											
 						$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
 							+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation integer" rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
@@ -433,6 +438,8 @@ function	getAllMachines()
 									
 							//  }); //for each of response.payload.planningShiftWork
 				}); //for each of response.payload
+				
+				console.log("======totalplannedquantity======",totalplannedquantity);
 			}
 		})//ajax
 
@@ -605,6 +612,10 @@ function	getAllMachines()
 							 var dataVal = {
 							 
 									
+									 shiftid : $('#addShift').val(),
+									 unitid : $('#addUnit').val(),
+									 workcenterid : $('#addWorkCenter').val(),
+									 workcenterid : $('#addOperator').val(),
 									 
 									 availability_lunchtime : $('#lunchT').val(),
 									 availability_teatime : $('#teaT').val(),
@@ -928,7 +939,7 @@ function StdlossesCal(){
 	
 	
 	$("#Stdlosses").val(sumofStdlosses);
-	
+	totalLosses();
 }
 
 function SpllossesCal(){
@@ -946,7 +957,40 @@ function SpllossesCal(){
 	
 	
 	$("#Spllosses").val(sumofSpllosses);
+	totalLosses();
+}
+
+function totalLosses(){
+	
+	
+	var sumofTotallosses = Number($("#Stdlosses").val()) + Number($("#Spllosses").val());
+	
+	$("#Totallosses").val(sumofTotallosses);
+	
+	availableTime();
 	
 }
+function availableTime(){
+	
+	if( Number($("#totaltime").val()) > 0 && Number($("#Totallosses").val()) > 0){
+		
+		var sumofavailableT = Number($("#totaltime").val()) -	Number($("#Totallosses").val());
+		
+		$("#availableT").val(sumofavailableT);
+		
+		availabilityPerCal();
+	}
+}
+
+function availabilityPerCal(){
+	
+	if( Number($("#availableT").val()) > 0 && Number($("#totaltime").val()) > 0){
+	
+		var availabilityCal = (Number($("#availableT").val()) /	Number($("#totaltime").val()) ) * 100;
+	
+		$("#availabilityPer").val(availabilityCal.toFixed(2));
+	}
+}
+
 
 	
