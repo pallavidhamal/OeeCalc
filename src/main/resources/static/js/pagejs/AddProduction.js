@@ -620,10 +620,16 @@ function	getAllMachines()
 									 availability_drawing : $('#noDrawT').val(),
 									 availability_guages : $('#noGaugT').val(),
 									 availability_otherlosses : $('#anyLossT').val(),
-									 availability_calculation : $('#calculation').val(),
+									// availability_calculation : $('#calculation').val(),
 									 availability_time : $('#availableT').val(),
 									 availability_per : $('#availableP').val(),
-									  
+									 
+									 availability_overtime :$('#Overtime').val(),
+									 availability_totaltime :$('#totaltime').val(),
+									 availability_stdloss :$('#Stdlosses').val(),
+									 availability_specloss :$('#Spllosses').val(),
+									 availability_totloss :$('#Totallosses').val(),
+									   
 									 productivity_searching : $('#searchT').val(),
 									 productivity_personnal : $('#personnalT').val(),
 									 productivity_rework : $('#reworkT').val(),
