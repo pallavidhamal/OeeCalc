@@ -22,7 +22,7 @@ var deleteViewItem = [];
 $(document).ready(function(){
 	
 	getUnitList("edit");	
-	getAllMachines();
+	//getAllMachines();
 	getAllItems();
 	
 	//get data for plan edit
@@ -544,7 +544,7 @@ function getUnitList(divId){
 	
 }
 
-
+/*
 function	getAllMachines()
 	{
 		
@@ -578,7 +578,7 @@ function	getAllMachines()
 				       },
 
 				       error: function (error) {
-				           /*console.log(error);
+				           console.log(error);
 				      		 if (error.status == 401) {
 					    	  window.location.href =  contextPath;
 					      } else {
@@ -596,10 +596,10 @@ function	getAllMachines()
 					   	  		console.log("Server Error! Please contact administrator");
 					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
 					     	}
-				     	}*/
+				     	}
 				       },
 				   });
-	}
+	}*/
 
 
 	function getAllItems()
@@ -1202,6 +1202,8 @@ $(document).on("click", "#additemmodal", function(e){
 	
 	EmptyModal();
 	$("#add_item").modal("show");
+	getMachinesByWc(editWsId);
+	
 	
 });			
 
@@ -1972,3 +1974,70 @@ $(document).on("click", "#editItemDataInPlanningTable", function(e){
 	
 				
 });
+
+
+
+
+
+
+
+
+
+
+
+
+function	getMachinesByWc(wsid)
+	{
+		
+		
+		$.ajax({
+				       type: "GET",
+				       url: server_url + `station/getStationByWc/`+wsid,
+				       enctype: "application/json",
+				       headers: authHeader,
+				       processData: false,
+				       contentType: false,
+				       data: null,
+				       success: function (response) {
+							$("#addSelMachine").empty();
+							//$("#editStation").empty();
+							
+							machinesOptions='<option value="0">  Select Station </option>';
+						//	$("#editStation").append('<option value="0">  Select station </option>');
+				           for (i = 0; i < response.payload.length; ++i) {
+							
+							
+							machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
+							
+				           //   $(".addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+							 //  $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+				           }
+						   
+						   $("#addSelMachine").append(machinesOptions);
+						   
+				       },
+
+				       error: function (error) {
+				           /*console.log(error);
+				      		 if (error.status == 401) {
+					    	  window.location.href =  contextPath;
+					      } else {
+					    	if( error.responseJSON != undefined){
+								errmssge=error.responseJSON.status;	
+							
+								if (error.responseJSON.status=="500"){
+									console.log("in errr");
+									 errorBlock("#error_block", error.responseJSON.message);
+								}else{
+											 errorBlock("#error_block", error.responseJSON.errors.message);
+											}
+							}
+							else{
+					   	  		console.log("Server Error! Please contact administrator");
+					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+					     	}
+				     	}*/
+				       },
+				   });
+	}
+

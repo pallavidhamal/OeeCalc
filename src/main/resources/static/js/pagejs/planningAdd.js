@@ -1377,13 +1377,11 @@ function ValidateDupRow()
 						if(NotAllowedNullVal($('#frmDate'),"From Date","#error_block"))
 								if(NotAllowedNullVal($('#toDate'),"To Date","#error_block"))
 									if(SelectBoxNotAllowedNullVal($('#addShift'),"Shift","#error_block"))
-		
-									//if(compareDate("#error_block",$('#frmDate').val(),$('#toDate').val()))
 										if(NotAllowedNullVal($('#timePershift'),"Time per shift ","#error_block"))
-										//	if(numberValidation($('#timePershift').val(),"Time per shift ", "#error_block"))
-					{
-								$("#add_item").modal("show");
-					}
+											if(checkIfPlanPresent())
+											{
+											
+											}
 		});			
 		
 		
@@ -1547,3 +1545,53 @@ function ValidateDupRow()
 		
 				
 });
+
+
+function checkIfPlanPresent()
+{
+					var flag=false;
+					var dataVal = 
+					{
+									 
+						 fromdate		: $('#frmDate').val(),
+						 workcenterid 	: $('#addWorkCentre').val(),
+						 todate			: $('#toDate').val(),
+						 unitid       	: $('#addUnit').val(),
+
+					};
+					
+						console.log("-------------------Welcome to product getplanningList");
+					$.ajax({
+						    type: 'POST',
+						    url: server_url + "planning/filterPlanning",
+						    enctype: 'application/json',
+						    headers: authHeader,
+						    processData: false,
+						    contentType: "application/json; charset=utf-8",
+						    data: JSON.stringify(dataVal),
+							
+							success: function (response) {		
+							console.log("------response data----------",response);
+							var data = response.payload;
+							console.log("------response data----------",response.payload.length);
+							
+							var reclength=response.payload.length;
+							
+							if(reclength == "0")
+							{
+								console.log("------return true----------");
+								flag=true;
+								$("#add_item").modal("show");
+							}
+							else
+							{
+								errorBlock("#error_block", "Plan already exist for some dates in selected date range.");
+								return false;
+							}
+							
+							}
+					});
+					
+					console.log("------return true----------",flag);
+					return flag;
+}
