@@ -391,30 +391,30 @@ label {
 					<div class="row">
 							<div class="col-md-4">
 								<label class="form-label">Searching Time</label>
-								<input type="text" id="searchT" class=" form-control">
+								<input type="text" id="searchT" class=" form-control decimal" value="0">
 							</div>
 							<div class="col-md-4">
 								<label class="form-label">Personnal Time</label>
-								<input type="text" id="personnalT" class="form-input form-control">
+								<input type="text" id="personnalT" class="form-input form-control decimal" value="0">
 							</div>
 							<div class="col-md-4">
 								<label class="form-label">Rework Time</label>
-							<input type="text" id="reworkT" class="form-input form-control">
+							<input type="text" id="reworkT" class="form-input form-control decimal" value="0">
 							</div>
 						<div class="col-md-4">
 								<label class="form-label">Total Production </label>
-							<input type="text" id="totalProdQty" class="form-input form-control" disabled>
+							<input type="text" id="totalProdQty" class="form-input form-control" value="0"  disabled>
 							</div>
 						<div class="col-md-4">
 								<label class="form-label">Total Plan </label>
-							<input type="text" id="totalPlanQty" class="form-input form-control" disabled>
+							<input type="text" id="totalPlanQty" class="form-input form-control" value="0" disabled>
 							</div>
 						<div class="col-md-12">
 							<br>
 							<div class="form-group"  style="text-align: right;">
 							    <label for="inputEmail3" class="col-sm-8 control-label">Productivity %</label>
 							    <div class="col-sm-4">
-							      <input type="productvityP" class="form-control" id="inputEmail3" disabled>
+							      <input type="text" class="form-control" id="productivityper" value="0" disabled>
 							    </div>
 							  </div>
 						</div>
@@ -433,18 +433,18 @@ label {
 					  <div class="row">
 							<div class="col-md-4">
 	  							<label class="form-label">Total Rejected qty</label>
-	  							<input type="text" id="rejectQty" class=" form-control" disabled>
+	  							<input type="text" id="rejectQty" class=" form-control decimal" value="0" disabled>
 	  						</div>
 							<div class="col-md-4">
 	  							<label class="form-label">total production</label>
-	  							<input type="text" id="okQty" class="form-input form-control" disabled>
+	  							<input type="text" id="qualityProduction" class="form-input form-control decimal" value="0" disabled>
 	  						</div>
 							<div class="col-md-12">
 								<br>
 								<div class="form-group" style="text-align: right;">
 								    <label for="inputEmail3" class="col-sm-8 control-label">Quality %</label>
 								    <div class="col-sm-4">
-								      <input type="rejectionP" class="form-control" id="inputEmail3" disabled>
+								      <input type="text" class="form-control" id="qualityPer" value="0"  disabled>
 								    </div>
 								  </div>	
 						  </div>	  		  						
@@ -458,9 +458,9 @@ label {
 				<div class="col-md-12">
 	  		    	<div class="white-layer mb-8">													
 						  <div class="form-group"  style="text-align: right;">
-						    <label for="inputEmail3" class="col-sm-10 control-label">OEE</label>
+						    <label for="inputEmail3" class="col-sm-10 control-label">OEE %</label>
 						    <div class="col-sm-2">
-						      <input type="email" class="form-control" id="inputEmail3" disabled>
+						      <input type="text" class="form-control" id="oeePer" disabled>
 						    </div>
 						  </div>
 							

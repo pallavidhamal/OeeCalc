@@ -51,6 +51,56 @@ $('.Spllosses').on('change', function (e) {
 	SpllossesCal();
 })
 
+
+/*$('.txtProducedQty').on('change', function (e) {
+	
+	
+	itemTableCal();
+	
+})
+
+$('.txtRejectedQty').on('change', function (e) {
+	
+	
+	 itemTableCal();
+	
+})
+*/
+
+ $(document).on('change', '.txtProducedQty', function() {
+    // Code for dynamically created elements
+    itemTableCal();
+});
+
+ $(document).on('change', '.txtRejectedQty', function() {
+    // Code for dynamically created elements
+    itemTableCal();
+});
+
+function itemTableCal(){
+	
+	var producedquantityVal = 0;
+	var rejectedquantityVal = 0;
+	var i = 0;
+	
+	$("#planProdTbody").find('tr').each(function (){
+		
+//		 producedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val());
+		 producedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val());
+		 rejectedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val());
+		i++;
+	});
+	
+	$("#totalProdQty").val(producedquantityVal);
+	$("#qualityProduction").val(producedquantityVal);
+	//$("#totalPlanQty").val();
+	$("#rejectQty").val(rejectedquantityVal);
+	
+	productivityCal();
+	qualityCal();
+}
+
+
 /*$('#addWorkCenter').on('change', function (e) {
 	   
 	 var optionSelected = $("option:selected", this);
@@ -427,12 +477,12 @@ function	getAllMachines()
 						totalplannedquantity += Number(value1.plannedquantity) ;
 											
 						$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
-							+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation integer" rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
-							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem integer" rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
-							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup integer" rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty integer" rocnt = "'+index1+'" id="producedQty'+index1+'"></td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty" integer rocnt = "'+index1+'" id="rejectedQty'+index1+'" ></td>'
+							+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
 
 						  +'</tr>');
 									
@@ -440,6 +490,8 @@ function	getAllMachines()
 				}); //for each of response.payload
 				
 				console.log("======totalplannedquantity======",totalplannedquantity);
+				
+				$("#totalPlanQty").val(totalplannedquantity);
 			}
 		})//ajax
 
@@ -483,12 +535,12 @@ function	getAllMachines()
 						console.log("------second for----------");
 											
 						$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
-							+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation integer" rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
-							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem integer" rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
-							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup integer" rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty integer" rocnt = "'+index1+'" id="producedQty'+index1+'"></td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty" integer rocnt = "'+index1+'" id="rejectedQty'+index1+'" ></td>'
+							+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation  " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem  " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup  " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal " rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal " rocnt = "'+index1+'" id="producedQty'+index1+'" value="0" ></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal "  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0" ></td>'
 
 						  +'</tr>');
 									
@@ -547,12 +599,12 @@ function	getAllMachines()
 
 											
 							$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
-								+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation integer" rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
-								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem integer" rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
-								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup integer" rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty integer" rocnt = "'+index1+'" id="producedQty'+index1+'"></td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty" integer rocnt = "'+index1+'" id="rejectedQty'+index1+'" ></td>'
+								+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty  decimal" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty  decimal" rocnt = "'+index1+'" id="producedQty'+index1+'" value="0" ></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty  decimal"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0" ></td>'
 								
 
 							  +'</tr>');
@@ -809,7 +861,7 @@ function getMachinesByWc(wsid)
 					           }
 							   
 							   $("#addStation").append(machinesOptions);
-							   
+							   totaltimeCal();
 					       },
 
 					       error: function (error) {
@@ -974,7 +1026,7 @@ function availableTime(){
 	
 	if( Number($("#totaltime").val()) > 0 && Number($("#Totallosses").val()) > 0){
 		
-		var sumofavailableT = Number($("#totaltime").val()) -	Number($("#Totallosses").val());
+		var sumofavailableT = Number($("#totaltime").val()) - Number($("#Totallosses").val());
 		
 		$("#availableT").val(sumofavailableT);
 		
@@ -989,8 +1041,41 @@ function availabilityPerCal(){
 		var availabilityCal = (Number($("#availableT").val()) /	Number($("#totaltime").val()) ) * 100;
 	
 		$("#availabilityPer").val(availabilityCal.toFixed(2));
+		oeeCal();
+	}
+}
+
+function productivityCal(){
+	
+	if( Number($("#totalProdQty").val()) > 0 && Number($("#totalPlanQty").val()) > 0){
+	
+		var productivityPerCal = (Number($("#totalProdQty").val()) /	Number($("#totalPlanQty").val()) ) * 100;
+	
+		$("#productivityper").val(productivityPerCal.toFixed(2));
+		oeeCal();
+	}
+}
+function qualityCal(){
+	
+	if( Number($("#qualityProduction").val()) > 0 && Number($("#rejectQty").val()) > 0){
+	
+		var qualityPerCal = ((Number($("#qualityProduction").val()) - Number($("#rejectQty").val()) ) /	Number($("#qualityProduction").val()) ) * 100;
+	
+		$("#qualityPer").val(qualityPerCal.toFixed(2));
+		
+		oeeCal();
 	}
 }
 
 
+
+function oeeCal(){
 	
+	if( Number($("#availabilityPer").val()) > 0 && Number($("#productivityper").val()) > 0 && Number($("#qualityPer").val()) > 0){
+	
+		var oeePerCal = ((Number($("#availabilityPer").val())/100) * (Number($("#productivityper").val())/100) * (Number($("#qualityPer").val())/100) ) * 100;
+	
+		$("#oeePer").val(oeePerCal.toFixed(2));
+	}
+}
+
