@@ -667,7 +667,9 @@ function	getAllMachines()
 									 shiftid : $('#addShift').val(),
 									 unitid : $('#addUnit').val(),
 									 workcenterid : $('#addWorkCenter').val(),
-									 workcenterid : $('#addOperator').val(),
+									 operatorid : $('#addOperator').val(),
+									 proddate : $('#prodDate').val(),
+									 stationid : $('#addStation').val(),
 									 
 									 availability_lunchtime : $('#lunchT').val(),
 									 availability_teatime : $('#teaT').val(),

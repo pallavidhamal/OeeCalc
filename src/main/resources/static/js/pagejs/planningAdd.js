@@ -1567,6 +1567,7 @@ function checkIfPlanPresent()
 						    enctype: 'application/json',
 						    headers: authHeader,
 						    processData: false,
+							
 						    contentType: "application/json; charset=utf-8",
 						    data: JSON.stringify(dataVal),
 							
