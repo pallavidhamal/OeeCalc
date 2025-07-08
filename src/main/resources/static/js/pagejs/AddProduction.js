@@ -39,6 +39,7 @@ StdlossesCal();
 $('#Overtime').on('change', function (e) {
 	
 	totaltimeCal();
+	totalLosses()
 })
 
 $('.Stdlosses').on('change', function (e) {
@@ -837,7 +838,7 @@ function getMachinesByWc(wsid)
 			$.ajax({
 				
 				 		 type: "POST",
-					       url: server_url + `planning/getPlanningByFilter`,
+					       url: server_url + `planning/getPlanningByFilterWithGroupBy`,
 					       enctype: "application/json",
 					       headers: authHeader,
 					       processData: false,
@@ -846,24 +847,31 @@ function getMachinesByWc(wsid)
 					       success: function (response) {
 								$("#addStation").empty();
 								
-								console.log("======response=========",response)
-								timePerShiftVal = response.payload.timePerShift;
-								planId = response.payload.id;
+								console.log("======response=========",response);
+								if(response.payload.length >0 ){
+									
+								timePerShiftVal = response.payload[0].time_per_shift;
+								planId = response.payload[0].id;
+								
+								console.log("======timePerShiftVal=========",timePerShiftVal);
+								console.log("======planId=========",planId);
 								
 								machinesOptions='<option value="0">  Select Station </option>';
 							
-							console.log("response.payload.length--"+response.payload.planningShiftWork.length);
+							console.log("response.payload.length--"+response.payload.length);
 							
-								for (i1 = 0; i1 < response.payload.planningShiftWork.length; ++i1) {
+								for (i1 = 0; i1 < response.payload.length; ++i1) {
 									
-									console.log("for down--"+i1);
+									console.log("for down--",i1,"for stationid down--",response.payload[i1].stationid,"for stationname  down--",response.payload[i1].stationname);
 								
-									machinesOptions=machinesOptions+`<option value="${response.payload.planningShiftWork[i1].stationid}">${response.payload.planningShiftWork[i1].stationname}</option>`;
+									machinesOptions=machinesOptions+`<option value="${response.payload[i1].stationid}">${response.payload[i1].stationname}</option>`;
 								
 					           }
 							   
 							   $("#addStation").append(machinesOptions);
 							   totaltimeCal();
+							   
+							   }
 					       },
 
 					       error: function (error) {
@@ -1033,6 +1041,10 @@ function availableTime(){
 		$("#availableT").val(sumofavailableT);
 		
 		availabilityPerCal();
+	}else{
+		$("#availableT").val('');
+		$("#availabilityPer").val('');
+		$("#oeePer").val('');
 	}
 }
 
@@ -1044,7 +1056,11 @@ function availabilityPerCal(){
 	
 		$("#availabilityPer").val(availabilityCal.toFixed(2));
 		oeeCal();
+	}else{
+		$("#availabilityPer").val('');
+		$("#oeePer").val('');
 	}
+	
 }
 
 function productivityCal(){
@@ -1055,6 +1071,9 @@ function productivityCal(){
 	
 		$("#productivityper").val(productivityPerCal.toFixed(2));
 		oeeCal();
+	}else{
+		$("#productivityper").val('');
+		$("#oeePer").val('');
 	}
 }
 function qualityCal(){
@@ -1066,6 +1085,9 @@ function qualityCal(){
 		$("#qualityPer").val(qualityPerCal.toFixed(2));
 		
 		oeeCal();
+	}else{
+		$("#qualityPer").val('');
+		$("#oeePer").val('');
 	}
 }
 
@@ -1078,6 +1100,8 @@ function oeeCal(){
 		var oeePerCal = ((Number($("#availabilityPer").val())/100) * (Number($("#productivityper").val())/100) * (Number($("#qualityPer").val())/100) ) * 100;
 	
 		$("#oeePer").val(oeePerCal.toFixed(2));
+	}else{
+		$("#oeePer").val('');
 	}
 }
 
