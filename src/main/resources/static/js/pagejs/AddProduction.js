@@ -669,7 +669,7 @@ function	getAllMachines()
 									 workcenterid : $('#addWorkCenter').val(),
 									 operatorid : $('#addOperator').val(),
 									 proddate : $('#prodDate').val(),
-									 stationid : $('#addStation').val(),
+									 stationId : $('#addStation').val(),
 									 
 									 availability_lunchtime : $('#lunchT').val(),
 									 availability_teatime : $('#teaT').val(),
@@ -687,7 +687,7 @@ function	getAllMachines()
 									 availability_otherlosses : $('#anyLossT').val(),
 									// availability_calculation : $('#calculation').val(),
 									 availability_time : $('#availableT').val(),
-									 availability_per : $('#availableP').val(),
+									 availability_per : $('#availabilityPer').val(),
 									 
 									 availability_overtime :$('#Overtime').val(),
 									 availability_totaltime :$('#totaltime').val(),
@@ -699,12 +699,12 @@ function	getAllMachines()
 									 productivity_personnal : $('#personnalT').val(),
 									 productivity_rework : $('#reworkT').val(),
 									 productivity_Production_qty : $('#totalProdQty').val(),
-									 productivity_standard_qty : $('#stdQty').val(),
-									 productivity_per : $('#productvityP').val(),
+									 productivity_standard_qty : $('#totalPlanQty').val(),
+									 productivity_per : $('#productivityper').val(),
 									  
 									 rejection_rejection_qty : $('#rejectQty').val(),
-									 rejection_ok_qty : $('#okQty').val(),
-									 rejection_per : $('#rejectionP').val(),
+									 rejection_ok_qty : $('#qualityProduction').val(),
+									 rejection_per : $('#qualityPer').val(),
 									 productionPlanningIncomingDto	: myarray
 									 
 
