@@ -41,6 +41,11 @@ public class UserController {
      //   return "BillingAdd";
     }
     
+    @GetMapping(value = {"/editProduction"})
+    public String editProduction() {
+        return "EditProduction";
+    }
+    
     
     @GetMapping(value = {"/usermaster"})
     public String userMaster() {

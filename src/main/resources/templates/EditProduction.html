@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Oee | Production </title>
+
+<div th:replace="~{fragments/headerJS}"></div>  
+<script type="text/javascript" th:src="@{/js/pagejs/EditProduction.js}"></script>
+
+<style>
+#inserttbl{
+overflow: auto;
+    height: 250px !important;
+}
+#remtbl{
+overflow: auto;
+    height: 250px !important;
+}
+.orDiv {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 9;
+    background-color: rgba(5, 5, 5, 0.75);
+    background-repeat: repeat;
+}
+.loader, .loader:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+textarea.form-control {
+    height: 120px !important; 
+    resize: none;
+}
+.loader {
+    margin: 20% auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-right: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-bottom: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-left: 1.1em solid #e89933;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+0% {
+-webkit-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+@keyframes load8 {
+0% {
+-webkit-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+.headtag1{
+text-align: center;
+    background: #97b1ff;
+   
+}
+.headtag{
+ margin-top: 10%;
+text-align: center;
+    background: #ef8b8b;
+}
+.modbox{
+    width: max-content;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+label {
+    padding-top: 7px;
+}
+.form-control {
+    height: 30px !IMPORTANT;
+    margin-top: 2px !IMPORTANT;
+}
+.form-group {
+    margin-top: 2px !IMPORTANT;
+}
+/* table th:nth-child(3), td:nth-child(3) {
+  display: none;
+} */
+</style>
+
+<script>
+	let nav = 2;
+</script>
+</head>
+
+<body>
+<div th:replace="~{fragments/admin_navbar}"></div>
+ <div class="content-wrapper" >
+<!--Content-->
+<div class="col-sm-12 orDiv" id="progressBar" style="display:none" > 
+  
+  <div class="loader">Loading...</div>
+</div>
+
+<span id="error_block"> <span class="msg-hd"><img src="static/images/incorrect.png" class="model-icon"> Error</span><br>
+<span class="msg-txt">Error text here</span> </span> <span id="success_block"> <span class="msg-hd-success"><img src="static/images/correct.png" class="model-icon"> Success</span><br>
+<span class="msg-txt-success">Success text here</span> </span>
+
+
+<br>
+<section> 
+  <!--container-fluid-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12"> 
+        <!--box-->
+        <div class="box"> 
+          <!--box-header-->
+          <div class="box-header">
+            <h3 class="box-title pull-left"> View Production Details </h3>
+          
+              <div class="clearfix"></div>
+          </div>
+        
+		  <div class="box-body">
+		            <div class="col-md-12">
+		  		    	<div class="white-layer mb-8">
+						<div class="row">
+						<div class="col-md-2">
+							<label class="form-label">Date</label>
+							<input type="text" id="prodDate" class=" form-control" >
+						</div>
+						<div class="col-md-2">
+  							<label class="form-label">Unit</label>
+							<input type="text" id="addUnit" class=" form-control" >
+  						</div>
+  						<div class="col-md-2">
+  							<label class="form-label">WorkCenter</label>
+							<input type="text" id="addWorkCenter" class=" form-control" >
+  						</div>
+						<div class="col-md-2">
+  							<label class="form-label">Shift</label>
+							<input type="text" id="addShift" class=" form-control" >
+  						</div>
+					<div class="col-md-2">
+  							<label class="form-label">Station</label>
+							<input type="text" id="addStation" class=" form-control" >
+  						</div>
+							<div class="col-md-2">
+  							<label class="form-label">Operator</label>
+							<input type="text" id="addOperator" class=" form-control" >
+  						</div>
+					</div>
+  		    	</div>
+			</div>
+		</div>
+		
+		<br>
+		<div class="box-body">
+				            <div class="col-md-12">
+				  		    	<div class="white-layer mb-8">
+		<!--		  	    			<h3 class="sub-hd-master">Billing </h3>
+		-->		  					
+
+								<div class="row">
+									<table class="table table-bordered table-striped table-hover table-responsive" id="purchaseOrderList" >
+									              <thead>
+									                <tr class="orange">
+														<th>Station</th>
+									                  <th>Item Number</th>
+									                  <th>Setup </th>
+									                  <th>Qty planned </th>
+									                  <th>Qty produced </th>
+									                  <th>Qty Rejected </th>
+									                </tr>
+									              </thead>
+									              <tbody  id="planProdTbody">
+												
+												
+									              </tbody >
+									            </table>
+							</div>
+		  		    	</div>
+					</div>
+				</div>
+				<br>
+		
+		<div class="box-body">					
+			<div class="col-md-6">
+  		    	<div class="white-layer mb-8">
+					
+					<h4><strong>Availability</strong></h4>
+					<hr style="border-top: 4px solid #ff7726;">
+					<div class="row">
+					<div class="col-md-4">
+						<label class="form-label">Lunch Time</label>
+						<input type="text" id="lunchT" class=" form-control decimal Stdlosses" value="30">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Tea Time</label>
+						<input type="text" id="teaT" class="form-input form-control decimal Stdlosses" value="10">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">5S and review time</label>
+						<input type="text" id="reviewT" class="form-input form-control decimal Stdlosses" value="10">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Inpection time</label>
+						<input type="text" id="inspecT" class="form-input form-control decimal Stdlosses" value="10">
+					</div>
+					
+					<div class="col-md-4">
+						<label class="form-label">Machine breakdown</label>
+						<input type="text" id="machineBrkT" class="form-input form-control decimal Stdlosses" value="0">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Setup change</label>
+						<input type="text" id="setupT" class="form-input form-control decimal Spllosses" value="0">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">No material</label>
+						<input type="text" id="noMatT" class=" form-control decimal Spllosses" value="0">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">No labour</label>
+						<input type="text" id="noLabT" class="form-input form-control decimal Spllosses" value="0">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Waiting for inspection</label>
+						<input type="text" id="waitInspecT" class="form-input form-control decimal Spllosses" value="0">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Tooling not available</label>
+						<input type="text" id="noToolT" class="form-input form-control decimal Spllosses" value="0">
+					</div>
+					
+					<div class="col-md-4">
+						<label class="form-label">Drawing not availble</label>
+						<input type="text" id="noDrawT" class="form-input form-control decimal Spllosses" value="0">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Guages not availble</label>
+						<input type="text" id="noGaugT" class="form-input form-control decimal Spllosses" value="0">
+					</div>
+					<div class="col-md-4">
+						<label class="form-label">Any other management losses </label>
+						<input type="text" id="anyLossT" class=" form-control decimal Spllosses" value="0">
+					</div>
+					<div class="col-md-4">
+							<label class="form-label">Overtime </label>
+						<input type="text" id="Overtime" class="form-input form-control decimal " value="0">
+					</div>
+					<div class="col-md-4">
+							<label class="form-label">Total time </label>
+						<input type="text" id="totaltime" class="form-input form-control decimal" value="0" disabled>
+					</div>
+					<div class="col-md-4">
+							<label class="form-label">Standard losses </label>
+						<input type="text" id="Stdlosses" class="form-input form-control decimal" value="0" disabled>
+					</div>
+					<div class="col-md-4">
+							<label class="form-label">Special losses </label>
+						<input type="text" id="Spllosses" class="form-input form-control decimal" value="0" disabled>
+					</div>					
+					<div class="col-md-4">
+							<label class="form-label">Total losses </label>
+						<input type="text" id="Totallosses" class="form-input form-control decimal" value="0" disabled>
+					</div>	
+					<div class="col-md-4">
+							<label class="form-label">Available time </label>
+						<input type="text" id="availableT" class="form-input form-control decimal" value="0" disabled>
+					</div>
+					<div class="col-md-12">
+						<br>
+						<div class="form-group"  style="text-align: right;">
+						    <label for="inputEmail3" class="col-sm-8 control-label">Availability %</label>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" id="availabilityPer" disabled>
+						    </div>
+						  </div>
+					</div>								
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="col-md-12">
+		    	<div class="white-layer mb-8">
+					<p><h4><strong>Productivity</strong></h4>  </p>
+					<hr style="border-top: 4px solid #084def;">
+					<div class="row">
+							<div class="col-md-4">
+								<label class="form-label">Searching Time</label>
+								<input type="text" id="searchT" class=" form-control decimal" value="0">
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Personnal Time</label>
+								<input type="text" id="personnalT" class="form-input form-control decimal" value="0">
+							</div>
+							<div class="col-md-4">
+								<label class="form-label">Rework Time</label>
+							<input type="text" id="reworkT" class="form-input form-control decimal" value="0">
+							</div>
+						<div class="col-md-4">
+								<label class="form-label">Total Production </label>
+							<input type="text" id="totalProdQty" class="form-input form-control" value="0"  disabled>
+							</div>
+						<div class="col-md-4">
+								<label class="form-label">Total Plan </label>
+							<input type="text" id="totalPlanQty" class="form-input form-control" value="0" disabled>
+							</div>
+						<div class="col-md-12">
+							<br>
+							<div class="form-group"  style="text-align: right;">
+							    <label for="inputEmail3" class="col-sm-8 control-label">Productivity %</label>
+							    <div class="col-sm-4">
+							      <input type="text" class="form-control" id="productivityper" value="0" disabled>
+							    </div>
+							  </div>
+						</div>
+							<!--<div class="col-md-2">
+								<label class="form-label">Inpection time</label>
+								<input type="text" id="customer" class="form-input form-control">
+							</div>-->
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+		    	<div class="white-layer mb-8">
+					<p><h4><strong>Quality</strong></h4>  </p>
+					<hr style="border-top: 4px solid rgb(255, 0, 0);">
+												  
+					  <div class="row">
+							<div class="col-md-4">
+	  							<label class="form-label">Total Rejected qty</label>
+	  							<input type="text" id="rejectQty" class=" form-control decimal" value="0" disabled>
+	  						</div>
+							<div class="col-md-4">
+	  							<label class="form-label">total production</label>
+	  							<input type="text" id="qualityProduction" class="form-input form-control decimal" value="0" disabled>
+	  						</div>
+							<div class="col-md-12">
+								<br>
+								<div class="form-group" style="text-align: right;">
+								    <label for="inputEmail3" class="col-sm-8 control-label">Quality %</label>
+								    <div class="col-sm-4">
+								      <input type="text" class="form-control" id="qualityPer" value="0"  disabled>
+								    </div>
+								  </div>	
+						  </div>	  		  						
+					  </div>
+				  </div>
+			  </div>
+		</div>
+	</div>
+	<br>
+	<div class="box-body">					
+				<div class="col-md-12">
+	  		    	<div class="white-layer mb-8">													
+						  <div class="form-group"  style="text-align: right;">
+						    <label for="inputEmail3" class="col-sm-10 control-label">OEE %</label>
+						    <div class="col-sm-2">
+						      <input type="text" class="form-control" id="oeePer" disabled>
+						    </div>
+						  </div>
+							
+					</div>
+			  </div>
+		  </div>
+							  
+							  <br>				
+							  			  		<div class="box-body">					
+							  			  			<div class="col-md-12">  
+		  	    			
+		  	    			<div class="row mt-4 pull">
+		  	    				<div class="col-md-12 ">
+<!--		  	    					<input type="submit" id="addProduction" class="btn form-btn cust-btn"  value="Submit">
+-->		  							<!--<input type="submit" id="submitBtn1" class="btn form-btn"  value="Submit"> -->
+		  	    						<button class="btn btn-secondary" onclick="history.back()"> Back</button>
+		  								
+		  	    				</div>
+		  	    			</div>
+		  	    		</div>
+		  	    	</div>
+		  	    </div>
+		      </div>
+		  
+		  
+          <!--box-body-->
+         
+      </div>
+    </div>
+  </div>
+</section>
+<!--Content--> 
+
+ 
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('#purchaseOrderTable').DataTable( {
+        responsive: true
+    } );
+} );
+</script>
+
+
+
+
+
+
+ 
+   </div>
+       <div th:replace="~{fragments/admin_footer}"></div>
+         <!-- sidenav--> 
+  
+</div>
+<!-- wrapper --> 
+<!-- sidenav--> 
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+</script><!-- sidenav
+
+<!-- ToolTip -->
+<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip(); 
+	});
+</script>
+<!-- ToolTip -->
+       
+</body>
+</html>
