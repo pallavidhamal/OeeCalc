@@ -1,7 +1,7 @@
 			
 			var delProdID = "";
 			var editProdID = "";
-			var tableData = $('#purchaseOrderList').DataTable();
+			var tableData = $('#prodList').DataTable();
 		
 			$(document).ready(function(){
 				
@@ -239,74 +239,84 @@
 			//get purchase order list
 			function getPOList(){  
 
-					console.log("-------------------Welcome to product getPOList");
-			//		$.get(url+"getPOList", function( data ) { //from API list
-		
-					var data = productionTableData;
-		
-					console.log("------getPOList data----------",data);
-			//		console.log("------getPOList data.result----------",data.result);
-			//		
-				
-					tableData.destroy();
-			        $('#purchaseOrderList.tbody').empty();
+				$.ajax({
+						    type: 'GET',
+						    url: server_url + "production/allproduction",
+						    enctype: 'application/json',
+						    headers: authHeader,
+						    processData: false,
+						    contentType: false,
+						    data: null,
+						    success: function (response) {		
+
+
+							console.log("------response data----------",response);
+
+
+							var data = response.payload;
 					
-			        //if(data.result == "success"){
+							console.log("------getPOList data----------",data);
+					//		console.log("------getPOList data.result----------",data.result);
+					//		
 						
-			        var editIcon = function ( data, type, row ) 
-			        {
-				    if ( type === 'display' ) {
-				           
-				    return '<span class="fa fa-edit sordrEdit" data-toggle="modal" data-target="#edit_po"></span>';
-				        
-				    }
-				       
-				    return data;
-				    };
-				    
-				    var deleteIcon = function ( data, type, row ) 
-				    {
-			        if ( type === 'display' ) {
-			            
-			        return '<span class="fa fa-trash sordrDelete" ></span>';
-			        }
-			        
-			        return data;
-				    };
-				
-				    tableData = $('#purchaseOrderList').DataTable( {
-					
-				    			dom: 'Blfrtip',   
-				    			buttons: ['excel', 'print'],
-							 	 destroy: true,
-			    				 data: data,
-			
-								  columns: [
-									{ "data": function ( data, type, row ) 
-								        {
-									    	return '<a>'+data.workcentre+'</a>';
-									    }
-									 },
-									{ "data": "date" },
-			    				    { "data": "shift" },
-			    				    { "data": "machine" },
-			    		            { "data": "availability" },
-			    		            { "data": "productivity" },
-			    		            { "data": "quality" },
-			    		            { "data": "oee" },
-								
-								
-								
-	    		         
-		    		            ],
-		    		            "order": [[0, 'desc']],
-				    			} );
-				
+							tableData.destroy();
+					        $('#prodList.tbody').empty();
 
+							console.log("------111----------");
 
-				    
-				
-			//		});
+							
+							
+					        //if(data.result == "success"){
+								
+					        /*var editIcon = function ( data, type, row ) 
+					        {
+							    if ( type === 'display' ) {
+							           
+							   	 	return '<span class="button" data-toggle="modal" data-target="#edit_po"> Edit </span>';
+							    }
+						       
+						    	return data;
+						    };*/
+							console.log("------222----------");
+
+					    
+					    	tableData = $('#prodList').DataTable( {
+						
+					    			dom: 'Blfrtip',   
+					    			buttons: ['excel', 'print'],
+								 	 destroy: true,
+				    				 data: data,
+
+									  columns: [
+									{ "data": "proddate" },
+								    { "data": "unitname" },
+								    { "data": "workcentername" },
+								    { "data": "shiftname" },
+									{ "data": "operatorname" },
+								    { "data": "stationname" },
+									
+								    { "data": "availabilityper" },
+								    { "data": "productivityper" },
+									{ "data": "rejectionper" },
+									{ "data": "oeeper" },
+									
+									 { "data":  null,
+							           render: function (data, type, row) {
+							               var id = data.id;
+							               var action = `<a  class="edit-button" id=${id}>View</a>`;
+							               return action;
+							           },
+						             },
+									
+						            ],
+						            "order": [[0, 'desc']],
+					    			} );
+									
+									
+									console.log("------333----------");
+									
+							}
+					})
 			}
 	//get purchase order list
 

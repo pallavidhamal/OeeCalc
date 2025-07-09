@@ -706,6 +706,7 @@ function	getAllMachines()
 									 rejection_rejection_qty : $('#rejectQty').val(),
 									 rejection_ok_qty : $('#qualityProduction').val(),
 									 rejection_per : $('#qualityPer').val(),
+									 oee_per :  $('#oeePer').val(),
 									 productionPlanningIncomingDto	: myarray
 									 
 
