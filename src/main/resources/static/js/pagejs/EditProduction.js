@@ -95,38 +95,22 @@ $(document).ready(function(){
 			
 			for (i = 0; i < result.payload.prodPlanningDto.length; ++i) {
 				
-				var buttonDiv = "";
-				
-				/*if(result.payload.prodPlanningDto[i].isdeleted == 'Inactive' ){
-				
-					//if(i == 0){
-						buttonDiv = '<a  class="edit-button" viewid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">View </a> <a  class="delete-button rowdelete" deleteid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">Delete</a>  ' ;
-					//}
-					
-					var lodstId = jQuery.trim(result.payload.planningShiftWork[i].stationid);
-					
-					 console.log("====lodstId=======",lodstId,"====lodstIdEnd=======",lodstIdEnd)
-					
-					$('#planningBbody').append('<tr class="tr_clone  '+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody " roCnt = "'+i+'"  id = "'+jQuery.trim(result.payload.planningShiftWork[i].id)+'" >'
-						+'<td class="table_input"> '+ (lodstId != lodstIdEnd ? jQuery.trim(result.payload.planningShiftWork[i].stationname) : " ") + ' <input type="hidden" id="addSelMachineId'+i+'" value="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'"  disabled >  </td>'
-						//+'<td class="table_input"> '+  jQuery.trim(result.payload.planningShiftWork[i].stationname)   + ' <input type="hidden" id=addSelMachineId${'+i+'} value="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'"  disabled >  </td>'
-						+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].itemname) + ' <input type="hidden" id="addSelMachineId'+i+'" value="'+jQuery.trim(result.payload.planningShiftWork[i].itemid)+'"  disabled > </td>'
-						+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].setupname) + ' <input type="hidden" id="addSelMachineId'+i+'" value="'+jQuery.trim(result.payload.planningShiftWork[i].setupid)+'"  disabled >  </td>'
-						+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].setuptime) + '  </td>'
-						+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].cycletime) + '  </td>'
-						+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].plannedquantity) + '  </td>'
-						+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].plannedmins) + '  </td>'
-						+'<td class="table_input"> '+ jQuery.trim(result.payload.planningShiftWork[i].itemtimeutilised) + ' % <input type="hidden" id="additemtimeutilised'+i+'" value="'+jQuery.trim(result.payload.planningShiftWork[i].itemtimeutilised)+'"  disabled > </td>'
-						+'<td class="table_input"> '+ (lodstId != lodstIdEnd ? jQuery.trim(result.payload.planningShiftWork[i].machinetimeutilised) +" %" : " " )  + ' <input type="hidden" id="addSelMachineId'+i+'" value="'+jQuery.trim(result.payload.planningShiftWork[i].machinetimeutilised)+'"  disabled >  </td>'
-						+'<td class="table_input">'
-	//					+'<a  class="edit-button" id=${id}>Edit</a>'
-	 					+ (lodstId != lodstIdEnd ? buttonDiv : " ")+ '<input type="hidden" id="shiftworkid'+i+'" value="'+result.payload.planningShiftWork[i].id+'"  disabled >'
-						+'</td>'
-					  +'</tr>');
 					  
-					  var lodstIdEnd = jQuery.trim(result.payload.planningShiftWork[i].stationid);
-				  
-				  }*/
+				var value1= result.payload.prodPlanningDto[i];
+				
+				console.log("===",value1.item);
+				console.log("===!!!!!!!!",result.payload.prodPlanningDto[i].item);
+				
+					  $('#planProdTbody').append('<tr class="tr_clone" >'
+	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtItem "  id="itemId'+i+'" value="'+value1.item+'"   disabled> </td>'
+	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtSetup "  id="setupId'+i+'" value="'+value1.setup+'"   disabled></td>'
+	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal"  id="plannedQty'+i+'" value="'+value1.qty_planned+'"   disabled></td>'
+	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal"  id="producedQty'+i+'" value ="'+value1.qty_produced+'"></td>'
+	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal"   id="rejectedQty'+i+'" value="'+value1.qty_rejected+'"></td>'
+
+	  					  +'</tr>');
+					  							
+			//	  }
 				  
 				//  console.log("====lodstId=======",lodstId,"====lodstIdEnd=======",lodstIdEnd)
 			}
