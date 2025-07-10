@@ -1552,18 +1552,18 @@ function checkIfPlanPresent()
 					var flag=false;
 					var dataVal = 
 					{
-									 
 						 fromdate		: $('#frmDate').val(),
 						 workcenterid 	: $('#addWorkCentre').val(),
 						 todate			: $('#toDate').val(),
 						 unitid       	: $('#addUnit').val(),
-
+						 shiftid       	: $('#addShift').val(),
+							
 					};
 					
 						console.log("-------------------Welcome to product getplanningList");
 					$.ajax({
 						    type: 'POST',
-						    url: server_url + "planning/filterPlanning",
+						    url: server_url + "planning/planningExist",
 						    enctype: 'application/json',
 						    headers: authHeader,
 						    processData: false,

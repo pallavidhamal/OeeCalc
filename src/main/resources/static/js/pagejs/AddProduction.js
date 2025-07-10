@@ -28,6 +28,22 @@ StdlossesCal();
 	});
 	
 	
+	$('#addShift').on('change', function (e) {
+	   
+	// var optionSelected = $("option:selected", this);
+	// var wsid = this.value;
+	// alert();
+	 $('#planProdTbody').empty();
+	 getMachinesByPlanFilter();
+	 
+	// getShiftTime();	
+		
+    });
+
+	
+	
+	
+	
 	$('#addStation').on('change', function (e) {
 		
 		var optionSelected = $("option:selected", this);
@@ -115,16 +131,6 @@ function itemTableCal(){
 });*/
 
 
-$('#addShift').on('change', function (e) {
-	   
-	// var optionSelected = $("option:selected", this);
-	// var wsid = this.value;
-	// alert();
-	 getMachinesByPlanFilter();
-	 
-	// getShiftTime();	
-		
-});
 
 	
 			//	alert("add po js")
@@ -552,76 +558,6 @@ function	getAllMachines()
 
 	}				
 				
-			
-	//		 var counter = 0;
-	function getFilterPlanningList(){  
-
-					
-					var dataVal = 
-					{
-									 
-						 fromdate		: $('#prodDate').val(),
-						 workcenterid 	: $('#addWorkCenter').val(),
-						 todate			: $('#prodDate').val(),
-						 unitid       	: $('#addUnit').val(),
-						 stationid       	: $('#addUnit').val(),
-					};
-					
-					
-										console.log("-------------------Welcome to product getplanningList"+JSON.stringify(dataVal));
-									$.ajax({
-										    type: 'POST',
-										    url: server_url + "planning/filterPlanning",
-										    enctype: 'application/json',
-										    headers: authHeader,
-										    processData: false,
-										    contentType: "application/json; charset=utf-8",
-										    data: JSON.stringify(dataVal),
-											
-											success: function (response) {		
-
-											console.log("------response data----------",response);
-
-
-										var data = response.payload;
-
-										console.log("------getPOList data----------",data);
-								//		console.log("------getPOList data.result----------",data.result);
-								//		
-									
-//										tableData.destroy();
-								        $('#planProdTbody.tbody').empty();
-									$.each(response.payload, function( index, value ){
-			
-										console.log("------first for----------"+value.planningShiftWork);
-										$.each(value.planningShiftWork, function( index1, value1 ){
-								   
-											console.log("------second for----------");
-
-											
-							$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
-								+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
-								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
-								+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty  decimal" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty  decimal" rocnt = "'+index1+'" id="producedQty'+index1+'" value="0" ></td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty  decimal"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0" ></td>'
-								
-
-							  +'</tr>');
-									
-							  }); //for each of response.payload.planningShiftWork
-
-									
-									}); //for each of response.payload
-									
-											}
-									})//ajax
-								}// function
-					//get planning list
-			 
-					
-					
 
 					$(document).on("click", "#addProduction", function(e){
 
@@ -1043,9 +979,9 @@ function availableTime(){
 		
 		availabilityPerCal();
 	}else{
-		$("#availableT").val('');
-		$("#availabilityPer").val('');
-		$("#oeePer").val('');
+		$("#availableT").val(0);
+		$("#availabilityPer").val(0);
+		$("#oeePer").val(0);
 	}
 }
 
@@ -1058,8 +994,8 @@ function availabilityPerCal(){
 		$("#availabilityPer").val(availabilityCal.toFixed(2));
 		oeeCal();
 	}else{
-		$("#availabilityPer").val('');
-		$("#oeePer").val('');
+		$("#availabilityPer").val(0);
+		$("#oeePer").val(0);
 	}
 	
 }
@@ -1073,8 +1009,8 @@ function productivityCal(){
 		$("#productivityper").val(productivityPerCal.toFixed(2));
 		oeeCal();
 	}else{
-		$("#productivityper").val('');
-		$("#oeePer").val('');
+		$("#productivityper").val(0);
+		$("#oeePer").val(0);
 	}
 }
 function qualityCal(){
@@ -1087,8 +1023,8 @@ function qualityCal(){
 		
 		oeeCal();
 	}else{
-		$("#qualityPer").val('');
-		$("#oeePer").val('');
+		$("#qualityPer").val(0);
+		$("#oeePer").val(0);
 	}
 }
 
@@ -1102,7 +1038,7 @@ function oeeCal(){
 	
 		$("#oeePer").val(oeePerCal.toFixed(2));
 	}else{
-		$("#oeePer").val('');
+		$("#oeePer").val(0);
 	}
 }
 
