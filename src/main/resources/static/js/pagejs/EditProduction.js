@@ -105,8 +105,8 @@ $(document).ready(function(){
 	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtItem "  id="itemId'+i+'" value="'+value1.item+'"   disabled> </td>'
 	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtSetup "  id="setupId'+i+'" value="'+value1.setup+'"   disabled></td>'
 	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal"  id="plannedQty'+i+'" value="'+value1.qty_planned+'"   disabled></td>'
-	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal"  id="producedQty'+i+'" value ="'+value1.qty_produced+'"></td>'
-	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal"   id="rejectedQty'+i+'" value="'+value1.qty_rejected+'"></td>'
+	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal"  id="producedQty'+i+'" value ="'+value1.qty_produced+'" disabled></td>'
+	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal"   id="rejectedQty'+i+'" value="'+value1.qty_rejected+'" disabled></td>'
 
 	  					  +'</tr>');
 					  							
