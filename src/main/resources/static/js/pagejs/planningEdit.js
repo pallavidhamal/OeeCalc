@@ -22,7 +22,7 @@ var deleteViewItem = [];
 $(document).ready(function(){
 	
 	getUnitList("edit");	
-	//getAllMachines();
+	getAllMachines();
 	getAllItems();
 	
 	//get data for plan edit
@@ -544,7 +544,7 @@ function getUnitList(divId){
 	
 }
 
-/*
+
 function	getAllMachines()
 	{
 		
@@ -599,7 +599,7 @@ function	getAllMachines()
 				     	}
 				       },
 				   });
-	}*/
+	}
 
 
 	function getAllItems()
