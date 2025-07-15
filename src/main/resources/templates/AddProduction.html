@@ -210,11 +210,11 @@ label {
   							<input type="text" id="customer" class=" form-control" disabled>
   						</div>-->
 						<div class="col-md-2">
-							<label class="form-label">Date</label>
+							<label class="form-label">Date</label> <span class="fa fa-asterisk"></span>
 							<input type="date" id="prodDate" class=" form-control" >
 						</div>
 						<div class="col-md-2">
-  							<label class="form-label">Unit</label>
+  							<label class="form-label">Unit</label> <span class="fa fa-asterisk"></span>
   							<select class="form-control" id="addUnit">
 								<option>-- Select --</option>
 								<!--<option>Unit 1</option>
@@ -223,27 +223,27 @@ label {
 							</select>
   						</div>
   						<div class="col-md-2">
-  							<label class="form-label">WorkCenter</label>
+  							<label class="form-label">WorkCenter</label> <span class="fa fa-asterisk"></span>
 							<select class="form-control" id="addWorkCenter">
 								<option>-- Select --</option>
 								<!--<option>Workshop 1</option><option>Workshop 2</option><option>Workshop 3</option>-->
 							</select>
   						</div>
 						<div class="col-md-2">
-  							<label class="form-label">Shift</label>
+  							<label class="form-label">Shift</label> <span class="fa fa-asterisk"></span>
 							<select class="form-control" id="addShift">
 								<option>-- Select --</option>
 								<!--<option>Shift 1</option><option>Shift 2</option><option>Shift 3</option>-->
 							</select>
   						</div>
 						<div class="col-md-2">
-  							<label class="form-label">Station</label>
+  							<label class="form-label">Station</label> <span class="fa fa-asterisk"></span>
   							<select class="form-control" id="addStation">
 								<option>-- Select --</option>
 							</select>
   						</div>
 						<div class="col-md-2">
-  							<label class="form-label">Operator</label>
+  							<label class="form-label">Operator</label> <span class="fa fa-asterisk"></span>
   							<select class="form-control" id="addOperator">
 								<option>-- Select --</option>
 							</select>
@@ -268,8 +268,8 @@ label {
 									                  <th>Item Number</th>
 									                  <th>Setup </th>
 									                  <th>Qty planned </th>
-									                  <th>Qty produced </th>
-									                  <th>Qty Rejected </th>
+									                  <th>Qty produced <span class="fa fa-asterisk"></span></th>
+									                  <th>Qty Rejected <span class="fa fa-asterisk"></span></th>
 									                </tr>
 									              </thead>
 									              <tbody  id="planProdTbody">
@@ -399,12 +399,12 @@ label {
 							<input type="text" id="reworkT" class="form-input form-control decimal" value="0">
 							</div>
 						<div class="col-md-4">
-								<label class="form-label">Total Production </label>
-							<input type="text" id="totalProdQty" class="form-input form-control" value="0"  disabled>
+								<label class="form-label">Available time </label>
+							<input type="text" id="availabletimeVal" class="form-input form-control" value="0"  disabled>
 							</div>
 						<div class="col-md-4">
-								<label class="form-label">Total Plan </label>
-							<input type="text" id="totalPlanQty" class="form-input form-control" value="0" disabled>
+								<label class="form-label">Total Time Utilised </label>
+							<input type="text" id="totalUtilisedTime" class="form-input form-control" value="0" disabled>
 							</div>
 						<div class="col-md-12">
 							<br>

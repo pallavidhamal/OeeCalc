@@ -4,7 +4,8 @@ var stationId;
 var planId;
 var timePerShiftVal = 0;
 
-var totalplannedquantity = 0 ; 
+var totalplannedquantity = 0 ;
+var totalTimeUtilised = 0 ; 
 
 $(document).ready(function()
 {
@@ -13,7 +14,7 @@ $(document).ready(function()
 	//getAllMachines();
 //	getAllItems();
 	getOpertors();
-StdlossesCal();
+	StdlossesCal();
 	
 	
 	$('#addUnit').on('change', function (e) {
@@ -87,6 +88,13 @@ $('.txtRejectedQty').on('change', function (e) {
  $(document).on('change', '.txtProducedQty', function() {
     // Code for dynamically created elements
     itemTableCal();
+    
+    console.log($(this).val())
+    console.log($(this).attr("rocnt"))
+    
+    
+    
+    
 });
 
  $(document).on('change', '.txtRejectedQty', function() {
@@ -98,6 +106,8 @@ function itemTableCal(){
 	
 	var producedquantityVal = 0;
 	var rejectedquantityVal = 0;
+	var totalTimeUtilisedVal = 0;
+	var totalTimeUtilised = 0;
 	var i = 0;
 	
 	$("#planProdTbody").find('tr').each(function (){
@@ -105,10 +115,29 @@ function itemTableCal(){
 //		 producedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val());
 		 producedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val());
 		 rejectedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val());
+		 
+		 
+		 console.log("========producedquantityVal ====="+producedquantityVal+"====",Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val()))
+		 console.log("========cycletimeId =========",Number($("#cycletimeId"+i).val()),"========cycletimeId =========",Number($("#cycletimeId"+i).val())/60 )
+		 console.log("========setuptimeId =========", Number($("#setuptimeId"+i).val()))
+		 
+		 
+		// console.log("========Total Time Utlised =========",Number(producedquantityVal) * Number($("#cycletimeId"+i).val())/60 + Number($("#setuptimeId"+i).val()))
+		 
+		 totalTimeUtilisedVal = Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val()) * Number($("#cycletimeId"+i).val())/60 + Number($("#setuptimeId"+i).val());
+		 
+		 console.log("========= totalTimeUtilisedVal==========", totalTimeUtilisedVal);
+		 
+		 totalTimeUtilised += totalTimeUtilisedVal;
+		 
+		 console.log("========= totalTimeUtilised==========", totalTimeUtilised);
+		 
 		i++;
 	});
 	
-	$("#totalProdQty").val(producedquantityVal);
+//	$("#totalProdQty").val(producedquantityVal);
+
+	$("#totalUtilisedTime").val(totalTimeUtilised.toFixed(2));
 	$("#qualityProduction").val(producedquantityVal);
 	//$("#totalPlanQty").val();
 	$("#rejectQty").val(rejectedquantityVal);
@@ -484,9 +513,11 @@ function	getAllMachines()
 						totalplannedquantity += Number(value1.plannedquantity) ;
 											
 						$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
-							+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
-							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
-							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
+							+' <td class="table_input"> <input type="hidden" class="form-control width80 line txtStation " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+							+' <td class="table_input"><input type="hidden" class="form-control width80 line txtItem " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+							+' <td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname 
+							+' <input type="text" class="form-control width80 line txtsetuptime" rocnt = "'+index1+'" id="setuptimeId'+index1+'" value="'+value1.setuptime+'"   disabled> '
+							+' <input type="text" class="form-control width80 line txtcycletime" rocnt = "'+index1+'" id="cycletimeId'+index1+'" value="'+value1.cycletime+'"   disabled> </td>'
 							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
 							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
 							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
@@ -494,11 +525,11 @@ function	getAllMachines()
 						  +'</tr>');
 									
 							//  }); //for each of response.payload.planningShiftWork
-				}); //for each of response.payload
+					}); //for each of response.payload
 				
 				console.log("======totalplannedquantity======",totalplannedquantity);
 				
-				$("#totalPlanQty").val(totalplannedquantity);
+			//	$("#totalPlanQty").val(totalplannedquantity);
 			}
 		})//ajax
 
@@ -590,13 +621,19 @@ function	getAllMachines()
 									 myarray.push(lineData);
 									 
 									 console.log("====myarray======",myarray);
-								});						
-						
-
-						/* if(SelectBoxNotAllowedNullVal($('#addStationType'),"Station Type","#error_block"))
-							 if(NotAllowedNullVal($('#addStationNumber'),"Station Number ","#error_block"))
-								 if(SelectBoxNotAllowedNullVal($('#addUom'),"UOM ","#error_block"))
-								 	if(SelectBoxNotAllowedNullVal($('#addWorkCentre')," Work Centre","#error_block")){*/
+								});	
+								
+		
+		 
+		 if(NotAllowedNullVal($('#prodDate'),"Date ","#error_block"))				
+		 if(SelectBoxNotAllowedNullVal($('#addUnit'),"Unit","#error_block"))
+		 if(SelectBoxNotAllowedNullVal($('#addWorkCenter'),"Work Center","#error_block"))
+		 if(SelectBoxNotAllowedNullVal($('#addShift')," Shift","#error_block"))
+		 if(SelectBoxNotAllowedNullVal($('#addStation'),"Station","#error_block"))
+		 if(SelectBoxNotAllowedNullVal($('#addOperator')," Operator","#error_block"))
+		 if(NotAllowedZeroVal($('#totaltime'),"Total time ","#error_block"))							
+		 if(NotAllowedZeroVal($('#availabletimeVal'),"Available time ","#error_block"))
+		 if(NotAllowedZeroVal($('#totalUtilisedTime'),"Total Time Utilised ","#error_block")){
 							 
 							 var dataVal = {
 							 
@@ -635,8 +672,8 @@ function	getAllMachines()
 									 productivity_searching : $('#searchT').val(),
 									 productivity_personnal : $('#personnalT').val(),
 									 productivity_rework : $('#reworkT').val(),
-									 productivity_Production_qty : $('#totalProdQty').val(),
-									 productivity_standard_qty : $('#totalPlanQty').val(),
+									 productivity_Production_qty : $('#availabletimeVal').val(),
+									 productivity_standard_qty : $('#totalUtilisedTime').val(),
 									 productivity_per : $('#productivityper').val(),
 									  
 									 rejection_rejection_qty : $('#rejectQty').val(),
@@ -695,7 +732,7 @@ function	getAllMachines()
 								     	}
 							        },
 								});   
-							//}  //validation if
+							}  //validation if
 					});
 
 					
@@ -923,7 +960,7 @@ function totaltimeCal(){
 	
 	
 	$("#totaltime").val(sumoftotaltime);
-	
+	availableTime();
 }
 
 function StdlossesCal(){
@@ -971,11 +1008,15 @@ function totalLosses(){
 }
 function availableTime(){
 	
+	console.log("=======totaltime========",Number($("#totaltime").val()))
+	console.log("=======Totallosses========",Number($("#Totallosses").val()))
+	
 	if( Number($("#totaltime").val()) > 0 && Number($("#Totallosses").val()) > 0){
 		
 		var sumofavailableT = Number($("#totaltime").val()) - Number($("#Totallosses").val());
 		
 		$("#availableT").val(sumofavailableT);
+		$("#availabletimeVal").val(sumofavailableT);
 		
 		availabilityPerCal();
 	}else{
@@ -1002,9 +1043,9 @@ function availabilityPerCal(){
 
 function productivityCal(){
 	
-	if( Number($("#totalProdQty").val()) > 0 && Number($("#totalPlanQty").val()) > 0){
+	if( Number($("#availabletimeVal").val()) > 0 && Number($("#totalUtilisedTime").val()) > 0){
 	
-		var productivityPerCal = (Number($("#totalProdQty").val()) /	Number($("#totalPlanQty").val()) ) * 100;
+		var productivityPerCal = (Number($("#totalUtilisedTime").val()) /	Number($("#availabletimeVal").val()) ) * 100;
 	
 		$("#productivityper").val(productivityPerCal.toFixed(2));
 		oeeCal();
