@@ -1392,7 +1392,7 @@ label {
 		width: 300px !important;
 	}
 	.cust-hd{
-	    background: #0056FF;
+	    background: #425a89;
 	    padding-left: 30px;
 	    color: #fff;
 	}
@@ -1412,21 +1412,21 @@ label {
 	    margin-top: 2px !important;
 	}
 	.cust-btn{
-		background: #0056FF;
+		background: #07304d;
 	    color: #fff;
 	}
 	.cust-btn:hover{
-		background: #0056FF;
+		background: #07304d;
 	    color: #fff;
 	}
 	.cust-btn22{
-		background: #0056FF;
+		background: #07304d;
 	    color: #fff;
 	    margin-top: 15px;
     margin-bottom: 6px;
 	}
 	.cust-btn22:hover{
-		background: #0056FF;
+		background: #07304d;
 	    color: #fff;
 	}
 	.modal-body {
@@ -1545,7 +1545,7 @@ label {
 }
 	/*active inactive code*/
 	.table_hd{
-		background: #ccc;
+		background: #d9e0ef ;
 		border: 1px solid #b7b7b7 !important;
 	}
 	.table_input{
@@ -1565,8 +1565,8 @@ label {
 	}
 	.theme_btn{
 	    color: #fff !important;
-    	background-color: #0056FF !important;
-   		 border-color: #0056FF !important;
+    	background-color: #07304d !important;
+   		 border-color: #07304d !important;
    		 margin-left: 10px !important;
    		 border-radius: 3px !important;
    		 margin-top: -15px !important;
@@ -1609,7 +1609,7 @@ label {
     font-weight: 500 !important;
 }
 	.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
-    background-color: #0056ff !important;
+    background-color: #07304d !important;
     border-color: #337ab7 !important;
 }
 .login input[type=text]{
@@ -2004,7 +2004,7 @@ ul > li > .nav_menu_links{
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
     color: #ffffff !important;
     text-decoration: none !important;
-    background-color: #0056ff !important;
+    background-color: #f57e2c !important;
 }
 .rightnav {
     padding-top: 11px;
