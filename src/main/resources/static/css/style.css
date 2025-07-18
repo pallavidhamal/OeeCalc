@@ -36,11 +36,11 @@ body {
 }
 /* EXAMPLE 6 - Background Logo*/
 .example6 .navbar-brand {
-    background: url(../images/logo2.png);
+    background: url(../images/image-Photoroom-name.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    width: 250px;
+    width: 350px;
     margin-right: 45px;
     background-color: #fff;
     height: 60px;
@@ -51,7 +51,7 @@ body {
 .example6 .navbar-brand:before {
     position: absolute;
     top: 0;
-    left: 232px;
+    left: 332px;
     z-index: 1;
     display: block;
     width: 44px;
@@ -81,7 +81,7 @@ body {
     margin-left: 15px;
 }
 .navbar-default {
-    background-color: #3C5870 !important;
+    background-color: #062f4e !important;
 }
 .navbar-nav>li>.dropdown-menu {
     z-index: 9999;
