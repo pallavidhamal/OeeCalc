@@ -191,8 +191,11 @@ sup {
 .margin_t_60{
 	margin-top: 60px !important;
 }
+.margin_t_120{
+	margin-top: 120px !important;
+}
 .login-btn-style{
-	background: #0056ff !important;
+	background: #07304d  !important;
     color: #fff !important;
     width: 100%;
     cursor: pointer;
@@ -248,6 +251,8 @@ sup {
 	background: #fff;
     padding: 10px 20px;
     border: 1px solid #dadada;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 /* Nelson Code*/
 label {
