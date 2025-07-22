@@ -66,6 +66,12 @@ public class UserController {
         return "Production";
     }
     
+    @GetMapping(value = {"/planoverview"})
+    public String planoverview() {
+        return "PlanOverviewReport";
+    }
+    
+    
     @GetMapping(value = {"/planning"})
     public String planning() {
         return "Planning";

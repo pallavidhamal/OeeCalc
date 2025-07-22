@@ -65,6 +65,7 @@ $(document).ready(function(){
 						buttonDiv = '<a  class="edit-button" viewid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">View </a> <a  class="delete-button rowdelete" deleteid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">Delete</a>  ' ;
 					//}
 					
+					
 					var lodstId = jQuery.trim(result.payload.planningShiftWork[i].stationid);
 					
 					 console.log("====lodstId=======",lodstId,"====lodstIdEnd=======",lodstIdEnd)

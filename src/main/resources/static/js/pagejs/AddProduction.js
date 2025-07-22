@@ -50,7 +50,9 @@ $(document).ready(function()
 		var optionSelected = $("option:selected", this);
 		stationId = this.value;
 
-		getShiftWorkItemList();
+		checkIfProductionAlreadyExist();
+		
+	
 });
 
 $('#Overtime').on('change', function (e) {
@@ -493,44 +495,42 @@ function	getAllMachines()
 						success: function (response) {		
 
 						console.log("------response data----------",response);
-
-
 						var data = response.payload;
-
 						console.log("------getPOList data----------",data);
-									
-//										tableData.destroy();
-				        $('#planProdTbody').empty();
 						
 						
-					$.each(response.payload, function( index1, value1 ){
-			
-					//console.log("------first for----------"+value.planningShiftWork);
-				//	$.each(value.planningShiftWork, function( index1, value1 ){
-			   
-						console.log("------second for----------");
-						
-						totalplannedquantity += Number(value1.plannedquantity) ;
+							console.log("------falseeeeeeeee----------");
 											
-						$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
-							+' <td class="table_input"> <input type="hidden" class="form-control width80 line txtStation " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
-							+' <td class="table_input"><input type="hidden" class="form-control width80 line txtItem " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
-							+' <td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname 
-							+' <input type="text" class="form-control width80 line txtsetuptime" rocnt = "'+index1+'" id="setuptimeId'+index1+'" value="'+value1.setuptime+'"   disabled> '
-							+' <input type="text" class="form-control width80 line txtcycletime" rocnt = "'+index1+'" id="cycletimeId'+index1+'" value="'+value1.cycletime+'"   disabled> </td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
-
-						  +'</tr>');
-									
+					        $('#planProdTbody').empty();
+							
+							$.each(response.payload, function( index1, value1 ){
+				   
+							console.log("------second for----------");
+							
+							totalplannedquantity += Number(value1.plannedquantity) ;
+												
+							$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
+								+' <td class="table_input"> <input type="hidden" class="form-control width80 line txtStation " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+								+' <td class="table_input"><input type="hidden" class="form-control width80 line txtItem " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+								+' <td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname 
+								+' <input type="text" class="form-control width80 line txtsetuptime" rocnt = "'+index1+'" id="setuptimeId'+index1+'" value="'+value1.setuptime+'"   disabled> '
+								+' <input type="text" class="form-control width80 line txtcycletime" rocnt = "'+index1+'" id="cycletimeId'+index1+'" value="'+value1.cycletime+'"   disabled> </td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
+	
+							  +'</tr>');
+						  
+						  
 							//  }); //for each of response.payload.planningShiftWork
-					}); //for each of response.payload
+						}); //for each of response.payload
 				
-				console.log("======totalplannedquantity======",totalplannedquantity);
+						console.log("======totalplannedquantity======",totalplannedquantity);
 				
 			//	$("#totalPlanQty").val(totalplannedquantity);
-			}
+			
+		}
+		
 		})//ajax
 
 	}			
@@ -637,7 +637,7 @@ function	getAllMachines()
 							 
 							 var dataVal = {
 							 
-									
+									 planid : planId,
 									 shiftid : $('#addShift').val(),
 									 unitid : $('#addUnit').val(),
 									 workcenterid : $('#addWorkCenter').val(),
@@ -819,11 +819,15 @@ function getMachinesByWc(wsid)
 					       contentType: "application/json; charset=utf-8",
 					       data: JSON.stringify(dataVal),
 					       success: function (response) {
-								$("#addStation").empty();
 								
+							
+
 								console.log("======response=========",response);
 								if(response.payload.length >0 ){
 									
+							
+									
+								$("#addStation").empty();	
 								timePerShiftVal = response.payload[0].time_per_shift;
 								planId = response.payload[0].id;
 								
@@ -832,19 +836,25 @@ function getMachinesByWc(wsid)
 								
 								machinesOptions='<option value="0">  Select Station </option>';
 							
-							console.log("response.payload.length--"+response.payload.length);
-							
+								console.log("response.payload.length--"+response.payload.length);
+
+
+								var reclength=response.payload.length;
+								console.log("reclength--"+reclength);
 								for (i1 = 0; i1 < response.payload.length; ++i1) {
 									
 									console.log("for down--",i1,"for stationid down--",response.payload[i1].stationid,"for stationname  down--",response.payload[i1].stationname);
-								
 									machinesOptions=machinesOptions+`<option value="${response.payload[i1].stationid}">${response.payload[i1].stationname}</option>`;
-								
-					           }
+							   	}
 							   
-							   $("#addStation").append(machinesOptions);
-							   totaltimeCal();
-							   
+							   	$("#addStation").append(machinesOptions);
+							   	totaltimeCal();
+								//}
+							   }
+							   else
+							   {
+								errorBlock("#error_block", "Please create a plan! There is no planning done for the selected parameters");
+																return false;
 							   }
 					       },
 
@@ -1083,3 +1093,57 @@ function oeeCal(){
 	}
 }
 
+function checkIfProductionAlreadyExist()
+{
+	let flag=false;
+		var dataVal = 
+		{
+			 unitid       	: $('#addUnit').val(),
+			 workcenterid 	: $('#addWorkCenter').val(),
+			 shiftid       	: $('#addShift').val(),
+			 stationId 		: $('#addStation').val(),
+			 fromdate		: $('#prodDate').val(),						 
+			 todate			: $('#prodDate').val(),
+			 operatorid     : "0",	
+			 
+		};
+									
+		console.log("-------------------Welcome to checkIfProductionAlreadyExist---------",dataVal);
+		$.ajax({
+		    type: 'POST',
+		    url: server_url + "production/getFilterProductions",
+		    enctype: 'application/json',
+		    headers: authHeader,
+		    processData: false,
+		    contentType: "application/json; charset=utf-8",
+		    data: JSON.stringify(dataVal),
+			
+			success: function (response) {		
+
+			console.log("------response checkIfProductionAlreadyExist----------",response);
+
+			var data = response.payload;
+			console.log("------checkIfProductionAlreadyExist----------",data);
+			var reclength=response.payload.length;
+			console.log("------checkIfProductionAlreadyExist--length--------",reclength);
+						
+			if(reclength == "0")
+			{
+				console.log("------return true----------");
+							getShiftWorkItemList();
+							}
+			else
+			{
+				
+				console.log("------trueeeee----------");
+								errorBlock("#error_block", "Production entry already exist for selected parameters.");
+								return false;
+			
+					
+			}
+											
+			}
+		});		
+		
+		
+}
