@@ -524,7 +524,7 @@
 					console.log("-------------------Welcome to product getFilterProductionList---------",dataVal);
 					$.ajax({
 					    type: 'POST',
-					    url: server_url + "report/getPlanOverview",
+					    url: server_url + "report/getPlanVsActual",
 					    enctype: 'application/json',
 					    headers: authHeader,
 					    processData: false,
@@ -549,7 +549,7 @@
 					console.log("------222----------");
 
 			    
-			    	tableData = $('#prodList').DataTable( {
+			    	tableData = $('#planvsactualList').DataTable( {
 				
 			    			dom: 'Blfrtip',   
 			    			buttons: ['excel', 'print'],
@@ -567,7 +567,8 @@
 						    { "data": "itemcode" },
 						    { "data": "setupname" },
 							{ "data": "plannedquantity" },
-						   
+							{ "data": "setupname" },
+							{ "data": "plannedquantity" },
 							
 						/*	 { "data":  null,
 					           render: function (data, type, row) {

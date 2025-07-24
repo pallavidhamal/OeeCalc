@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Oeesha | Plan Overview </title>
+<title>Oeesha | Plan Vs Actual</title>
 
 <div th:replace="~{fragments/headerJS}"></div>  
-<script type="text/javascript" th:src="@{/js/pagejs/planoverviewreport.js}"></script>
+<script type="text/javascript" th:src="@{/js/pagejs/planvsactual.js}"></script>
 
 <style>
 #inserttbl{
@@ -134,7 +134,7 @@ label {
         <div class="box"> 
           <!--box-header-->
           <div class="box-header">
-            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Planing Overview Report  </h3>
+            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Plan Vs Actual Report  </h3>
             <div class="box-tools pull-right">
             
                         
@@ -217,7 +217,7 @@ label {
           <!--box-body-->
           <div class="box-body">
           <div class="col-md-12"> 
-            <table class="table table-bordered table-striped table-hover table-responsive" id="prodList" >
+            <table class="table table-bordered table-striped table-hover table-responsive" id="planvsactualList" >
               <thead>
                 <tr class="orange">
                   <th>Plan Date</th>
@@ -225,10 +225,11 @@ label {
 				  <th>Item</th>
                   <th>Setup</th>
                   <th>Planned Quantity</th>
-				
+				  <th>Actual Quantity</th>
+				  <th>% Achieved</th>
                 </tr>
               </thead>
-              <tbody id="productionTbody">
+              <tbody id="planactualTbody">
      
               </tbody >
             </table>

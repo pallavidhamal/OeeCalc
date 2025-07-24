@@ -71,6 +71,10 @@ public class UserController {
         return "PlanOverviewReport";
     }
     
+    @GetMapping(value = {"/planvsactual"})
+    public String planvsactual() {
+        return "PlanVsActualReport";
+    }
     
     @GetMapping(value = {"/planning"})
     public String planning() {
