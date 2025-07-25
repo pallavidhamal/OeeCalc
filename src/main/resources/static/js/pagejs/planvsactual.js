@@ -562,13 +562,13 @@
 							     }],
 
 							  columns: [
-							{ "data": "plandate" },
+							{ "data": "proddate" },
 						    { "data": "shiftname" },
 						    { "data": "itemcode" },
 						    { "data": "setupname" },
-							{ "data": "plannedquantity" },
-							{ "data": "setupname" },
-							{ "data": "plannedquantity" },
+							{ "data": "qty_planned" },
+							{ "data": "qty_produced" },
+							{ "data": "productivity_per" },
 							
 						/*	 { "data":  null,
 					           render: function (data, type, row) {
