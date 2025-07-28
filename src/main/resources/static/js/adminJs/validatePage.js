@@ -881,6 +881,22 @@ function NotAllowedZeroVal(valId , errMsg , errDiv){
     	   return true ;
        }
   }
+
+function NotAllowedMoreThen100Val(valId , errMsg , errDiv){
+	  if( $.trim($(valId).val()) > 100 ) {
+		  
+    	  $(errDiv).empty();
+		  $(errDiv).show();
+		  $(errDiv).append('Your '+errMsg+ ' value is more than 100 % is not allow  !');
+		//  $(valId).focus();
+           setTimeout(function(){ $(errDiv).hide(); }, 3000);
+          return false;
+       }else{
+    	   return true ;
+       }
+  }
+
+  
 function NotAllowedNullTable(valId , errMsg , errDiv){
 	  if( valId > 0 ) {
 		  
@@ -1565,3 +1581,6 @@ $(document).on("change keyup input", "input.integer", function () {
   $(document).on("change keyup input", "input.toUpperCase", function () {	
 		$(this).val($(this).val().toUpperCase());
   });
+  $(document).on("change keyup input", "input.minZero", function () {
+	(($(this).val() == "") ? $(this).val(0) : "" );
+});

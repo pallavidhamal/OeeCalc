@@ -115,26 +115,30 @@ function itemTableCal(){
 	$("#planProdTbody").find('tr').each(function (){
 		
 //		 producedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val());
-		 producedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val());
-		 rejectedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val());
-		 
-		 
-		 console.log("========producedquantityVal ====="+producedquantityVal+"====",Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val()))
-		 console.log("========cycletimeId =========",Number($("#cycletimeId"+i).val()),"========cycletimeId =========",Number($("#cycletimeId"+i).val())/60 )
-		 console.log("========setuptimeId =========", Number($("#setuptimeId"+i).val()))
-		 
-		 
-		// console.log("========Total Time Utlised =========",Number(producedquantityVal) * Number($("#cycletimeId"+i).val())/60 + Number($("#setuptimeId"+i).val()))
-		 
-		 totalTimeUtilisedVal = Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val()) * Number($("#cycletimeId"+i).val())/60 + Number($("#setuptimeId"+i).val());
-		 
-		 console.log("========= totalTimeUtilisedVal==========", totalTimeUtilisedVal);
-		 
-		 totalTimeUtilised += totalTimeUtilisedVal;
-		 
-		 console.log("========= totalTimeUtilised==========", totalTimeUtilised);
-		 
-		i++;
+
+		if(Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val()) > 0 ){
+
+			 producedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val());
+			 rejectedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val());
+			 
+			 
+			 console.log("========producedquantityVal ====="+producedquantityVal+"====",Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val()))
+			 console.log("========cycletimeId =========",Number($("#cycletimeId"+i).val()),"========cycletimeId =========",Number($("#cycletimeId"+i).val())/60 )
+			 console.log("========setuptimeId =========", Number($("#setuptimeId"+i).val()))
+			 
+			 
+			// console.log("========Total Time Utlised =========",Number(producedquantityVal) * Number($("#cycletimeId"+i).val())/60 + Number($("#setuptimeId"+i).val()))
+			 
+			 totalTimeUtilisedVal = Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val()) * Number($("#cycletimeId"+i).val())/60 + Number($("#setuptimeId"+i).val());
+			 
+			 console.log("========= totalTimeUtilisedVal==========", totalTimeUtilisedVal);
+			 
+			 totalTimeUtilised += totalTimeUtilisedVal;
+			 
+			 console.log("========= totalTimeUtilised==========", totalTimeUtilised);
+			 
+			i++;
+		}
 	});
 	
 //	$("#totalProdQty").val(producedquantityVal);
@@ -194,12 +198,12 @@ function itemTableCal(){
 						      
 						//      cols += `<td><input type="text" id="availableQ${counter}" class="form-input  form-control" disabled></td>`;
 						//      	cols += `<td><input type="text" id="mstprice${counter}" class="form-input form-control" disabled></td>`;
-						      cols += `<td><input type="text" id="rate${counter}"  class="form-input nuz form-control rate decimal" ></td>`;
+						      cols += `<td><input type="text" id="rate${counter}"  class="form-input nuz form-control rate decimal minZero" ></td>`;
 
-						      cols += `<td><input type="text" id="disocuntpr${counter}"  class="form-input nuz form-control disocuntpr decimal" >`;
+						      cols += `<td><input type="text" id="disocuntpr${counter}"  class="form-input nuz form-control disocuntpr decimal minZero" >`;
 						      cols += `</td>`;
 						     
-						      cols += `<td><input type="text" id="disocunt${counter}"  class="form-input nuz form-control disocunt decimal" disabled></td>`;
+						      cols += `<td><input type="text" id="disocunt${counter}"  class="form-input nuz form-control disocunt decimal minZero" disabled></td>`;
 						      cols += `<td><input type="text" id="amount${counter}" class="form-input form-control rate amount" disabled ></td>`;
 						      
 						      cols += `<td><input type="text" id="gstpr${counter}"  class="form-input nuz form-control gstpr integer" disabled>	</td>`;
@@ -515,9 +519,9 @@ function	getAllMachines()
 								+' <td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname 
 								+' <input type="text" class="form-control width80 line txtsetuptime" rocnt = "'+index1+'" id="setuptimeId'+index1+'" value="'+value1.setuptime+'"   disabled> '
 								+' <input type="text" class="form-control width80 line txtcycletime" rocnt = "'+index1+'" id="cycletimeId'+index1+'" value="'+value1.cycletime+'"   disabled> </td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal minZero" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
+								+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal minZero"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
 	
 							  +'</tr>');
 						  
@@ -576,9 +580,9 @@ function	getAllMachines()
 							+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation  " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
 							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem  " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
 							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup  " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal " rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal " rocnt = "'+index1+'" id="producedQty'+index1+'" value="0" ></td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal "  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0" ></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal  minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal minZero " rocnt = "'+index1+'" id="producedQty'+index1+'" value="0" ></td>'
+							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal  minZero"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0" ></td>'
 
 						  +'</tr>');
 									
@@ -590,40 +594,38 @@ function	getAllMachines()
 	}				
 				
 
-					$(document).on("click", "#addProduction", function(e){
+	$(document).on("click", "#addProduction", function(e){
 
-						
-						var myarray=[];
-						var i =  0 ;
-						
-						
-						$("#planProdTbody").find('tr').each(function (){
-									
-									
-									console.log($("#planProdTbody").find('tr').eq(i).find('td').eq(0).text());
-									console.log($("#planProdTbody").find('tr').eq(i).find('td').eq(0).find("input").eq(0).val());
-									
-									console.log("=========stationidVal==text=========",$("#planProdTbody").find('tr').eq(i).find('td').eq(0).text());
-									
-									 var lineData  = {
-											 
-											 stationid 			 : stationId,
-											 planid				 : planId,	
-											 itemid			 	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(1).find("input").eq(0).val(),
-											 setupid			 : $("#planProdTbody").find('tr').eq(i).find('td').eq(2).find("input").eq(0).val(),											 
-											 plannedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val(),
-											 producedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val(),
-											 rejectedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val(),
-
-										};
-								 	  i++;
-								 	  
-									 myarray.push(lineData);
-									 
-									 console.log("====myarray======",myarray);
-								});	
-								
 		
+		var myarray=[];
+		var i =  0 ;
+		
+						
+		$("#planProdTbody").find('tr').each(function (){
+			
+			
+			console.log($("#planProdTbody").find('tr').eq(i).find('td').eq(0).text());
+			console.log($("#planProdTbody").find('tr').eq(i).find('td').eq(0).find("input").eq(0).val());
+			
+			console.log("=========stationidVal==text=========",$("#planProdTbody").find('tr').eq(i).find('td').eq(0).text());
+			
+			 var lineData  = {
+					 
+					 stationid 			 : stationId,
+					 planid				 : planId,	
+					 itemid			 	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(1).find("input").eq(0).val(),
+					 setupid			 : $("#planProdTbody").find('tr').eq(i).find('td').eq(2).find("input").eq(0).val(),											 
+					 plannedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val(),
+					 producedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val(),
+					 rejectedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val(),
+
+				};
+		 	  i++;
+		 	  
+			 myarray.push(lineData);
+			 
+			 console.log("====myarray======",myarray);
+		});	
 		 
 		 if(NotAllowedNullVal($('#prodDate'),"Date ","#error_block"))				
 		 if(SelectBoxNotAllowedNullVal($('#addUnit'),"Unit","#error_block"))
@@ -633,7 +635,10 @@ function	getAllMachines()
 		 if(SelectBoxNotAllowedNullVal($('#addOperator')," Operator","#error_block"))
 		 if(NotAllowedZeroVal($('#totaltime'),"Total time ","#error_block"))							
 		 if(NotAllowedZeroVal($('#availabletimeVal'),"Available time ","#error_block"))
-		 if(NotAllowedZeroVal($('#totalUtilisedTime'),"Total Time Utilised ","#error_block")){
+		 if(NotAllowedZeroVal($('#totalUtilisedTime'),"Total Time Utilised ","#error_block"))
+		 if(NotAllowedMoreThen100Val($('#totaltime'),"Total time ","#error_block"))							
+		 if(NotAllowedMoreThen100Val($('#availabletimeVal'),"Available time ","#error_block"))
+		 if(NotAllowedMoreThen100Val($('#totalUtilisedTime'),"Total Time Utilised ","#error_block")){
 							 
 							 var dataVal = {
 							 
@@ -853,6 +858,9 @@ function getMachinesByWc(wsid)
 							   }
 							   else
 							   {
+								
+								$("#addStation").val('<option value="0">  Select Station </option>');
+								
 								errorBlock("#error_block", "Please create a plan! There is no planning done for the selected parameters");
 																return false;
 							   }
@@ -1057,8 +1065,12 @@ function productivityCal(){
 	
 		var productivityPerCal = (Number($("#totalUtilisedTime").val()) /	Number($("#availabletimeVal").val()) ) * 100;
 	
-		$("#productivityper").val(productivityPerCal.toFixed(2));
-		oeeCal();
+		if(productivityPerCal > 100 || productivityPerCal < 0 ){
+	    	errorBlock("#error_block" , " Productivity value is more than 100 % is not allow");
+		}else{
+			$("#productivityper").val(productivityPerCal.toFixed(2));
+			oeeCal();
+		}
 	}else{
 		$("#productivityper").val(0);
 		$("#oeePer").val(0);
@@ -1066,13 +1078,18 @@ function productivityCal(){
 }
 function qualityCal(){
 	
-	if( Number($("#qualityProduction").val()) > 0 && Number($("#rejectQty").val()) > 0){
+	if( Number($("#qualityProduction").val()) > 0 ){
 	
 		var qualityPerCal = ((Number($("#qualityProduction").val()) - Number($("#rejectQty").val()) ) /	Number($("#qualityProduction").val()) ) * 100;
 	
-		$("#qualityPer").val(qualityPerCal.toFixed(2));
+	    if(qualityPerCal > 100 || qualityPerCal < 0 ){
+	    	errorBlock("#error_block" , " Quality value is more than 100 % is not allow");
+		}else{
 		
-		oeeCal();
+			$("#qualityPer").val(qualityPerCal.toFixed(2));
+			oeeCal();
+		}
+		
 	}else{
 		$("#qualityPer").val(0);
 		$("#oeePer").val(0);
