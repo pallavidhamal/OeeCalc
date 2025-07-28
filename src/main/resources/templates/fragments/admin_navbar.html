@@ -57,7 +57,7 @@
 		    <ul class="dropdown-menu">
 	           <li><a href="planoverview">Plan Overview </a></li>
 			   <li><a href="planvsactual">Plan vs actual </a></li>
-			   <li><a href="#">Quality Report </a></li>
+			   <!--<li><a href="#">Quality Report </a></li>-->
 			  <!-- <hr>
 			   <li><h5> OEE report</h5></li>
 			   <hr>-->
@@ -143,7 +143,7 @@
 $(document).ready(function(){
 	console.log("========0========",nav)
 	var navMenuLinks = $('.navLinkLI');
-	for(i=1; i<=navMenuLinks.length; i++){
+	for(i=0; i<=navMenuLinks.length; i++){
 		if(i == nav){
 			$('#nav' + i).addClass('active1');
 		}else{

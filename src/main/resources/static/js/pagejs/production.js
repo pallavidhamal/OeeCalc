@@ -1554,7 +1554,7 @@ function generatecatCodeListCustWise(divid,customerId,prodId){
 						 unitid       	: $('#addUnit').val(),
 						 workcenterid 	: $('#addWorkCenter').val(),
 						 shiftid       	: $('#addShift').val(),
-						 stationId 		: $('#addSelMachine').val(),
+						 stationid 		: $('#addSelMachine').val(),
 						 operatorid     : $('#addOperator').val(),						 
 						 fromdate		: $('#prodDatefrm').val(),						 
 						 todate			: $('#prodDateto').val(),

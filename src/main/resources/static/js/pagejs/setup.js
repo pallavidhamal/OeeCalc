@@ -284,7 +284,7 @@ $(document).on("click", "#addSetup", function(e){
 		 var dataVal = {
 		 
 				 itemId				: $('#addItem').val(),
-				 stationId 			: $('#addStation').val(),
+				 stationid 			: $('#addStation').val(),
 				 uom				: $('#adduom').val(),
 				 name				: $('#setupname').val(),
 				 cycletime				: $('#setuptime').val(),
@@ -380,7 +380,7 @@ $(document).on("click", ".edit-button", function(){
 						 
 								setupid					:setupid,
 								 itemId				: $('#editItem').val(),
-								 stationId 			: $('#editStation').val(),
+								 stationid 			: $('#editStation').val(),
 								 name				: $('#editsetupname').val(),
 								 cycletime				: $('#editsetuptime').val(),
 

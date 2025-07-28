@@ -514,7 +514,7 @@
 						 unitid       	: $('#addUnit').val(),
 						 workcenterid 	: $('#addWorkCenter').val(),
 					//	 shiftid       	: $('#addShift').val(),
-						 stationId 		: $('#addSelMachine').val(),
+						 stationid 		: $('#addSelMachine').val(),
 					//	 operatorid     : $('#addOperator').val(),						 
 						 fromdate		: $('#prodDatefrm').val(),						 
 						 todate			: $('#prodDateto').val(),
@@ -524,7 +524,7 @@
 					console.log("-------------------Welcome to product getFilterProductionList---------",dataVal);
 					$.ajax({
 					    type: 'POST',
-					    url: server_url + "report/getPlanVsActual",
+					    url: server_url + "production/getPlanVsActual",
 					    enctype: 'application/json',
 					    headers: authHeader,
 					    processData: false,
@@ -543,11 +543,6 @@
 						tableData.destroy();
 			       		 $('#prodList.tbody').empty();
 
-					console.log("------111----------");
-
-			
-					console.log("------222----------");
-
 			    
 			    	tableData = $('#planvsactualList').DataTable( {
 				
@@ -564,12 +559,79 @@
 							  columns: [
 							{ "data": "proddate" },
 						    { "data": "shiftname" },
-						    { "data": "itemcode" },
-						    { "data": "setupname" },
-							{ "data": "qty_planned" },
-							{ "data": "qty_produced" },
-							{ "data": "productivity_per" },
-							
+						    { "data": "stationname" },
+		    			    { "data": "prodPlanningDto",
+							    "render": function ( data, type, row, meta ) {
+					              if(data==null) return "";
+					              for(var i=0, num=data.length; i<num; i++) {
+					                var house = data[i];
+					                
+					                
+					                  return house.item;
+					              }
+					               return "";
+				               }
+						    },
+		    			    { "data": "prodPlanningDto",
+							    "render": function ( data, type, row, meta ) {
+					              if(data==null) return "";
+					              for(var i=0, num=data.length; i<num; i++) {
+					                var house = data[i];
+					                
+					                
+					                  return house.setup;
+					              }
+					               return "";
+				               }
+						    },
+						    
+						    { "data": "prodPlanningDto",
+							    "render": function ( data, type, row, meta ) {
+					              if(data==null) return "";
+					              for(var i=0, num=data.length; i<num; i++) {
+					                var house = data[i];
+					                
+					                  return house.qty_planned;
+					              }
+					               return "";
+				               }
+						    },
+		    			    { "data": "prodPlanningDto",
+							    "render": function ( data, type, row, meta ) {
+					              if(data==null) return "";
+					              for(var i=0, num=data.length; i<num; i++) {
+					                var house = data[i];
+					                
+					                
+					                  return house.qty_produced;
+					              }
+					               return "";
+				               }
+						    },
+						    
+						    { "data": "productivityper",
+						    	"render": function ( data, type, row, meta ) {
+					                
+					                  return "<b>"+data+" % <b>";
+			                   }	
+						    },
+		    			    { "data": "prodPlanningDto",
+							    "render": function ( data, type, row, meta ) {
+					              if(data==null) return "";
+					              for(var i=0, num=data.length; i<num; i++) {
+					                var house = data[i];
+					                
+					                  return house.qty_rejected;
+					              }
+					               return "";
+				               }
+						    },
+							{ "data": "rejectionper", 
+								"render": function ( data, type, row, meta ) {
+					                
+					                  return "<b>"+data+" % <b>";
+			                   }
+							},
 						/*	 { "data":  null,
 					           render: function (data, type, row) {
 					               var id = data.id;
@@ -579,15 +641,85 @@
 				             },*/
 							
 				            ],
+				            initComplete: function (settings, json) {
+						      var table = settings.oInstance.api();
+						      var api = this.api();
+						      
+						      table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+						        drawSpecialRow(this, table);
+						      } );
+						    },
 				            "order": [[0, 'desc']],
 			    			} );
-							
-							
 							console.log("------333----------");
-						
-						
 						}
 					})
 				//		});
 				}												
-			
+function drawSpecialRow(row, table) {
+  var data = row.data();
+  if(data.prodPlanningDto==null) return;
+  
+  var mansions = [];
+  var flats = [];
+  var num = data.prodPlanningDto.length;
+  for(var i=0; i<num; i++) {
+    var house = data.prodPlanningDto[i];
+      mansions.push(house);
+  }
+  
+    row.child( format(mansions, flats, true) ).show();
+  
+}
+
+function format(mansions, flats, ignoreFirst) {
+  var max = Math.max(mansions.length, flats.length);
+  var res = "";
+  var init;
+  if(ignoreFirst) init=1;
+  else init=0;
+  for(var i=init; i<max; i++) {
+    var mansion;
+    if(i < mansions.length) {
+      mansion = mansions[i];
+    } else{
+      mansion = null;
+    }
+    var flat;
+    if(i < flats.length) {
+      flat = flats[i];
+    } else{
+      flat = null;
+    }
+    res += formatSingle(mansion, flat);
+  }
+  return $(res).toArray();
+}
+
+function formatSingle ( mansion, flat ) {
+  var itemnameStr="";
+  var setupnameStr="";
+  var planned_qtyNumber="";
+  var produced_qtyNumber="";
+  var rejected_qtyNumber="";
+  if(mansion != null) {
+    itemnameStr  = mansion.item;
+    setupnameStr = mansion.setup;
+    planned_qtyNumber  = mansion.qty_planned
+    produced_qtyNumber = mansion.qty_produced
+    rejected_qtyNumber = mansion.qty_rejected
+  }
+  
+  return '<tr>'+
+            '<td></td>'+
+            '<td></td>'+
+            '<td></td>'+
+            '<td>'+itemnameStr+'</td>'+
+            '<td>'+setupnameStr+'</td>'+
+            '<td>'+planned_qtyNumber+'</td>'+
+            '<td>'+produced_qtyNumber+'</td>'+
+            '<td></td>'+
+            '<td>'+rejected_qtyNumber+'</td>'+
+            '<td></td>'+
+        '</tr>';
+}			

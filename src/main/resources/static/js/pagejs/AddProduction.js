@@ -643,7 +643,7 @@ function	getAllMachines()
 									 workcenterid : $('#addWorkCenter').val(),
 									 operatorid : $('#addOperator').val(),
 									 proddate : $('#prodDate').val(),
-									 stationId : $('#addStation').val(),
+									 stationid : $('#addStation').val(),
 									 
 									 availability_lunchtime : $('#lunchT').val(),
 									 availability_teatime : $('#teaT').val(),
@@ -1101,7 +1101,7 @@ function checkIfProductionAlreadyExist()
 			 unitid       	: $('#addUnit').val(),
 			 workcenterid 	: $('#addWorkCenter').val(),
 			 shiftid       	: $('#addShift').val(),
-			 stationId 		: $('#addStation').val(),
+			 stationid 		: $('#addStation').val(),
 			 fromdate		: $('#prodDate').val(),						 
 			 todate			: $('#prodDate').val(),
 			 operatorid     : "0",	
