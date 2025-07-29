@@ -76,6 +76,17 @@ public class UserController {
         return "PlanVsActualReport";
     }
     
+    @GetMapping(value = {"/workcenteroee"})
+    public String workcenteroee() {
+        return "WorkCenterOeeReport";
+    }
+    
+    @GetMapping(value = {"/unitoee"})
+    public String unitoee() {
+        return "UnitOeeReport";
+    }
+    
+    
     @GetMapping(value = {"/planning"})
     public String planning() {
         return "Planning";

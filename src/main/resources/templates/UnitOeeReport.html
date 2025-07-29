@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Oeesha | Unit Wise Oee</title>
+
+<div th:replace="~{fragments/headerJS}"></div>  
+<script type="text/javascript" th:src="@{/js/pagejs/unitoee.js}"></script>
+
+<style>
+#inserttbl{
+overflow: auto;
+    height: 250px !important;
+}
+#remtbl{
+overflow: auto;
+    height: 250px !important;
+}
+.orDiv {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 9;
+    background-color: rgba(5, 5, 5, 0.75);
+    background-repeat: repeat;
+}
+.loader, .loader:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+textarea.form-control {
+    height: 120px !important; 
+    resize: none;
+}
+.loader {
+    margin: 20% auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-right: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-bottom: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-left: 1.1em solid #e89933;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+0% {
+-webkit-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+@keyframes load8 {
+0% {
+-webkit-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+.headtag1{
+text-align: center;
+    background: #97b1ff;
+   
+}
+.headtag{
+ margin-top: 10%;
+text-align: center;
+    background: #ef8b8b;
+}
+.modbox{
+    width: max-content;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+label {
+    padding-top: 7px;
+}
+.form-control {
+    height: 30px !IMPORTANT;
+    margin-top: 2px !IMPORTANT;
+}
+.form-group {
+    margin-top: 2px !IMPORTANT;
+}
+/* table th:nth-child(3), td:nth-child(3) {
+  display: none;
+} */
+</style>
+
+<script>
+	let nav = 3;
+</script>
+</head>
+
+<body>
+<div th:replace="~{fragments/admin_navbar}"></div>
+ <div class="content-wrapper" >
+<!--Content-->
+<div class="col-sm-12 orDiv" id="progressBar" style="display:none" > 
+  
+  <div class="loader">Loading...</div>
+</div>
+<br>
+<section> 
+  <!--container-fluid-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12"> 
+        <!--box-->
+        <div class="box"> 
+          <!--box-header-->
+          <div class="box-header">
+            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Unit Wise Oee Report  </h3>
+            <div class="box-tools pull-right">
+            
+                        
+              
+            <!--  <button class="btn theme_btn" data-toggle="modal" data-target="#add_po" id="addProduction">Add Production </button>
+                         <input type="text"  style="display:none;" class="form-control" id="hidendelId" >-->
+               
+              </div>
+              <div class="clearfix"></div>
+          </div>
+          <!--box-header--> 
+        
+		  
+		  <div class="box-body">
+		              <div class="col-md-12">
+		    		    	<div class="white-layer mb-8">
+		  <!--		  	    			<h3 class="sub-hd-master">Billing </h3> -->		  					
+		  					<div class="row">
+		  						<!--<div class="col-md-2">
+		    							<label class="form-label">Company</label>
+		    							<input type="text" id="customer" class=" form-control" disabled>
+		    						</div>-->
+		  						
+		  						<div class="col-md-2">
+		    							<label class="form-label">Unit</label>
+		    							<select class="form-control" id="addUnit">
+		  								<option value="0">-- Select --</option>
+		  								<!--<option>Unit 1</option>
+		  								<option>Unit 2</option>
+		  								<option>Unit 3</option>-->
+		  							</select>
+		    						</div>
+		    					<!--	<div class="col-md-2">
+		    							<label class="form-label">WorkCenter</label>
+		  							<select class="form-control" id="addWorkCenter">
+		  								<option value="0">-- Select --</option>
+		  								<option>Workshop 1</option><option>Workshop 2</option><option>Workshop 3</option>
+		  							</select>
+		    						</div>-->
+		  						<!--<div class="col-md-2">
+		    							<label class="form-label">Shift</label>
+		  							<select class="form-control" id="addShift">
+		  								<option value="0">-- Select --</option>
+		  								<option>Shift 1</option><option>Shift 2</option><option>Shift 3</option>
+		  							</select>
+		    						</div>-->
+		  					<!--	<div class="col-md-2">
+		    							<label class="form-label">Station</label>
+		    							<select class="form-control" id="addSelMachine">
+		  								<option value="0">-- Select --</option>
+		  							</select>
+		    						</div-->>
+		  						<!--<div class="col-md-2">
+		    							<label class="form-label">Operator</label>
+		    							<select class="form-control" id="addOperator">
+		  								<option value="0">-- Select --</option>
+		  							</select>
+		    					</div>-->
+								<div class="col-md-2">
+		  							<label class="form-label">From Date</label>
+		  							<input type="date" id="prodDatefrm" class=" form-control" >
+		  						</div>
+								<div class="col-md-2">
+		  							<label class="form-label">To Date</label>
+		  							<input type="date" id="prodDateto" class=" form-control" >
+		  						</div>	
+	
+		  					</div>
+		    		    	</div>
+		  			</div>
+		  		</div>
+		  		<br>
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+          <!--box-body-->
+          <div class="box-body">
+          <div class="col-md-12"> 
+            <table class="table table-bordered table-striped table-hover table-responsive" id="unitOeeList" >
+              <thead>
+                <tr class="orange">
+                  <th>Unit</th>
+  				  <th>OEE %</th>
+                </tr>
+              </thead>
+              <tbody id="unitOeeTbody">
+     
+              </tbody >
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Content--> 
+
+
+
+ 
+ 
+   </div>
+       <div th:replace="~{fragments/admin_footer}"></div>
+         <!-- sidenav--> 
+  
+</div>
+<!-- wrapper --> 
+<!-- sidenav--> 
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+</script><!-- sidenav
+
+<!-- ToolTip -->
+<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip(); 
+	});
+</script>
+<!-- ToolTip -->
+       
+</body>
+</html>
