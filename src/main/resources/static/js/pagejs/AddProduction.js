@@ -110,26 +110,31 @@ function itemTableCal(){
 	var rejectedquantityVal = 0;
 	var totalTimeUtilisedVal = 0;
 	var totalTimeUtilised = 0;
+	
+	var totalplannedVal = 0;
+	
 	var i = 0;
 	
 	$("#planProdTbody").find('tr').each(function (){
 		
 //		 producedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val());
 
-		if(Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val()) > 0 ){
+		if(Number($("#planProdTbody").find('tr').eq(i).find('td').eq(6).find("input").val()) > 0 ){
 
-			 producedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val());
-			 rejectedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val());
+			 totalplannedVal  +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").val());
+			 producedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(6).find("input").val());
+			 rejectedquantityVal +=  Number($("#planProdTbody").find('tr').eq(i).find('td').eq(7).find("input").val());
 			 
 			 
-			 console.log("========producedquantityVal ====="+producedquantityVal+"====",Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val()))
+			 
+			 console.log("========producedquantityVal ====="+producedquantityVal+"====",Number($("#planProdTbody").find('tr').eq(i).find('td').eq(6).find("input").val()))
 			 console.log("========cycletimeId =========",Number($("#cycletimeId"+i).val()),"========cycletimeId =========",Number($("#cycletimeId"+i).val())/60 )
 			 console.log("========setuptimeId =========", Number($("#setuptimeId"+i).val()))
 			 
 			 
 			// console.log("========Total Time Utlised =========",Number(producedquantityVal) * Number($("#cycletimeId"+i).val())/60 + Number($("#setuptimeId"+i).val()))
 			 
-			 totalTimeUtilisedVal = Number($("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val()) * Number($("#cycletimeId"+i).val())/60 + Number($("#setuptimeId"+i).val());
+			 totalTimeUtilisedVal = Number($("#planProdTbody").find('tr').eq(i).find('td').eq(6).find("input").val()) * Number($("#cycletimeId"+i).val())/60 + Number($("#setuptimeId"+i).val());
 			 
 			 console.log("========= totalTimeUtilisedVal==========", totalTimeUtilisedVal);
 			 
@@ -143,8 +148,14 @@ function itemTableCal(){
 	
 //	$("#totalProdQty").val(producedquantityVal);
 
+		
+
 	$("#totalUtilisedTime").val(totalTimeUtilised.toFixed(2));
 	$("#qualityProduction").val(producedquantityVal);
+	$("#totalplannedVal").val(totalplannedVal);
+	$("#achievementPer").val(((producedquantityVal/totalplannedVal)*100).toFixed(2));
+	$("#rejectionPer").val(((rejectedquantityVal/producedquantityVal)*100).toFixed(2));
+	
 	//$("#totalPlanQty").val();
 	$("#rejectQty").val(rejectedquantityVal);
 	
@@ -171,74 +182,62 @@ function itemTableCal(){
 			//	alert("add po js")
 				
 				
-				$("#addMore").on("click", function (event) {
-						      event.preventDefault();
+$("#addMore").on("click", function (event) {
+	
+      event.preventDefault();
 
-							  
-							  alert("add button")
-								
-							  counter++;
+	  counter++;
 
-						      var newRow = $("<tr>");
-						      var cols = "";
+      var newRow = $("<tr>");
+      var cols = "";
 
-						      // Table columns
-						    /*  cols += '<th scrope="row">' + counter + "</th>";*/
-						      cols +=
-						        `<td><select name="titles" id="productCategory${counter}" class="form-input demo productCategory form-control" style="width: 100%" >
-						        <option value="">Select</option>` +
-						        optionsData +
-						        `</select>`;
-						        cols +=
-						        `</td>`;
-						     
-						      cols += `<td><input type="text" id="buyprice${counter}" class="form-input form-control" disabled=""></td>`;
-						      
-						      cols += `<td><input type="text" id="qty${counter}"  class="form-input nuz form-control qty  integer">	</td>`;
-						      
-						//      cols += `<td><input type="text" id="availableQ${counter}" class="form-input  form-control" disabled></td>`;
-						//      	cols += `<td><input type="text" id="mstprice${counter}" class="form-input form-control" disabled></td>`;
-						      cols += `<td><input type="text" id="rate${counter}"  class="form-input nuz form-control rate decimal minZero" ></td>`;
+      // Table columns
+    /*  cols += '<th scrope="row">' + counter + "</th>";*/
+      cols +=
+        `<td><select name="titles" id="productCategory${counter}" class="form-input demo productCategory form-control" style="width: 100%" >
+        <option value="">Select</option>` +
+        optionsData +
+        `</select>`;
+        cols +=
+        `</td>`;
+     
+      cols += `<td><input type="text" id="buyprice${counter}" class="form-input form-control" disabled=""></td>`;
+      
+      cols += `<td><input type="text" id="qty${counter}"  class="form-input nuz form-control qty  integer">	</td>`;
+      
+//      cols += `<td><input type="text" id="availableQ${counter}" class="form-input  form-control" disabled></td>`;
+//      	cols += `<td><input type="text" id="mstprice${counter}" class="form-input form-control" disabled></td>`;
+      cols += `<td><input type="text" id="rate${counter}"  class="form-input nuz form-control rate decimal minZero" ></td>`;
 
-						      cols += `<td><input type="text" id="disocuntpr${counter}"  class="form-input nuz form-control disocuntpr decimal minZero" >`;
-						      cols += `</td>`;
-						     
-						      cols += `<td><input type="text" id="disocunt${counter}"  class="form-input nuz form-control disocunt decimal minZero" disabled></td>`;
-						      cols += `<td><input type="text" id="amount${counter}" class="form-input form-control rate amount" disabled ></td>`;
-						      
-						      cols += `<td><input type="text" id="gstpr${counter}"  class="form-input nuz form-control gstpr integer" disabled>	</td>`;
-						      
-						      cols += `<td><a class="deletBtn deleteBtn1" id="deleteRow${counter}"><img  src="images/delete.png"  ></a></td>`;
+      cols += `<td><input type="text" id="disocuntpr${counter}"  class="form-input nuz form-control disocuntpr decimal minZero" >`;
+      cols += `</td>`;
+     
+      cols += `<td><input type="text" id="disocunt${counter}"  class="form-input nuz form-control disocunt decimal minZero" disabled></td>`;
+      cols += `<td><input type="text" id="amount${counter}" class="form-input form-control rate amount" disabled ></td>`;
+      
+      cols += `<td><input type="text" id="gstpr${counter}"  class="form-input nuz form-control gstpr integer" disabled>	</td>`;
+      
+      cols += `<td><a class="deletBtn deleteBtn1" id="deleteRow${counter}"><img  src="images/delete.png"  ></a></td>`;
 
-						      // Insert the columns inside a row
-						      newRow.append(cols);
+      // Insert the columns inside a row
+      newRow.append(cols);
 
-						      // Insert the row inside a table
-						      $("#tableBody").append(newRow);
-						      
-						      
-						      $('#productCategory'+counter).select2();
-							  $('#product'+counter).select2();
+      // Insert the row inside a table
+      $("#tableBody").append(newRow);
+      
+      
+      $('#productCategory'+counter).select2();
+	  $('#product'+counter).select2();
 
-						      // Increase counter after each row insertion
-						      counter++;
-						      // Remove row when delete btn is clicked
-						      $("table").on("click", "#deleteRow", function (event) {
-						        $(this).closest("tr").remove();
-						        counter -= 1;
-						      });
-						    });
-				
-				
-				
-				
-				
-				
-				
-				
+      // Increase counter after each row insertion
+      counter++;
+      // Remove row when delete btn is clicked
+      $("table").on("click", "#deleteRow", function (event) {
+        $(this).closest("tr").remove();
+        counter -= 1;
+      });
+    });
 });
-			
-
 
 
 function getUnitList(divId){
@@ -516,12 +515,12 @@ function	getAllMachines()
 							$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
 								+' <td class="table_input"> <input type="hidden" class="form-control width80 line txtStation " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
 								+' <td class="table_input"><input type="hidden" class="form-control width80 line txtItem " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
-								+' <td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname 
-								+' <input type="text" class="form-control width80 line txtsetuptime" rocnt = "'+index1+'" id="setuptimeId'+index1+'" value="'+value1.setuptime+'"   disabled> '
-								+' <input type="text" class="form-control width80 line txtcycletime" rocnt = "'+index1+'" id="cycletimeId'+index1+'" value="'+value1.cycletime+'"   disabled> </td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal minZero" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
-								+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal minZero"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
+								+' <td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +' </td>'
+								+' <td class="table_input"><input type="text" class="form-control width80 line txtsetuptime" rocnt = "'+index1+'" id="setuptimeId'+index1+'" value="'+value1.setuptime+'"   disabled> </td>'
+								+' <td class="table_input"><input type="text" class="form-control width80 line txtcycletime" rocnt = "'+index1+'" id="cycletimeId'+index1+'" value="'+value1.cycletime+'"   disabled> </td>'
+								+' <td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+								+' <td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal minZero" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
+								+' <td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal minZero"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
 	
 							  +'</tr>');
 						  
@@ -615,9 +614,11 @@ function	getAllMachines()
 					 planid				 : planId,	
 					 itemid			 	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(1).find("input").eq(0).val(),
 					 setupid			 : $("#planProdTbody").find('tr').eq(i).find('td').eq(2).find("input").eq(0).val(),											 
-					 plannedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val(),
-					 producedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val(),
-					 rejectedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val(),
+					 setuptime	 		 : $("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val(),
+					 cycletime	 		 : $("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val(),
+					 plannedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val(),
+					 producedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(6).find("input").eq(0).val(),
+					 rejectedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(7).find("input").eq(0).val(),
 
 				};
 		 	  i++;
@@ -636,9 +637,9 @@ function	getAllMachines()
 		 if(NotAllowedZeroVal($('#totaltime'),"Total time ","#error_block"))							
 		 if(NotAllowedZeroVal($('#availabletimeVal'),"Available time ","#error_block"))
 		 if(NotAllowedZeroVal($('#totalUtilisedTime'),"Total Time Utilised ","#error_block"))
-		 if(NotAllowedMoreThen100Val($('#totaltime'),"Total time ","#error_block"))							
-		 if(NotAllowedMoreThen100Val($('#availabletimeVal'),"Available time ","#error_block"))
-		 if(NotAllowedMoreThen100Val($('#totalUtilisedTime'),"Total Time Utilised ","#error_block")){
+		 if(NotAllowedMoreThen100Val($('#availabilityPer'),"Availability ","#error_block"))							
+		 if(NotAllowedMoreThen100Val($('#productivityper'),"Productivity ","#error_block"))
+		 if(NotAllowedMoreThen100Val($('#oeePer'),"OEE ","#error_block")){
 							 
 							 var dataVal = {
 							 
@@ -677,13 +678,19 @@ function	getAllMachines()
 									 productivity_searching : $('#searchT').val(),
 									 productivity_personnal : $('#personnalT').val(),
 									 productivity_rework : $('#reworkT').val(),
-									 productivity_Production_qty : $('#availabletimeVal').val(),
-									 productivity_standard_qty : $('#totalUtilisedTime').val(),
+									 productivity_Production_availabletime_qty : $('#availabletimeVal').val(),
+									 productivity_Production_qty : $('#qualityProduction').val(),
+									 productivity_total_utilised_time: $('#totalUtilisedTime').val(),
 									 productivity_per : $('#productivityper').val(),
+									 
+									 achievement_per : $('#achievementPer').val(),
 									  
 									 rejection_rejection_qty : $('#rejectQty').val(),
 									 rejection_ok_qty : $('#qualityProduction').val(),
-									 rejection_per : $('#qualityPer').val(),
+									 quality_per : $('#qualityPer').val(),
+									 
+									 rejection_per : $('#rejectionPer').val(),
+									 
 									 oee_per :  $('#oeePer').val(),
 									 productionPlanningIncomingDto	: myarray
 									 

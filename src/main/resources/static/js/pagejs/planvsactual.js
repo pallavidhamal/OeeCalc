@@ -609,7 +609,7 @@
 				               }
 						    },
 						    
-						    { "data": "productivityper",
+						    { "data": "achievement_per",
 						    	"render": function ( data, type, row, meta ) {
 					                
 					                  return "<b>"+data+" % <b>";

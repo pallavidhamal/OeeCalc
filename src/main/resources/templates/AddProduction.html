@@ -267,6 +267,8 @@ label {
 														<th>Station</th>
 									                  <th>Item Number</th>
 									                  <th>Setup </th>
+													  <th>Setup Time </th>
+													  <th>Cycle Time </th>
 									                  <th>Qty planned </th>
 									                  <th>Qty produced <span class="fa fa-asterisk"></span></th>
 									                  <th>Qty Rejected <span class="fa fa-asterisk"></span></th>
@@ -435,13 +437,28 @@ label {
 												  
 					  <div class="row">
 							<div class="col-md-4">
+	  							<label class="form-label">total Planned</label>
+	  							<input type="text" id="totalplannedVal" class="form-input form-control decimal" value="0" disabled>
+	  						</div>
+							<div class="col-md-4">
+	  							<label class="form-label">Achievement %</label>
+	  							<input type="text" id="achievementPer" class="form-input form-control decimal" value="0" disabled>
+	  						</div>
+							<div class="col-md-4">
+	  							<label class="form-label">Rejection %</label>
+	  							<input type="text" id="rejectionPer" class="form-input form-control decimal" value="0" disabled>
+	  						</div>
+						
+							<div class="col-md-4">
 	  							<label class="form-label">Total Rejected qty</label>
 	  							<input type="text" id="rejectQty" class=" form-control decimal" value="0" disabled>
 	  						</div>
+							
 							<div class="col-md-4">
 	  							<label class="form-label">total production</label>
 	  							<input type="text" id="qualityProduction" class="form-input form-control decimal" value="0" disabled>
 	  						</div>
+							
 							<div class="col-md-12">
 								<br>
 								<div class="form-group" style="text-align: right;">
