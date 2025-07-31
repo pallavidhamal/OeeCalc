@@ -87,6 +87,11 @@ public class UserController {
     }
     
     
+    @GetMapping(value = {"/losssummary"})
+    public String losssummary() {
+        return "LossSummaryReport";
+    }
+    
     @GetMapping(value = {"/planning"})
     public String planning() {
         return "Planning";

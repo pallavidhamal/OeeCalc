@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Oeesha | Workcenter wise Oee Report</title>
+<title>Oeesha | Loss Summary</title>
 
 <div th:replace="~{fragments/headerJS}"></div>  
-<script type="text/javascript" th:src="@{/js/pagejs/workcenteroee.js}"></script>
+<script type="text/javascript" th:src="@{/js/pagejs/losssummary.js}"></script>
 
 <style>
 #inserttbl{
@@ -134,7 +134,7 @@ label {
         <div class="box"> 
           <!--box-header-->
           <div class="box-header">
-            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Workcenter wise Oee Report  </h3>
+            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> -->  Loss Summary Report  </h3>
             <div class="box-tools pull-right">
             
                         
@@ -181,7 +181,7 @@ label {
 		  								<option>Shift 1</option><option>Shift 2</option><option>Shift 3</option>
 		  							</select>
 		    						</div>-->
-		  						<!--<div class="col-md-2">
+		  					<!--	<div class="col-md-2">
 		    							<label class="form-label">Station</label>
 		    							<select class="form-control" id="addSelMachine">
 		  								<option value="0">-- Select --</option>
@@ -217,16 +217,35 @@ label {
           <!--box-body-->
           <div class="box-body">
           <div class="col-md-12"> 
-            <table class="table table-bordered table-striped table-hover table-responsive" id="wcOeeList" >
+            <table class="table table-bordered table-striped table-hover table-responsive" id="lossSummaryList" >
               <thead>
                 <tr class="orange">
-                  <th>Work Station</th>
-                  <th>Shift</th>
-				  <th>OEE % </th>
-				 
+                  <th>Total planned Time(mins)</th>
+                  <th>Machine breakdown</th>
+				  <th>Setup change </th>
+				  <th>No material</th>
+                  <th>No labour</th>
+                  <th>Waiting for inspection</th>
+				  <th>Tooling not available</th>
+				  <th>Drawing not available</th>
+				  <th>Gauges not available</th>
+  				  <th>Other management losses</th>
+				  
+			<!--	  total planned Time in mins ( Total of all shifts for the machine from plan , summation for the whole period) 
+				  Machine breakdown, (summation of production entries for the period)
+				  Setup change
+				  No material
+				  No labour
+				  Waiting for inspection
+				  Tooling not available
+				  Drawing not available 
+				  Gauges not available 
+				  Any other management losses-->
+				  
+				  
                 </tr>
               </thead>
-              <tbody id="wcOeeTbody">
+              <tbody id="losssummaryTbody">
      
               </tbody >
             </table>
