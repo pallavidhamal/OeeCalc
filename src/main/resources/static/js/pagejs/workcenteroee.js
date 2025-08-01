@@ -165,11 +165,9 @@
 						var data = response.payload;
 						console.log("------getPOList data----------",data);
 				//		console.log("------getPOList data.result----------",data.result);
-					
 						
 						tableData.destroy();
 			       		 $('#wcOeeList.tbody').empty();
-
 			    
 			    	tableData = $('#wcOeeList').DataTable( {
 				
@@ -184,9 +182,10 @@
 							     }],
 
 							  columns: [
-							 { "data": "stationname" },
-						    { "data": "shiftname" },
-						    { "data": "oeeper" },
+							 	{ "data": "workcenterentity" },
+								{ "data": "stationEntity" },
+							    { "data": "shiftEntity" },
+							    { "data": "totalQuantity" },
 		    			   /* { "data": "prodPlanningDto",
 							    "render": function ( data, type, row, meta ) {
 					              if(data==null) return "";
