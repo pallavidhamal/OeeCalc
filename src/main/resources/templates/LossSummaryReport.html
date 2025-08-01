@@ -219,30 +219,38 @@ label {
           <div class="col-md-12"> 
             <table class="table table-bordered table-striped table-hover table-responsive" id="lossSummaryList" >
               <thead>
+				<tr class="orange">
+					<th rowspan="2">Station Name</th>
+				     <th rowspan="2">Total planned Time(mins)</th>
+				     <th colspan="2">Machine Breakdown</th>
+					  <th  colspan="2">Setup change </th>
+					  <th  colspan="2">No material</th>
+		              <th  colspan="2">No labour</th>
+		              <th  colspan="2">Waiting for inspection</th>
+					  <th  colspan="2">Tooling not available</th>
+					  <th  colspan="2">Drawing not available</th>
+					  <th  colspan="2">Gauges not available</th>
+		 			 <th  colspan="2">Other management losses</th>
+				 </tr>
                 <tr class="orange">
-                  <th>Total planned Time(mins)</th>
-                  <th>Machine breakdown</th>
-				  <th>Setup change </th>
-				  <th>No material</th>
-                  <th>No labour</th>
-                  <th>Waiting for inspection</th>
-				  <th>Tooling not available</th>
-				  <th>Drawing not available</th>
-				  <th>Gauges not available</th>
-  				  <th>Other management losses</th>
-				  
-			<!--	  total planned Time in mins ( Total of all shifts for the machine from plan , summation for the whole period) 
-				  Machine breakdown, (summation of production entries for the period)
-				  Setup change
-				  No material
-				  No labour
-				  Waiting for inspection
-				  Tooling not available
-				  Drawing not available 
-				  Gauges not available 
-				  Any other management losses-->
-				  
-				  
+                  <th>Value</th>
+				  <th>%</th>
+				  <th>Value</th>
+	  			  <th>%</th>
+				  <th>Value</th>
+	  			  <th>%</th>
+				  <th>Value</th>
+	  			  <th>%</th>
+				  <th>Value</th>
+	  			  <th>%</th>
+				  <th>Value</th>
+	  			  <th>%</th>
+				  <th>Value</th>
+	  			  <th>%</th>
+				  <th>Value</th>
+	  			  <th>%</th>
+				  <th>Value</th>
+				  <th>%</th>
                 </tr>
               </thead>
               <tbody id="losssummaryTbody">

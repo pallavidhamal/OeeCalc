@@ -55,173 +55,20 @@
 						
 				});
 				
-				//getOpertors();
-				
-			//	getPOList();
-				
-				
-
-
 				$(document).on("change", "#prodDatefrm", function(e){
-						getFilterPlanOverviewList();
+						getLossSummaryList();
 				});
 
 				$(document).on("change", "#prodDateto", function(e){
-								getFilterPlanOverviewList();
+								getLossSummaryList();
 				});
 
-			/*	$(document).on("change", "#addShift", function(e){
-					getFilterPlanOverviewList();
-				});*/
-				
-				
-			/*	$(document).on("change", "#addSelMachine", function(e){
-					getFilterPlanOverviewList();
-				});*/
-
-			/*	$(document).on("change", "#addOperator", function(e){
-					getFilterPlanOverviewList();
-				});*/
-				
+		
 				
 					
 			});
 			
-		/*	$(document).on("click", "#addProduction", function(e){
-			
-			window.location.href = "addProduction";	
-
-			});
-			
-			
-			$(document).on("click", ".edit-button", function(e){
-				
-				
-				editId = $(this).attr('id');
-				console.log("editId----",editId);
-				window.location.href = "editProduction?prodid="+editId;
-
-			});
-			
-	
-			//click on add button
-			$(document).on("click", "#purchaseAddAction", function(e){
-				
-				console.log(" click on purchase Add Action");
-				
-				
-				
-				getCustomersList("#customerListadd","0");
-				
-				getRegionList("#regList"+count,"");
-				
-				callAddRemoveClassFunction($("#ponumber"));
-				callAddRemoveClassFunction($("#customerListadd"));
-				callAddRemoveClassFunction($("#poDate"));
-				callAddRemoveClassFunction($("#poEndDate"));
-
-				 $('#myTbody').empty();
-				 $('#poErrAdd').empty();
-				 
-				
 		
-			});*/
-			
-		
-			
-		
-			
-			
-			//get purchase order list
-			/*function getPOList(){  
-
-				$.ajax({
-						    type: 'GET',
-						    url: server_url + "plan/allproduction",
-						    enctype: 'application/json',
-						    headers: authHeader,
-						    processData: false,
-						    contentType: false,
-						    data: null,
-						    success: function (response) {		
-
-
-							console.log("------response data----------",response);
-
-
-							var data = response.payload;
-					
-							console.log("------getPOList data----------",data);
-					//		console.log("------getPOList data.result----------",data.result);
-					//		
-						
-							tableData.destroy();
-					        $('#prodList.tbody').empty();
-
-							console.log("------111----------");
-
-							
-							
-					        //if(data.result == "success"){
-								
-					        var editIcon = function ( data, type, row ) 
-					        {
-							    if ( type === 'display' ) {
-							           
-							   	 	return '<span class="button" data-toggle="modal" data-target="#edit_po"> Edit </span>';
-							    }
-						       
-						    	return data;
-						    };
-							console.log("------222----------");
-
-					    
-					    	tableData = $('#prodList').DataTable( {
-						
-					    			dom: 'Blfrtip',   
-					    			buttons: ['excel', 'print'],
-								 	 destroy: true,
-				    				 data: data,
-									 
-									 "columnDefs": [{
-									         "targets": "_all",
-									         "defaultContent": ""
-									     }],
-
-									  columns: [
-									{ "data": "proddate" },
-								    { "data": "unitname" },
-								    { "data": "workcentername" },
-								    { "data": "shiftname" },
-									{ "data": "operatorname" },
-								    { "data": "stationname" },
-									
-								    { "data": "availabilityper" },
-								    { "data": "productivityper" },
-									{ "data": "rejectionper" },
-									{ "data": "oeeper" },
-									
-									 { "data":  null,
-							           render: function (data, type, row) {
-							               var id = data.id;
-							               var action = `<a  class="edit-button" id=${id}>View</a>`;
-							               return action;
-							           },
-						             },
-									
-						            ],
-						            "order": [[0, 'desc']],
-					    			} );
-									
-									
-									console.log("------333----------");
-									
-							}
-					})
-			}*/
-	//get purchase order list
-
-			
 			
 		
 	function getUnitList(divId){
@@ -300,7 +147,7 @@
 					console.log("-------------------Welcome to product getFilterProductionList---------",dataVal);
 					$.ajax({
 					    type: 'POST',
-					    url: server_url + "production/getPlanVsActual",
+					    url: server_url + "production/getLossSummary",
 					    enctype: 'application/json',
 					    headers: authHeader,
 					    processData: false,
@@ -312,15 +159,15 @@
 						console.log("------response data----------",response);
 
 						var data = response.payload;
-						console.log("------getPOList data----------",data);
+						console.log("------losssummary data----------",data);
 				//		console.log("------getPOList data.result----------",data.result);
 					
 						
 						tableData.destroy();
-			       		 $('#prodList.tbody').empty();
+			       		 $('#lossSummaryList.tbody').empty();
 
 			    
-			    	tableData = $('#planvsactualList').DataTable( {
+			    		tableData = $('#lossSummaryList').DataTable( {
 				
 			    			dom: 'Blfrtip',   
 			    			buttons: ['excel', 'print'],
@@ -333,97 +180,101 @@
 							     }],
 
 							  columns: [
-							{ "data": "proddate" },
-						    { "data": "shiftname" },
-						    { "data": "stationname" },
-		    			    { "data": "prodPlanningDto",
-							    "render": function ( data, type, row, meta ) {
-					              if(data==null) return "";
-					              for(var i=0, num=data.length; i<num; i++) {
-					                var house = data[i];
-					                
-					                
-					                  return house.item;
-					              }
-					               return "";
-				               }
-						    },
-		    			    { "data": "prodPlanningDto",
-							    "render": function ( data, type, row, meta ) {
-					              if(data==null) return "";
-					              for(var i=0, num=data.length; i<num; i++) {
-					                var house = data[i];
-					                
-					                
-					                  return house.setup;
-					              }
-					               return "";
-				               }
-						    },
-						    
-						    { "data": "prodPlanningDto",
-							    "render": function ( data, type, row, meta ) {
-					              if(data==null) return "";
-					              for(var i=0, num=data.length; i<num; i++) {
-					                var house = data[i];
-					                
-					                  return house.qty_planned;
-					              }
-					               return "";
-				               }
-						    },
-		    			    { "data": "prodPlanningDto",
-							    "render": function ( data, type, row, meta ) {
-					              if(data==null) return "";
-					              for(var i=0, num=data.length; i<num; i++) {
-					                var house = data[i];
-					                
-					                
-					                  return house.qty_produced;
-					              }
-					               return "";
-				               }
-						    },
-						    
-						    { "data": "achievement_per",
-						    	"render": function ( data, type, row, meta ) {
-					                
-					                  return "<b>"+data+" % <b>";
-			                   }	
-						    },
-		    			    { "data": "prodPlanningDto",
-							    "render": function ( data, type, row, meta ) {
-					              if(data==null) return "";
-					              for(var i=0, num=data.length; i<num; i++) {
-					                var house = data[i];
-					                
-					                  return house.qty_rejected;
-					              }
-					               return "";
-				               }
-						    },
-							{ "data": "rejectionper", 
-								"render": function ( data, type, row, meta ) {
-					                
-					                  return "<b>"+data+" % <b>";
-			                   }
-							},
-						/*	 { "data":  null,
-					           render: function (data, type, row) {
-					               var id = data.id;
-					               var action = `<a  class="edit-button" id=${id}>View</a>`;
-					               return action;
-					           },
-				             },*/
+							{ "data": "stationname" },
+							{ "data": "tot_planned_mins" },
+						    { "data": "availability_machinebreakdown" },
+							
+							{ "data":  null,
+					           		render: function (data, type, row) {
+					               	   var setupPer = (data.availability_machinebreakdown / data.tot_planned_mins)*100 ;
+						            	return setupPer.toFixed(2);
+					           		},
+					         },
+						    { "data": "availability_setupchange" },
+							{ "data":  null,
+					           		render: function (data, type, row) {
+					               	   var setupPer = (data.availability_setupchange / data.tot_planned_mins)*100 ;
+						            	return setupPer.toFixed(2);
+					           		},
+					         },
+							
+							
+							{ "data": "availability_nomaterial" },
+							
+							{ "data":  null,
+					           		render: function (data, type, row) {
+					               	   var setupPer = (data.availability_nomaterial / data.tot_planned_mins)*100 ;
+						            	return setupPer.toFixed(2);
+					           		},
+					         },
+							
+							
+						    { "data": "availability_nolabour" },
+							
+							{ "data":  null,
+					           		render: function (data, type, row) {
+					               	   var setupPer = (data.availability_nomaterial / data.tot_planned_mins)*100 ;
+						            	return setupPer.toFixed(2);
+					           		},
+					         },
+							
+						    { "data": "availability_inpectiontime" },
+							
+							{ "data":  null,
+					           		render: function (data, type, row) {
+					               	   var setupPer = (data.availability_inpectiontime / data.tot_planned_mins)*100 ;
+						            	return setupPer.toFixed(2);
+					           		},
+					         },
+																				
+							{ "data": "availability_tooling" },
+							{ "data":  null,
+					           		render: function (data, type, row) {
+					               	   var setupPer = (data.availability_tooling / data.tot_planned_mins)*100 ;
+						            	return setupPer.toFixed(2);
+					           		},
+					         },
+							
+							
+						    { "data": "availability_drawing" },
+							
+							{ "data":  null,
+					           		render: function (data, type, row) {
+					               	   var setupPer = (data.availability_drawing / data.tot_planned_mins)*100 ;
+						            	return setupPer.toFixed(2);
+					           		},
+					         },
+							
+						    { "data": "availability_guages" },
+							
+							{ "data":  null,
+					           		render: function (data, type, row) {
+					               	   var setupPer = (data.availability_guages / data.tot_planned_mins)*100 ;
+						            	return setupPer.toFixed(2);
+					           		},
+					         },
+							
+							{ "data": "availability_otherlosses" },
+							
+							{ "data":  null,
+					           		render: function (data, type, row) {
+					               	   var setupPer = (data.availability_otherlosses / data.tot_planned_mins)*100 ;
+						            	return setupPer.toFixed(2);
+					           		},
+					         },
+							
+							
+							
 							
 				            ],
+							
 				            initComplete: function (settings, json) {
 						      var table = settings.oInstance.api();
 						      var api = this.api();
 						      
-						      table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+						    /*  table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
 						        drawSpecialRow(this, table);
-						      } );
+						      } );*/
 						    },
 				            "order": [[0, 'desc']],
 			    			} );

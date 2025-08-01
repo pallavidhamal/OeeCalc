@@ -518,7 +518,7 @@ function	getAllMachines()
 								+' <td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +' </td>'
 								+' <td class="table_input"><input type="text" class="form-control width80 line txtsetuptime" rocnt = "'+index1+'" id="setuptimeId'+index1+'" value="'+value1.setuptime+'"   disabled> </td>'
 								+' <td class="table_input"><input type="text" class="form-control width80 line txtcycletime" rocnt = "'+index1+'" id="cycletimeId'+index1+'" value="'+value1.cycletime+'"   disabled> </td>'
-								+' <td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+								+' <td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled><input type="hidden" class="form-control width80 line txtPlannedMins " rocnt = "'+index1+'" id="plannedMins'+index1+'" value="'+value1.plannedmins+'"   disabled></td>'
 								+' <td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal minZero" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
 								+' <td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal minZero"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
 	
@@ -599,8 +599,10 @@ function	getAllMachines()
 		var myarray=[];
 		var i =  0 ;
 		
-						
+		var totPlannedMins=0;		
+		var plmins=0;	
 		$("#planProdTbody").find('tr').each(function (){
+			
 			
 			
 			console.log($("#planProdTbody").find('tr').eq(i).find('td').eq(0).text());
@@ -617,15 +619,23 @@ function	getAllMachines()
 					 setuptime	 		 : $("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val(),
 					 cycletime	 		 : $("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val(),
 					 plannedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val(),
+					 plannedmins	     : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(1).val(),
 					 producedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(6).find("input").eq(0).val(),
 					 rejectedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(7).find("input").eq(0).val(),
 
 				};
-		 	  i++;
+		 	 
 		 	  
+			  plmins=  parseFloat(($("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(1).val()));
+			  console.log("====plmins======",plmins);
+			  
+			  totPlannedMins = parseFloat((  parseFloat(totPlannedMins)) +  parseFloat(plmins) );
 			 myarray.push(lineData);
 			 
+			 console.log("====totPlannedMins======",totPlannedMins);
 			 console.log("====myarray======",myarray);
+			 
+			 i++;
 		});	
 		 
 		 if(NotAllowedNullVal($('#prodDate'),"Date ","#error_block"))				
@@ -692,6 +702,8 @@ function	getAllMachines()
 									 rejection_per : $('#rejectionPer').val(),
 									 
 									 oee_per :  $('#oeePer').val(),
+									 tot_planned_mins :totPlannedMins,
+									 
 									 productionPlanningIncomingDto	: myarray
 									 
 
