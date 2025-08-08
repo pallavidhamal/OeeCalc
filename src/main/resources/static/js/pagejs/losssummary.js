@@ -1,103 +1,92 @@
+var delProdID = "";
+var editProdID = "";
+var tableData = $('#lossSummaryList').DataTable();
+var editId;
+var unitid;
+
+$(document).ready(function(){
+				
+	getUnitList("add");	
+	console.log("========dataTableData=======",dataTableData);
+	
+	
+	const today = new Date();
+	const year = today.getFullYear();
+	let month = today.getMonth() + 1;
+	let day = today.getDate();
+	
+	month = month < 10 ? '0' + month : month;
+	day = day < 10 ? '0' + day : day;
+	
+	const formattedToday = `${year}-${month}-${day}`;
+	
+	const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+	let day1=1;
+	
+	const firstDayOfMonth1 = `${year}-${month}-01`;
+	
+	console.log("firstDayOfMonth1-",firstDayOfMonth1);
+	console.log("formattedToday-",formattedToday);
+	
+	
+	$('#prodDatefrm').val(firstDayOfMonth1);		 
+	$('#prodDateto').val(formattedToday);
+				
+	$('#addUnit').on('change', function (e) {
+	    var optionSelected = $("option:selected", this);
+	    unitid = this.value;
+		getWorkCentreList("add");
+		//getUnitShifts();	
+		getLossSummaryList();
+	});
+
+	$('#addWorkCenter').on('change', function (e) {
+		 var optionSelected = $("option:selected", this);
+		 var wsid = this.value;
+	//	 getMachinesByWc(wsid);
+		 getLossSummaryList();
 			
-			var delProdID = "";
-			var editProdID = "";
-			var tableData = $('#lossSummaryList').DataTable();
-			var editId;
-			var unitid;
-		
-			$(document).ready(function(){
-				
-				getUnitList("add");	
-				console.log("========dataTableData=======",dataTableData);
-				
-				
-				const today = new Date();
-				const year = today.getFullYear();
-				let month = today.getMonth() + 1;
-				let day = today.getDate();
+	});
+	
+	$(document).on("change", "#prodDatefrm", function(e){
+			getLossSummaryList();
+	});
 
-				month = month < 10 ? '0' + month : month;
-				day = day < 10 ? '0' + day : day;
-
-				const formattedToday = `${year}-${month}-${day}`;
-				
-				const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-				let day1=1;
-				
-				const firstDayOfMonth1 = `${year}-${month}-01`;
-				
-				console.log("firstDayOfMonth1-",firstDayOfMonth1);
-				console.log("formattedToday-",formattedToday);
-
-				
-				 $('#prodDatefrm').val(firstDayOfMonth1);		 
-				$('#prodDateto').val(formattedToday);
-				
-
-				
-				
-				$('#addUnit').on('change', function (e) {
-				    var optionSelected = $("option:selected", this);
-				     unitid = this.value;
-					getWorkCentreList("add");
-					//getUnitShifts();	
+	$(document).on("change", "#prodDateto", function(e){
 					getLossSummaryList();
-					
-					
-				});
-			
-				$('#addWorkCenter').on('change', function (e) {
-					   
-					 var optionSelected = $("option:selected", this);
-					 var wsid = this.value;
-				//	 getMachinesByWc(wsid);
-					 getLossSummaryList();
-						
-				});
-				
-				$(document).on("change", "#prodDatefrm", function(e){
-						getLossSummaryList();
-				});
-
-				$(document).on("change", "#prodDateto", function(e){
-								getLossSummaryList();
-				});
-
-		
-				
-					
-			});
+	});
+});
 			
 		
 			
 		
-	function getUnitList(divId){
+function getUnitList(divId){
+		
+	$.ajax({
+	    type: 'GET',
+	    url: server_url + "unit/getActive",
+	    enctype: 'application/json',
+	    headers: authHeader,
+	    processData: false,
+	    contentType: false,
+	    data: null,
+	    success: function (response) {
+	
+			console.log("==========response=====",response)
+		
+			$("#"+divId+"Unit").empty();			
+			$("#"+divId+"Unit").append('<option value=' + 0+ '>  - Select Unit - </option>');
+							
+			$.each(response.payload, function( index, value ){
+							
+			$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
 			
-		$.ajax({
-		    type: 'GET',
-		    url: server_url + "unit/getActive",
-		    enctype: 'application/json',
-		    headers: authHeader,
-		    processData: false,
-		    contentType: false,
-		    data: null,
-		    success: function (response) {
-		
-				console.log("==========response=====",response)
-				
-						$("#"+divId+"Unit").empty();			
-						$("#"+divId+"Unit").append('<option value=' + 0+ '>  - Select Unit - </option>');
-										
-						$.each(response.payload, function( index, value ){
-										
-						$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
-						
-					    });
-					
-				}	
-			});
-		
-	}
+		    });
+			
+		}	
+	});
+	
+}
 	
 	
 	function getWorkCentreList(divId){

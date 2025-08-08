@@ -503,7 +503,9 @@ function format(mansions, flats, ignoreFirst) {
   for(var i=init; i<max; i++) {
     var mansion;
     if(i < mansions.length) {
-      mansion = mansions[i];
+		
+			mansion = mansions[i];	
+     console.log("=========mansions[i]========",mansions[i].stationname);
     } else{
       mansion = null;
     }
@@ -513,7 +515,9 @@ function format(mansions, flats, ignoreFirst) {
     } else{
       flat = null;
     }
-    res += formatSingle(mansion, flat);
+    if(mansions[i].stationname == "station1"){
+    	res += formatSingle(mansion, flat);
+    }
   }
   return $(res).toArray();
 }
@@ -529,7 +533,6 @@ function formatSingle ( mansion, flat ) {
     plannedquantityNumber = mansion.plannedquantity;
     stationnameStr = mansion.stationname
   }
-  
   return '<tr>'+
             '<td></td>'+
             '<td></td>'+
