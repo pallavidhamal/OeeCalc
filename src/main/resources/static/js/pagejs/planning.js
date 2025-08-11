@@ -203,7 +203,7 @@ function getPlanningList(){
 		               var id = data.id;
 		               var action = //`<a  class="edit-button" id=${id}>Edit</a>
 					   `<a  class="edit-button" id=${id}>View </a>
-		                                   <a  class="delete-button" id=${id}>${data.isdeleted}</a> `;
+		                                   <a  class="delete-button" plandate=${data.fromdate} id=${id}>${data.isdeleted}</a> `;
 		               return action;
 		           },
 	             },
@@ -278,9 +278,33 @@ function getWorkCentreList(divId){
 $(document).on("click", ".edit-button", function(e){
 	
 	
+	/*var today = new Date();
+	var plandt = $(this).attr('plandate');
+	var compareDate = new Date(plandt);
+	
+	console.log("plandt"+plandt);
+	
+	console.log("compareDate"+compareDate);
+
+	
+	today.setHours(0, 0, 0, 0);
+	compareDate.setHours(0, 0, 0, 0);	
+	
+	
+	if (compareDate > today) {
+	       console.log("The string date is in the future.");
+	   } else if (compareDate < today) {
+	       console.log("The string date is in the past.");
+	   } else {
+	       console.log("The string date is today.");
+	   }
+	*/
+	
 	editId = $(this).attr('id');
 	console.log("editId----",editId);
 	window.location.href = "editPlanning?planid="+editId;	
+	
+	
 });
 			
 $(document).on("click", ".delete-button", function(e){
