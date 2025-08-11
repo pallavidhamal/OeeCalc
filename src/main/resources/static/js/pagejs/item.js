@@ -38,7 +38,16 @@
 							    tableData = $('#itemList').DataTable( {
 								
 							    			dom: 'Blfrtip',   
-							    			buttons: ['excel', 'print'],
+											buttons: [
+												{extend : 'excel',
+											exportOptions: {
+											                columns: [0,1]
+											            }	
+													
+													
+												} ,
+												
+												 {extend : 'print'}],
 										 	 destroy: true,
 						    				 data: data,
 						

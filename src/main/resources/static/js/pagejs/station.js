@@ -95,81 +95,6 @@ $(document).on("click", ".edit-button", function(e){
 		})
 });
 
-/*
-$(document).on("click", "#editStationData", function(e){
-
-
- 	//	getStationTypeList("edit");
-	// 	getUOMList("edit");
-	// 	getWorkCentreList("edit");
-
- 	 if(SelectBoxNotAllowedNullVal($('#editStationType'),"Station Type","#error_block"))
-		 if(NotAllowedNullVal($('#editStationNumber'),"Station Number ","#error_block"))
-			 if(SelectBoxNotAllowedNullVal($('#editUom'),"UOM ","#error_block"))
-			 	if(SelectBoxNotAllowedNullVal($('#editWorkCentre')," Work Centre","#error_block")) {
-		 
-		 var dataVal = {
-		 
-				 name				: $('#editStationType').val(),
-				 stationtypeid 		: $('#editStationNumber').val(),
-				 uomid				: $('#editUom').val(),
-				 workcenterid		: $('#editWorkCentre').val(),
-
-			};
-				 
-			 
-				 
-		 	console.log("====data==dataVal===",dataVal);
-				 
-				 
-				 $.ajax({
-						
-					   type: 'POST',
-					   url: server_url+"station/add",  //from API add new data
-					   data : JSON.stringify(dataVal),
-			//		   processData: false,
-					   headers: authHeader,
-					   contentType: "application/json; charset=utf-8",
-   
-					   success: function(result) {
-   	
-						console.log("insert--Information result==="+result);
-						
-						if(result.status=="CREATED"){
-							
-							getStationList();
-							
-							$("#edit_station").modal("hide");
-						// $('#myTbody').empty();
-							
-						}
-					},
-					error: function (error) {
-			             console.log(error);
-				   		 if (error.status == 401) {
-					    	  window.location.href =  contextPath;
-					      } else {
-					    	if( error.responseJSON != undefined){
-								errmssge=error.responseJSON.status;	
-							
-								if (error.responseJSON.status=="500"){
-									console.log("in errr");
-									 errorBlock("#error_block", error.responseJSON.message);
-								}else{
-								 	 errorBlock("#error_block", error.responseJSON.errors.message);
-								}
-							}
-							else{
-					   	  		console.log("Server Error! Please contact administrator");
-					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-					     	}
-				     	}
-			        },
-			});
-		}
-});
-*/
-	
 			
 //get purchase order list
 function getStationList(){  
@@ -214,7 +139,18 @@ function getStationList(){
 	    	tableData = $('#stationList').DataTable( {
 		
 	    			dom: 'Blfrtip',   
-	    			buttons: ['excel', 'print'],
+					buttons: [
+						{extend : 'excel',
+					exportOptions: {
+					                columns: [0,1,2,3]
+					            }	
+							
+							
+						} ,
+						
+						 {extend : 'print'}],
+					
+					
 				 	 destroy: true,
     				 data: data,
 
