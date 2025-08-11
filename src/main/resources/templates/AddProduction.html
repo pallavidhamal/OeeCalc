@@ -7,45 +7,6 @@
 <div th:replace="~{fragments/headerJS}"></div>  
 <script type="text/javascript" th:src="@{/js/pagejs/AddProduction.js}"></script>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.1/js/dataTables.min.js"></script> -->
-<!-- <script type="text/javascript" th:src="@{js/jquery/jquery.min.js"></script>
-<script type="text/javascript" th:src="@{js/jquery/jquery.dataTables.min.js"></script>
-<script type="text/javascript" th:src="@{js/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" th:src="@{js/adminjs/adminLogInJS.js"></script>
-
-
-<script type="text/javascript" th:src="@{/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" th:src="@{/js/buttons.flash.min.js"></script>
-<script type="text/javascript" th:src="@{/js/adminJs/pdfmake.min.js"></script>
-<script type="text/javascript" th:src="@{/js/adminJs/jszip.min.js"></script>
-<script type="text/javascript" th:src="@{/js/adminJs/vfs_fonts.js"></script>
-<script type="text/javascript" th:src="@{/js/adminJs/buttons.html5.min.js"></script>
-<script type="text/javascript" th:src="@{/js/buttons.print.min.js"></script>
-<script type="text/javascript" th:src="@{/js/jquery.rowspanizer.js"></script>
-
-<script type="text/javascript" th:src="@{/js/pagejs/common_Rep.js"></script>
-
-<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script type="text/javascript" th:src="@{/js/adminJs/validatePage.js"></script>
-<script type="text/javascript" th:src="@{/js/pagejs/PurchaseOrder.js"></script>
-
-
-
-<link th:href="@{/css/style.css}" rel="stylesheet"/>
-<link th:href="@{/css/animate.css}" rel="stylesheet"/>
-<link th:href="@{/css/animate.min.css}" rel="stylesheet"/>
-<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
-<link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet"/>
-<link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet"/>
-<link th:href="@{/css/responsive.bootstrap.min.css}" rel="stylesheet"/>
-<link th:href="@{/css/BootStrap/bootstrap.min.css}" rel="stylesheet"/>
-<link th:href="@{/css/adminCss/animate.css}" rel="stylesheet"/>
-<link th:href="@{/css/style.css}" rel="stylesheet"/>
- -->
-
 <style>
 #inserttbl{
 overflow: auto;
@@ -180,22 +141,7 @@ label {
           <!--box-header-->
           <div class="box-header">
             <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> -->Add Production Details </h3>
-            <div class="box-tools pull-right">
-            
-           <!--  <a href="../ProApp/SampleExcel/sampleNew.xlsx"target="_blank" download>  -->
-          <a data-auto-download href="/ProApp/SampleExcel/POSampleFile.xlsx" > 
-             <!-- <a href="../ProApp/SampleExcel/sampleNew.xlsx" download>  -->  
-<!--              <button class="btn theme_btn" type="button"> Sample Excel</button> 
--->              </a>
-                                  
-<!--data-toggle="modal" data-target="#add_po"
--->            
-<!--			  <button class="btn theme_btn" id="purchaseAddAction">Add Purchase Order </button>
--->              <!--  <button class="btn theme_btn" type="submit">Export to Excel </button> -->
-<!--               <button class="btn theme_btn"  id="impbtn" data-toggle="modal" data-target="#import_excel">Import from Excel </button>
--->               <input type="text"  style="display:none;" class="form-control" id="hidendelId" >
-               
-              </div>
+         
               <div class="clearfix"></div>
           </div>
           <!--box-header--> 
@@ -487,143 +433,7 @@ label {
 					</div>
 			  </div>
 		  </div>
-	<!--	<div class="box-body">					
-			<div class="col-md-12">
-  		    	<div class="white-layer mb-8">													
-								<h4><strong>Availability</strong></h4>
-								<hr style="border-top: 4px solid #ff7726;">
-								<div class="row">
-								<div class="col-md-2">
-		  							<label class="form-label">Lunch Time</label>
-		  							<input type="text" id="customer" class=" form-control">
-		  						</div>
-								<div class="col-md-2">
-		  							<label class="form-label">Tea Time</label>
-		  							<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-		  						<div class="col-md-2">
-		  							<label class="form-label">5S and review time</label>
-									<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-								<div class="col-md-2">
-		  							<label class="form-label">Inpection time</label>
-		  							<input type="text" id="customer" class="form-input form-control">
-		  						</div>
-								
-								
-								<div class="col-md-2">
-		  							<label class="form-label">Machine breakdown</label>
-		  							<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-		  						<div class="col-md-2">
-		  							<label class="form-label">Setup change</label>
-									<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-								<div class="col-md-2">
-		  							<label class="form-label">No material</label>
-		  							<input type="text" id="customer" class=" form-control">
-		  						</div>
-								<div class="col-md-2">
-		  							<label class="form-label">No labour</label>
-		  							<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-		  						<div class="col-md-2">
-		  							<label class="form-label">Waiting for inspection</label>
-									<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-								<div class="col-md-2">
-		  							<label class="form-label">Tooling not available</label>
-		  							<input type="text" id="customer" class="form-input form-control">
-		  						</div>
-								
-								
-								<div class="col-md-2">
-		  							<label class="form-label">Drawing not availble</label>
-		  							<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-		  						<div class="col-md-2">
-		  							<label class="form-label">Guages not availble</label>
-									<input type="text" id="ponumber" class="form-input form-control">
-		  						</div>
-								<div class="col-md-2">
-		  							<label class="form-label">Any other management losses </label>
-		  							<input type="text" id="customer" class=" form-control">
-		  						</div>
-								<div class="col-md-2">
-										<label class="form-label">Calculation </label>
-									<input type="text" id="ponumber" class="form-input form-control">
-									</div>
-								<div class="col-md-2">
-										<label class="form-label">Available time </label>
-									<input type="text" id="ponumber" class="form-input form-control">
-									</div>
-								<div class="col-md-2">
-									<label class="form-label">% age achievement </label>
-									<input type="text" id="ponumber" class="form-input form-control">
-								</div>								
-							</div>
-						</div>
-					</div>
-				</div>
-				<br>				
-				<div class="box-body">					
-					<div class="col-md-12">
-		  		    	<div class="white-layer mb-8">
-							<p><h4><strong>Productivity</strong></h4>  </p>
-							<hr style="border-top: 4px solid #084def;">
-							  
-							  <div class="row">
-	  								<div class="col-md-2">
-	  		  							<label class="form-label">Searching Time</label>
-	  		  							<input type="text" id="customer" class=" form-control">
-	  		  						</div>
-	  								<div class="col-md-2">
-	  		  							<label class="form-label">Personnal Time</label>
-	  		  							<input type="text" id="ponumber" class="form-input form-control">
-	  		  						</div>
-	  		  						<div class="col-md-2">
-	  		  							<label class="form-label">Rework Time</label>
-										<input type="text" id="ponumber" class="form-input form-control">
-	  		  						</div>
-									<div class="col-md-2">
-	  		  							<label class="form-label">Total Production quantity </label>
-										<input type="text" id="ponumber" class="form-input form-control">
-	  		  						</div>
-									<div class="col-md-2">
-	  		  							<label class="form-label">standard qty </label>
-										<input type="text" id="ponumber" class="form-input form-control">
-	  		  						</div>
-									<div class="col-md-2">
-										<label class="form-label">%age achievement </label>
-										<input type="text" id="ponumber" class="form-input form-control">
-									</div>
-							  </div>
-						  </div>
-			  			</div>
-			  		</div>
-			  		<br>				
-			  		<div class="box-body">					
-			  			<div class="col-md-12">
-			    		    	<div class="white-layer mb-8">
-							  <h4><strong>Rejection</strong></h4> 
-							  <hr style="border-top: 4px solid rgb(255, 0, 0);">
-							  
-							  <div class="row">
-	  								<div class="col-md-2">
-	  		  							<label class="form-label">Rejection quantity</label>
-	  		  							<input type="text" id="customer" class=" form-control">
-	  		  						</div>
-	  								<div class="col-md-2">
-	  		  							<label class="form-label">Ok quantity</label>
-	  		  							<input type="text" id="ponumber" class="form-input form-control">
-	  		  						</div>
-									<div class="col-md-2">
-	  		  							<label class="form-label">% age achievement</label>
-	  		  							<input type="text" id="ageachievement" class="form-input form-control">
-	  		  						</div>	  		  						
-							  </div>
-							  
-							  -->	  
+	
 							  
 							  <br>				
 							  			  		<div class="box-body">					
@@ -653,65 +463,7 @@ label {
 
 
 
-<div id="import_excel" class="modal fade in" role="dialog">
-  <div class="modal-dialog"> 
-    <!-- Modal content-->
-    <div class="modal-content">
-     <!--  <div class="modal-header cust-hd">
-        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-        <h4 class="modal-title">Import from Excel</h4>
-      </div> -->
-      
-      
-      <div class="modal-body bodypadd0">
-        <!--  <form action="UploadFile" method="post" enctype="multipart/form-data" onsubmit="return Validate(this);" >  -->
-      <!--    <form method="POST" enctype="multipart/form-data" id="fileUploadForm" > -->
-         
 
-            <div class="col-sm-12">
-            	
-            	<h3>Import your data from excel file</h3>
-            	
-            	<div style="display: none;"></div>
-            	
-	            <label class="control-label cust_label2">Upload Excel File: <span class="fa fa-asterisk"></span></label>
-	            
-	            <div class="my_form upload_form">
-	             
-	              <!-- <input type="file" id="myFileread"   name="file" class="upload_excel_btn"  onchange="ValidateSingleInput(this);"/> -->
-	            
-	            <input type="file" name="file"  class="GroupFileClassMEx"  id="fileGroupIdMEx"  onchange="ValidateSingleInput(this);"/>
-	          	  
-	          	<!-- <button class="btn btn-block cust-btn"   type="submit" id="#" value="upload"/>Submit</button> -->
-	             <!--  <input type="submit" id="uploadpo" value="upload"/> -->
-	              <!-- 
-	              <div class="col-md-4 col-md-offset-4 pull-left">
-        		  <button class="btn btn-block cust-btn"  type="submit" value="upload">Submit</button>
-     			   </div> -->
-	              
-	              <p id="demo"></p>
-	            </div>
-            </div>
-      <!--   </form>   -->
-        
-        <!--  
-          <form action="UploadFile" method="post" enctype="multipart/form-data" onsubmit="return Validate(this);" >
-                <input type="file" name="file"   onchange="ValidateSingleInput(this);"/>
-                <input type="submit" id="uploadpo" value="upload"/>
-            </form>
-       --> 
- 
-    </div>
-   
-    <div class="modal-footer">
-       <!--  <div class="col-md-4 col-md-offset-4 pull-left">
-          <button class="btn btn-block cust-btn"  type="submit" value="upload">Submit</button>
-        </div> -->
-    </div>
-    </div>
-  </div>
-  
-</div>
 
 
  <script>
@@ -757,20 +509,6 @@ label {
 
 
 
-
-<script>
-	/* var $link = $(".table_add_link");
-	$(".table_add_link").on('click', function() {
-	    var $tr    = $(this).closest('.tr_clone');
-	    var $clone = $tr.clone();
-	    $clone.find(':text').val('');
-	    $tr.after($clone);
-	});
-	if(i.length > 1){
-		$link.display(none);
-	} */
-
-</script>
  
    </div>
        <div th:replace="~{fragments/admin_footer}"></div>
