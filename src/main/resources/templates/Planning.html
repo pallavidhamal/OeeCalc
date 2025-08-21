@@ -292,5 +292,88 @@ function closeNav() {
 </script>
 <!-- ToolTip -->
        
+
+<!-- Large modal -->
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+	<div class="modal-content">
+	      <div class="modal-header">
+	        <h2 style="text-align: center;" class="modal-title" id="exampleModalPopoversLabel"><strong> Welcome To OEESHA ! </strong> </h2>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">×</span>
+	        </button>
+			
+	      </div>
+	      <div class="modal-body">
+			<!-- Step 1 -->
+			       <div class="step-section active1" id="step1">
+			         <h4>Step 1</h4>
+					 <p>You are about to experience data collection bliss.</p>
+			         <p>Here at [company_name], we pride our selves on collecting your pertient personal information and meta details in order to <del>track</del> fascilitate you doing just about anything.</p>
+			       </div>
+			       
+			       <!-- Step 2 -->
+			       <div class="step-section" id="step2">
+			         <h4>Step 2</h4>
+			         <p>Alright! You made it to step 2... Now you have some more choices... progressing to the next screen, or skipping right to the end and missing all the things.</p>
+			       </div>
+			       
+			       <!-- Step 3 -->
+			       <div class="step-section" id="step3">
+			         <h4>Step 3</h4>
+			         <p>Offal scenester vape, art party tumblr hexagon listicle. Banh mi vinyl offal +1 chia williamsburg, vice organic letterpress vexillologist knausgaard flannel biodiesel. Street art kitsch typewriter cornhole put a bird on it pickled. Before they sold out literally copper mug craft beer tote bag dreamcatcher, stumptown portland bicycle rights gluten-free keytar slow-carb vinyl ethical man bun. Tumeric vaporware before they sold out, retro try-hard microdosing raclette roof party neutra pabst tacos. Hashtag street art occupy, kitsch drinking vinegar master cleanse af coloring book enamel pin salvia venmo messenger bag. Disrupt PBR&B pug slow-carb salvia asymmetrical activated charcoal organic live-edge.</p>
+			       </div>
+			     </div>
+			     
+			     <div class="modal-footer">
+			       <button type="button" class="btn btn-default" id="prevBtn">Previous</button>
+			       <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+			     </div>
+	      </div>
+	    </div>
+  </div>
+</div>
+
+
 </body>
 </html>
+<style>
+    .step-section { display: none; }   /* hide all steps */
+    .step-section.active1 { display: block; } /* show only active1 */
+  </style>
+<script>
+	$(document).ready(function(){
+	  var currentStep = 1;
+	  var totalSteps = $(".step-section").length;
+	  
+	  function showStep(step) {
+	    $(".step-section").removeClass("active1");
+	    $("#step" + step).addClass("active1");
+	    
+	    // Toggle buttons
+	    $("#prevBtn").toggle(step > 1);
+	    $("#nextBtn").text(step === totalSteps ? "Finish" : "Next");
+	  }
+	  
+	  $("#nextBtn").click(function(){
+	    if (currentStep < totalSteps) {
+	      currentStep++;
+	      showStep(currentStep);
+	    } else {
+	      $("#multiStepModal").modal("hide"); // close modal on finish
+	    }
+	  });
+	  
+	  $("#prevBtn").click(function(){
+	    if (currentStep > 1) {
+	      currentStep--;
+	      showStep(currentStep);
+	    }
+	  });
+	  
+	  // Initialize first step
+	  showStep(currentStep);
+	});
+	</script>
+</script>

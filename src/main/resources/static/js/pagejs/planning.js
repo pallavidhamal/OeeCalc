@@ -27,6 +27,9 @@ $(document).ready(function()
 		$("#planCalender1").attr("min", frmdate);
 		//$("#myDateField").attr("min", "2023-01-01");
 	});
+	
+	
+	$(".bd-example-modal-lg").modal('show');
 			
 					
 });
