@@ -199,7 +199,11 @@
 							 	},
 								{ "data": "stationEntity" },
 							    { "data": "shiftEntity" },
-							    { "data": "totalQuantity" },
+							    { "data": "totalQuantity",
+						    	  "render": function ( data, type, row, meta ) {
+									return data.toFixed(2)+ " %";
+								   }
+					            },
 				            ],
 				            rowCallback: function (row, data) {
 					            const colIndex = 0; // index of the column you want to group

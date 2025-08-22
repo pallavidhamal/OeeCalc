@@ -170,84 +170,88 @@ function getUnitList(divId){
 
 							  columns: [
 							{ "data": "stationname" },
-							{ "data": "tot_planned_mins" },
-						    { "data": "availability_machinebreakdown" },
+							{ "data": "totPlannedMins",
+								render: function (data, type, row) {
+					            	return data.toFixed(2);
+				           		}, 
+			           		},
+						    { "data": "availabilityMachinebreakdown" },
 							
 							{ "data":  null,
 					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availability_machinebreakdown / data.tot_planned_mins)*100 ;
+					               	   var setupPer = (data.availabilityMachinebreakdown / data.totPlannedMins)*100 ;
 						            	return setupPer.toFixed(2);
 					           		},
 					         },
-						    { "data": "availability_setupchange" },
+						    { "data": "availabilitySetupchange" },
 							{ "data":  null,
 					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availability_setupchange / data.tot_planned_mins)*100 ;
-						            	return setupPer.toFixed(2);
-					           		},
-					         },
-							
-							
-							{ "data": "availability_nomaterial" },
-							
-							{ "data":  null,
-					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availability_nomaterial / data.tot_planned_mins)*100 ;
+					               	   var setupPer = (data.availabilitySetupchange / data.totPlannedMins)*100 ;
 						            	return setupPer.toFixed(2);
 					           		},
 					         },
 							
 							
-						    { "data": "availability_nolabour" },
+							{ "data": "availabilityNomaterial" },
 							
 							{ "data":  null,
 					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availability_nomaterial / data.tot_planned_mins)*100 ;
+					               	   var setupPer = (data.availabilityNomaterial / data.totPlannedMins)*100 ;
 						            	return setupPer.toFixed(2);
 					           		},
 					         },
 							
-						    { "data": "availability_inpectiontime" },
+							
+						    { "data": "availabilityNolabour" },
 							
 							{ "data":  null,
 					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availability_inpectiontime / data.tot_planned_mins)*100 ;
+					               	   var setupPer = (data.availabilityNomaterial / data.totPlannedMins)*100 ;
+						            	return setupPer.toFixed(2);
+					           		},
+					         },
+							
+						    { "data": "availabilityInpectiontime" },
+							
+							{ "data":  null,
+					           		render: function (data, type, row) {
+					               	   var setupPer = (data.availabilityInpectiontime / data.totPlannedMins)*100 ;
 						            	return setupPer.toFixed(2);
 					           		},
 					         },
 																				
-							{ "data": "availability_tooling" },
+							{ "data": "availabilityTooling" },
 							{ "data":  null,
 					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availability_tooling / data.tot_planned_mins)*100 ;
+					               	   var setupPer = (data.availabilityTooling / data.totPlannedMins)*100 ;
 						            	return setupPer.toFixed(2);
 					           		},
 					         },
 							
 							
-						    { "data": "availability_drawing" },
+						    { "data": "availabilityDrawing" },
 							
 							{ "data":  null,
 					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availability_drawing / data.tot_planned_mins)*100 ;
+					               	   var setupPer = (data.availabilityDrawing / data.totPlannedMins)*100 ;
 						            	return setupPer.toFixed(2);
 					           		},
 					         },
 							
-						    { "data": "availability_guages" },
+						    { "data": "availabilityGuages" },
 							
 							{ "data":  null,
 					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availability_guages / data.tot_planned_mins)*100 ;
+					               	   var setupPer = (data.availabilityGuages / data.totPlannedMins)*100 ;
 						            	return setupPer.toFixed(2);
 					           		},
 					         },
 							
-							{ "data": "availability_otherlosses" },
+							{ "data": "availabilityOtherlosses" },
 							
 							{ "data":  null,
 					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availability_otherlosses / data.tot_planned_mins)*100 ;
+					               	   var setupPer = (data.availabilityOtherlosses / data.totPlannedMins)*100 ;
 						            	return setupPer.toFixed(2);
 					           		},
 					         },

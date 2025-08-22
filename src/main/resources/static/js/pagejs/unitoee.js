@@ -105,7 +105,7 @@ function getFilterPlanOverviewList(){
 					 { "data": "workcentername" },
 				     { "data": "avroeeper" ,
 					    "render": function ( data, type, row, meta ) {
-		                  	return data+" %";
+		                  	return data.toFixed(2)+" %";
 			    		},
 		    		  }
 	            ],
