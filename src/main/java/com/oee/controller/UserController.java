@@ -97,6 +97,13 @@ public class UserController {
         return "Planning";
     }
     
+    @GetMapping(value = {"/allplandetail"})
+    public String allplandetail() {
+        return "TotalPlanningReport";
+    }
+    
+    
+    
     @GetMapping(value = {"/inspection"})
     public String inspection() {
         return "Inspection";
