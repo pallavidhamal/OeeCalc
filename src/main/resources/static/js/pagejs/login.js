@@ -90,9 +90,13 @@ $(document).ready(function() {
 								
 								//check for roles PM/HPM/admin and accordingly forward pages
 								
-								if(data.payload.role=="AA")
+								if(data.payload.role=="AA" || data.payload.role=="MAU" || data.payload.role=="PLU")
 								{
 									url="planning";
+								}
+								if(data.payload.role=="PRU")
+								{
+									url="production";
 								}
 								
 								
