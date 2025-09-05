@@ -102,7 +102,10 @@ public class UserController {
         return "TotalPlanningReport";
     }
     
-    
+    @GetMapping(value = {"/allproddetail"})
+    public String allproddetail() {
+        return "TotalProductionReport";
+    }
     
     @GetMapping(value = {"/inspection"})
     public String inspection() {

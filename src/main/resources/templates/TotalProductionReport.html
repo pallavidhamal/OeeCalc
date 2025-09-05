@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Oeesha | Production Report</title>
+
+<div th:replace="~{fragments/headerJS}"></div>  
+<script type="text/javascript" th:src="@{/js/pagejs/totalprodreport.js}"></script>
+
+<style>
+#inserttbl{
+overflow: auto;
+    height: 250px !important;
+}
+#remtbl{
+overflow: auto;
+    height: 250px !important;
+}
+.orDiv {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 9;
+    background-color: rgba(5, 5, 5, 0.75);
+    background-repeat: repeat;
+}
+.loader, .loader:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+textarea.form-control {
+    height: 120px !important; 
+    resize: none;
+}
+.loader {
+    margin: 20% auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-right: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-bottom: 1.1em solid rgba(131, 171, 199, 0.75);
+    border-left: 1.1em solid #e89933;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+0% {
+-webkit-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+@keyframes load8 {
+0% {
+-webkit-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+.headtag1{
+text-align: center;
+    background: #97b1ff;
+   
+}
+.headtag{
+ margin-top: 10%;
+text-align: center;
+    background: #ef8b8b;
+}
+.modbox{
+    width: max-content;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+label {
+    padding-top: 7px;
+}
+.form-control {
+    height: 30px !IMPORTANT;
+    margin-top: 2px !IMPORTANT;
+}
+.form-group {
+    margin-top: 2px !IMPORTANT;
+}
+/* table th:nth-child(3), td:nth-child(3) {
+  display: none;
+} */
+
+.dataTables_scrollBody thead tr[role="row"]{
+    visibility: collapse !important;
+}
+
+</style>
+<script>
+	let nav = 1;
+</script>
+</head>
+
+<body>
+<div th:replace="~{fragments/admin_navbar}"></div>
+ <div class="content-wrapper" >
+<!--Content-->
+<div class="col-sm-12 orDiv" id="progressBar" style="display:none" > 
+  
+  <div class="loader">Loading...</div>
+</div>
+<br>
+<section> 
+  <!--container-fluid-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12"> 
+        <!--box-->
+       <!-- <div class="box"> -->
+          <!--box-header-->
+          <div class="box-header">
+            <h3 class="box-title pull-left"><!-- <i class="fa fa-file-text-o table-hd-icon" aria-hidden="true"></i> --> Production  </h3>
+            <div class="box-tools pull-right">
+            
+<!--              <button class="btn theme_btn" data-toggle="modal" data-target="#add_po" id="planningAddAction">ADD Planning </button>
+-->               
+              </div>
+              <div class="clearfix"></div>
+          </div>
+          <!--box-header--> 
+  		  <div class="box-body">
+	            <div class="col-md-12">
+	  		    	<div class="white-layer mb-8">
+  						<div class="row">
+							<div class="col-md-2">
+    							<label class="form-label">Select Unit</label>
+    							<select class="form-control" id="selUnit">
+  								</select>
+    						</div>
+				<!--			<div class="col-md-2">
+    							<label class="form-label">Select Workcentre</label>
+    							<select class="form-control" id="selWorkCentre">
+									<option value='0'>  - All Workcenter - </option>
+  								</select>
+    						</div>-->
+							
+							<div class="col-md-2">
+    							<label class="form-label">From Date</label>
+    							<input type="date" id="planCalender" class=" form-control">
+    						</div>
+							<div class="col-md-2">
+    							<label class="form-label">To Date</label>
+    							<input type="date" id="planCalender1" class=" form-control">
+    						</div>
+							
+	  						<!--<div class="col-md-2">
+	  							<label class="form-label">Time per shift</label>
+								<input type="text" class="form-control integer" name="txtTimePerShift" id="txtTimePerShift" placeholder="Time per shift">
+
+	  						</div>-->
+						</div>
+		    		</div>
+  				</div>
+  			</div>
+  			<br>
+		  		
+          <!--box-body-->
+          <div class="box-body">
+          <div class="col-md-12"> 
+            <table class="table table-bordered " id="planningList"  >
+              <thead>
+                <tr class="orange">
+                  
+					
+<th> availability_drawing</th>    
+	<th>  availability_guages</th>  
+		<th>    availability_inpectiontime</th>    
+	<th>  availability_inspection</th>  
+		<th>    availability_lunchtime</th> 
+			  <th>   availability_machinebreakdown</th>    
+	<th>  availability_nolabour</th>   
+		<th>   availability_nomaterial</th>  
+		 
+			<th>   availability_otherlosses</th>    
+	 <th> availability_overtime</th> 
+		 <th>    availability_per</th>  
+			<th> 	   availability_reviewtime</th>   
+	<th>  availability_setupchange</th> 
+		<th>     availability_specloss</th>   
+				  <th> availability_stdloss</th>    
+	<th>  availability_teatime</th>  
+		 <th>   availability_time</th>   
+			<th>   availability_tooling</th>
+			  <th>    availability_totaltime</th> 
+	<th>  availability_totloss</th> 
+		<th>     company</th>   
+				<th>   proddate</th> 
+					<th>     productivity_production_qty</th>   
+	<th>  productivity_per</th>  
+		<th>    productivity_personnal</th> 
+			<th>     productivity_rework</th>   
+				<th> 	  productivity_searching</th>  
+	<th>  productivity_standard_qty</th> 
+		  <th>   rejection_ok_qty</th>   
+				<th>   rejection_per</th>   
+					<th>   rejection_rejection_qty</th>  
+	<th>  oee_per</th>  
+		<th>    achievement_per</th>   
+			<th>   productivity_production_availabletime_qty</th>   
+	<th>  productivity_total_utilised_time</th> 
+		  <th>   quality_per</th> 
+				 <th>    tot_planned_mins</th>  
+				<th>   qty_planned</th>  					
+	<th>  qty_produced</th>  
+		<th>    qty_rejected</th> 
+	   <th>  cycletime</th>  
+			<th>    setuptime</th>  
+				<th>    mins_planned</th>
+	  <th>  unitname  </th> 
+		<th>  wcname </th> 
+		<th> 	 shiftname</th> 
+				  
+			<!--	  { "data": "unitname" },
+				  	{ "data": "setupname" },
+				  	{ "data": "stationname" },
+				  	{ "data": "itemname" },
+				  	{ "data": "from_date" },
+				      { "data": "to_date" },
+				  	{ "data": "time_per_shift" },
+				      { "data": "cycletime" },
+				  	{ "data": "itemtimeutilised" },
+				  	{ "data": "machinetimeutilised" },
+				  	{ "data": "plannedmins" },
+				      { "data": "plannedquantity" },
+				  	{ "data": "setuptime" },-->
+				  
+				  
+				  
+                 <!-- <th>Delete</th> -->
+                </tr>
+              </thead>
+              <tbody>
+     
+              </tbody >
+            </table>
+            </div>
+          </div>
+       <!-- </div>-->
+      </div>
+    </div>
+  </div>
+</section>
+<!--Content--> 
+
+
+
+   
+ <script>
+/*
+ var _validFileExtensions = [".xlsx"];    
+ function ValidateSingleInput(oInput) {
+     if (oInput.type == "file") {
+         var sFileName = oInput.value;
+          if (sFileName.length > 0) {
+             var blnValid = false;
+             for (var j = 0; j < _validFileExtensions.length; j++) {
+                 var sCurExtension = _validFileExtensions[j];
+                 if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                     blnValid = true;
+                     break;
+                 }
+             }
+              
+             if (!blnValid) {
+                 alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                 oInput.value = "";
+                 return false;
+             }
+         }
+     }
+     return true;
+ }*/
+ </script>
+ 
+ 
+ 
+ 
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('#planningList').DataTable( {
+       // responsive: true
+    } );
+} );
+</script>
+
+
+
+
+
+
+
+<script>
+	/* var $link = $(".table_add_link");
+	$(".table_add_link").on('click', function() {
+	    var $tr    = $(this).closest('.tr_clone');
+	    var $clone = $tr.clone();
+	    $clone.find(':text').val('');
+	    $tr.after($clone);
+	});
+	if(i.length > 1){
+		$link.display(none);
+	} */
+
+</script>
+ 
+   </div>
+       <div th:replace="~{fragments/admin_footer}"></div>
+         <!-- sidenav--> 
+  
+</div>
+<!-- wrapper --> 
+<!-- sidenav--> 
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+</script><!-- sidenav
+
+<!-- ToolTip -->
+<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip(); 
+	});
+</script>
+<!-- ToolTip -->
+       
+
+<!-- Large modal -->
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+	<div class="modal-content">
+	      <div class="modal-header">
+	        <h2 style="text-align: center;" class="modal-title" id="exampleModalPopoversLabel"><strong> Welcome To OEESHA ! </strong> </h2>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">×</span>
+	        </button>
+			
+	      </div>
+	      <div class="modal-body">
+			<!-- Step 1 -->
+			       <div class="step-section active1" id="step1">
+			         <h4>Step 1</h4>
+					 <p>You are about to experience data collection bliss.</p>
+			         <p>Here at [company_name], we pride our selves on collecting your pertient personal information and meta details in order to <del>track</del> fascilitate you doing just about anything.</p>
+			       </div>
+			       
+			       <!-- Step 2 -->
+			       <div class="step-section" id="step2">
+			         <h4>Step 2</h4>
+			         <p>Alright! You made it to step 2... Now you have some more choices... progressing to the next screen, or skipping right to the end and missing all the things.</p>
+			       </div>
+			       
+			       <!-- Step 3 -->
+			       <div class="step-section" id="step3">
+			         <h4>Step 3</h4>
+			         <p>Offal scenester vape, art party tumblr hexagon listicle. Banh mi vinyl offal +1 chia williamsburg, vice organic letterpress vexillologist knausgaard flannel biodiesel. Street art kitsch typewriter cornhole put a bird on it pickled. Before they sold out literally copper mug craft beer tote bag dreamcatcher, stumptown portland bicycle rights gluten-free keytar slow-carb vinyl ethical man bun. Tumeric vaporware before they sold out, retro try-hard microdosing raclette roof party neutra pabst tacos. Hashtag street art occupy, kitsch drinking vinegar master cleanse af coloring book enamel pin salvia venmo messenger bag. Disrupt PBR&B pug slow-carb salvia asymmetrical activated charcoal organic live-edge.</p>
+			       </div>
+			     </div>
+			     
+			     <div class="modal-footer">
+			       <button type="button" class="btn btn-default" id="prevBtn">Previous</button>
+			       <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+			     </div>
+	      </div>
+	    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
+<style>
+    .step-section { display: none; }   /* hide all steps */
+    .step-section.active1 { display: block; } /* show only active1 */
+  </style>
+<script>
+	$(document).ready(function(){
+	  var currentStep = 1;
+	  var totalSteps = $(".step-section").length;
+	  
+	  function showStep(step) {
+	    $(".step-section").removeClass("active1");
+	    $("#step" + step).addClass("active1");
+	    
+	    // Toggle buttons
+	    $("#prevBtn").toggle(step > 1);
+	    $("#nextBtn").text(step === totalSteps ? "Finish" : "Next");
+	  }
+	  
+	  $("#nextBtn").click(function(){
+	    if (currentStep < totalSteps) {
+	      currentStep++;
+	      showStep(currentStep);
+	    } else {
+	      $("#multiStepModal").modal("hide"); // close modal on finish
+	    }
+	  });
+	  
+	  $("#prevBtn").click(function(){
+	    if (currentStep > 1) {
+	      currentStep--;
+	      showStep(currentStep);
+	    }
+	  });
+	  
+	  // Initialize first step
+	  showStep(currentStep);
+	});
+	</script>
+</script>
