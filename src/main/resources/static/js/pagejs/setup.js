@@ -24,8 +24,6 @@
 			});*/
 		
 			function getSetUpList(){  
-
-				
 				$.ajax({
 					    type: 'GET',
 					    url: server_url + "setup/all",
@@ -40,55 +38,44 @@
 							
 							var data = response.payload;
 									
-								tableData.destroy();
-						        $('#setupList.tbody').empty();
-								
-						        //if(data.result == "success"){
-									
+							tableData.destroy();
+					        $('#setupList.tbody').empty();
 							
-							    tableData = $('#setupList').DataTable( {
+					        //if(data.result == "success"){
 								
-							    			dom: 'Blfrtip',   
-							    			buttons: [
-												{extend : 'excel',
-											exportOptions: {
-											                columns: [0,1,2,3,4,5]
-											            }	
-													
-													
-												} ,
-												
-												 {extend : 'print'}],
-										 	 destroy: true,
-						    				 data: data,
 						
-											  columns: [
-												
-					    				    { "data": "name" },
-											{ "data": "cycletime" },											
-											{ "data": "station" },
-											{ "data": "uom" },											
-											{ "data": "item" },
-											{ "data": "itemdesc" },
-											
-
-											{ 
-												"data":  null,
-											  render: function (data, type, row) {
-											      var id = data.id;
-											      var action = `<a  class="edit-button" id=${data.id}>Edit</a>
-											                    <a  class="delete-button" id=${data.id}>${data.isdeleted}</a> `;
-											      return action;
-											  },
-											},											
-											
-					    		            ],
-					    		            "order": [[0, 'desc']],
-							    			} );
+						    tableData = $('#setupList').DataTable({
 							
-				
-											},
-					    	   
+				    			dom: 'Blfrtip',   
+				    			buttons: [
+									{
+										extend : 'excel',
+										exportOptions: {
+								        	columns: [0,1,2,3,4,5]
+							            }	
+									} ,
+								 	{extend : 'print'}
+								 ],
+							 	 destroy: true,
+			    				 data: data,
+								 columns: [
+									{ "data": "item" },
+									{ "data": "itemdesc" },
+									{ "data": "station" },
+			    				    { "data": "name" },
+									{ "data": "cycletime" },											
+									{ "data": "uom" },											
+									{ "data":  null,
+									  render: function (data, type, row) {
+									      var id = data.id;
+									      var action = `<a  class="edit-button" id=${data.id}>Edit</a> <a  class="delete-button" id=${data.id}>${data.isdeleted}</a> `;
+									      return action;
+									  },
+									},											
+		    		            ],
+		    		            "order": [[0, 'desc']],
+			    			});
+						},
 					    error: function (error) {
 				            /*console.log(error);
 				       		 if (error.status == 401) {
@@ -111,13 +98,6 @@
 					     	}*/
 					    }	  
 					  })
-				
-				
-				
-				
-				/*ihii*/
-				
-					
 				}
 
 				    
@@ -160,9 +140,9 @@
 					$("#editItem").append('<option value="0">  Select item </option>');
 
 		           for (i = 0; i < response.payload.length; ++i) {
-		               $("#addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+		               $("#addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemcode}</option>`);
 					   
-					   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+					   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemcode}</option>`);
 					   
 		           }
 		       },

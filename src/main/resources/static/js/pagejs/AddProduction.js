@@ -654,18 +654,21 @@ function	getAllMachines()
 							 var dataVal = {
 							 
 									 planid : planId,
-									 shiftid : $('#addShift').val(),
+									 proddate : $('#prodDate').val(),
 									 unitid : $('#addUnit').val(),
 									 workcenterid : $('#addWorkCenter').val(),
-									 operatorid : $('#addOperator').val(),
-									 proddate : $('#prodDate').val(),
+									 shiftid : $('#addShift').val(),
 									 stationid : $('#addStation').val(),
+									 operatorid : $('#addOperator').val(),
+									 
+									 productionPlanningIncomingDto	: myarray,
 									 
 									 availability_lunchtime : $('#lunchT').val(),
 									 availability_teatime : $('#teaT').val(),
 									 availability_reviewtime : $('#reviewT').val(),
 									 availability_inpectiontime : $('#inspecT').val(),
 									 availability_machinebreakdown : $('#machineBrkT').val(),
+									 
 									 availability_setupchange : $('#setupT').val(),
 									 availability_nomaterial : $('#noMatT').val(),
 									 availability_nolabour : $('#noLabT').val(),
@@ -675,37 +678,34 @@ function	getAllMachines()
 									 availability_drawing : $('#noDrawT').val(),
 									 availability_guages : $('#noGaugT').val(),
 									 availability_otherlosses : $('#anyLossT').val(),
-									// availability_calculation : $('#calculation').val(),
-									 availability_time : $('#availableT').val(),
-									 availability_per : $('#availabilityPer').val(),
-									 
 									 availability_overtime :$('#Overtime').val(),
+									 
 									 availability_totaltime :$('#totaltime').val(),
 									 availability_stdloss :$('#Stdlosses').val(),
 									 availability_specloss :$('#Spllosses').val(),
 									 availability_totloss :$('#Totallosses').val(),
-									   
+									 availability_time : $('#availableT').val(),
+									 availability_per : $('#availabilityPer').val(),
+									// availability_calculation : $('#calculation').val(),
+									 
 									 productivity_searching : $('#searchT').val(),
 									 productivity_personnal : $('#personnalT').val(),
 									 productivity_rework : $('#reworkT').val(),
 									 productivity_Production_availabletime_qty : $('#availabletimeVal').val(),
-									 productivity_Production_qty : $('#qualityProduction').val(),
 									 productivity_total_utilised_time: $('#totalUtilisedTime').val(),
 									 productivity_per : $('#productivityper').val(),
 									 
+									 productivity_Production_qty : $('#qualityProduction').val(),
+									 
+									 //totalplannedVal
+									 tot_planned_mins :totPlannedMins,
 									 achievement_per : $('#achievementPer').val(),
-									  
+									 rejection_per : $('#rejectionPer').val(),
 									 rejection_rejection_qty : $('#rejectQty').val(),
 									 rejection_ok_qty : $('#qualityProduction').val(),
 									 quality_per : $('#qualityPer').val(),
-									 
-									 rejection_per : $('#rejectionPer').val(),
-									 
-									 oee_per :  $('#oeePer').val(),
-									 tot_planned_mins :totPlannedMins,
-									 
-									 productionPlanningIncomingDto	: myarray
-									 
+									 losses_reason : $('#lossesReason').val(),
+									 oee_per :  $('#oeePer').val()
 
 								};
 									 

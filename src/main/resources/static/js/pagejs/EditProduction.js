@@ -43,9 +43,9 @@ $(document).ready(function(){
 			editWsId = result.payload.workcenterid;
 			shiftid = result.payload.shiftid;
 			
+			$("#prodDate").val(result.payload.proddate);
 			$("#addUnit").val(result.payload.unitname);
 			$("#addWorkCenter").val(result.payload.workcentername);
-			$("#prodDate").val(result.payload.proddate);
 			$("#addShift").val(result.payload.shiftname);
 			$("#addStation").val(result.payload.stationname);
 			$("#addOperator").val(result.payload.operatorname);
@@ -58,6 +58,7 @@ $(document).ready(function(){
 			$("#reviewT").val(result.payload.availabilityreviewtime);
 			$("#inspecT").val(result.payload.availabilityinpectiontime);
 			$("#machineBrkT").val(result.payload.availabilitymachinebreakdown);
+			
 			$("#setupT").val(result.payload.availabilitysetupchange);
 			$("#noMatT").val(result.payload.availabilitynomaterial);
 			$("#noLabT").val(result.payload.availabilitynolabour);
@@ -75,21 +76,27 @@ $(document).ready(function(){
 			$("#availableT").val(result.payload.availabilitytime);
 			$("#availabilityPer").val(result.payload.availabilityper);
 
-			
-			
-			//quality
+			//Productivity
 			
 			$("#searchT").val(result.payload.productivitysearching);
 			$("#personnalT").val(result.payload.productivitypersonnal);
 			$("#reworkT").val(result.payload.productivityrework);
-			$("#totalProdQty").val(result.payload.productivityProductionqty);
-			$("#totalPlanQty").val(result.payload.productivitystandardqty);
+			$("#availabletimeVal").val(result.payload.productivityrework);
+			$("#totalUtilisedTime").val(result.payload.productivityrework);
+			
 			$("#productivityper").val(result.payload.rejectionrejectionqty);
+
+			// Quality
+			$("#totalplannedVal").val(result.payload.productivityProductionqty);
+			$("#achievementPer").val(result.payload.productivitystandardqty);
+			$("#rejectionPer").val(result.payload.productivitystandardqty);
 			
 			$("#rejectQty").val(result.payload.rejectionrejectionqty);
 			$("#qualityProduction").val(result.payload.rejectionokqty);
-			
 			$("#qualityPer").val(result.payload.rejectionper);
+			
+			$("#lossesReason").val(result.payload.oeeper);
+			
 			$("#oeePer").val(result.payload.oeeper);
 			
 			
@@ -102,11 +109,11 @@ $(document).ready(function(){
 				console.log("===!!!!!!!!",result.payload.prodPlanningDto[i].item);
 				
 					  $('#planProdTbody').append('<tr class="tr_clone" >'
-	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtItem "  id="itemId'+i+'" value="'+value1.item+'"   disabled> </td>'
-	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtSetup "  id="setupId'+i+'" value="'+value1.setup+'"   disabled></td>'
-	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal"  id="plannedQty'+i+'" value="'+value1.qty_planned+'"   disabled></td>'
-	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal"  id="producedQty'+i+'" value ="'+value1.qty_produced+'" disabled></td>'
-	  						+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal"   id="rejectedQty'+i+'" value="'+value1.qty_rejected+'" disabled></td>'
+	  						+'<td class="table_input"> '+value1.item+' </td>'
+	  						+'<td class="table_input"> '+value1.setup+' </td>'
+	  						+'<td class="table_input"> '+value1.qty_planned+' </td>'
+	  						+'<td class="table_input"> '+value1.qty_produced+' </td>'
+	  						+'<td class="table_input"> '+value1.qty_rejected+' </td>'
 
 	  					  +'</tr>');
 					  							

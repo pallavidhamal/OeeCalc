@@ -11,15 +11,42 @@ $(document).ready(function()
     day = day < 10 ? '0' + day : day;
 
     const formattedToday = `${year}-${month}-${day}`;
+    
+    const formattedFromday = `${year}-${month}-01`;
 				
 	//	const formattedToday1 = `${year}-${month}-1`;
 		
-    $('#planCalender').val(formattedToday);
+    $('#planCalender').val(formattedFromday);
 	$('#planCalender1').val(formattedToday);
-			
-	getUnitList("sel");
-	getPlanningList();
-				
+	
+	if(role=="AA" || role=="MAU"){
+	
+		getUnitList("sel");
+		getPlanningList();
+		
+	}
+		
+	if(role=="PLU"){
+		
+		
+		 var unitString = localStorage.getItem("set") ; 
+		
+		console.log("===========unitString============", unitString);
+		
+		 var unitArray = unitString.split("#")
+		 
+		 console.log("===========unitArray============", unitArray);
+		 $("#selUnit").empty();
+		 $("#selUnit").append('<option value="'+ unitArray[0] + '">'+ unitArray[1]+' </option>');
+		 
+		 $("#selUnit").prop("disabled", true);
+		 
+		unitid = unitArray[0];
+		  
+		getWorkCentreList("sel");
+		
+		getFilterPlanningList();
+	}		
 			
 	$('#planCalender').on('change', function (e) 
 	{

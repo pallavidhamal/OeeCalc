@@ -30,7 +30,7 @@ overflow: auto;
     height: 10em;
 }
 textarea.form-control {
-    height: 120px !important; 
+    height: 70px !important; 
     resize: none;
 }
 .loader {
@@ -237,7 +237,7 @@ label {
 					
 					<h4><strong>Availability</strong></h4>
 					<hr style="border-top: 4px solid #ff7726;">
-					<h5><strong>Standard Losses</strong></h5>
+					<h5><strong>Planned Losses</strong></h5>
 					<hr style="border-top: 1px solid rgb(191, 191, 185);">
 					<div class="row">
 					<div class="col-md-4">
@@ -262,7 +262,7 @@ label {
 						<input type="text" id="machineBrkT" class="form-input form-control decimal Stdlosses" value="0">
 					</div>
 					</div>
-					<h5><strong>Special Losses</strong></h5>
+					<h5><strong>Unplanned Losses</strong></h5>
 					<hr style="border-top: 1px solid rgb(191, 191, 185);">
 					<div class="row">
 					<div class="col-md-4">
@@ -414,32 +414,31 @@ label {
 								    </div>
 								  </div>	
 						  </div>
-						  <div class="col-md-12">
-							<div class="form-group">
-							    <label class="form-label">Losses Reason</label>
-							    <div class="col-sm-4">
-							      <textarea type="text" id="lossesReason" class="form-input form-control" ></textarea>
-							    </div>
-							  </div>
-						  </div>	  		  						
 					  </div>
 				  </div>
 			  </div>
+			  <div class="col-md-12">
+  		    	<div class="white-layer mb-8">
+  					<p><h4><strong>Losses Reason</strong></h4>  </p>
+  					<hr style="border-top: 4px solid rgb(194, 184, 177);">
+  					  <div class="row">
+  						  <div class="col-md-12">
+  							<div class="form-group">
+  							    <div class="col-sm-12">
+  							      <textarea  rows="1" type="text" id="lossesReason" class="form-input form-control" ></textarea>
+  							    </div>
+  							  </div>
+  						  </div>	  		  						
+  					  </div>
+  				  </div>
+  			  </div>
 		</div>
 	</div>
 	<br>
 	<div class="box-body">					
 				<div class="col-md-12">
 	  		    	<div class="white-layer mb-8">	
-						<div class="col-md-6">
-							<div class="form-group">
-							 	<label for="inputEmail3" class="col-sm-2 control-label">Losses Reason</label>
-								<div class="col-sm-10">
-									<textarea type="text" id="lossesReason" class="form-input form-control" ></textarea>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">												
+						<div class="col-md-12">												
 						  <div class="form-group"  style="text-align: right;">
 						    <label for="inputEmail3" class="col-sm-10 control-label">OEE %</label>
 						    <div class="col-sm-2">

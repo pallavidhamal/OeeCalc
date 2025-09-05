@@ -87,16 +87,24 @@ $(document).ready(function() {
 							if(data.status==="OK"){
 								console.log("if   hiiiiiiiiiii===");					
 								
+								var setval = "";
 								
 								//check for roles PM/HPM/admin and accordingly forward pages
 								
-								if(data.payload.role=="AA" || data.payload.role=="MAU" || data.payload.role=="PLU")
+								if(data.payload.role=="AA" || data.payload.role=="MAU")
 								{
 									url="planning";
 								}
 								if(data.payload.role=="PRU")
 								{
+									setval = data.payload.unitDto.id+"#"+data.payload.unitDto.name+"#"+data.payload.workcenterDto.id+"#"+data.payload.workcenterDto.name;
 									url="production";
+								}
+								if(data.payload.role=="PLU")
+								{
+									
+									setval = data.payload.unitDto.id+"#"+data.payload.unitDto.name;
+									url="planning";
 								}
 								
 								
@@ -104,7 +112,7 @@ $(document).ready(function() {
 								localStorage.setItem("role", data.payload.role);
 								localStorage.setItem("uname", data.payload.username);
 								localStorage.setItem("refreshToken", data.payload.refreshToken);
-								
+								localStorage.setItem("set", setval);
 							//	setSession(data.uname,url);
 								
 								window.location.href = url;

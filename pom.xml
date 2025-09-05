@@ -10,7 +10,8 @@
 	<groupId>com.oee</groupId>
 	<artifactId>oee</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<packaging>war</packaging>
+	<name>oee</name>
 	<description>Oee project for Spring Boot</description>
 	<url/>
 	<licenses>
