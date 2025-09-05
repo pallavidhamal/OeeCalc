@@ -1,5 +1,7 @@
 var tableData = $('#planningList').DataTable();
 		
+var logCount = Number(localStorage.getItem("lc"));
+		
 $(document).ready(function()
 {
   	const today = new Date();
@@ -55,9 +57,12 @@ $(document).ready(function()
 		//$("#myDateField").attr("min", "2023-01-01");
 	});
 	
+	if(logCount < 2){
 	
-	$(".bd-example-modal-lg").modal('show');
-			
+		$(".bd-example-modal-lg").modal('show');
+		
+		localStorage.setItem("lc", logCount+1);
+	}
 					
 });
 

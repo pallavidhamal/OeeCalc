@@ -113,6 +113,7 @@ $(document).ready(function() {
 								localStorage.setItem("uname", data.payload.username);
 								localStorage.setItem("refreshToken", data.payload.refreshToken);
 								localStorage.setItem("set", setval);
+								localStorage.setItem("lc", data.payload.logincount);
 							//	setSession(data.uname,url);
 								
 								window.location.href = url;

@@ -295,7 +295,7 @@ function closeNav() {
 
 <!-- Large modal -->
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="OEESHAHelpModal"  aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
 	<div class="modal-content">
 	      <div class="modal-header">
@@ -343,7 +343,6 @@ function closeNav() {
     .step-section.active1 { display: block; } /* show only active1 */
   </style>
 <script>
-	$(document).ready(function(){
 	  var currentStep = 1;
 	  var totalSteps = $(".step-section").length;
 	  
@@ -361,7 +360,7 @@ function closeNav() {
 	      currentStep++;
 	      showStep(currentStep);
 	    } else {
-	      $("#multiStepModal").modal("hide"); // close modal on finish
+	      $("#OEESHAHelpModal").modal("hide"); // close modal on finish
 	    }
 	  });
 	  
@@ -374,6 +373,5 @@ function closeNav() {
 	  
 	  // Initialize first step
 	  showStep(currentStep);
-	});
 	</script>
 </script>
