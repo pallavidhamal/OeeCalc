@@ -7,7 +7,55 @@
 		
 			$(document).ready(function(){
 				
-				getUnitList("add");	
+				//getUnitList("add");	
+				
+				
+				if(role=="AA" || role=="MAU"){
+						
+							getUnitList("add");
+							
+				}
+							
+			if(role=="PRU"){
+							
+							
+							 var unitString = localStorage.getItem("set") ; 
+							
+							console.log("===========unitString============", unitString);
+							
+							 var unitArray = unitString.split("#")
+							 
+							 console.log("===========unitArray============", unitArray);
+							 $("#addUnit").empty();
+							 $("#addUnit").append('<option value="'+ unitArray[0] + '">'+ unitArray[1]+' </option>');
+							 $("#addUnit").prop("disabled", true);
+							 
+							 unitid = unitArray[0];
+							 
+							 $("#addWorkCenter").empty();
+ 							 $("#addWorkCenter").append('<option value="'+ unitArray[2] + '">'+ unitArray[3]+' </option>');
+ 							 $("#addWorkCenter").prop("disabled", true);
+							 
+							 var wsid = unitArray[2] ;
+							 getMachinesByWc(wsid); 
+							 
+							getUnitShifts();	
+							getFilterProductionList();
+							
+						//	getWorkCentreList("add");
+						//	getUnitShifts();
+							
+						}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				console.log("========dataTableData=======",dataTableData);
 				
 				
@@ -28,16 +76,9 @@
 				
 				console.log("firstDayOfMonth1-",firstDayOfMonth1);
 				console.log("formattedToday-",formattedToday);
-
 				
-				 $('#prodDatefrm').val(firstDayOfMonth1);		 
-				 
-				 
-				 
+				$('#prodDatefrm').val(firstDayOfMonth1);		 
 				$('#prodDateto').val(formattedToday);
-				
-
-				
 				
 				$('#addUnit').on('change', function (e) {
 				    var optionSelected = $("option:selected", this);

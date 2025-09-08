@@ -3,10 +3,28 @@ var delProdID = "";
 var editProdID = "";
 var editId ="";
 var tableData = $('#stationList').DataTable();
+var apiName="";
 
 $(document).ready(function(){
 	
-	getStationList();
+		 if(role=="AA" || role=="MAU")
+		 {
+		 	apiName="all";
+		 }
+		 							
+		 if(role=="PLU")
+		 {
+			var unitString = localStorage.getItem("set") ; 
+									
+				console.log("===========unitString============", unitString);
+				
+				 var unitArray = unitString.split("#")
+				 unitid = unitArray[0];
+				 
+				  apiName="getStationByUnit/"+unitid;
+		 }
+	
+	getStationList(apiName);
 		
 });
 			
@@ -23,7 +41,30 @@ $(document).on("click", "#stationAddAction", function(e){
 	 
 	 getStationTypeList("add");
 	 getUOMList("add");
-	 getWorkCentreList("add");
+	 
+	
+	 
+	 
+	 if(role=="AA" || role=="MAU")
+	 {
+	 	apiName="getAllActive";
+	 }
+	 							
+	 if(role=="PLU")
+	 {
+		
+		
+		var unitString = localStorage.getItem("set") ; 
+							
+		console.log("===========unitString============", unitString);
+		
+		 var unitArray = unitString.split("#")
+		 unitid = unitArray[0];
+		
+		 apiName="getWorkcenterByUnit/"+unitid;
+	 }
+	 
+	 getWorkCentreList("add",apiName);
 	 
 	 $("#add_station").modal("show");
 });
@@ -41,10 +82,30 @@ $(document).on("click", ".edit-button", function(e){
 
  		getStationTypeList("edit");
 	 	getUOMList("edit");
-	 	getWorkCentreList("edit");
-
+	 	
+		//
+		if(role=="AA" || role=="MAU")
+		 {
+		 	apiName="getAllActive";
+		 }
+		 							
+		 if(role=="PLU")
+		 {
+			
+			
+			var unitString = localStorage.getItem("set") ; 
+								
+			console.log("===========unitString============", unitString);
+			
+			 var unitArray = unitString.split("#")
+			 unitid = unitArray[0];
+			
+			 apiName="getWorkcenterByUnit/"+unitid;
+		 }
 		
-
+		//
+		
+		getWorkCentreList("edit",apiName);
 
 		$.ajax({
 		    type: 'GET',
@@ -97,12 +158,12 @@ $(document).on("click", ".edit-button", function(e){
 
 			
 //get purchase order list
-function getStationList(){  
+function getStationList(apiName){  
 
 		console.log("-------------------Welcome to product getPOList");
 	$.ajax({
 		    type: 'GET',
-		    url: server_url + "station/all",
+		    url: server_url + "station/"+apiName,
 		    enctype: 'application/json',
 		    headers: authHeader,
 		    processData: false,
@@ -280,11 +341,13 @@ function getUOMList(divId){
 } //end of get StationType list			
 
 //get StationType list
-function getWorkCentreList(divId){
+function getWorkCentreList(divId,apiName){
 		
+	
+	
 	$.ajax({
 	    type: 'GET',
-	    url: server_url + "workcenter/getAllActive",
+	    url: server_url + "workcenter/"+apiName,
 	    enctype: 'application/json',
 	    headers: authHeader,
 	    processData: false,

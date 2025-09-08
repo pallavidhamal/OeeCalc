@@ -3,15 +3,42 @@
 			var editProdID = "";
 			var setupid="";
 			var tableData = $('#setupList').DataTable();
-		
+			var apiName="";
+			var setupapiName="";
+			
 			$(document).ready(function(){
 				
 				console.log("-------------------Welcome to authHeader",authHeader);
 
-				getSetUpList();
 				
+				
+				if(role=="AA" || role=="MAU")
+				 {
+				 	apiName="allActive";
+					setupapiName="all";
+				 }
+				 							
+				 if(role=="PLU")
+				 {
+					var unitString = localStorage.getItem("set") ; 
+											
+						console.log("===========unitString============", unitString);
+						
+						 var unitArray = unitString.split("#")
+						 unitid = unitArray[0];
+						 
+						  apiName="getStationByUnit/"+unitid;
+						  setupapiName="getSetUpByUnit/"+unitid;
+						  
+				 }
+					
+				//	getStationList(apiName);
+				getSetUpList(setupapiName);
 				getAllItems();
-				getAllMachines();
+				getAllMachines(apiName);
+				
+				
+				
 				getAllUoms();
 				
 				
@@ -23,10 +50,10 @@
 
 			});*/
 		
-			function getSetUpList(){  
+			function getSetUpList(setupapiName){  
 				$.ajax({
 					    type: 'GET',
-					    url: server_url + "setup/all",
+					    url: server_url + "setup/"+setupapiName,
 					    enctype: 'application/json',
 					    headers: authHeader,
 					    processData: false,
@@ -172,11 +199,11 @@
 	}
 	
 	
-	function	getAllMachines()
+	function	getAllMachines(apiName)
 	{
 		$.ajax({
 				       type: "GET",
-				       url: server_url + `station/allActive`,
+				       url: server_url + `station/`+apiName,
 				       enctype: "application/json",
 				       headers: authHeader,
 				       processData: false,
