@@ -15,7 +15,36 @@ $(document).ready(function(){
 	
 	setFromDate();
 	
-	getUnitList("add");	
+	
+		if(role=="AA" || role=="MAU"){
+		
+			getUnitList("add");
+			
+		}
+			
+		if(role=="PLU"){
+			
+			
+			 var unitString = localStorage.getItem("set") ; 
+			
+			console.log("===========unitString============", unitString);
+			
+			 var unitArray = unitString.split("#")
+			 
+			 console.log("===========unitArray============", unitArray);
+			 $("#addUnit").empty();
+			 $("#addUnit").append('<option value="'+ unitArray[0] + '">'+ unitArray[1]+' </option>');
+			 
+			 $("#addUnit").prop("disabled", true);
+			 
+			unitid = unitArray[0];
+			  
+			getWorkCentreList("add");
+			getUnitShifts();
+			
+		}
+	
+		
 	//getAllMachines();
 	getAllItems();
 	
