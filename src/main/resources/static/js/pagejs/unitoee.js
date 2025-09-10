@@ -15,12 +15,12 @@ $(document).ready(function(){
 	month = month < 10 ? '0' + month : month;
 	day = day < 10 ? '0' + day : day;
 
-	const formattedToday = `${year}-${month}-${day}`;
+	const formattedToday = `${day}-${month}-${year}`;
 	
 	const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 	let day1=1;
 	
-	const firstDayOfMonth1 = `${year}-${month}-01`;
+	const firstDayOfMonth1 = `01-${month}-${year}`;
 	
 	$('#prodDatefrm').val(firstDayOfMonth1);		 
 	$('#prodDateto').val(formattedToday);
@@ -71,8 +71,8 @@ function getFilterPlanOverviewList(){
 		var dataVal = 
 		{
 			 unitid       	: $('#addUnit').val(),
-			 fromdate		: $('#prodDatefrm').val(),						 
-			 todate			: $('#prodDateto').val(),
+			 fromdate		: StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDatefrm').val()),						 
+			 todate			: StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDateto').val()),
 		};
 					
 		$.ajax({
@@ -86,6 +86,7 @@ function getFilterPlanOverviewList(){
 			
 			success: function (response) {		
 
+			console.log(response)
 			var data = response.payload;
 			
 			tableData.destroy();
@@ -102,6 +103,7 @@ function getFilterPlanOverviewList(){
 			         "defaultContent": ""
 			     }],
 			  	columns: [
+					 { "data": "unitname" },
 					 { "data": "workcentername" },
 				     { "data": "avroeeper" ,
 					    "render": function ( data, type, row, meta ) {

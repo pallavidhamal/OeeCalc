@@ -10,11 +10,13 @@ $(document).ready(function()
     month = month < 10 ? '0' + month : month;
     day = day < 10 ? '0' + day : day;
 
-    const formattedToday = `${year}-${month}-${day}`;
+    const formattedToday = `${day}-${month}-${year}`;
 				
 	//	const formattedToday1 = `${year}-${month}-1`;
+	
+	const firstDayOfMonth1 = `01-${month}-${year}`;
 		
-    $('#planCalender').val(formattedToday);
+    $('#planCalender').val(firstDayOfMonth1);
 	$('#planCalender1').val(formattedToday);
 			
 	getUnitList("sel");
@@ -74,9 +76,9 @@ function getFilterPlanningList(){
 	
 	var dataVal = 
 	{
-		 fromdate		: $('#planCalender').val(),
+		 fromdate		: StringToDateDDMMYYYY_to_YYYYMMDD($('#planCalender').val()),
 		// workcenterid 	: $('#selWorkCentre').val(),
-		 todate			: $('#planCalender1').val(),
+		 todate			: StringToDateDDMMYYYY_to_YYYYMMDD($('#planCalender1').val()),
 		 unitid       	: $('#selUnit').val(),
 		// shiftid       	: 0,
 	};

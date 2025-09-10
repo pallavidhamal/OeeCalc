@@ -116,7 +116,7 @@ label {
 
 </style>
 <script>
-	let nav = 1;
+	let nav = 3;
 </script>
 </head>
 
@@ -165,11 +165,11 @@ label {
 							
 							<div class="col-md-2">
     							<label class="form-label">From Date</label>
-    							<input type="date" id="planCalender" class=" form-control">
+    							<input type="text" id="planCalender" class=" form-control flatpickrDate">
     						</div>
 							<div class="col-md-2">
     							<label class="form-label">To Date</label>
-    							<input type="date" id="planCalender1" class=" form-control">
+    							<input type="text" id="planCalender1" class=" form-control flatpickrDate">
     						</div>
 							
 	  						<!--<div class="col-md-2">
@@ -189,73 +189,52 @@ label {
             <table class="table table-bordered " id="planningList"  >
               <thead>
                 <tr class="orange">
-                  
-					
-<th> availability_drawing</th>    
-	<th>  availability_guages</th>  
-		<th>    availability_inpectiontime</th>    
-	<th>  availability_inspection</th>  
-		<th>    availability_lunchtime</th> 
-			  <th>   availability_machinebreakdown</th>    
-	<th>  availability_nolabour</th>   
-		<th>   availability_nomaterial</th>  
-		 
-			<th>   availability_otherlosses</th>    
-	 <th> availability_overtime</th> 
-		 <th>    availability_per</th>  
-			<th> 	   availability_reviewtime</th>   
-	<th>  availability_setupchange</th> 
-		<th>     availability_specloss</th>   
-				  <th> availability_stdloss</th>    
-	<th>  availability_teatime</th>  
-		 <th>   availability_time</th>   
-			<th>   availability_tooling</th>
-			  <th>    availability_totaltime</th> 
-	<th>  availability_totloss</th> 
-		<th>     company</th>   
-				<th>   proddate</th> 
-					<th>     productivity_production_qty</th>   
-	<th>  productivity_per</th>  
-		<th>    productivity_personnal</th> 
-			<th>     productivity_rework</th>   
-				<th> 	  productivity_searching</th>  
-	<th>  productivity_standard_qty</th> 
-		  <th>   rejection_ok_qty</th>   
-				<th>   rejection_per</th>   
-					<th>   rejection_rejection_qty</th>  
-	<th>  oee_per</th>  
-		<th>    achievement_per</th>   
-			<th>   productivity_production_availabletime_qty</th>   
-	<th>  productivity_total_utilised_time</th> 
-		  <th>   quality_per</th> 
-				 <th>    tot_planned_mins</th>  
-				<th>   qty_planned</th>  					
-	<th>  qty_produced</th>  
-		<th>    qty_rejected</th> 
-	   <th>  cycletime</th>  
-			<th>    setuptime</th>  
-				<th>    mins_planned</th>
-	  <th>  unitname  </th> 
-		<th>  wcname </th> 
-		<th> 	 shiftname</th> 
-				  
-			<!--	  { "data": "unitname" },
-				  	{ "data": "setupname" },
-				  	{ "data": "stationname" },
-				  	{ "data": "itemname" },
-				  	{ "data": "from_date" },
-				      { "data": "to_date" },
-				  	{ "data": "time_per_shift" },
-				      { "data": "cycletime" },
-				  	{ "data": "itemtimeutilised" },
-				  	{ "data": "machinetimeutilised" },
-				  	{ "data": "plannedmins" },
-				      { "data": "plannedquantity" },
-				  	{ "data": "setuptime" },-->
-				  
-				  
-				  
-                 <!-- <th>Delete</th> -->
+					<th> Unit</th>
+					<th> Workcenter</th>
+	                <th> Setup </th>                
+					<th> availability_drawing</th>    
+					<th> availability_guages</th>  
+					<th> availability_inpectiontime</th>    
+					<th> availability_inspection</th>  
+					<th> availability_lunchtime</th> 
+				  	<th> availability_machinebreakdown</th>    
+					<th> availability_nolabour</th>   
+					<th> availability_nomaterial</th>  
+					<th> availability_otherlosses</th>    
+					<th> availability_overtime</th> 
+		 			<th> availability_per</th>  
+					<th> availability_reviewtime</th>   
+					<th> availability_setupchange</th> 
+					<th> availability_specloss</th>   
+				  	<th> availability_stdloss</th>    
+					<th> availability_teatime</th>  
+					<th> availability_time</th>   
+					<th> availability_tooling</th>
+				  	<th> availability_totaltime</th> 
+					<th> availability_totloss</th> 
+					<th> company</th>   
+					<th> proddate</th> 
+					<th> productivity_production_qty</th>   
+					<th> productivity_per</th>  
+					<th> productivity_personnal</th> 
+					<th> productivity_rework</th>   
+					<th> productivity_searching</th>  
+					<th> productivity_standard_qty</th> 
+					<th> rejection_ok_qty</th>   
+					<th> rejection_per</th>   
+					<th> rejection_rejection_qty</th>  
+					<th> oee_per</th>  
+					<th> achievement_per</th>   
+					<th> productivity_production_availabletime_qty</th>   
+					<th> productivity_total_utilised_time</th> 
+					<th> quality_per</th> 
+					<th> tot_planned_mins</th>  
+					<th> qty_planned</th>  					
+					<th> qty_produced</th>  
+					<th> qty_rejected</th> 
+					<th> cycletime</th>  
+					<th> setuptime</th>  
+					<th> mins_planned</th>
                 </tr>
               </thead>
               <tbody>
@@ -272,36 +251,6 @@ label {
 <!--Content--> 
 
 
-
-   
- <script>
-/*
- var _validFileExtensions = [".xlsx"];    
- function ValidateSingleInput(oInput) {
-     if (oInput.type == "file") {
-         var sFileName = oInput.value;
-          if (sFileName.length > 0) {
-             var blnValid = false;
-             for (var j = 0; j < _validFileExtensions.length; j++) {
-                 var sCurExtension = _validFileExtensions[j];
-                 if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
-                     blnValid = true;
-                     break;
-                 }
-             }
-              
-             if (!blnValid) {
-                 alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
-                 oInput.value = "";
-                 return false;
-             }
-         }
-     }
-     return true;
- }*/
- </script>
- 
- 
  
  
 <script type="text/javascript">
@@ -311,28 +260,7 @@ label {
     } );
 } );
 </script>
-
-
-
-
-
-
-
-<script>
-	/* var $link = $(".table_add_link");
-	$(".table_add_link").on('click', function() {
-	    var $tr    = $(this).closest('.tr_clone');
-	    var $clone = $tr.clone();
-	    $clone.find(':text').val('');
-	    $tr.after($clone);
-	});
-	if(i.length > 1){
-		$link.display(none);
-	} */
-
-</script>
  
-   </div>
        <div th:replace="~{fragments/admin_footer}"></div>
          <!-- sidenav--> 
   
@@ -358,87 +286,9 @@ function closeNav() {
 <!-- ToolTip -->
        
 
-<!-- Large modal -->
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-	<div class="modal-content">
-	      <div class="modal-header">
-	        <h2 style="text-align: center;" class="modal-title" id="exampleModalPopoversLabel"><strong> Welcome To OEESHA ! </strong> </h2>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">×</span>
-	        </button>
-			
-	      </div>
-	      <div class="modal-body">
-			<!-- Step 1 -->
-			       <div class="step-section active1" id="step1">
-			         <h4>Step 1</h4>
-					 <p>You are about to experience data collection bliss.</p>
-			         <p>Here at [company_name], we pride our selves on collecting your pertient personal information and meta details in order to <del>track</del> fascilitate you doing just about anything.</p>
-			       </div>
-			       
-			       <!-- Step 2 -->
-			       <div class="step-section" id="step2">
-			         <h4>Step 2</h4>
-			         <p>Alright! You made it to step 2... Now you have some more choices... progressing to the next screen, or skipping right to the end and missing all the things.</p>
-			       </div>
-			       
-			       <!-- Step 3 -->
-			       <div class="step-section" id="step3">
-			         <h4>Step 3</h4>
-			         <p>Offal scenester vape, art party tumblr hexagon listicle. Banh mi vinyl offal +1 chia williamsburg, vice organic letterpress vexillologist knausgaard flannel biodiesel. Street art kitsch typewriter cornhole put a bird on it pickled. Before they sold out literally copper mug craft beer tote bag dreamcatcher, stumptown portland bicycle rights gluten-free keytar slow-carb vinyl ethical man bun. Tumeric vaporware before they sold out, retro try-hard microdosing raclette roof party neutra pabst tacos. Hashtag street art occupy, kitsch drinking vinegar master cleanse af coloring book enamel pin salvia venmo messenger bag. Disrupt PBR&B pug slow-carb salvia asymmetrical activated charcoal organic live-edge.</p>
-			       </div>
-			     </div>
-			     
-			     <div class="modal-footer">
-			       <button type="button" class="btn btn-default" id="prevBtn">Previous</button>
-			       <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
-			     </div>
-	      </div>
-	    </div>
-  </div>
-</div>
-
-
 </body>
 </html>
 <style>
     .step-section { display: none; }   /* hide all steps */
     .step-section.active1 { display: block; } /* show only active1 */
-  </style>
-<script>
-	$(document).ready(function(){
-	  var currentStep = 1;
-	  var totalSteps = $(".step-section").length;
-	  
-	  function showStep(step) {
-	    $(".step-section").removeClass("active1");
-	    $("#step" + step).addClass("active1");
-	    
-	    // Toggle buttons
-	    $("#prevBtn").toggle(step > 1);
-	    $("#nextBtn").text(step === totalSteps ? "Finish" : "Next");
-	  }
-	  
-	  $("#nextBtn").click(function(){
-	    if (currentStep < totalSteps) {
-	      currentStep++;
-	      showStep(currentStep);
-	    } else {
-	      $("#multiStepModal").modal("hide"); // close modal on finish
-	    }
-	  });
-	  
-	  $("#prevBtn").click(function(){
-	    if (currentStep > 1) {
-	      currentStep--;
-	      showStep(currentStep);
-	    }
-	  });
-	  
-	  // Initialize first step
-	  showStep(currentStep);
-	});
-	</script>
-</script>
+</style>

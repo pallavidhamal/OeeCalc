@@ -12,9 +12,9 @@ $(document).ready(function()
     month = month < 10 ? '0' + month : month;
     day = day < 10 ? '0' + day : day;
 
-    const formattedToday = `${year}-${month}-${day}`;
+    const formattedToday = `${day}-${month}-${year}`;
     
-    const formattedFromday = `${year}-${month}-01`;
+    const formattedFromday = `01-${month}-${year}`;
 				
 	//	const formattedToday1 = `${year}-${month}-1`;
 		
@@ -110,9 +110,9 @@ function getFilterPlanningList(){
 	
 	var dataVal = 
 	{
-		 fromdate		: $('#planCalender').val(),
+		 fromdate		: StringToDateDDMMYYYY_to_YYYYMMDD($('#planCalender').val()),
 		 workcenterid 	: $('#selWorkCentre').val(),
-		 todate			: $('#planCalender1').val(),
+		 todate			: StringToDateDDMMYYYY_to_YYYYMMDD($('#planCalender1').val()),
 		 unitid       	: $('#selUnit').val(),
 		 shiftid       	: 0,
 	};
@@ -155,7 +155,17 @@ function getFilterPlanningList(){
 			data: data,
 	
 			columns: [
-				{ "data": "fromdate" },
+				{ "data": "fromdate", 
+					render: function (data, type, row) {
+						
+						console.log("==========data==============",data); // 08-09-2025
+						
+			               	let formatted = moment(data).format("DD-MM-YYYY");
+	  						console.log("==========data=formatted=============",formatted); // 08-09-2025
+	              	 	
+	              	 	return formatted;
+	           		},
+				},
 			    { "data": "todate" },
 			    { "data": "unitname" },
 	            { "data": "workcentername" },
@@ -226,8 +236,16 @@ function getPlanningList(){
 				 data: data,
 
 				  columns: [
-					{ "data": "fromdate" },
-				    { "data": "todate" },
+					{ "data": "fromdate",
+						render: function (data, type, row) {
+	              	 	return DateformatedYYYYMMDD_to_DDMMYYYY(data);
+	           			} 
+	           		},
+				    { "data": "todate",
+				    	render: function (data, type, row) {
+	              	 	return DateformatedYYYYMMDD_to_DDMMYYYY(data);
+	           			}
+	           		},
 				    { "data": "unitname" },
 		            { "data": "workcentername" },
 		            { "data": "shiftname"},

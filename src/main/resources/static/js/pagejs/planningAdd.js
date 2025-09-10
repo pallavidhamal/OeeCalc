@@ -460,8 +460,8 @@ $('.table_add_link').on('click',function(){
 		
 				 var dataVal = {
 				 
-						 fromdate						: $('#frmDate').val(),
-						 todate 						: $('#toDate').val(),
+						 fromdate						: StringToDateDDMMYYYY_to_YYYYMMDD($('#frmDate').val()),
+						 todate 						: StringToDateDDMMYYYY_to_YYYYMMDD($('#toDate').val()),
 						 timepershift					: $('#timePershift').val(),
 						 shiftid						: $('#addShift').val(),
 						 unitid       					: $('#addUnit').val(),
