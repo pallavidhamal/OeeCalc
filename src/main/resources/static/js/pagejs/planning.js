@@ -157,16 +157,18 @@ function getFilterPlanningList(){
 			columns: [
 				{ "data": "fromdate", 
 					render: function (data, type, row) {
-						
-						console.log("==========data==============",data); // 08-09-2025
-						
 			               	let formatted = moment(data).format("DD-MM-YYYY");
-	  						console.log("==========data=formatted=============",formatted); // 08-09-2025
-	              	 	
 	              	 	return formatted;
 	           		},
 				},
-			    { "data": "todate" },
+			    { "data": "todate",
+					render: function (data, type, row) {
+		               	let formatted = moment(data).format("DD-MM-YYYY");
+              	 	return formatted;
+           		},
+
+					
+				 },
 			    { "data": "unitname" },
 	            { "data": "workcentername" },
 	            { "data": "shiftname"},

@@ -413,7 +413,13 @@ function getFilterPlanOverviewList(){
 		         "defaultContent": ""
 			 }],
 			 columns: [
-				{ "data": "fromdate" },
+				{ "data": "fromdate" ,
+					render: function (data, type, row) {
+		               	let formatted = moment(data).format("DD-MM-YYYY");
+              	 	return formatted;
+           		},
+					
+				},
 			    { "data": "shiftname" },
 			    { "data": "planningShiftWork",
 				    "render": function ( data, type, row, meta ) {

@@ -127,8 +127,15 @@ function getFilterPlanningList(){
 				{ "data": "setupname" },
 				{ "data": "stationname" },
 				{ "data": "itemname" },
-				{ "data": "from_date" },
-			    { "data": "to_date" },
+				{ "data": "from_date",
+					render: function (data, type, row) {
+		               	let formatted = moment(data).format("DD-MM-YYYY");
+              	 	return formatted; }
+				 },
+			    { "data": "to_date"  ,
+					render: function (data, type, row) {
+		               	let formatted = moment(data).format("DD-MM-YYYY");
+              	 	return formatted; } },
 				{ "data": "time_per_shift" },
 			    { "data": "cycletime" },
 				{ "data": "itemtimeutilised" },

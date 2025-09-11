@@ -128,7 +128,11 @@ function getFilterPlanningList(){
 			responsive: false,
 	
 			columns: [
-				{ "data": "proddate" },
+				{ "data": "proddate" ,
+					render: function (data, type, row) {
+		               	let formatted = moment(data).format("DD-MM-YYYY");
+              	 	return formatted; }
+				},
 				{ "data": "unitname" },
 			    { "data": "wcname" },
 				{ "data": "shiftname" },
@@ -170,13 +174,13 @@ function getFilterPlanningList(){
 				{ "data": "productivity_rework" },
 				{ "data": "productivity_production_availabletime_qty" }, //<th> Available Time</th>
 				{ "data": "productivity_total_utilised_time" },
-				{ "data": "setuptime" },
+			//	{ "data": "setuptime" },
 				
 				
 				{ "data": "qty_planned" },
 				{ "data": "rejection_rejection_qty" },
 				{ "data": "qty_produced" },
-				{ "data": "oee_per" },
+			//	{ "data": "oee_per" },
 				
 
 /*

@@ -557,7 +557,11 @@
 							     }],
 
 							  columns: [
-							{ "data": "proddate" },
+							{ "data": "proddate" ,
+								render: function (data, type, row) {
+					               	let formatted = moment(data).format("DD-MM-YYYY");
+			              	 	return formatted; }
+							},
 						    { "data": "shiftname" },
 						    { "data": "stationname" },
 		    			    { "data": "prodPlanningDto",
