@@ -20,7 +20,7 @@ $(document).ready(function()
 	$('#planCalender1').val(formattedToday);
 			
 	getUnitList("sel");
-	getPlanningList();
+//	getPlanningList();
 				
 			
 	$('#planCalender').on('change', function (e) 
@@ -124,58 +124,72 @@ function getFilterPlanningList(){
 		 	destroy: true,
 			data: data,
 			//fixedHeader: true,
-			scrollX: true,
-		//	responsive: false,
+		//	scrollX: true,
+			responsive: false,
 	
 			columns: [
+				{ "data": "proddate" },
 				{ "data": "unitname" },
 			    { "data": "wcname" },
-				{ "data": "shiftname" }, 
+				{ "data": "shiftname" },
+				{ "data": "shiftname" }, // <th> Station</th>
+				{ "data": "shiftname" }, // <th> Operator</th>
+				
+				{ "data": "availability_per" },
+				{ "data": "productivity_per" },
+				{ "data": "quality_per" },
+				{ "data": "achievement_per" },
+				{ "data": "rejection_per" },
+				{ "data": "oee_per" },
+				
+				{ "data": "availability_lunchtime" },
+				{ "data": "availability_teatime" },
+				{ "data": "availability_reviewtime" },
+				{ "data": "availability_inpectiontime" },
+				{ "data": "availability_machinebreakdown" },
+				
+				{ "data": "availability_setupchange" },
+				{ "data": "availability_nomaterial" },
+				{ "data": "availability_nolabour" },
+				{ "data": "availability_inspection" },
+				{ "data": "availability_tooling" },
 				{ "data": "availability_drawing" },
 				{ "data": "availability_guages" },
-				{ "data": "availability_inpectiontime" },
-				{ "data": "availability_inspection" },
-				{ "data": "availability_lunchtime" },
-				{ "data": "availability_machinebreakdown" },
-			    { "data": "availability_nolabour" },
-				{ "data": "availability_nomaterial" },
+				
 				{ "data": "availability_otherlosses" },
-			    { "data": "availability_overtime" },
-				{ "data": "availability_per" },
-				{ "data": "availability_reviewtime" },
-				{ "data": "availability_setupchange" },
-			    { "data": "availability_specloss" },
-				{ "data": "availability_stdloss" },
-				{ "data": "availability_teatime" },
-				{ "data": "availability_time" },
-				{ "data": "availability_tooling" },
+				{ "data": "availability_overtime" },
 				{ "data": "availability_totaltime" },
+				{ "data": "availability_stdloss" },
+				{ "data": "availability_specloss" },
 				{ "data": "availability_totloss" },
-				{ "data": "company" },
-			    { "data": "proddate" },
-				{ "data": "productivity_production_qty" },
-				{ "data": "productivity_per" },
-			    { "data": "productivity_personnal" },
-				{ "data": "productivity_rework" },
+				{ "data": "availability_time" },
+				
+				
 				{ "data": "productivity_searching" },
-				{ "data": "productivity_standard_qty" },
-			    { "data": "rejection_ok_qty" },
-				{ "data": "rejection_per" },
-				{ "data": "rejection_rejection_qty" },
-			    { "data": "oee_per" },
-				{ "data": "achievement_per" },
-				{ "data": "productivity_production_availabletime_qty" },
+				{ "data": "productivity_personnal" },
+				{ "data": "productivity_rework" },
+				{ "data": "productivity_production_availabletime_qty" }, //<th> Available Time</th>
 				{ "data": "productivity_total_utilised_time" },
-				{ "data": "quality_per" },
-			    { "data": "tot_planned_mins" },
+				{ "data": "setuptime" },
+				
+				
 				{ "data": "qty_planned" },
+				{ "data": "rejection_rejection_qty" },
 				{ "data": "qty_produced" },
+				{ "data": "oee_per" },
+				
+
+/*
+				{ "data": "productivity_standard_qty" }, 
+				{ "data": "company" },
+				{ "data": "productivity_production_qty" },
+			    { "data": "rejection_ok_qty" },
+			    { "data": "tot_planned_mins" },
 			    { "data": "qty_rejected" },
 				{ "data": "cycletime" },
-				{ "data": "setuptime" },				
 				{ "data": "mins_planned" },
 				
-				/*mp.from_date ,mp.to_date ,
+				mp.from_date ,mp.to_date ,
 				mp.time_per_shift ,mpsw.cycletime,mpsw.itemtimeutilised,mpsw.machinetimeutilised,
 				mpsw.plannedmins,mpsw.plannedquantity,mpsw.setuptime*/
 				
@@ -199,6 +213,8 @@ function getFilterPlanningList(){
 				//get planning list
 	
 			//get  list
+/*
+
 function getPlanningList(){  
 
 	console.log("-------------------Welcome to product getplanningList");
@@ -259,15 +275,6 @@ function getPlanningList(){
 						            { "data": "from_date" },
 					
 					
-			/*		 { "data":  null,
-		           render: function (data, type, row) {
-		               var id = data.id;
-		               var action = //`<a  class="edit-button" id=${id}>Edit</a>
-					   `<a  class="edit-button" id=${id}>View </a>
-		                                   <a  class="delete-button" plandate=${data.fromdate} id=${id}>${data.isdeleted}</a> `;
-		               return action;
-		           },
-	             },*/
 				
 	            ],
 	            "order": [[0, 'desc']],
@@ -276,6 +283,7 @@ function getPlanningList(){
 	})
 		//		});
 }
+*/
 	//get planning list
 
 			

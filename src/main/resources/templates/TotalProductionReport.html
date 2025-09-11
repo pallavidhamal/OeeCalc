@@ -114,6 +114,17 @@ label {
     visibility: collapse !important;
 }
 
+#planningList th {
+    text-align: center;
+}
+
+.scrollable-div {
+  width: auto;
+  height: auto;
+  border: 1px solid black;
+  overflow: auto; /* or overflow: scroll; */
+}
+
 </style>
 <script>
 	let nav = 3;
@@ -182,59 +193,66 @@ label {
   				</div>
   			</div>
   			<br>
-		  		
+				
           <!--box-body-->
           <div class="box-body">
-          <div class="col-md-12"> 
+          <div class="col-md-12 scrollable-div"> 
             <table class="table table-bordered " id="planningList"  >
               <thead>
+				<tr class="orange">
+					<th colspan="12">  </th>                
+					<th colspan="19"> Availability </th> 
+					<th colspan="5"> Productivity</th> 
+					<th colspan="3"> Quality</th>  
+                </tr>
                 <tr class="orange">
+					<th> Date</th>
 					<th> Unit</th>
 					<th> Workcenter</th>
-	                <th> Setup </th>                
-					<th> availability_drawing</th>    
-					<th> availability_guages</th>  
-					<th> availability_inpectiontime</th>    
-					<th> availability_inspection</th>  
-					<th> availability_lunchtime</th> 
-				  	<th> availability_machinebreakdown</th>    
-					<th> availability_nolabour</th>   
-					<th> availability_nomaterial</th>  
-					<th> availability_otherlosses</th>    
-					<th> availability_overtime</th> 
-		 			<th> availability_per</th>  
-					<th> availability_reviewtime</th>   
-					<th> availability_setupchange</th> 
-					<th> availability_specloss</th>   
-				  	<th> availability_stdloss</th>    
-					<th> availability_teatime</th>  
-					<th> availability_time</th>   
-					<th> availability_tooling</th>
-				  	<th> availability_totaltime</th> 
-					<th> availability_totloss</th> 
-					<th> company</th>   
-					<th> proddate</th> 
-					<th> productivity_production_qty</th>   
-					<th> productivity_per</th>  
-					<th> productivity_personnal</th> 
-					<th> productivity_rework</th>   
-					<th> productivity_searching</th>  
-					<th> productivity_standard_qty</th> 
-					<th> rejection_ok_qty</th>   
-					<th> rejection_per</th>   
-					<th> rejection_rejection_qty</th>  
-					<th> oee_per</th>  
-					<th> achievement_per</th>   
-					<th> productivity_production_availabletime_qty</th>   
-					<th> productivity_total_utilised_time</th> 
-					<th> quality_per</th> 
-					<th> tot_planned_mins</th>  
-					<th> qty_planned</th>  					
-					<th> qty_produced</th>  
-					<th> qty_rejected</th> 
-					<th> cycletime</th>  
-					<th> setuptime</th>  
-					<th> mins_planned</th>
+					<th> Shift</th>
+					<th> Station</th>
+					<th> Operator</th>
+	                
+					<th> Availability % </th> 
+					<th> Productivity %</th>
+					<th> Quality %</th>  
+					<th> Achievement %</th> 
+					<th> Rejection %</th>
+					<th> OEE %</th> 
+					
+					<th> Lunch Time</th>
+					<th> Tea Time</th>
+					<th> Review Time</th>
+					<th> Inpection Time</th>
+					<th> Machine Breakdown</th>
+					
+					<th> Setup Change</th>   
+					<th> No Material</th>
+					<th> No Labour</th>  
+					<th> Inspection</th>
+					<th> Tooling</th>
+					<th> Drawing</th>    
+					<th> Guages</th>  
+					
+					<th> Other Losses</th>    
+					<th> Overtime</th> 
+					<th> Totaltime</th>
+					<th> Standard losses</th> 
+					<th> Special losses</th> 
+					<th> Total losses</th>
+					<th> Available Time</th>
+					
+					<th> Searching</th>
+					<th> Personnal</th> 
+					<th> Rework</th>
+					<th> Available Time</th>
+					<th> Total Time Utilised</th>   
+					
+					<th> Total Planned</th>   
+					<th> Total Rejected qty</th> 
+					<th> Total production</th>   
+					<!--<th> Losses Reason</th> -->
+					 
                 </tr>
               </thead>
               <tbody>
