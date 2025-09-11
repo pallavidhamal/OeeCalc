@@ -20,9 +20,7 @@
 							
 							
 							 var unitString = localStorage.getItem("set") ; 
-							
 							console.log("===========unitString============", unitString);
-							
 							 var unitArray = unitString.split("#")
 							 
 							 console.log("===========unitArray============", unitArray);

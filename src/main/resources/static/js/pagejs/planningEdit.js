@@ -2,6 +2,7 @@ var unitid="";
 var machinesOptions;
 var itemOptions;
 var shiftOptions;
+var plandate;
 
 var editId;
 var editWsId;
@@ -46,6 +47,7 @@ $(document).ready(function(){
 			unitid = result.payload.unitid;
 			editWsId = result.payload.workcenterid;
 			shiftid = result.payload.shiftid;
+			plandate=result.payload.fromdate;
 			
 			$("#editUnit").val(result.payload.unitname);
 			$("#editWorkCentre").val(result.payload.workcentername);
@@ -62,7 +64,9 @@ $(document).ready(function(){
 				if(result.payload.planningShiftWork[i].isdeleted == 'Inactive' ){
 				
 					//if(i == 0){
-						buttonDiv = '<a  class="edit-button" viewid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">View </a> <a  class="delete-button rowdelete" deleteid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">Delete</a>  ' ;
+						buttonDiv = '<a  class="edit-button" viewid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">View </a>'+ 
+						'<a  class="delete-button rowdelete" deleteid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">Delete</a> '+
+						' <a  class="btn btn-primary rowProduction" stationid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'">Production</a> ' ;
 					//}
 					
 					
@@ -1304,6 +1308,25 @@ function EmptyModal()
 //	$("#add_item").append("<tr><td> "+addSelMachine+ " </td> <td>"+ +"</tb> <td> 60 % </td></tr>")
 	
 	});
+	
+	
+	$(document).on("click", ".rowProduction", function(e)
+	{
+		console.log("=======stationid===========",$(this).attr("stationid"));
+		var stid=$(this).attr("stationid");
+		
+		window.location.href = "addProduction?unitid="+unitid+"&wcid="+editWsId+"&shiftid="+shiftid+"&plandate="+plandate+"&stationid="+stid;
+		
+		
+		
+	/*	unitid ;
+		editWsId; 
+		shiftid ;
+		*/
+		
+			
+	});
+		
 	
 	
 	$(document).on("click", ".edit-button", function(e){

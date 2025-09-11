@@ -7,13 +7,52 @@ var timePerShiftVal = 0;
 var totalplannedquantity = 0 ;
 var totalTimeUtilised = 0 ; 
 
+var planUnitId="";
+var planWcId="";
+var planShiftId="";
+var planStationId="";
+var planProdDt="";
+
 $(document).ready(function()
 {
 				
 	//getUnitList("add");	
 	//getAllMachines();
 //	getAllItems();
+	
+	/*	planUnitId=1;
+		planWcId=1;
+		planShiftId=1;
+		planStationId="6841089106";*/
+		
+		
+		const firstDayOfMonth1 ='2025-09-05';
+		
+		http://localhost:8087/addProduction?unitid=1&wcid=1&shiftid=1&plandate=2025-09-05&stationid=6841089106_Tbody
+		
+		
+		planUnitId = getUrlParameter('unitid');
+		planWcId=getUrlParameter('wcid');
+		planShiftId=getUrlParameter('shiftid');
+		planStationId=getUrlParameter('stationid');
+		
+		plandate=getUrlParameter('plandate');
+		
+		console.log("===========planUnitId url============", planUnitId+"-wcid-"+planWcId+"planShiftId=="+planShiftId+"planStationId=="+planStationId+"plandate=="+plandate);
 
+		
+		
+		if(planUnitId!="")
+		{
+			
+			$('#prodDate').val(plandate);	
+
+			//$('#prodDate').val(firstDayOfMonth1);	
+			unitid = planUnitId;					 
+			getWorkCentreList("add");
+			getUnitShifts();
+			
+		}
 
 
 		if(role=="AA" || role=="MAU")
@@ -26,31 +65,31 @@ $(document).ready(function()
 		if(role=="PRU"){
 						
 						
-						 var unitString = localStorage.getItem("set") ; 
+			 var unitString = localStorage.getItem("set") ; 
+			
+			console.log("===========unitString============", unitString);
+			
+			 var unitArray = unitString.split("#")
+			 
+			 console.log("===========unitArray============", unitArray);
+			 $("#addUnit").empty();
+			 $("#addUnit").append('<option value="'+ unitArray[0] + '">'+ unitArray[1]+' </option>');
+			 $("#addUnit").prop("disabled", true);
+			 
+			 unitid = unitArray[0];
+			 
+			 $("#addWorkCenter").empty();
+			 $("#addWorkCenter").append('<option value="'+ unitArray[2] + '">'+ unitArray[3]+' </option>');
+			 $("#addWorkCenter").prop("disabled", true);
+			 
+		//	 var wsid = unitArray[2] ;
+		//	 getMachinesByWc(wsid); 
+			 
+			getUnitShifts();	
+		//	getFilterProductionList();
 						
-						console.log("===========unitString============", unitString);
 						
-						 var unitArray = unitString.split("#")
-						 
-						 console.log("===========unitArray============", unitArray);
-						 $("#addUnit").empty();
-						 $("#addUnit").append('<option value="'+ unitArray[0] + '">'+ unitArray[1]+' </option>');
-						 $("#addUnit").prop("disabled", true);
-						 
-						 unitid = unitArray[0];
-						 
-						 $("#addWorkCenter").empty();
-						 $("#addWorkCenter").append('<option value="'+ unitArray[2] + '">'+ unitArray[3]+' </option>');
-						 $("#addWorkCenter").prop("disabled", true);
-						 
-					//	 var wsid = unitArray[2] ;
-					//	 getMachinesByWc(wsid); 
-						 
-						getUnitShifts();	
-					//	getFilterProductionList();
-						
-						
-					}
+		}
 				
 
 
@@ -65,6 +104,7 @@ $(document).ready(function()
 		// $("#timePershift").val("");
 		//alert(unitid)
 		getWorkCentreList("add");
+		
 		getUnitShifts();	
 		
 	});
@@ -90,7 +130,6 @@ $(document).ready(function()
 		
 		var optionSelected = $("option:selected", this);
 		stationId = this.value;
-
 		checkIfProductionAlreadyExist();
 		
 	
@@ -299,8 +338,15 @@ function getUnitList(divId){
 					$("#"+divId+"Unit").append('<option value=' + 0+ '>  - Select Unit - </option>');
 									
 					$.each(response.payload, function( index, value ){
-									
+					
+					if(value.id==planUnitId)	
+					{					
+						$("#"+divId+"Unit").append('<option selected value="'+ value.id + '">'+ value.name+' </option>');
+					}
+					else
 					$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+
+					
 					
 				    });
 				
@@ -312,6 +358,7 @@ function getUnitList(divId){
 
 function getWorkCentreList(divId){
 		
+	
 	$.ajax({
 	    type: 'GET',
 	    url: server_url + "workcenter/getWorkcenterByUnit/"+unitid,
@@ -329,7 +376,13 @@ function getWorkCentreList(divId){
 									
 					$.each(response.payload, function( index, value ){
 									
+					if(value.id==planWcId)	
+					{	
+					$("#"+divId+"WorkCenter").append('<option selected value="'+ value.id + '">'+ value.name+' </option>');
+					}
+					else
 					$("#"+divId+"WorkCenter").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+
 					
 				    });
 				
@@ -480,16 +533,27 @@ function	getAllMachines()
 							//	$("#editItem").append('<option value="0">  Select item </option>');
 
 					           for (i = 0; i < response.payload.length; ++i) {
-					            //   $(".addShift").append(`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`);
 								
 								
+								if(response.payload[i].shiftid==planShiftId)	
+								{
+								
+								shiftOptions=shiftOptions+`<option selected value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`;
+								}
+								else {
 								shiftOptions=shiftOptions+`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`;
-								   
-								//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+									}
 								   
 					           }
 							   
 							   $("#addShift").append(shiftOptions);
+							   
+							   if(planShiftId!="")
+								{
+							   $('#planProdTbody').empty();
+							    getMachinesByPlanFilter();
+							   }
+							   
 							   
 					       },
 
@@ -857,16 +921,40 @@ function getMachinesByWc(wsid)
 	
 	function getMachinesByPlanFilter()
 	{
+		var wcenId="";
+		var tunitid=""
+		var tshiftId="";
+		var tStationId="";
+		var tProdDt="";
 		
+		console.log("planWcId--",planWcId);
 		
+		if(planWcId!=undefined)
+		{
+			wcenId=planWcId;
+			tunitid=planUnitId;
+			tshiftId=planShiftId;
+			tProdDt=plandate;
+		}
+		else
+		{
+			wcenId=$('#addWorkCenter').val();
+			tunitid=$('#addUnit').val();
+			tshiftId=$('#addShift').val();
+			tProdDt= $('#prodDate').val();
+		}			
+		
+			console.log("workcenterID--+",wcenId);
+			console.log("tProdDt--+",tProdDt);
+			
 		var dataVal = 
 			{
 							 
-				 fromdate		: $('#prodDate').val(),
-				 workcenterid 	: $('#addWorkCenter').val(),
-				 todate			: $('#prodDate').val(),
-				 unitid       	: $('#addUnit').val(),
-				 shiftid		:$('#addShift').val(),
+				 fromdate		: tProdDt,
+				 workcenterid 	: wcenId,  
+				 todate			: tProdDt,
+				 unitid       	:tunitid,
+				 shiftid		:tshiftId,
 
 			};
 			
@@ -909,11 +997,33 @@ function getMachinesByWc(wsid)
 								for (i1 = 0; i1 < response.payload.length; ++i1) {
 									
 									console.log("for down--",i1,"for stationid down--",response.payload[i1].stationid,"for stationname  down--",response.payload[i1].stationname);
+									
+								if(response.payload[i1].stationid==planStationId)	
+									{
+									machinesOptions=machinesOptions+`<option selected value="${response.payload[i1].stationid}">${response.payload[i1].stationname}</option>`;
+									}
+									else
+									{
 									machinesOptions=machinesOptions+`<option value="${response.payload[i1].stationid}">${response.payload[i1].stationname}</option>`;
+									}
+									
+								//	$("#addStation").append(`<option  value="${response.payload[i1].stationid}">${response.payload[i1].stationname}</option>`);
+
+									
 							   	}
 							   
+								
 							   	$("#addStation").append(machinesOptions);
 							   	totaltimeCal();
+
+								if(planStationId!=undefined) {
+									
+									$("#addStation").val(planStationId);
+									$('#addStation').trigger('change');
+									
+								//	setTimeout(checkIfProductionAlreadyExist, 5000);
+							//	checkIfProductionAlreadyExist();
+								}
 								//}
 							   }
 							   else
@@ -1176,7 +1286,7 @@ function checkIfProductionAlreadyExist()
 		var dataVal = 
 		{
 			 unitid       	: $('#addUnit').val(),
-			 workcenterid 	: $('#addWorkCenter').val(),
+			 workcenterid 	: $('#addWorkCenter').val(),  
 			 shiftid       	: $('#addShift').val(),
 			 stationid 		: $('#addStation').val(),
 			 fromdate		: $('#prodDate').val(),						 
