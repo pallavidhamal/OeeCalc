@@ -1,49 +1,49 @@
 			
-			var delProdID = "";
-			var editProdID = "";
-			var tableData = $('#prodList').DataTable();
-			var editId;
-			var unitid;
-		
-			$(document).ready(function(){
+var delProdID = "";
+var editProdID = "";
+var tableData = $('#prodList').DataTable();
+var editId;
+var unitid;
+
+$(document).ready(function(){
+	
+	//getUnitList("add");	
+	
+	
+	if(role=="AA" || role=="MAU"){
+			
+		getUnitList("add");
 				
-				//getUnitList("add");	
+	}
+				
+if(role=="PRU"){
 				
 				
-				if(role=="AA" || role=="MAU"){
-						
-							getUnitList("add");
-							
-				}
-							
-			if(role=="PRU"){
-							
-							
-							 var unitString = localStorage.getItem("set") ; 
-							console.log("===========unitString============", unitString);
-							 var unitArray = unitString.split("#")
-							 
-							 console.log("===========unitArray============", unitArray);
-							 $("#addUnit").empty();
-							 $("#addUnit").append('<option value="'+ unitArray[0] + '">'+ unitArray[1]+' </option>');
-							 $("#addUnit").prop("disabled", true);
-							 
-							 unitid = unitArray[0];
-							 
-							 $("#addWorkCenter").empty();
- 							 $("#addWorkCenter").append('<option value="'+ unitArray[2] + '">'+ unitArray[3]+' </option>');
- 							 $("#addWorkCenter").prop("disabled", true);
-							 
-							 var wsid = unitArray[2] ;
-							 getMachinesByWc(wsid); 
-							 
-							getUnitShifts();	
-							getFilterProductionList();
-							
-						//	getWorkCentreList("add");
-						//	getUnitShifts();
-							
-						}
+	 var unitString = localStorage.getItem("set") ; 
+	 console.log("===========unitString============", unitString);
+	 var unitArray = unitString.split("#")
+	 
+	 console.log("===========unitArray============", unitArray);
+	 $("#addUnit").empty();
+	 $("#addUnit").append('<option value="'+ unitArray[0] + '">'+ unitArray[1]+' </option>');
+	 $("#addUnit").prop("disabled", true);
+	 
+	 unitid = unitArray[0];
+	 
+	 $("#addWorkCenter").empty();
+	 $("#addWorkCenter").append('<option value="'+ unitArray[2] + '">'+ unitArray[3]+' </option>');
+	 $("#addWorkCenter").prop("disabled", true);
+	 
+	 var wsid = unitArray[2] ;
+	 getMachinesByWc(wsid); 
+	 
+	getUnitShifts();	
+	getFilterProductionList();
+	
+//	getWorkCentreList("add");
+//	getUnitShifts();
+	
+}
 				
 				
 				
@@ -65,12 +65,12 @@
 				month = month < 10 ? '0' + month : month;
 				day = day < 10 ? '0' + day : day;
 
-				const formattedToday = `${year}-${month}-${day}`;
+				const formattedToday = `${day}-${month}-${year}`;
 				
 				const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 				let day1=1;
 				
-				const firstDayOfMonth1 = `${year}-${month}-01`;
+				const firstDayOfMonth1 = `01-${month}-${year}`;
 				
 				console.log("firstDayOfMonth1-",firstDayOfMonth1);
 				console.log("formattedToday-",formattedToday);
@@ -339,7 +339,12 @@
 									     }],
 
 									  columns: [
-									{ "data": "proddate" },
+									{ "data": "proddate" ,
+										render: function (data, type, row) {
+							               	let formatted = moment(data).format("DD-MM-YYYY");
+					              	 	return formatted;
+				              	 		},
+			              	 		},
 								    { "data": "unitname" },
 								    { "data": "workcentername" },
 								    { "data": "shiftname" },
@@ -1595,8 +1600,8 @@ function generatecatCodeListCustWise(divid,customerId,prodId){
 						 shiftid       	: $('#addShift').val(),
 						 stationid 		: $('#addSelMachine').val(),
 						 operatorid     : $('#addOperator').val(),						 
-						 fromdate		: $('#prodDatefrm').val(),						 
-						 todate			: $('#prodDateto').val(),
+						 fromdate		: StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDatefrm').val()),						 
+						 todate			: StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDateto').val()),
 						 
 					};
 								

@@ -32,6 +32,13 @@ $(document).ready(function(){
 	
 	console.log("EditID"+editId);
 	
+	if(role=="PRU")
+	{
+		$("#additemmodal").remove();
+		$("#editPlanningData").remove();
+	}
+	
+	
 	$.ajax({
 	    type: 'GET',
 	    url: server_url + `planning/get/${editId}`,
@@ -64,10 +71,17 @@ $(document).ready(function(){
 				if(result.payload.planningShiftWork[i].isdeleted == 'Inactive' ){
 				
 					//if(i == 0){
-						buttonDiv = '<a  class="edit-button" viewid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">View </a>'+ 
-						'<a  class="delete-button rowdelete" deleteid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">Delete</a> '+
-						' <a  class="btn btn-primary rowProduction" stationid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'">Production</a> ' ;
+						
 					//}
+					
+					if(role=="PRU") {
+			                buttonDiv =  ' <a  class="btn-info1 rowProduction" stationid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'">Production</a> ' ;
+                       }else{
+			              buttonDiv = '<a  class="edit-button" viewid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">View </a>'+ 
+						'<a  class="delete-button rowdelete" deleteid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'_Tbody">Delete</a> '+
+						' <a  class="btn-info1 rowProduction" stationid="'+jQuery.trim(result.payload.planningShiftWork[i].stationid)+'">Production</a> ' ;
+					   }
+					
 					
 					
 					var lodstId = jQuery.trim(result.payload.planningShiftWork[i].stationid);

@@ -161,8 +161,8 @@ function getFilterPlanningList(){
 				{ "data": "unitname" },
 			    { "data": "wcname" },
 				{ "data": "shiftname" },
-				{ "data": "shiftname" }, // <th> Station</th>
-				{ "data": "shiftname" }, // <th> Operator</th>
+				{ "data": "stationname" }, // <th> Station</th>
+				{ "data": "operatorname" }, // <th> Operator</th>
 				
 				{ "data": "availability_per" },
 				{ "data": "productivity_per" },

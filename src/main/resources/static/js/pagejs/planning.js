@@ -28,8 +28,12 @@ $(document).ready(function()
 		
 	}
 		
-	if(role=="PLU"){
+	if(role=="PLU" || role=="PRU"){
 		
+		if(role=="PRU")
+			{
+				$("#planningAddAction").remove();
+			}
 		
 		 var unitString = localStorage.getItem("set") ; 
 		
@@ -48,7 +52,8 @@ $(document).ready(function()
 		getWorkCentreList("sel");
 		
 		getFilterPlanningList();
-	}		
+	}
+	
 			
 	$('#planCalender').on('change', function (e) 
 	{
@@ -176,9 +181,17 @@ function getFilterPlanningList(){
 				{ "data":  null,
 	           		render: function (data, type, row) {
 	               		var id = data.id;
-		               var action = // `<a  class="edit-button" id=${id}>Edit</a>
-					   `<a  class="edit-button" id=${id}>View </a>
+		                var action = "";
+		                
+		                console.log("========role=========",role)
+		                
+		               if(role=="PRU") {
+			                action = `<a  class="edit-button" id=${id}>View </a> `;
+                       }else{
+			               action = //`<a  class="edit-button" id=${id}>Edit</a>
+						   `<a  class="edit-button" id=${id}>View </a>
 		                                   <a  class="delete-button" id=${id}>${data.isdeleted}</a> `;
+					   }                   
 	              	 	return action;
 	           		},
 	         	},
@@ -256,9 +269,15 @@ function getPlanningList(){
 					 { "data":  null,
 		           render: function (data, type, row) {
 		               var id = data.id;
-		               var action = //`<a  class="edit-button" id=${id}>Edit</a>
-					   `<a  class="edit-button" id=${id}>View </a>
-		                                   <a  class="delete-button" plandate=${data.fromdate} id=${id}>${data.isdeleted}</a> `;
+		                var action = "";
+		                
+		               if(role=="PRU") {
+			                action = `<a  class="edit-button" id=${id}>View </a> `;
+                       }else{
+			               action = //`<a  class="edit-button" id=${id}>Edit</a>
+						   `<a  class="edit-button" id=${id}>View </a>
+			                                   <a  class="delete-button" plandate=${data.fromdate} id=${id}>${data.isdeleted}</a> `;
+					   }
 		               return action;
 		           },
 	             },

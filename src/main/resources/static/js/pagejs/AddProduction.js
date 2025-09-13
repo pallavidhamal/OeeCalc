@@ -26,9 +26,9 @@ $(document).ready(function()
 		planStationId="6841089106";*/
 		
 		
-		const firstDayOfMonth1 ='2025-09-05';
+	//	const firstDayOfMonth1 ='2025-09-05';
 		
-		http://localhost:8087/addProduction?unitid=1&wcid=1&shiftid=1&plandate=2025-09-05&stationid=6841089106_Tbody
+	//	http://localhost:8087/addProduction?unitid=1&wcid=1&shiftid=1&plandate=2025-09-05&stationid=6841089106_Tbody
 		
 		
 		planUnitId = getUrlParameter('unitid');
@@ -759,7 +759,7 @@ function	getAllMachines()
 							 var dataVal = {
 							 
 									 planid : planId,
-									 proddate : $('#prodDate').val(),
+									 proddate : StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDate').val()),
 									 unitid : $('#addUnit').val(),
 									 workcenterid : $('#addWorkCenter').val(),
 									 shiftid : $('#addShift').val(),
@@ -803,6 +803,7 @@ function	getAllMachines()
 									 productivity_Production_qty : $('#qualityProduction').val(),
 									 
 									 //totalplannedVal
+									 total_planned : $("#totalplannedVal").val(),
 									 tot_planned_mins :totPlannedMins,
 									 achievement_per : $('#achievementPer').val(),
 									 rejection_per : $('#rejectionPer').val(),
@@ -950,9 +951,9 @@ function getMachinesByWc(wsid)
 		var dataVal = 
 			{
 							 
-				 fromdate		: tProdDt,
+				 fromdate		: StringToDateDDMMYYYY_to_YYYYMMDD(tProdDt),
 				 workcenterid 	: wcenId,  
-				 todate			: tProdDt,
+				 todate			: StringToDateDDMMYYYY_to_YYYYMMDD(tProdDt),
 				 unitid       	:tunitid,
 				 shiftid		:tshiftId,
 
@@ -1289,8 +1290,8 @@ function checkIfProductionAlreadyExist()
 			 workcenterid 	: $('#addWorkCenter').val(),  
 			 shiftid       	: $('#addShift').val(),
 			 stationid 		: $('#addStation').val(),
-			 fromdate		: $('#prodDate').val(),						 
-			 todate			: $('#prodDate').val(),
+			 fromdate		: StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDate').val()),						 
+			 todate			: StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDate').val()),
 			 operatorid     : "0",	
 			 
 		};

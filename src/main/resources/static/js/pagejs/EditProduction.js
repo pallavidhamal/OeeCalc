@@ -43,7 +43,9 @@ $(document).ready(function(){
 			editWsId = result.payload.workcenterid;
 			shiftid = result.payload.shiftid;
 			
-			$("#prodDate").val(result.payload.proddate);
+			
+			
+			$("#prodDate").val(DateformatedYYYYMMDD_to_DDMMYYYY(result.payload.proddate));
 			$("#addUnit").val(result.payload.unitname);
 			$("#addWorkCenter").val(result.payload.workcentername);
 			$("#addShift").val(result.payload.shiftname);
@@ -77,25 +79,24 @@ $(document).ready(function(){
 			$("#availabilityPer").val(result.payload.availabilityper);
 
 			//Productivity
-			
 			$("#searchT").val(result.payload.productivitysearching);
 			$("#personnalT").val(result.payload.productivitypersonnal);
 			$("#reworkT").val(result.payload.productivityrework);
-			$("#availabletimeVal").val(result.payload.productivityrework);
-			$("#totalUtilisedTime").val(result.payload.productivityrework);
 			
-			$("#productivityper").val(result.payload.rejectionrejectionqty);
+			$("#availabletimeVal").val(result.payload.productivity_Production_availabletime_qty);
+			$("#totalUtilisedTime").val(result.payload.productivity_total_utilised_time); 
+			$("#productivityper").val(result.payload.productivityper); 
 
 			// Quality
-			$("#totalplannedVal").val(result.payload.productivityProductionqty);
-			$("#achievementPer").val(result.payload.productivitystandardqty);
-			$("#rejectionPer").val(result.payload.productivitystandardqty);
+		$("#totalplannedVal").val(result.payload.total_planned); //
+			$("#achievementPer").val(result.payload.achievement_per); // 
+			$("#rejectionPer").val(result.payload.rejectionper); //
 			
 			$("#rejectQty").val(result.payload.rejectionrejectionqty);
 			$("#qualityProduction").val(result.payload.rejectionokqty);
-			$("#qualityPer").val(result.payload.rejectionper);
+			$("#qualityPer").val(result.payload.quality_per);
 			
-			$("#lossesReason").val(result.payload.oeeper);
+			$("#lossesReason").val(result.payload.lossesreason);
 			
 			$("#oeePer").val(result.payload.oeeper);
 			
