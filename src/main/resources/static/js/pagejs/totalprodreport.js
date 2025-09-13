@@ -19,10 +19,35 @@ $(document).ready(function()
     $('#planCalender').val(firstDayOfMonth1);
 	$('#planCalender1').val(formattedToday);
 			
-	getUnitList("sel");
-//	getPlanningList();
+	//getUnitList("sel");
 				
-			
+//
+	var unitString = localStorage.getItem("set") ; 
+	console.log("===========unitString============", unitString);
+	var unitArray = unitString.split("#")
+	unitid = unitArray[0];
+	console.log("========unitid=======",unitid+"unit name=="+ unitArray[1]);
+
+	console.log("========dataTableData=======",dataTableData);
+	if(unitid!="")
+	{	
+	 console.log("===========unitArray============", unitArray);
+	 $("#selUnit").empty();
+	 $("#selUnit").append('<option value="'+ unitArray[0] + '">'+ unitArray[1]+' </option>');
+	 $("#selUnit").prop("disabled", true);
+	 
+	 getWorkCentreList("sel");
+	 getFilterPlanningList();
+	 
+	 }else{
+		//getUnitList("add");	
+		getUnitList("sel");
+	//	getPlanningList();
+	 }	
+	//	
+
+
+		
 	$('#planCalender').on('change', function (e) 
 	{
 		var frmdate=$(this).val();

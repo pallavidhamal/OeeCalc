@@ -6,7 +6,30 @@ var unitid;
 		
 $(document).ready(function(){
 	
-	getUnitList("add");	
+	
+		var unitString = localStorage.getItem("set") ; 
+		console.log("===========unitString============", unitString);
+		var unitArray = unitString.split("#")
+		unitid = unitArray[0];
+		console.log("========unitid=======",unitid+"unit name=="+ unitArray[1]);
+ 
+		
+		if(unitid!="")
+		{	
+		 console.log("===========unitArray============", unitArray);
+		 $("#addUnit").empty();
+		 $("#addUnit").append('<option value="'+ unitArray[0] + '">'+ unitArray[1]+' </option>');
+		 $("#addUnit").prop("disabled", true);
+		 getWorkCentreList("add");
+   		 getFilterPlanOverviewList();
+				
+		 
+		 }else{
+			getUnitList("add");	
+
+		 }
+		
+	
 	console.log("========dataTableData=======",dataTableData);
 	
 	

@@ -6,9 +6,28 @@ var unitid;
 
 $(document).ready(function(){
 				
-	getUnitList("add");	
+	//getUnitList("add");	
 	console.log("========dataTableData=======",dataTableData);
 	
+	var unitString = localStorage.getItem("set") ; 
+	console.log("===========unitString============", unitString);
+	var unitArray = unitString.split("#")
+	unitid = unitArray[0];
+	console.log("========unitid=======",unitid+"unit name=="+ unitArray[1]);
+
+	console.log("========dataTableData=======",dataTableData);
+	if(unitid!="")
+	{	
+	 console.log("===========unitArray============", unitArray);
+	 $("#addUnit").empty();
+	 $("#addUnit").append('<option value="'+ unitArray[0] + '">'+ unitArray[1]+' </option>');
+	 $("#addUnit").prop("disabled", true);
+	 getWorkCentreList("add");
+	 getLossSummaryList();
+	 }else{
+		getUnitList("add");	
+
+	 }
 	
 	const today = new Date();
 	const year = today.getFullYear();
