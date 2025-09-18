@@ -40,6 +40,15 @@
 				getAllUoms();
 				
 				
+				
+				
+				
+				$('#addItem').select2({
+			      placeholder: 'Select a Item',
+			      allowClear: true,
+			     // width: 'resolve' // adjusts to container
+			    });
+				
 			});
 			
 			$(document).on("click", "#setupAddAction", function(e){

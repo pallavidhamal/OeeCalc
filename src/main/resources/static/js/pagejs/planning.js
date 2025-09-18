@@ -231,6 +231,9 @@ function getPlanningList(){
 	           		},
 				    { "data": "todate",
 				    	render: function (data, type, row) {
+							if (type === 'sort' || type === 'type') {
+			                    return data;
+			                }
 	              	 		return moment(new Date(data).toString()).format('DD-MM-YYYY');
 	           			}
 	           		},

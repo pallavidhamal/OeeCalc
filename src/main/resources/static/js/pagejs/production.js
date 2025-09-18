@@ -136,8 +136,10 @@ function getPOList(){
 			  columns: [
 				{ "data": "proddate" ,
 					render: function (data, type, row) {
-		               	let formatted = moment(data).format("DD-MM-YYYY");
-              	 		return formatted;
+		               	if (type === 'sort' || type === 'type') {
+			                    return data;
+			                }
+              	 		return moment(new Date(data).toString()).format('DD-MM-YYYY');
           	 		},
       	 		},
 			    { "data": "unitname" },
@@ -354,7 +356,14 @@ function getFilterProductionList(){
 			     }],
 
 			  columns: [
-			{ "data": "proddate" },
+			{ "data": "proddate",
+				render: function (data, type, row) {
+	               	if (type === 'sort' || type === 'type') {
+		                    return data;
+		                }
+          	 		return moment(new Date(data).toString()).format('DD-MM-YYYY');
+      	 		},
+			},
 		    { "data": "unitname" },
 		    { "data": "workcentername" },
 		    { "data": "shiftname" },
