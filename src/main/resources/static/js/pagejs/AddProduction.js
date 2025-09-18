@@ -13,8 +13,7 @@ var planShiftId="";
 var planStationId="";
 var planProdDt="";
 
-$(document).ready(function()
-{
+$(document).ready(function(){
 				
 	//getUnitList("add");	
 	//getAllMachines();
@@ -331,28 +330,20 @@ function getUnitList(divId){
 	    contentType: false,
 	    data: null,
 	    success: function (response) {
-	
-			console.log("==========response=====",response)
 			
-					$("#"+divId+"Unit").empty();			
-					$("#"+divId+"Unit").append('<option value=' + 0+ '>  - Select Unit - </option>');
-									
-					$.each(response.payload, function( index, value ){
-					
-					if(value.id==planUnitId)	
-					{					
-						$("#"+divId+"Unit").append('<option selected value="'+ value.id + '">'+ value.name+' </option>');
-					}
-					else
+			$("#"+divId+"Unit").empty();			
+			$("#"+divId+"Unit").append('<option value=' + 0+ '>  - Select Unit - </option>');
+								
+			$.each(response.payload, function( index, value ){
+				if(value.id==planUnitId){					
+					$("#"+divId+"Unit").append('<option selected value="'+ value.id + '">'+ value.name+' </option>');
+				}
+				else{
 					$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
-
-					
-					
-				    });
-				
-			}	
-		});
-	
+				}
+		    });
+		}	
+	});
 }
 
 
@@ -368,373 +359,200 @@ function getWorkCentreList(divId){
 	    contentType: false,
 	    data: null,
 	    success: function (response) {
-	
 			console.log("==========response=====",response)
-			
-					$("#"+divId+"WorkCenter").empty();			
-					$("#"+divId+"WorkCenter").append('<option value=' + 0+ '>  - Select workcenter - </option>');
-									
-					$.each(response.payload, function( index, value ){
-									
-					if(value.id==planWcId)	
-					{	
+			$("#"+divId+"WorkCenter").empty();			
+			$("#"+divId+"WorkCenter").append('<option value=' + 0+ '>  - Select workcenter - </option>');
+			$.each(response.payload, function( index, value ){
+				if(value.id==planWcId) {	
 					$("#"+divId+"WorkCenter").append('<option selected value="'+ value.id + '">'+ value.name+' </option>');
-					}
-					else
+				}else{
 					$("#"+divId+"WorkCenter").append('<option value="'+ value.id + '">'+ value.name+' </option>');
-
-					
-				    });
-				
-			}	
-		});
-	
+				}
+		    });
+		}	
+	});
 }
 
-function	getAllMachines()
-	{
-		
-		
-		$.ajax({
-				       type: "GET",
-				       url: server_url + `station/allActive`,
-				       enctype: "application/json",
-				       headers: authHeader,
-				       processData: false,
-				       contentType: false,
-				       data: null,
-				       success: function (response) {
-							$("#addSelMachine").empty();
-							//$("#editStation").empty();
-							
-							machinesOptions='<option value="0">  Select Station </option>';
-						//	$("#editStation").append('<option value="0">  Select station </option>');
-				           for (i = 0; i < response.payload.length; ++i) {
-							
-							
-							machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
-							
-				           //   $(".addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-							 //  $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-				           }
-						   
-						   $("#addSelMachine").append(machinesOptions);
-						   
-				       },
+function getAllMachines() {
+	$.ajax({
+       type: "GET",
+       url: server_url + `station/allActive`,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+			$("#addSelMachine").empty();
+			machinesOptions='<option value="0">  Select Station </option>';
+            for (i = 0; i < response.payload.length; ++i) {
+				machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
+            }
+		   $("#addSelMachine").append(machinesOptions);
+       },
+       error: function (error) {
+          ajaxerrormsg(error);
+       },
+   });
+}
 
-				       error: function (error) {
-				           /*console.log(error);
-				      		 if (error.status == 401) {
-					    	  window.location.href =  contextPath;
-					      } else {
-					    	if( error.responseJSON != undefined){
-								errmssge=error.responseJSON.status;	
-							
-								if (error.responseJSON.status=="500"){
-									console.log("in errr");
-									 errorBlock("#error_block", error.responseJSON.message);
-								}else{
-											 errorBlock("#error_block", error.responseJSON.errors.message);
-											}
-							}
-							else{
-					   	  		console.log("Server Error! Please contact administrator");
-					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-					     	}
-				     	}*/
-				       },
-				   });
-	}
-
-
-	function getAllItems()
-		{
-			$.ajax({
-			       type: "GET",
-			       url: server_url + `item/getAllItems`,
-			       enctype: "application/json",
-			       headers: authHeader,
-			       processData: false,
-			       contentType: false,
-			       data: null,
-			       success: function (response) {
-						$(".addItem").empty();
-					//	$("#editItem").empty();
-						//$(".addItem").append('<option value="0">  Select item </option>');
-						
-						itemOptions='<option value="0">  Select Item </option>';
-
-						
-					//	$("#editItem").append('<option value="0">  Select item </option>');
-
-			           for (i = 0; i < response.payload.length; ++i) {
-			             
-						//  $(".addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
-						   
-						itemOptions=itemOptions+`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`;
-						
-						//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
-			           }
-					   
-					   $(".addItem").append(itemOptions);
-					   
-			       },
-
-			       error: function (error) {
-			           /*console.log(error);
-			      		 if (error.status == 401) {
-				    	  window.location.href =  contextPath;
-				      } else {
-				    	if( error.responseJSON != undefined){
-							errmssge=error.responseJSON.status;	
-						
-							if (error.responseJSON.status=="500"){
-								console.log("in errr");
-								 errorBlock("#error_block", error.responseJSON.message);
-							}else{
-										 errorBlock("#error_block", error.responseJSON.errors.message);
-										}
-						}
-						else{
-				   	  		console.log("Server Error! Please contact administrator");
-				   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-				     	}
-			     	}*/
-			       },
-			   });
-		}
-	
-	
-		function getUnitShifts()
-		{
-			
-				console.log("=====getUnitShifts====unitid===",unitid)
-				
-				
-					$.ajax({
-					       type: "GET",
-					       url: server_url + `shift/getShiftByUnit/`+unitid,
-					       enctype: "application/json",
-					       headers: authHeader,
-					       processData: false,
-					       contentType: false,
-					       data: null,
-					       success: function (response) {
-								$("#addShift").empty();
-							//	$("#editItem").empty();
-							//	$(".addShift").append('<option value="0">  Select item </option>');
-								
-								
-								shiftOptions='<option value="0">  Select Shift </option>';
-								
-								console.log("=====getUnitShifts=======",response)
-								
-								
-							//	$("#editItem").append('<option value="0">  Select item </option>');
-
-					           for (i = 0; i < response.payload.length; ++i) {
-								
-								
-								if(response.payload[i].shiftid==planShiftId)	
-								{
-								
-								shiftOptions=shiftOptions+`<option selected value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`;
-								}
-								else {
-								shiftOptions=shiftOptions+`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`;
-									}
-								   
-					           }
-							   
-							   $("#addShift").append(shiftOptions);
-							   
-							   if(planShiftId!="")
-								{
-							   $('#planProdTbody').empty();
-							    getMachinesByPlanFilter();
-							   }
-							   
-							   
-					       },
-
-					       error: function (error) {
-					           /*console.log(error);
-					      		 if (error.status == 401) {
-						    	  window.location.href =  contextPath;
-						      } else {
-						    	if( error.responseJSON != undefined){
-									errmssge=error.responseJSON.status;	
-								
-									if (error.responseJSON.status=="500"){
-										console.log("in errr");
-										 errorBlock("#error_block", error.responseJSON.message);
-									}else{
-												 errorBlock("#error_block", error.responseJSON.errors.message);
-												}
-								}
-								else{
-						   	  		console.log("Server Error! Please contact administrator");
-						   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-						     	}
-					     	}*/
-					       },
-					   });
+ function getAllItems() {
+	$.ajax({
+       type: "GET",
+       url: server_url + `item/getAllItems`,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+			$(".addItem").empty();
+			itemOptions='<option value="0">  Select Item </option>';
+           for (i = 0; i < response.payload.length; ++i) {
+			itemOptions=itemOptions+`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`;
+           }
+		   $(".addItem").append(itemOptions);
+       },
+       error: function (error) {
+           ajaxerrormsg(error);
+       },
+   });
+}
+ function getUnitShifts(){
+	$.ajax({
+       type: "GET",
+       url: server_url + `shift/getShiftByUnit/`+unitid,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+			$("#addShift").empty();
+			shiftOptions='<option value="0">  Select Shift </option>';
+			console.log("=====getUnitShifts=======",response)
+	        for (i = 0; i < response.payload.length; ++i) {
+				if(response.payload[i].shiftid==planShiftId) {
+					shiftOptions=shiftOptions+`<option selected value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`;
+				} else {
+					shiftOptions=shiftOptions+`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`;
 				}
+	        }
+		   $("#addShift").append(shiftOptions);
+		   if(planShiftId!=""){
+		   		$('#planProdTbody').empty();
+		    	getMachinesByPlanFilter();
+		    }
+       },
+       error: function (error) {
+           ajaxerrormsg(error);
+       },
+   });
+}
 
-				
-	function getShiftWorkItemList()
-	{
-		var dataVal = 
-		{
-			 id			: planId,
-			 stationid 	: stationId
-		};
+function getShiftWorkItemList(){
+	var dataVal =  {
+		 id			: planId,
+		 stationid 	: stationId
+	};
 		
-			console.log("-------------------Welcome to getShiftWorkItemList"+JSON.stringify(dataVal));
-				$.ajax({
-					    type: 'POST',
-					    url: server_url + "planningshift/getShiftWorkDtlsByPlanAndStation",
-					    enctype: 'application/json',
-					    headers: authHeader,
-					    processData: false,
-					    contentType: "application/json; charset=utf-8",
-					    data: JSON.stringify(dataVal),
-						
-						success: function (response) {		
-
-						console.log("------response data----------",response);
-						var data = response.payload;
-						console.log("------getPOList data----------",data);
-						
-						
-							console.log("------falseeeeeeeee----------");
-											
-					        $('#planProdTbody').empty();
-							
-							$.each(response.payload, function( index1, value1 ){
-				   
-							console.log("------second for----------");
-							
-							totalplannedquantity += Number(value1.plannedquantity) ;
-												
-							$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
-								+' <td class="table_input"> <input type="hidden" class="form-control width80 line txtStation " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
-								+' <td class="table_input"><input type="hidden" class="form-control width80 line txtItem " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
-								+' <td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +' </td>'
-								+' <td class="table_input"><input type="text" class="form-control width80 line txtsetuptime" rocnt = "'+index1+'" id="setuptimeId'+index1+'" value="'+value1.setuptime+'"   disabled> </td>'
-								+' <td class="table_input"><input type="text" class="form-control width80 line txtcycletime" rocnt = "'+index1+'" id="cycletimeId'+index1+'" value="'+value1.cycletime+'"   disabled> </td>'
-								+' <td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled><input type="hidden" class="form-control width80 line txtPlannedMins " rocnt = "'+index1+'" id="plannedMins'+index1+'" value="'+value1.plannedmins+'"   disabled></td>'
-								+' <td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal minZero" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
-								+' <td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal minZero"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
+	$.ajax({
+	    type: 'POST',
+	    url: server_url + "planningshift/getShiftWorkDtlsByPlanAndStation",
+	    enctype: 'application/json',
+	    headers: authHeader,
+	    processData: false,
+	    contentType: "application/json; charset=utf-8",
+	    data: JSON.stringify(dataVal),
+		success: function (response) {		
+		var data = response.payload;
+		console.log("------getPOList data----------",data);
+	        $('#planProdTbody').empty();
+			$.each(response.payload, function( index1, value1 ){
+				totalplannedquantity += Number(value1.plannedquantity) ;
+								
+				$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
+					+' <td class="table_input"> <input type="hidden" class="form-control width80 line txtStation " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+					+' <td class="table_input"><input type="hidden" class="form-control width80 line txtItem " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+					+' <td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +' </td>'
+					+' <td class="table_input"><input type="text" class="form-control width80 line txtsetuptime" rocnt = "'+index1+'" id="setuptimeId'+index1+'" value="'+value1.setuptime+'"   disabled> </td>'
+					+' <td class="table_input"><input type="text" class="form-control width80 line txtcycletime" rocnt = "'+index1+'" id="cycletimeId'+index1+'" value="'+value1.cycletime+'"   disabled> </td>'
+					+' <td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled><input type="hidden" class="form-control width80 line txtPlannedMins " rocnt = "'+index1+'" id="plannedMins'+index1+'" value="'+value1.plannedmins+'"   disabled></td>'
+					+' <td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal minZero" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
+					+' <td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal minZero"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
 	
-							  +'</tr>');
-						  
-						  
-							//  }); //for each of response.payload.planningShiftWork
-						}); //for each of response.payload
+				  +'</tr>');
+			}); 
+		},
+       error: function (error) {
+           ajaxerrormsg(error);
+       }
+	})//ajax
+}			
 				
-						console.log("======totalplannedquantity======",totalplannedquantity);
-				
-			//	$("#totalPlanQty").val(totalplannedquantity);
-			
-		}
-		
-		})//ajax
+function getPlanningItemList(){
+	$.ajax({
+	    type: 'GET',
+	    url: server_url + "planning/get/"+planId+"/"+stationId,
+	    enctype: 'application/json',
+	    headers: authHeader,
+	    processData: false,
+	    contentType: "application/json; charset=utf-8",
+		success: function (response) {		
 
-	}			
-				
-	function getPlanningItemList()
-		{
-	/*	var dataVal = 
-		{
-			 id			: planId,
-			 stationid 	: stationId
-		};
-		
-			console.log("-------------------Welcome to getShiftWorkItemList"+JSON.stringify(dataVal));
-	*/			$.ajax({
-					    type: 'GET',
-					    url: server_url + "planning/get/"+planId+"/"+stationId,
-					    enctype: 'application/json',
-					    headers: authHeader,
-					    processData: false,
-					    contentType: "application/json; charset=utf-8",
-				//	    data: JSON.stringify(dataVal),
+			var data = response.payload;
+
+			console.log("------getPOList data----------",data);
+	        $('#planProdTbody').empty();
 						
-						success: function (response) {		
-
-						console.log("------response data----------",response);
-
-
-						var data = response.payload;
-
-						console.log("------getPOList data----------",data);
-									
-//										tableData.destroy();
-				        $('#planProdTbody').empty();
-						
-					$.each(response.payload, function( index1, value1 ){
+			$.each(response.payload, function( index1, value1 ){
 			
-					//console.log("------first for----------"+value.planningShiftWork);
-				//	$.each(value.planningShiftWork, function( index1, value1 ){
-			   
-						console.log("------second for----------");
-											
-						$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
-							+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation  " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
-							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem  " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
-							+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup  " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal  minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal minZero " rocnt = "'+index1+'" id="producedQty'+index1+'" value="0" ></td>'
-							+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal  minZero"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0" ></td>'
+				$('#planProdTbody').append('<tr class="tr_clone" roCnt = "'+index1+'">'
+					+'<td class="table_input"> <input type="hidden" class="form-control width80 line txtStation  " rocnt = "'+index1+'" id="stationId'+index1+'" value="'+value1.stationid+'"   disabled>'+value1.stationname +' </td>'
+					+'<td class="table_input"><input type="hidden" class="form-control width80 line txtItem  " rocnt = "'+index1+'" id="itemId'+index1+'" value="'+value1.itemid+'"   disabled>'+ value1.itemname +' </td>'
+					+'<td class="table_input"><input type="hidden" class="form-control width80 line txtSetup  " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +'</td>'
+					+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal  minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled></td>'
+					+'<td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal minZero " rocnt = "'+index1+'" id="producedQty'+index1+'" value="0" ></td>'
+					+'<td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal  minZero"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0" ></td>'
 
-						  +'</tr>');
-									
-							//  }); //for each of response.payload.planningShiftWork
-				}); //for each of response.payload
-			}
-		})//ajax
-
-	}				
+				  +'</tr>');
+			}); //for each of response.payload
+		},
+       error: function (error) {
+           ajaxerrormsg(error);
+       }
+	})//ajax
+}				
 				
-
-	$(document).on("click", "#addProduction", function(e){
-
-		
+$(document).on("click", "#addProduction", function(e){
 		var myarray=[];
 		var i =  0 ;
-		
 		var totPlannedMins=0;		
 		var plmins=0;	
 		$("#planProdTbody").find('tr').each(function (){
 			
-			
-			
 			console.log($("#planProdTbody").find('tr').eq(i).find('td').eq(0).text());
 			console.log($("#planProdTbody").find('tr').eq(i).find('td').eq(0).find("input").eq(0).val());
-			
 			console.log("=========stationidVal==text=========",$("#planProdTbody").find('tr').eq(i).find('td').eq(0).text());
 			
 			 var lineData  = {
-					 
-					 stationid 			 : stationId,
-					 planid				 : planId,	
-					 itemid			 	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(1).find("input").eq(0).val(),
-					 setupid			 : $("#planProdTbody").find('tr').eq(i).find('td').eq(2).find("input").eq(0).val(),											 
-					 setuptime	 		 : $("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val(),
-					 cycletime	 		 : $("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val(),
-					 plannedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val(),
-					 plannedmins	     : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(1).val(),
-					 producedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(6).find("input").eq(0).val(),
-					 rejectedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(7).find("input").eq(0).val(),
-
-				};
+				 stationid 			 : stationId,
+				 planid				 : planId,	
+				 itemid			 	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(1).find("input").eq(0).val(),
+				 setupid			 : $("#planProdTbody").find('tr').eq(i).find('td').eq(2).find("input").eq(0).val(),											 
+				 setuptime	 		 : $("#planProdTbody").find('tr').eq(i).find('td').eq(3).find("input").eq(0).val(),
+				 cycletime	 		 : $("#planProdTbody").find('tr').eq(i).find('td').eq(4).find("input").eq(0).val(),
+				 plannedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(0).val(),
+				 plannedmins	     : $("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(1).val(),
+				 producedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(6).find("input").eq(0).val(),
+				 rejectedquantity	 : $("#planProdTbody").find('tr').eq(i).find('td').eq(7).find("input").eq(0).val(),
+			};
 		 	 
 		 	  
-			  plmins=  parseFloat(($("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(1).val()));
-			  console.log("====plmins======",plmins);
+			 plmins=  parseFloat(($("#planProdTbody").find('tr').eq(i).find('td').eq(5).find("input").eq(1).val()));
+			 console.log("====plmins======",plmins);
 			  
-			  totPlannedMins = parseFloat((  parseFloat(totPlannedMins)) +  parseFloat(plmins) );
+			 totPlannedMins = parseFloat((  parseFloat(totPlannedMins)) +  parseFloat(plmins) );
 			 myarray.push(lineData);
 			 
 			 console.log("====totPlannedMins======",totPlannedMins);
@@ -756,177 +574,116 @@ function	getAllMachines()
 		 if(NotAllowedMoreThen100Val($('#productivityper'),"Productivity ","#error_block"))
 		 if(NotAllowedMoreThen100Val($('#oeePer'),"OEE ","#error_block")){
 							 
-							 var dataVal = {
+		 	var dataVal = {
 							 
-									 planid : planId,
-									 proddate : StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDate').val()),
-									 unitid : $('#addUnit').val(),
-									 workcenterid : $('#addWorkCenter').val(),
-									 shiftid : $('#addShift').val(),
-									 stationid : $('#addStation').val(),
-									 operatorid : $('#addOperator').val(),
-									 
-									 productionPlanningIncomingDto	: myarray,
-									 
-									 availability_lunchtime : $('#lunchT').val(),
-									 availability_teatime : $('#teaT').val(),
-									 availability_reviewtime : $('#reviewT').val(),
-									 availability_inpectiontime : $('#inspecT').val(),
-									 availability_machinebreakdown : $('#machineBrkT').val(),
-									 
-									 availability_setupchange : $('#setupT').val(),
-									 availability_nomaterial : $('#noMatT').val(),
-									 availability_nolabour : $('#noLabT').val(),
-									 availability_inspection : $('#waitInspecT').val(),
-									  
-									 availability_tooling : $('#noToolT').val(),
-									 availability_drawing : $('#noDrawT').val(),
-									 availability_guages : $('#noGaugT').val(),
-									 availability_otherlosses : $('#anyLossT').val(),
-									 availability_overtime :$('#Overtime').val(),
-									 
-									 availability_totaltime :$('#totaltime').val(),
-									 availability_stdloss :$('#Stdlosses').val(),
-									 availability_specloss :$('#Spllosses').val(),
-									 availability_totloss :$('#Totallosses').val(),
-									 availability_time : $('#availableT').val(),
-									 availability_per : $('#availabilityPer').val(),
-									// availability_calculation : $('#calculation').val(),
-									 
-									 productivity_searching : $('#searchT').val(),
-									 productivity_personnal : $('#personnalT').val(),
-									 productivity_rework : $('#reworkT').val(),
-									 productivity_Production_availabletime_qty : $('#availabletimeVal').val(),
-									 productivity_total_utilised_time: $('#totalUtilisedTime').val(),
-									 productivity_per : $('#productivityper').val(),
-									 
-									 productivity_Production_qty : $('#qualityProduction').val(),
-									 
-									 //totalplannedVal
-									 total_planned : $("#totalplannedVal").val(),
-									 tot_planned_mins :totPlannedMins,
-									 achievement_per : $('#achievementPer').val(),
-									 rejection_per : $('#rejectionPer').val(),
-									 rejection_rejection_qty : $('#rejectQty').val(),
-									 rejection_ok_qty : $('#qualityProduction').val(),
-									 quality_per : $('#qualityPer').val(),
-									 losses_reason : $('#lossesReason').val(),
-									 oee_per :  $('#oeePer').val()
+				 planid : planId,
+				 proddate : StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDate').val()),
+				 unitid : $('#addUnit').val(),
+				 workcenterid : $('#addWorkCenter').val(),
+				 shiftid : $('#addShift').val(),
+				 stationid : $('#addStation').val(),
+				 operatorid : $('#addOperator').val(),
+				 
+				 productionPlanningIncomingDto	: myarray,
+				 
+				 availability_lunchtime : $('#lunchT').val(),
+				 availability_teatime : $('#teaT').val(),
+				 availability_reviewtime : $('#reviewT').val(),
+				 availability_inpectiontime : $('#inspecT').val(),
+				 availability_machinebreakdown : $('#machineBrkT').val(),
+				 
+				 availability_setupchange : $('#setupT').val(),
+				 availability_nomaterial : $('#noMatT').val(),
+				 availability_nolabour : $('#noLabT').val(),
+				 availability_inspection : $('#waitInspecT').val(),
+				  
+				 availability_tooling : $('#noToolT').val(),
+				 availability_drawing : $('#noDrawT').val(),
+				 availability_guages : $('#noGaugT').val(),
+				 availability_otherlosses : $('#anyLossT').val(),
+				 availability_overtime :$('#Overtime').val(),
+				 
+				 availability_totaltime :$('#totaltime').val(),
+				 availability_stdloss :$('#Stdlosses').val(),
+				 availability_specloss :$('#Spllosses').val(),
+				 availability_totloss :$('#Totallosses').val(),
+				 availability_time : $('#availableT').val(),
+				 availability_per : $('#availabilityPer').val(),
+				// availability_calculation : $('#calculation').val(),
+				 
+				 productivity_searching : $('#searchT').val(),
+				 productivity_personnal : $('#personnalT').val(),
+				 productivity_rework : $('#reworkT').val(),
+				 productivity_Production_availabletime_qty : $('#availabletimeVal').val(),
+				 productivity_total_utilised_time: $('#totalUtilisedTime').val(),
+				 productivity_per : $('#productivityper').val(),
+				 
+				 productivity_Production_qty : $('#qualityProduction').val(),
+				 
+				 //totalplannedVal
+				 total_planned : $("#totalplannedVal").val(),
+				 tot_planned_mins :totPlannedMins,
+				 achievement_per : $('#achievementPer').val(),
+				 rejection_per : $('#rejectionPer').val(),
+				 rejection_rejection_qty : $('#rejectQty').val(),
+				 rejection_ok_qty : $('#qualityProduction').val(),
+				 quality_per : $('#qualityPer').val(),
+				 losses_reason : $('#lossesReason').val(),
+				 oee_per :  $('#oeePer').val()
 
-								};
-									 
-								 
-									 
-							 	console.log("====data==dataVal===",dataVal);
-									 
-									 
-									 $.ajax({
-											
-										   type: 'POST',
-										   url: server_url+"production/add",  //from API add new data
-										   data : JSON.stringify(dataVal),
-								//		   processData: false,
-										   headers: authHeader,
-										   contentType: "application/json; charset=utf-8",
-					   
-										   success: function(result) {
-					   	
-											console.log("insert--Information result==="+result.status);
-											
-											if(result.status=="CREATED"){
-												
-											 window.location.href = "production";
-												
-												
-											}
-										},
-									error: function (error) {
-							             console.log(error);
-								   		 if (error.status == 401) {
-									    	  window.location.href =  contextPath;
-									      } else {
-									    	if( error.responseJSON != undefined){
-												errmssge=error.responseJSON.status;	
-											
-												if (error.responseJSON.status=="500"){
-													console.log("in errr");
-													 errorBlock("#error_block", error.responseJSON.message);
-												}else{
-												 	 errorBlock("#error_block", error.responseJSON.errors.message);
-												}
-											}
-											else{
-									   	  		console.log("Server Error! Please contact administrator");
-									   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-									     	}
-								     	}
-							        },
-								});   
-							}  //validation if
-					});
+			};
+		 	console.log("====data==dataVal===",dataVal);
+		 $.ajax({
+						
+		   type: 'POST',
+		   url: server_url+"production/add",  //from API add new data
+		   data : JSON.stringify(dataVal),
+		   headers: authHeader,
+		   contentType: "application/json; charset=utf-8",
+		   success: function(result) {
+				console.log("insert--Information result==="+result.status);
+				if(result.status=="CREATED"){
+				 	window.location.href = "production";
+				}
+			},
+	       error: function (error) {
+	           ajaxerrormsg(error);
+	       }
+		});   
+	}  //validation if
+});
 
 					
-function getMachinesByWc(wsid)
-{
+function getMachinesByWc(wsid){
 		
-		$.ajax({
-				       type: "GET",
-				       url: server_url + `station/getStationByWc/`+wsid,
-				       enctype: "application/json",
-				       headers: authHeader,
-				       processData: false,
-				       contentType: false,
-				       data: null,
-				       success: function (response) {
-							$("#addStation").empty();
-							//$("#editStation").empty();
-							
-							machinesOptions='<option value="0">  Select Station </option>';
-						//	$("#editStation").append('<option value="0">  Select station </option>');
-				           for (i = 0; i < response.payload.length; ++i) {
-							
-							
-							machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
-							
-				           //   $(".addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-							 //  $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-				           }
-						   
-						   $("#addStation").append(machinesOptions);
-						   
-				       },
-
-				       error: function (error) {
-				           /*console.log(error);
-				      		 if (error.status == 401) {
-					    	  window.location.href =  contextPath;
-					      } else {
-					    	if( error.responseJSON != undefined){
-								errmssge=error.responseJSON.status;	
-							
-								if (error.responseJSON.status=="500"){
-									console.log("in errr");
-									 errorBlock("#error_block", error.responseJSON.message);
-								}else{
-											 errorBlock("#error_block", error.responseJSON.errors.message);
-											}
-							}
-							else{
-					   	  		console.log("Server Error! Please contact administrator");
-					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-					     	}
-				     	}*/
-				       },
-				   });
-	}		
+	$.ajax({
+       type: "GET",
+       url: server_url + `station/getStationByWc/`+wsid,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+			$("#addStation").empty();
+			machinesOptions='<option value="0">  Select Station </option>';
+            for (i = 0; i < response.payload.length; ++i) {
+				machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
+            }
+		   $("#addStation").append(machinesOptions);
+       },
+       error: function (error) {
+           ajaxerrormsg(error);
+       }
+   });
+}		
 	
-	function getMachinesByPlanFilter()
-	{
-		var wcenId="";
-		var tunitid=""
-		var tshiftId="";
-		var tStationId="";
-		var tProdDt="";
+function getMachinesByPlanFilter(){
+	var wcenId="";
+	var tunitid=""
+	var tshiftId="";
+	var tStationId="";
+	var tProdDt="";
 		
 		console.log("planWcId--",planWcId);
 		
@@ -1036,89 +793,35 @@ function getMachinesByWc(wsid)
 																return false;
 							   }
 					       },
-
 					       error: function (error) {
-					           /*console.log(error);
-					      		 if (error.status == 401) {
-						    	  window.location.href =  contextPath;
-						      } else {
-						    	if( error.responseJSON != undefined){
-									errmssge=error.responseJSON.status;	
-								
-									if (error.responseJSON.status=="500"){
-										console.log("in errr");
-										 errorBlock("#error_block", error.responseJSON.message);
-									}else{
-												 errorBlock("#error_block", error.responseJSON.errors.message);
-												}
-								}
-								else{
-						   	  		console.log("Server Error! Please contact administrator");
-						   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-						     	}
-					     	}*/
-					       },
+					           ajaxerrormsg(error);
+					       }
 					   });
 		}		
 	
 function getOpertors()
 {
-	
-	
 	console.log("oper");
 	$.ajax({
-				       type: "GET",
-				       url: server_url + `operator/allActive`,
-				       enctype: "application/json",
-				       headers: authHeader,
-				       processData: false,
-				       contentType: false,
-				       data: null,
-				       success: function (response) {
-							$("#addOperator").empty();
-						//	$("#editItem").empty();
-							//$(".addItem").append('<option value="0">  Select item </option>');
-							
-							itemOptions='<option value="0">  Select Operator </option>';
-
-							
-						//	$("#editItem").append('<option value="0">  Select item </option>');
-
-				           for (i = 0; i < response.payload.length; ++i) {
-				             
-							//  $(".addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
-							   
-							itemOptions=itemOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
-							
-							//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
-				           }
-						   
-						   $("#addOperator").append(itemOptions);
-						   
-				       },
-
-				       error: function (error) {
-				           /*console.log(error);
-				      		 if (error.status == 401) {
-					    	  window.location.href =  contextPath;
-					      } else {
-					    	if( error.responseJSON != undefined){
-								errmssge=error.responseJSON.status;	
-							
-								if (error.responseJSON.status=="500"){
-									console.log("in errr");
-									 errorBlock("#error_block", error.responseJSON.message);
-								}else{
-											 errorBlock("#error_block", error.responseJSON.errors.message);
-											}
-							}
-							else{
-					   	  		console.log("Server Error! Please contact administrator");
-					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-					     	}
-				     	}*/
-				       },
-				   });
+       type: "GET",
+       url: server_url + `operator/allActive`,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+			$("#addOperator").empty();
+			itemOptions='<option value="0">  Select Operator </option>';
+            for (i = 0; i < response.payload.length; ++i) {
+				itemOptions=itemOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
+            }
+		    $("#addOperator").append(itemOptions);
+       },
+       error: function (error) {
+           ajaxerrormsg(error);
+       }
+   });
 }								
 
 
@@ -1231,9 +934,7 @@ function availabilityPerCal(){
 }
 
 function productivityCal(){
-	
 	if( Number($("#availabletimeVal").val()) > 0 && Number($("#totalUtilisedTime").val()) > 0){
-	
 		var productivityPerCal = (Number($("#totalUtilisedTime").val()) /	Number($("#availabletimeVal").val()) ) * 100;
 	
 		if(productivityPerCal > 100 || productivityPerCal < 0 ){
@@ -1250,17 +951,13 @@ function productivityCal(){
 function qualityCal(){
 	
 	if( Number($("#qualityProduction").val()) > 0 ){
-	
 		var qualityPerCal = ((Number($("#qualityProduction").val()) - Number($("#rejectQty").val()) ) /	Number($("#qualityProduction").val()) ) * 100;
-	
 	    if(qualityPerCal > 100 || qualityPerCal < 0 ){
 	    	errorBlock("#error_block" , " Quality value is more than 100 % is not allow");
 		}else{
-		
 			$("#qualityPer").val(qualityPerCal.toFixed(2));
 			oeeCal();
 		}
-		
 	}else{
 		$("#qualityPer").val(0);
 		$("#oeePer").val(0);
@@ -1270,11 +967,8 @@ function qualityCal(){
 
 
 function oeeCal(){
-	
 	if( Number($("#availabilityPer").val()) > 0 && Number($("#productivityper").val()) > 0 && Number($("#qualityPer").val()) > 0){
-	
 		var oeePerCal = ((Number($("#availabilityPer").val())/100) * (Number($("#productivityper").val())/100) * (Number($("#qualityPer").val())/100) ) * 100;
-	
 		$("#oeePer").val(oeePerCal.toFixed(2));
 	}else{
 		$("#oeePer").val(0);
@@ -1284,54 +978,41 @@ function oeeCal(){
 function checkIfProductionAlreadyExist()
 {
 	let flag=false;
-		var dataVal = 
-		{
-			 unitid       	: $('#addUnit').val(),
-			 workcenterid 	: $('#addWorkCenter').val(),  
-			 shiftid       	: $('#addShift').val(),
-			 stationid 		: $('#addStation').val(),
-			 fromdate		: StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDate').val()),						 
-			 todate			: StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDate').val()),
-			 operatorid     : "0",	
-			 
-		};
-									
-		console.log("-------------------Welcome to checkIfProductionAlreadyExist---------",dataVal);
-		$.ajax({
-		    type: 'POST',
-		    url: server_url + "production/getFilterProductions",
-		    enctype: 'application/json',
-		    headers: authHeader,
-		    processData: false,
-		    contentType: "application/json; charset=utf-8",
-		    data: JSON.stringify(dataVal),
-			
-			success: function (response) {		
-
-			console.log("------response checkIfProductionAlreadyExist----------",response);
+	var dataVal = 
+	{
+		 unitid       	: $('#addUnit').val(),
+		 workcenterid 	: $('#addWorkCenter').val(),  
+		 shiftid       	: $('#addShift').val(),
+		 stationid 		: $('#addStation').val(),
+		 fromdate		: StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDate').val()),						 
+		 todate			: StringToDateDDMMYYYY_to_YYYYMMDD($('#prodDate').val()),
+		 operatorid     : "0",	
+		 
+	};
+	console.log("-------------------Welcome to checkIfProductionAlreadyExist---------",dataVal);
+	$.ajax({
+	    type: 'POST',
+	    url: server_url + "production/getFilterProductions",
+	    enctype: 'application/json',
+	    headers: authHeader,
+	    processData: false,
+	    contentType: "application/json; charset=utf-8",
+	    data: JSON.stringify(dataVal),
+		
+		success: function (response) {		
 
 			var data = response.payload;
 			console.log("------checkIfProductionAlreadyExist----------",data);
 			var reclength=response.payload.length;
-			console.log("------checkIfProductionAlreadyExist--length--------",reclength);
-						
-			if(reclength == "0")
-			{
-				console.log("------return true----------");
-							getShiftWorkItemList();
-							}
-			else
-			{
-				
-				console.log("------trueeeee----------");
-								errorBlock("#error_block", "Production entry already exist for selected parameters.");
-								return false;
-			
-					
+			if(reclength == "0"){
+				getShiftWorkItemList();
+			}else{
+				errorBlock("#error_block", "Production entry already exist for selected parameters.");
+				return false;
 			}
-											
-			}
-		});		
-		
-		
+		},
+       error: function (error) {
+           ajaxerrormsg(error);
+       }
+	});		
 }

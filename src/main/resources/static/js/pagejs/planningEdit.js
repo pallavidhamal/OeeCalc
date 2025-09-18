@@ -114,25 +114,7 @@ $(document).ready(function(){
 			
 		},
 		error: function (error) {
-	         console.log(error);
-	   		 if (error.status == 401) {
-		    	  window.location.href =  contextPath;
-		      } else {
-		    	if( error.responseJSON != undefined){
-					errmssge=error.responseJSON.status;	
-				
-					if (error.responseJSON.status=="500"){
-						console.log("in errr");
-						 errorBlock("#error_block", error.responseJSON.message);
-					}else{
-					 	 errorBlock("#error_block", error.responseJSON.errors.message);
-					}
-				}
-				else{
-		   	  		console.log("Server Error! Please contact administrator");
-		   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-		     	}
-	     	}
+       		ajaxerrormsg(error);
 	    },
 	})
 	
@@ -515,23 +497,21 @@ function getWorkCentreList(divId){
 	    contentType: false,
 	    data: null,
 	    success: function (response) {
-	
 			console.log("==========response=====",response)
+			$("#"+divId+"WorkCentre").empty();			
+			$("#"+divId+"WorkCentre").append('<option value=' + 0+ '>  - Select workcenter - </option>');
+							
+			$.each(response.payload, function( index, value ){
+							
+				$("#"+divId+"WorkCentre").append('<option value="'+ value.id + '">'+ value.name+' </option>');
 			
-					$("#"+divId+"WorkCentre").empty();			
-					$("#"+divId+"WorkCentre").append('<option value=' + 0+ '>  - Select workcenter - </option>');
-									
-					$.each(response.payload, function( index, value ){
-									
-					$("#"+divId+"WorkCentre").append('<option value="'+ value.id + '">'+ value.name+' </option>');
-					
-				    });
-					
-					$("#editWorkCentre").val(editWsId);
-				
-			}	
-		});
-	
+		    });
+			$("#editWorkCentre").val(editWsId);
+		},
+	   error: function (error) {
+           ajaxerrormsg(error);
+       },	
+	});
 }
 
 
@@ -546,380 +526,233 @@ function getUnitList(divId){
 	    contentType: false,
 	    data: null,
 	    success: function (response) {
-	
 			console.log("==========response=====",response)
-			
-					$("#"+divId+"Unit").empty();			
-					$("#"+divId+"Unit").append('<option value=' + 0+ '>  - Select Unit - </option>');
-									
-					$.each(response.payload, function( index, value ){
-									
-					$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
-					
-				    });
-				
-			}	
-		});
-	
+			$("#"+divId+"Unit").empty();			
+			$("#"+divId+"Unit").append('<option value=' + 0+ '>  - Select Unit - </option>');
+							
+			$.each(response.payload, function( index, value ){
+				$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+		    });
+		},
+	   error: function (error) {
+           ajaxerrormsg(error);
+       },	
+	});
 }
 
 
-function	getAllMachines()
-	{
-		
-		
-		$.ajax({
-				       type: "GET",
-				       url: server_url + `station/allActive`,
-				       enctype: "application/json",
-				       headers: authHeader,
-				       processData: false,
-				       contentType: false,
-				       data: null,
-				       success: function (response) {
-							$("#addSelMachine").empty();
-							//$("#editStation").empty();
-							
-							machinesOptions='<option value="0">  Select Station </option>';
-						//	$("#editStation").append('<option value="0">  Select station </option>');
-				           for (i = 0; i < response.payload.length; ++i) {
-							
-							
-							machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
-							
-				           //   $(".editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-							 //  $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-				           }
-						   
-						   $("#addSelMachine").append(machinesOptions);
-						   $("#editSelMachine").append(machinesOptions);
-						   
-				       },
+function getAllMachines() {
 
-				       error: function (error) {
-				           console.log(error);
-				      		 if (error.status == 401) {
-					    	  window.location.href =  contextPath;
-					      } else {
-					    	if( error.responseJSON != undefined){
-								errmssge=error.responseJSON.status;	
-							
-								if (error.responseJSON.status=="500"){
-									console.log("in errr");
-									 errorBlock("#error_block", error.responseJSON.message);
-								}else{
-											 errorBlock("#error_block", error.responseJSON.errors.message);
-											}
-							}
-							else{
-					   	  		console.log("Server Error! Please contact administrator");
-					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-					     	}
-				     	}
-				       },
-				   });
-	}
+	$.ajax({
+       type: "GET",
+       url: server_url + `station/allActive`,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+			$("#addSelMachine").empty();
+			//$("#editStation").empty();
+			
+			machinesOptions='<option value="0">  Select Station </option>';
+		//	$("#editStation").append('<option value="0">  Select station </option>');
+           for (i = 0; i < response.payload.length; ++i) {
+			
+			
+			machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
+			
+           //   $(".editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+			 //  $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+           }
+		   
+		   $("#addSelMachine").append(machinesOptions);
+		   $("#editSelMachine").append(machinesOptions);
+		   
+       },
+	   error: function (error) {
+           ajaxerrormsg(error);
+       },
+   });
+}
 
 
-	function getAllItems()
-		{
-			$.ajax({
-			       type: "GET",
-			       url: server_url + `item/getActiveItems`,
-			       enctype: "application/json",
-			       headers: authHeader,
-			       processData: false,
-			       contentType: false,
-			       data: null,
-			       success: function (response) {
-						$(".editItem").empty();
-						$(".addItem").empty();
-					//	$("#editItem").empty();
-						//$(".editItem").append('<option value="0">  Select item </option>');
-						
-						itemOptions='<option value="0">  Select Item </option>';
-
-						
-					//	$("#editItem").append('<option value="0">  Select item </option>');
-
-			           for (i = 0; i < response.payload.length; ++i) {
-			             
-						//  $(".editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
-						   
-						itemOptions=itemOptions+`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`;
-						
-						//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
-			           }
-					   
-					   $(".editItem").append(itemOptions);
-					    $(".addItem").append(itemOptions);
-					   
-			       },
-
-			       error: function (error) {
-			           /*console.log(error);
-			      		 if (error.status == 401) {
-				    	  window.location.href =  contextPath;
-				      } else {
-				    	if( error.responseJSON != undefined){
-							errmssge=error.responseJSON.status;	
-						
-							if (error.responseJSON.status=="500"){
-								console.log("in errr");
-								 errorBlock("#error_block", error.responseJSON.message);
-							}else{
-										 errorBlock("#error_block", error.responseJSON.errors.message);
-										}
-						}
-						else{
-				   	  		console.log("Server Error! Please contact administrator");
-				   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-				     	}
-			     	}*/
-			       },
-			   });
-		}
+function getAllItems() {
 	
+	$.ajax({
+       type: "GET",
+       url: server_url + `item/getActiveItems`,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+			$(".editItem").empty();
+			$(".addItem").empty();
+		//	$("#editItem").empty();
+			//$(".editItem").append('<option value="0">  Select item </option>');
+			
+			itemOptions='<option value="0">  Select Item </option>';
+
+			
+		//	$("#editItem").append('<option value="0">  Select item </option>');
+
+           for (i = 0; i < response.payload.length; ++i) {
+             
+			//  $(".editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+			   
+			itemOptions=itemOptions+`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`;
+			
+			//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+           }
+		   
+		   $(".editItem").append(itemOptions);
+		   $(".addItem").append(itemOptions);
+		   
+       },
+	   error: function (error) {
+           ajaxerrormsg(error);
+       },
+   });
+}
 	
-		function getUnitShifts()
-		{
-					$.ajax({
-					       type: "GET",
-					       url: server_url + `shift/getShiftByUnit/`+unitid,
-					       enctype: "application/json",
-					       headers: authHeader,
-					       processData: false,
-					       contentType: false,
-					       data: null,
-					       success: function (response) {
-								$("#editShift").empty();
-							//	$("#editItem").empty();
-							//	$(".editShift").append('<option value="0">  Select item </option>');
-								
-								
-								$("#editShift").append('<option value="0">  Select Shift </option>');
-								
-								
-								
-							//	$("#editItem").append('<option value="0">  Select item </option>');
-
-					           for (i = 0; i < response.payload.length; ++i) {
-					            //   $(".editShift").append(`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`);
-								
-								
-								$("#editShift").append(`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`);
-								   
-								//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
-								   
-					           }
-							   
-							   $("#editShift").val(shiftid);
-							   
-					       },
-
-					       error: function (error) {
-					           /*console.log(error);
-					      		 if (error.status == 401) {
-						    	  window.location.href =  contextPath;
-						      } else {
-						    	if( error.responseJSON != undefined){
-									errmssge=error.responseJSON.status;	
-								
-									if (error.responseJSON.status=="500"){
-										console.log("in errr");
-										 errorBlock("#error_block", error.responseJSON.message);
-									}else{
-												 errorBlock("#error_block", error.responseJSON.errors.message);
-												}
-								}
-								else{
-						   	  		console.log("Server Error! Please contact administrator");
-						   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-						     	}
-					     	}*/
-					       },
-					   });
-				}
+function getUnitShifts(){
+	
+	$.ajax({
+	       type: "GET",
+	       url: server_url + `shift/getShiftByUnit/`+unitid,
+	       enctype: "application/json",
+	       headers: authHeader,
+	       processData: false,
+	       contentType: false,
+	       data: null,
+	       success: function (response) {
+				$("#editShift").empty();
+			//	$("#editItem").empty();
+			//	$(".editShift").append('<option value="0">  Select item </option>');
+				
+				$("#editShift").append('<option value="0">  Select Shift </option>');
+				
+			//	$("#editItem").append('<option value="0">  Select item </option>');
+	
+	           for (i = 0; i < response.payload.length; ++i) {
+	            //   $(".editShift").append(`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`);
+					$("#editShift").append(`<option value="${response.payload[i].shiftid}">${response.payload[i].name}</option>`);
+				//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+	           }
+			   $("#editShift").val(shiftid);
+	       },
+		   error: function (error) {
+	           ajaxerrormsg(error);
+	       },
+	   });
+}
 
 			//stationid,itemid
-				function getSetups(divNameAndRowCount,stationid,itemid)
-				{
-					
-
-					console.log(rowcount,stationid,itemid);
-										
-						$.ajax({
-						       type: "GET",
-						       url: server_url + `setup/getSetUpByStationItem/`+stationid +'/'+itemid,
-						       enctype: "application/json",
-						       headers: authHeader,
-						       processData: false,
-						       contentType: false,
-						       data: null,
-						       success: function (response) {
-								
-							//	'#product'+counter
-								$(divNameAndRowCount).empty();
-							
-									console.log("=======response=======",response);
-								
-									
-								//	$(".editShift").empty();
-								//	$("#editItem").empty();
-									$(divNameAndRowCount).append('<option value="0">  Select Setup </option>');
-								//	$("#editItem").append('<option value="0">  Select item </option>');
-
-						           for (i = 0; i < response.payload.length; ++i) {
-						               $(divNameAndRowCount).append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-									   
-						           }
-						       },
-
-						       error: function (error) {
-						           /*console.log(error);
-						      		 if (error.status == 401) {
-							    	  window.location.href =  contextPath;
-							      } else {
-							    	if( error.responseJSON != undefined){
-										errmssge=error.responseJSON.status;	
-									
-										if (error.responseJSON.status=="500"){
-											console.log("in errr");
-											 errorBlock("#error_block", error.responseJSON.message);
-										}else{
-													 errorBlock("#error_block", error.responseJSON.errors.message);
-													}
-									}
-									else{
-							   	  		console.log("Server Error! Please contact administrator");
-							   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-							     	}
-						     	}*/
-						       },
-						   });
-				}
+function getSetups(divNameAndRowCount,stationid,itemid) {
+	
+	console.log(rowcount,stationid,itemid);
+	$.ajax({
+       type: "GET",
+       url: server_url + `setup/getSetUpByStationItem/`+stationid +'/'+itemid,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+		$(divNameAndRowCount).empty();
+//			console.log("=======response=======",response);
+			$(divNameAndRowCount).append('<option value="0">  Select Setup </option>');
+           for (i = 0; i < response.payload.length; ++i) {
+               $(divNameAndRowCount).append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+           }
+       },
+	   error: function (error) {
+           ajaxerrormsg(error);
+       },
+   });
+}
 				
-			function getAndSetSetups(divNameAndRowCount,stationid,itemid,setupid)
-				{
+function getAndSetSetups(divNameAndRowCount,stationid,itemid,setupid){
+ 	console.log(rowcount,stationid,itemid);
+										
+	$.ajax({
+       type: "GET",
+       url: server_url + `setup/getSetUpByStationItem/`+stationid +'/'+itemid,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+		
+	//	'#product'+counter
+		$(divNameAndRowCount).empty();
+	
+			console.log("=======response=======",response);
+		
+			
+		//	$(".editShift").empty();
+		//	$("#editItem").empty();
+			$(divNameAndRowCount).append('<option value="0">  Select Setup </option>');
+		//	$("#editItem").append('<option value="0">  Select item </option>');
+
+           for (i = 0; i < response.payload.length; ++i) {
+               $(divNameAndRowCount).append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+			   
+           }
+           
+           $(divNameAndRowCount).val(setupid);
+       },
+	   error: function (error) {
+           ajaxerrormsg(error);
+       },
+   });
+}			
+	
+function getCycletime(divType,dviname,setupid,rowcount) {
 					
 
-					console.log(rowcount,stationid,itemid);
-										
-						$.ajax({
-						       type: "GET",
-						       url: server_url + `setup/getSetUpByStationItem/`+stationid +'/'+itemid,
-						       enctype: "application/json",
-						       headers: authHeader,
-						       processData: false,
-						       contentType: false,
-						       data: null,
-						       success: function (response) {
-								
-							//	'#product'+counter
-								$(divNameAndRowCount).empty();
-							
-									console.log("=======response=======",response);
-								
-									
-								//	$(".editShift").empty();
-								//	$("#editItem").empty();
-									$(divNameAndRowCount).append('<option value="0">  Select Setup </option>');
-								//	$("#editItem").append('<option value="0">  Select item </option>');
-
-						           for (i = 0; i < response.payload.length; ++i) {
-						               $(divNameAndRowCount).append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-									   
-						           }
-						           
-						           $(divNameAndRowCount).val(setupid);
-						       },
-
-						       error: function (error) {
-						           /*console.log(error);
-						      		 if (error.status == 401) {
-							    	  window.location.href =  contextPath;
-							      } else {
-							    	if( error.responseJSON != undefined){
-										errmssge=error.responseJSON.status;	
-									
-										if (error.responseJSON.status=="500"){
-											console.log("in errr");
-											 errorBlock("#error_block", error.responseJSON.message);
-										}else{
-													 errorBlock("#error_block", error.responseJSON.errors.message);
-													}
-									}
-									else{
-							   	  		console.log("Server Error! Please contact administrator");
-							   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-							     	}
-						     	}*/
-						       },
-						   });
-				}				
-								
+console.log(divType+dviname+rowcount);
+					
+	$.ajax({
+       type: "GET",
+       url: server_url + `setup/get/`+setupid,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+		
+	//	'#product'+counter
+		$(divType+dviname+rowcount).empty();
+	
+		
+		console.log("========response========",response)
+		console.log("========response========",divType+dviname+rowcount)
+			
+		console.log("========response========",	$(divType+"setUptime"+rowcount).val(),response.payload.cycletime,$(divType+"plannedQty"+rowcount).val(),rowcount);
+			
+			$(divType+dviname+rowcount).val(response.payload.cycletime);
+			
+			if(divType == "#add"){
+				calculateMinPlanned($(divType+"setUptime"+rowcount).val(),response.payload.cycletime,$(divType+"plannedQty"+rowcount).val(),rowcount);	
+			}
+			
+			if(divType == "#edit"){
+				editcalculateMinPlanned($(divType+"setUptime"+rowcount).val(),response.payload.cycletime,$(divType+"plannedQty"+rowcount).val(),rowcount);	
+			}
 				
-		function getCycletime(divType,dviname,setupid,rowcount)
-				{
-					
-
-					console.log(divType+dviname+rowcount);
-										
-						$.ajax({
-						       type: "GET",
-						       url: server_url + `setup/get/`+setupid,
-						       enctype: "application/json",
-						       headers: authHeader,
-						       processData: false,
-						       contentType: false,
-						       data: null,
-						       success: function (response) {
-								
-							//	'#product'+counter
-								$(divType+dviname+rowcount).empty();
-							
-								
-								console.log("========response========",response)
-								console.log("========response========",divType+dviname+rowcount)
-									
-								console.log("========response========",	$(divType+"setUptime"+rowcount).val(),response.payload.cycletime,$(divType+"plannedQty"+rowcount).val(),rowcount);
-									
-									$(divType+dviname+rowcount).val(response.payload.cycletime);
-									
-									if(divType == "#add"){
-										calculateMinPlanned($(divType+"setUptime"+rowcount).val(),response.payload.cycletime,$(divType+"plannedQty"+rowcount).val(),rowcount);	
-									}
-									
-									if(divType == "#edit"){
-										editcalculateMinPlanned($(divType+"setUptime"+rowcount).val(),response.payload.cycletime,$(divType+"plannedQty"+rowcount).val(),rowcount);	
-									}
-										
-									
-						       },
-
-						       error: function (error) {
-						           /*console.log(error);
-						      		 if (error.status == 401) {
-							    	  window.location.href =  contextPath;
-							      } else {
-							    	if( error.responseJSON != undefined){
-										errmssge=error.responseJSON.status;	
-									
-										if (error.responseJSON.status=="500"){
-											console.log("in errr");
-											 errorBlock("#error_block", error.responseJSON.message);
-										}else{
-													 errorBlock("#error_block", error.responseJSON.errors.message);
-													}
-									}
-									else{
-							   	  		console.log("Server Error! Please contact administrator");
-							   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-							     	}
-						     	}*/
-						       },
-						   });
-				}	
+			
+       },
+	   error: function (error) {
+           ajaxerrormsg(error);
+       },
+   });
+}	
 
 /*function ValidateMachine()
 {
@@ -1924,7 +1757,10 @@ $(document).on("click", "#editItemDataInPlanningTable", function(e){
 							window.location.href = "sessionOut";
 							
 						}
-					   }
+					   },
+					   error: function (error) {
+				           ajaxerrormsg(error);
+				       },
 			});
 	});
 	
@@ -1985,97 +1821,62 @@ $(document).on("click", "#editItemDataInPlanningTable", function(e){
 	
 	function MachineAlreadySelected(machineSelected,ErrDivName)	
 	{
-		
-			var firstColumnValues = [];
-			$('#po_table_modal_list tr').each(function() {
-			    // Select the first <td> (or <th> if it's a header) in the current row
-			    var firstColumnText = $(this).find('td:first').text().trim(); 
-			    // If you have header cells (<th>) in the first column, use:
-			    // var firstColumnText = $(this).find('td:first, th:first').text(); 
-			    firstColumnValues.push(firstColumnText);
-			});
+		var firstColumnValues = [];
+		$('#po_table_modal_list tr').each(function() {
+		    // Select the first <td> (or <th> if it's a header) in the current row
+		    var firstColumnText = $(this).find('td:first').text().trim(); 
+		    // If you have header cells (<th>) in the first column, use:
+		    // var firstColumnText = $(this).find('td:first, th:first').text(); 
+		    firstColumnValues.push(firstColumnText);
+		});
 			
-			console.log("machineSelected"+machineSelected.trim());
-			console.log("machines selected array--"+firstColumnValues);
-			console.log("firstColumnValues.indexOf(machineSelected)=====::"+firstColumnValues.indexOf(machineSelected));
+		console.log("machineSelected"+machineSelected.trim());
+		console.log("machines selected array--"+firstColumnValues);
+		console.log("firstColumnValues.indexOf(machineSelected)=====::"+firstColumnValues.indexOf(machineSelected));
 			
 		if(firstColumnValues.indexOf(machineSelected) == -1)
 			return true;
 		else
 		{
-			
 			errorBlock("#error_block", machineSelected +" is already selected");
 			return false;
 		}
 	}	
-	
-	
 				
 });
 
 
-
-
-
-
-
-
-
-
-
-
-function	getMachinesByWc(wsid)
-	{
-		
-		
-		$.ajax({
-				       type: "GET",
-				       url: server_url + `station/getStationByWc/`+wsid,
-				       enctype: "application/json",
-				       headers: authHeader,
-				       processData: false,
-				       contentType: false,
-				       data: null,
-				       success: function (response) {
-							$("#addSelMachine").empty();
-							//$("#editStation").empty();
-							
-							machinesOptions='<option value="0">  Select Station </option>';
-						//	$("#editStation").append('<option value="0">  Select station </option>');
-				           for (i = 0; i < response.payload.length; ++i) {
-							
-							
-							machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
-							
-				           //   $(".addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-							 //  $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-				           }
-						   
-						   $("#addSelMachine").append(machinesOptions);
-						   
-				       },
-
-				       error: function (error) {
-				           /*console.log(error);
-				      		 if (error.status == 401) {
-					    	  window.location.href =  contextPath;
-					      } else {
-					    	if( error.responseJSON != undefined){
-								errmssge=error.responseJSON.status;	
-							
-								if (error.responseJSON.status=="500"){
-									console.log("in errr");
-									 errorBlock("#error_block", error.responseJSON.message);
-								}else{
-											 errorBlock("#error_block", error.responseJSON.errors.message);
-											}
-							}
-							else{
-					   	  		console.log("Server Error! Please contact administrator");
-					   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
-					     	}
-				     	}*/
-				       },
-				   });
-	}
+function getMachinesByWc(wsid) {
+	
+	$.ajax({
+       type: "GET",
+       url: server_url + `station/getStationByWc/`+wsid,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
+			$("#addSelMachine").empty();
+			//$("#editStation").empty();
+			
+			machinesOptions='<option value="0">  Select Station </option>';
+		//	$("#editStation").append('<option value="0">  Select station </option>');
+           for (i = 0; i < response.payload.length; ++i) {
+			
+			
+			machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
+			
+           //   $(".addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+			 //  $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+           }
+		   
+		   $("#addSelMachine").append(machinesOptions);
+		   
+       },
+       error: function (error) {
+           ajaxerrormsg(error);
+       }
+   });
+}
 

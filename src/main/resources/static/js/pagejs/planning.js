@@ -2,8 +2,8 @@ var tableData = $('#planningList').DataTable();
 		
 var logCount = Number(localStorage.getItem("lc"));
 		
-$(document).ready(function()
-{
+$(document).ready(function(){
+	
   	const today = new Date();
     const year = today.getFullYear();
     let month = today.getMonth() + 1;
@@ -73,43 +73,35 @@ $(document).ready(function()
 
 			
 $(document).on("click", "#planningAddAction", function(e){
-
 	window.location.href = "addPlanning";	
-
 });
 		
 		
 $(document).on("change", "#selUnit", function(e){
 	 
-	   var optionSelected = $("option:selected", this);
-	     unitid = this.value;
+   	var optionSelected = $("option:selected", this);
+    unitid = this.value;
 		// alert(unitid)
-		getWorkCentreList("sel");
-		
-		getFilterPlanningList();
-		
+	getWorkCentreList("sel");
+	getFilterPlanningList();
 		//getUnitShifts();	
 });			
 
-
 $(document).on("change", "#selWorkCentre", function(e){
-		getFilterPlanningList();
+	getFilterPlanningList();
 });			
 
-
 $(document).on("change", "#planCalender", function(e){
-		getFilterPlanningList();
+	getFilterPlanningList();
 });
 
 $(document).on("change", "#planCalender1", function(e){
-				getFilterPlanningList();
+	getFilterPlanningList();
 });
 
 $(document).on("change", "#txtTimePerShift", function(e){
 	getFilterPlanningList();
 });
-		
-			
 			
 function getFilterPlanningList(){  
 	
@@ -162,18 +154,17 @@ function getFilterPlanningList(){
 			columns: [
 				{ "data": "fromdate", 
 					render: function (data, type, row) {
-			               	let formatted = moment(data).format("DD-MM-YYYY");
-	              	 	return formatted;
+						if (type === 'sort' || type === 'type') {
+		                    return data;
+		                }
+		              return moment(new Date(data).toString()).format('DD-MM-YYYY');
 	           		},
 				},
 			    { "data": "todate",
 					render: function (data, type, row) {
-		               	let formatted = moment(data).format("DD-MM-YYYY");
-              	 	return formatted;
-           		},
-
-					
-				 },
+		              return moment(new Date(data).toString()).format('DD-MM-YYYY');
+           			},
+				},
 			    { "data": "unitname" },
 	            { "data": "workcentername" },
 	            { "data": "shiftname"},
@@ -182,33 +173,23 @@ function getFilterPlanningList(){
 	           		render: function (data, type, row) {
 	               		var id = data.id;
 		                var action = "";
-		                
-		                console.log("========role=========",role)
-		                
 		               if(role=="PRU") {
 			                action = `<a  class="edit-button" id=${id}>View </a> `;
                        }else{
 			               action = //`<a  class="edit-button" id=${id}>Edit</a>
-						   `<a  class="edit-button" id=${id}>View </a>
-		                                   <a  class="delete-button" id=${id}>${data.isdeleted}</a> `;
+						   `<a  class="edit-button" id=${id}>View </a><a  class="delete-button" id=${id}>${data.isdeleted}</a> `;
 					   }                   
 	              	 	return action;
 	           		},
 	         	},
-			
             ],
             "order": [[0, 'desc']],
 			} );
 		}
 	})
-//		});
 }
-				//get planning list
-	
 			//get  list
 function getPlanningList(){  
-
-	console.log("-------------------Welcome to product getplanningList");
 	$.ajax({
 		    type: 'GET',
 		    url: server_url + "planning/allplan",
@@ -220,27 +201,17 @@ function getPlanningList(){
 		    success: function (response) {		
 
 			console.log("------response data----------",response);
-
-
 			var data = response.payload;
 
 			console.log("------getPOList data----------",data);
-	//		console.log("------getPOList data.result----------",data.result);
-	//		
-		
 			tableData.destroy();
 	        $('#planningList.tbody').empty();
-			
-	        //if(data.result == "success"){
 				
 	        var editIcon = function ( data, type, row ) 
 	        {
 			    if ( type === 'display' ) {
-			           
 			   	 	return '<span class="button" data-toggle="modal" data-target="#edit_po"> Edit </span>';
-			        
 			    }
-		       
 		    	return data;
 		    };
 					    
@@ -249,52 +220,45 @@ function getPlanningList(){
     			buttons: ['excel', 'print'],
 			 	 destroy: true,
 				 data: data,
-
 				  columns: [
 					{ "data": "fromdate",
 						render: function (data, type, row) {
-	              	 	return DateformatedYYYYMMDD_to_DDMMYYYY(data);
+							if (type === 'sort' || type === 'type') {
+			                    return data;
+			                }
+	              	 		return moment(new Date(data).toString()).format('DD-MM-YYYY');
 	           			} 
 	           		},
 				    { "data": "todate",
 				    	render: function (data, type, row) {
-	              	 	return DateformatedYYYYMMDD_to_DDMMYYYY(data);
+	              	 		return moment(new Date(data).toString()).format('DD-MM-YYYY');
 	           			}
 	           		},
 				    { "data": "unitname" },
 		            { "data": "workcentername" },
 		            { "data": "shiftname"},
 		            { "data": "timePerShift" },
-			   
-					 { "data":  null,
-		           render: function (data, type, row) {
-		               var id = data.id;
-		                var action = "";
-		                
-		               if(role=="PRU") {
-			                action = `<a  class="edit-button" id=${id}>View </a> `;
-                       }else{
-			               action = //`<a  class="edit-button" id=${id}>Edit</a>
-						   `<a  class="edit-button" id=${id}>View </a>
-			                                   <a  class="delete-button" plandate=${data.fromdate} id=${id}>${data.isdeleted}</a> `;
-					   }
+				    { "data":  null,
+		           		render: function (data, type, row) {
+		               		var id = data.id;
+		                	var action = "";
+			               if(role=="PRU") {
+				                action = `<a  class="edit-button" id=${id}>View </a> `;
+	                       }else{
+				               action = //`<a  class="edit-button" id=${id}>Edit</a>
+							   `<a  class="edit-button" id=${id}>View </a><a  class="delete-button" plandate=${data.fromdate} id=${id}>${data.isdeleted}</a> `;
+						   }
 		               return action;
 		           },
 	             },
-				
 	            ],
 	            "order": [[0, 'desc']],
 			} );
 		}
 	})
-		//		});
 }
 	//get planning list
-
-			
 	//get Customer list
-			
-			
 			
 function getUnitList(divId){
 		
@@ -312,16 +276,15 @@ function getUnitList(divId){
 		
 			$("#"+divId+"Unit").empty();			
 			$("#"+divId+"Unit").append('<option value=' +0+ '>  - All Unit - </option>');
-							
 			$.each(response.payload, function( index, value ){
-							
-			$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
-			
+				$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
 		    });
-		}	
+		},
+		 error: function (error) {
+			  ajaxerrormsg(error)
+	    }	
 	});
 }
-
 function getWorkCentreList(divId){
 		
 	$.ajax({
@@ -333,19 +296,16 @@ function getWorkCentreList(divId){
 	    contentType: false,
 	    data: null,
 	    success: function (response) {
-	
 			console.log("==========response=====",response)
-			
 			$("#"+divId+"WorkCentre").empty();			
 			$("#"+divId+"WorkCentre").append('<option value="0">  - All Workcenter - </option>');
-							
 			$.each(response.payload, function( index, value ){
-							
 				$("#"+divId+"WorkCentre").append('<option value="'+ value.id + '">'+ value.name+' </option>');
-			
 		    });
-			
-		}	
+		},
+		 error: function (error) {
+			  ajaxerrormsg(error)
+	    }	
 	});
 }			
 
@@ -407,9 +367,11 @@ $(document).on("click", ".delete-button", function(e){
 			
 					console.log("==========response=====",response)
 					window.location.href = "planning";	
-				}	
+				},
+		       error: function (error) {
+		           ajaxerrormsg(error);
+		       }	
 			});
-		
 		}
 	});
 });		
