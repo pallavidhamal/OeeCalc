@@ -5,12 +5,12 @@
 			var tableData = $('#setupList').DataTable();
 			var apiName="";
 			var setupapiName="";
+			var editWcId="";
+			var editStationId="";
 			
 			$(document).ready(function(){
 				
 				console.log("-------------------Welcome to authHeader",authHeader);
-
-				
 				
 				if(role=="AA" || role=="MAU")
 				 {
@@ -27,7 +27,7 @@
 						 var unitArray = unitString.split("#")
 						 unitid = unitArray[0];
 						 
-						  apiName="getStationByUnit/"+unitid;
+						//  apiName="getStationByUnit/"+unitid;
 						  setupapiName="getSetUpByUnit/"+unitid;
 						  
 				 }
@@ -35,21 +35,71 @@
 				//	getStationList(apiName);
 				getSetUpList(setupapiName);
 				getAllItems();
-				getAllMachines(apiName);
-				
-				
-				
+			//	getAllMachines(apiName);
 				getAllUoms();
 				
 				
 			});
 			
-		/*	$(document).on("click", "#purchaseAddAction", function(e){
-			
-			window.location.href = "addpurchaseorder";	
-
-			});*/
+			$(document).on("click", "#setupAddAction", function(e){
+				
+				/*console.log(" click on station Add Action");
+				
+				 $('#machintypeSel').empty();
+				 $('#uomSel').empty();
+				 $('#ponumber').empty();
+				 
+				 $('#addStationNumber').val('');*/
+				 
+				 getUnitList("add");
+				 
+				 if(role=="AA" || role=="MAU")
+				 {
+				 	apiName="getAllActive";
+				 }
+				 							
+				 if(role=="PLU")
+				 {
+					
+					
+					var unitString = localStorage.getItem("set") ; 
+										
+					console.log("===========unitString============", unitString);
+					
+					 var unitArray = unitString.split("#")
+					 unitid = unitArray[0];
+					
+					 apiName="getWorkcenterByUnit/"+unitid;
+				 }
+				 
+				// getWorkCentreList("add",apiName);
+				 
+				 $("#add_setup").modal("show");
+			});
 		
+			
+			$(document).on("change", "#addUnit", function(e){
+				 
+				   var optionSelected = $("option:selected", this);
+				     unitid = this.value;
+					// alert(unitid)
+					apiName="getWorkcenterByUnit/"+unitid;
+					getWorkCentreList("add",apiName);
+					
+					//getFilterPlanningList();
+					
+			});	
+			
+			$(document).on("change", "#addWorkCentre", function(e){
+							 
+							   var optionSelected = $("option:selected", this);
+							    var wcid = this.value;
+								// alert(unitid)
+								apiName="getStationByWc/"+wcid;
+								getAllMachines(apiName);
+								
+			});	
+			
 			function getSetUpList(setupapiName){  
 				$.ajax({
 					    type: 'GET',
@@ -86,6 +136,8 @@
 							 	 destroy: true,
 			    				 data: data,
 								 columns: [
+									{ "data": "unit" },
+									{ "data": "workcenter" },
 									{ "data": "item" },
 									{ "data": "itemdesc" },
 									{ "data": "station" },
@@ -217,6 +269,12 @@
 							$("#editStation").append('<option value="0">  Select station </option>');
 				           for (i = 0; i < response.payload.length; ++i) {
 				               $("#addStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+							   
+							   if(response.payload[i].id==editStationId)
+							   {
+								$("#editStation").append(`<option selected value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+							   }
+							   else
 							   $("#editStation").append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
 				           }
 				       },
@@ -290,7 +348,8 @@
 
 $(document).on("click", "#addSetup", function(e){
 
-						
+	if(SelectBoxNotAllowedNullVal($('#addUnit'),"Unit","#error_block"))
+		if(SelectBoxNotAllowedNullVal($('#addWorkCentre'),"Workcenter","#error_block"))					
 	if(SelectBoxNotAllowedNullVal($('#addItem'),"Item","#error_block"))
 		if(SelectBoxNotAllowedNullVal($('#addStation'),"Station","#error_block"))
 		  if(NotAllowedNullVal($('#setupname'),"set up","#error_block"))
@@ -304,6 +363,9 @@ $(document).on("click", "#addSetup", function(e){
 				 uom				: $('#adduom').val(),
 				 name				: $('#setupname').val(),
 				 cycletime				: $('#setuptime').val(),
+				 workcenterid		: $('#addWorkCentre').val(),
+				 unitid		: 		$('#addUnit').val(),
+
 
 				 
 			};
@@ -330,19 +392,32 @@ $(document).on("click", "#addSetup", function(e){
 							
 							$("#add_setup").modal("hide");
 						// $('#myTbody').empty();
-							
-						}else if(result.result==false){
-							
-							window.location.href = "sessionOut";
-							
-						}
-						
-						
-		
-					   }
-			});
-		}
-});  // add setup
+							}
+					},
+									error: function (error) {
+							             console.log(error);
+								   		 if (error.status == 401) {
+									    	  window.location.href =  contextPath;
+									      } else {
+									    	if( error.responseJSON != undefined){
+												errmssge=error.responseJSON.status;	
+											
+												if (error.responseJSON.status=="500"){
+													console.log("in errr");
+													 errorBlock("#error_block", error.responseJSON.message);
+												}else{
+												 	 errorBlock("#error_block", error.responseJSON.errors.message);
+												}
+											}
+											else{
+									   	  		console.log("Server Error! Please contact administrator");
+									   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+									     	}
+								     	}
+							        },
+								});
+							}
+					});  // add setup
 
 
 
@@ -369,12 +444,23 @@ $(document).on("click", ".edit-button", function(){
 	
 					success: function(result) {
 						
+						editWcId=result.payload.workcenterid;
+						apiName="getWorkcenterByUnit/"+result.payload.unitid;
+						getWorkCentreList("edit",apiName);
+						
+						editStationId=result.payload.stationid;
+						var stationapiName="getStationByWc/"+editWcId;
+						getAllMachines(stationapiName);
+						
+						
 						console.log("-----result----------",result);
 						$('#editsetupname').val(result.payload.name);
 						$('#editsetuptime').val(result.payload.cycletime);
 						
 						$("#editItem").val(result.payload.itemid);
 						$("#editStation").val(result.payload.stationid);
+						$("#editUnit").val(result.payload.unit);
+						
 						
 						}
 				
@@ -385,7 +471,7 @@ $(document).on("click", ".edit-button", function(){
 
 				$(document).on("click", "#editSetup", function(e){
 
-
+					if(SelectBoxNotAllowedNullVal($('#editWorkCentre'),"Workcenter","#error_block"))					
 					if(SelectBoxNotAllowedNullVal($('#editItem'),"Item","#error_block"))
 							if(SelectBoxNotAllowedNullVal($('#editStation'),"Station","#error_block"))
 							  if(NotAllowedNullVal($('#editsetupname'),"set up","#error_block"))
@@ -399,7 +485,7 @@ $(document).on("click", ".edit-button", function(){
 								 stationid 			: $('#editStation').val(),
 								 name				: $('#editsetupname').val(),
 								 cycletime				: $('#editsetuptime').val(),
-
+								 workcenterid		: $('#editWorkCentre').val(),
 								 
 							};
 								 
@@ -483,3 +569,93 @@ $(document).on("click", ".delete-button", function()
 		  })
 		   
 	});				
+
+	
+	function getUnitList(divId){
+			
+		$.ajax({
+		    type: 'GET',
+		    url: server_url + "unit/getActive",
+		    enctype: 'application/json',
+		    headers: authHeader,
+		    processData: false,
+		    contentType: false,
+		    data: null,
+		    success: function (response) {
+		
+			console.log("==========response=====",response)
+			
+				$("#"+divId+"Unit").empty();			
+				$("#"+divId+"Unit").append('<option value=' +0+ '>  - All Unit - </option>');
+								
+				$.each(response.payload, function( index, value ){
+								
+				$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+				
+			    });
+			}	
+		});
+	}
+	
+	
+	function getWorkCentreList(divId,apiName){
+			
+		
+		
+		$.ajax({
+		    type: 'GET',
+		    url: server_url + "workcenter/"+apiName,
+		    enctype: 'application/json',
+		    headers: authHeader,
+		    processData: false,
+		    contentType: false,
+		    data: null,
+		    success: function (response) {
+		
+				console.log("==========response=====",response)
+				
+						$("#"+divId+"WorkCentre").empty();			
+						$("#"+divId+"WorkCentre").append('<option value=' + 0+ '>  - Select workcenter - </option>');
+										
+						$.each(response.payload, function( index, value )
+						{
+									
+						if(value.id==editWcId)		
+						{						
+						$("#"+divId+"WorkCentre").append('<option selected value="'+ value.id + '">'+ value.name+'  ('+ value.unitDto.name +' ) </option>');
+						}
+						else
+						{
+							$("#"+divId+"WorkCentre").append('<option  value="'+ value.id + '">'+ value.name+'  ('+ value.unitDto.name +' ) </option>');
+
+						}
+						
+						
+					    });
+					
+				},
+				error: function (error) {
+		             console.log(error);
+			   		 if (error.status == 401) {
+				    	  window.location.href =  contextPath;
+				      } else {
+				    	if( error.responseJSON != undefined){
+							errmssge=error.responseJSON.status;	
+						
+							if (error.responseJSON.status=="500"){
+								console.log("in errr");
+								 errorBlock("#error_block", error.responseJSON.message);
+							}else{
+							 	 errorBlock("#error_block", error.responseJSON.errors.message);
+							}
+						}
+						else{
+				   	  		console.log("Server Error! Please contact administrator");
+				   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+				     	}
+			     	}
+		        },	
+			});
+		
+	} 
+	

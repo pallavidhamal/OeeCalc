@@ -54,7 +54,10 @@ $(document).ready(function(){
 			unitid = result.payload.unitid;
 			editWsId = result.payload.workcenterid;
 			shiftid = result.payload.shiftid;
-			plandate=result.payload.fromdate;
+			
+			plandate=moment(result.payload.fromdate).format("DD-MM-YYYY")
+			
+			//plandate=result.payload.fromdate;
 			
 			$("#editUnit").val(result.payload.unitname);
 			$("#editWorkCentre").val(result.payload.workcentername);

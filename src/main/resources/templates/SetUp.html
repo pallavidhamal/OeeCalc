@@ -147,7 +147,9 @@ label {
 -->              </a>
                                   
               
-              <button class="btn theme_btn" data-toggle="modal" data-target="#add_setup" >Add Setup </button>
+              <button class="btn theme_btn" id="setupAddAction"  >Add Setup </button>
+			  
+			  <!--data-toggle="modal" data-target="#add_setup"-->
               <!--  <button class="btn theme_btn" type="submit">Export to Excel </button> -->
 <!--               <button class="btn theme_btn"  id="impbtn" data-toggle="modal" data-target="#import_excel">Import from Excel </button>
 -->               <input type="text"  style="display:none;" class="form-control" id="hidendelId" >
@@ -163,6 +165,8 @@ label {
             <table class="table table-bordered table-striped table-hover table-responsive" id="setupList" >
               <thead>
                 <tr class="orange">
+					<th>Unit</th>
+					<th>Workcenter</th>
 					<th>Item Code</th>
 					<th>Item Description</th>
 					<th>Machine</th>
@@ -195,6 +199,30 @@ label {
       </div>
       <div class="modal-body">
         <form role="form"  class="" name="myform">
+			
+			<div class="col-sm-12 margin-top15">
+	           <div class="col-sm-12">
+	            <label class="col-sm-4 control-label cust_label">Unit : <span class="fa fa-asterisk"></span></label>
+	            <div class="col-sm-8 my_form">
+				<select class="form-control" id="addUnit">
+				
+				</select>
+	            </div>
+	           </div>
+	           </div>
+					   
+		   <div class="col-sm-12 margin-top15">
+   				<div class="col-sm-12">
+   			        <label for="" class="col-sm-4 control-label cust_label"> Work Centre : <span class="fa fa-asterisk"></span></label>
+   			        <div class="col-sm-8 my_form">
+   						<select class="form-control" id="addWorkCentre">
+							<option value="0">-Select Workcenter-</option>
+					 </select> 
+   			        </div>
+   			    </div>
+   			</div>
+			
+			
             <div class="col-sm-12 margin-top15">
             <div class="col-sm-12">
 	            <label class="col-sm-4 control-label cust_label">Item : <span class="fa fa-asterisk"></span></label>
@@ -208,7 +236,9 @@ label {
 			<div class="col-sm-12">
 	            <label for="" class="col-sm-4 control-label cust_label">Station : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
-	             <select class="form-control" id="addStation"></select>
+	             <select class="form-control" id="addStation">
+					<option value="0">-Select Station-</option>
+				 </select>
 	            </div>
 	            </div>
 	            </div>
@@ -269,6 +299,29 @@ label {
       </div>
       <div class="modal-body">
         <form role="form"  class="" name="myform">
+			
+			<div class="col-sm-12 margin-top15">
+	           <div class="col-sm-12">
+	            <label class="col-sm-4 control-label cust_label">Unit : <span class="fa fa-asterisk"></span></label>
+	            <div class="col-sm-8 my_form">
+				<input type="text" class="form-control" name="editUnit" id="editUnit" disabled/>
+	            </div>
+	           </div>
+	           </div>
+								   
+		   <div class="col-sm-12 margin-top15">
+   				<div class="col-sm-12">
+   			        <label for="" class="col-sm-4 control-label cust_label"> Work Centre : <span class="fa fa-asterisk"></span></label>
+   			        <div class="col-sm-8 my_form">
+   						<select class="form-control" id="editWorkCentre">
+							<option value="0">-Select Workcenter-</option>
+					 </select> 
+   			        </div>
+   			    </div>
+   			</div>
+			
+			
+			
             <div class="col-sm-12 margin-top15">
             <div class="col-sm-12">
 	            <label class="col-sm-4 control-label cust_label">Item : <span class="fa fa-asterisk"></span></label>
@@ -282,7 +335,9 @@ label {
 			<div class="col-sm-12">
 	            <label for="" class="col-sm-4 control-label cust_label">Station : <span class="fa fa-asterisk"></span></label>
 	            <div class="col-sm-8 my_form">
-	             <select class="form-control" id="editStation"></select>
+	             <select class="form-control" id="editStation">
+					<option value="0">-Select Station-</option>
+				 </select>
 	            </div>
 	            </div>
 	            </div>

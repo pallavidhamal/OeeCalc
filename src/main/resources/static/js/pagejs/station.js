@@ -4,6 +4,7 @@ var editProdID = "";
 var editId ="";
 var tableData = $('#stationList').DataTable();
 var apiName="";
+var editWcId="";
 
 $(document).ready(function(){
 	
@@ -39,10 +40,10 @@ $(document).on("click", "#stationAddAction", function(e){
 	 
 	 $('#addStationNumber').val('');
 	 
+	 getUnitList("add");
+	 
 	 getStationTypeList("add");
 	 getUOMList("add");
-	 
-	
 	 
 	 
 	 if(role=="AA" || role=="MAU")
@@ -64,13 +65,23 @@ $(document).on("click", "#stationAddAction", function(e){
 		 apiName="getWorkcenterByUnit/"+unitid;
 	 }
 	 
-	 getWorkCentreList("add",apiName);
+	// getWorkCentreList("add",apiName);
 	 
 	 $("#add_station").modal("show");
 });
 
 
-
+$(document).on("change", "#addUnit", function(e){
+	 
+	   var optionSelected = $("option:selected", this);
+	     unitid = this.value;
+		// alert(unitid)
+		apiName="getWorkcenterByUnit/"+unitid;
+		getWorkCentreList("add",apiName);
+		
+		//getFilterPlanningList();
+		
+});	
 
 
 
@@ -80,13 +91,15 @@ $(document).on("click", ".edit-button", function(e){
 		editId = $(this).attr('id');
 		console.log("editId----",editId);
 
+		//getUnitList("edit");
+		
  		getStationTypeList("edit");
 	 	getUOMList("edit");
 	 	
 		//
 		if(role=="AA" || role=="MAU")
 		 {
-		 	apiName="getAllActive";
+		 	//apiName="getAllActive";
 		 }
 		 							
 		 if(role=="PLU")
@@ -100,12 +113,12 @@ $(document).on("click", ".edit-button", function(e){
 			 var unitArray = unitString.split("#")
 			 unitid = unitArray[0];
 			
-			 apiName="getWorkcenterByUnit/"+unitid;
+			// apiName="getWorkcenterByUnit/"+unitid;
 		 }
 		
 		//
 		
-		getWorkCentreList("edit",apiName);
+		
 
 		$.ajax({
 		    type: 'GET',
@@ -122,12 +135,18 @@ $(document).on("click", ".edit-button", function(e){
 				var data = result.payload;
 				console.log("------response data----------",data);
 
+				editWcId=result.payload.workcenter.id;
+				apiName="getWorkcenterByUnit/"+result.payload.unit.id;
+				getWorkCentreList("edit",apiName);
 				
+								
 				$('#editStationType').val(result.payload.stationtype.id);
 				$('#editStationNumber').val(result.payload.name);
 				$("#editUom").val(result.payload.uom.id);
-				$("#editWorkCentre").val(result.payload.workcenter.id);
-
+			//	$("#editWorkCentre").val(result.payload.workcenter.id);
+				$("#editUnit").val(result.payload.unit.name);
+				
+				
 				
 				$("#edit_station").modal("show");
 		
@@ -216,10 +235,13 @@ function getStationList(apiName){
     				 data: data,
 
 					  columns: [
+					
+					{ "data": "unit.name" },		
+					{ "data": "workcenter.name" },					
 					{ "data": "stationtype.name" },
 				    { "data": "name" },
 				    { "data": "uom.name" },
-				    { "data": "workcenter.name" },
+				    
 				    { "data":  null,
 			           render: function (data, type, row) {
 			               var id = data.id;
@@ -360,9 +382,19 @@ function getWorkCentreList(divId,apiName){
 					$("#"+divId+"WorkCentre").empty();			
 					$("#"+divId+"WorkCentre").append('<option value=' + 0+ '>  - Select workcenter - </option>');
 									
-					$.each(response.payload, function( index, value ){
-									
-					$("#"+divId+"WorkCentre").append('<option value="'+ value.id + '">'+ value.name+'  ('+ value.unitDto.name +' ) </option>');
+					$.each(response.payload, function( index, value )
+					{
+								
+					if(value.id==editWcId)		
+					{						
+					$("#"+divId+"WorkCentre").append('<option selected value="'+ value.id + '">'+ value.name+'  ('+ value.unitDto.name +' ) </option>');
+					}
+					else
+					{
+						$("#"+divId+"WorkCentre").append('<option  value="'+ value.id + '">'+ value.name+'  ('+ value.unitDto.name +' ) </option>');
+
+					}
+					
 					
 				    });
 				
@@ -396,7 +428,8 @@ function getWorkCentreList(divId,apiName){
 
 $(document).on("click", "#addStationData", function(e){
 
-
+	if(SelectBoxNotAllowedNullVal($('#addUnit'),"Unit","#error_block"))
+		if(SelectBoxNotAllowedNullVal($('#addWorkCentre'),"Workcenter","#error_block"))	
 	 if(SelectBoxNotAllowedNullVal($('#addStationType'),"Station Type","#error_block"))
 		 if(NotAllowedNullVal($('#addStationNumber'),"Station Number ","#error_block"))
 			 if(SelectBoxNotAllowedNullVal($('#addUom'),"UOM ","#error_block"))
@@ -408,6 +441,7 @@ $(document).on("click", "#addStationData", function(e){
 				 stationtypeid 		: $('#addStationType').val(),
 				 uomid				: $('#addUom').val(),
 				 workcenterid		: $('#addWorkCentre').val(),
+				 unitid		: 		$('#addUnit').val(),
 
 			};
 				 
@@ -467,6 +501,7 @@ $(document).on("click", "#addStationData", function(e){
 
 $(document).on("click", "#editStationData", function(e){
 
+	if(SelectBoxNotAllowedNullVal($('#editWorkCentre'),"Workcenter","#error_block"))					
 	 if(SelectBoxNotAllowedNullVal($('#editStationType'),"Station Type","#error_block"))
 		 if(NotAllowedNullVal($('#editStationNumber'),"Station Number ","#error_block"))
 			 if(SelectBoxNotAllowedNullVal($('#editUom'),"UOM ","#error_block"))
@@ -594,3 +629,30 @@ $(document).on("click", ".delete-button", function()
 		  })
 		   
 	});	
+	
+	
+	function getUnitList(divId){
+			
+		$.ajax({
+		    type: 'GET',
+		    url: server_url + "unit/getActive",
+		    enctype: 'application/json',
+		    headers: authHeader,
+		    processData: false,
+		    contentType: false,
+		    data: null,
+		    success: function (response) {
+		
+			console.log("==========response=====",response)
+			
+				$("#"+divId+"Unit").empty();			
+				$("#"+divId+"Unit").append('<option value=' +0+ '>  - All Unit - </option>');
+								
+				$.each(response.payload, function( index, value ){
+								
+				$("#"+divId+"Unit").append('<option value="'+ value.id + '">'+ value.name+' </option>');
+				
+			    });
+			}	
+		});
+	}

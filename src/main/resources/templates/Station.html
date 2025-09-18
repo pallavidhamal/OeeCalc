@@ -147,7 +147,7 @@ label {
 -->              </a>
                                   
               
-              <button class="btn theme_btn" id="stationAddAction">Add </button>
+              <button class="btn theme_btn" id="stationAddAction"> Add </button>
               <!--  <button class="btn theme_btn" type="submit">Export to Excel </button> -->
 <!--               <button class="btn theme_btn"  id="impbtn" data-toggle="modal" data-target="#import_excel">Import from Excel </button>
 -->               <input type="text"  style="display:none;" class="form-control" id="hidendelId" >
@@ -163,10 +163,11 @@ label {
             <table class="table table-bordered table-striped table-hover table-responsive" id="stationList" >
               <thead>
                 <tr class="orange">
-                  <th>Station Type</th>
+				   <th>Unit</th>
+				   <th>Work Centre</th>
+				   <th>Station Type</th>
                   <th>Station Number</th>
 				  <th>UOM</th>
-				  <th>Allocated Work Centre</th>
 				  <th>Action</th>
                   <!--<th>Avaliability</th>
                   <th>Setup time</th>
@@ -202,6 +203,28 @@ label {
       </div>
       <div class="modal-body">
         <form role="form"  class="" name="myform">
+			
+			<div class="col-sm-12 margin-top15">
+	           <div class="col-sm-12">
+	            <label class="col-sm-4 control-label cust_label">Unit : <span class="fa fa-asterisk"></span></label>
+	            <div class="col-sm-8 my_form">
+				<select class="form-control" id="addUnit">
+				
+				</select>
+	            </div>
+	           </div>
+	           </div>
+					   
+		   <div class="col-sm-12 margin-top15">
+   				<div class="col-sm-12">
+   			        <label for="" class="col-sm-4 control-label cust_label"> Work Centre : <span class="fa fa-asterisk"></span></label>
+   			        <div class="col-sm-8 my_form">
+   						<select class="form-control" id="addWorkCentre">
+							<option value="0">-Select Workcenter-</option>
+					 </select> 
+   			        </div>
+   			    </div>
+   			</div>					   
             <div class="col-sm-12 margin-top15">
             <div class="col-sm-12">
 	            <label class="col-sm-4 control-label cust_label">Station Type : <span class="fa fa-asterisk"></span></label>
@@ -210,6 +233,15 @@ label {
 	            </div>
             </div>
             </div>
+			<div class="col-sm-12 margin-top15">
+			          	<div class="col-sm-12">
+				            <label for="" class="col-sm-4 control-label cust_label">UOM : <span class="fa fa-asterisk"></span></label>
+				            <div class="col-sm-8 my_form">
+								<select class="form-control" id="addUom">  </select> 
+				            </div>
+			            </div>
+			          </div>
+			
             <div class="col-sm-12 margin-top15">
             	<div class="col-sm-12">
 	            <label for="" class="col-sm-4 control-label cust_label">Station Number : <span class="fa fa-asterisk"></span></label>
@@ -218,22 +250,8 @@ label {
 	            </div>
 	            </div>
             </div>
-            <div class="col-sm-12 margin-top15">
-            	<div class="col-sm-12">
-		            <label for="" class="col-sm-4 control-label cust_label">UOM : <span class="fa fa-asterisk"></span></label>
-		            <div class="col-sm-8 my_form">
-						<select class="form-control" id="addUom">  </select> 
-		            </div>
-	            </div>
-            </div>
-			<div class="col-sm-12 margin-top15">
-				<div class="col-sm-12">
-			        <label for="" class="col-sm-4 control-label cust_label">Allocated Work Centre : <span class="fa fa-asterisk"></span></label>
-			        <div class="col-sm-8 my_form">
-						<select class="form-control" id="addWorkCentre"> </select> 
-			        </div>
-			    </div>
-			</div>
+          
+			
             <div class="col-sm-12 margin-top15">
 	            
             </div>
@@ -269,6 +287,26 @@ label {
       </div>
       <div class="modal-body">
         <form role="form"  class="" name="myform">
+			
+			<div class="col-sm-12 margin-top15">
+	           <div class="col-sm-12">
+	            <label class="col-sm-4 control-label cust_label">Unit : <span class="fa fa-asterisk"></span></label>
+	            <div class="col-sm-8 my_form">
+				
+				<input type="text" class="form-control" name="editUnit" id="editUnit" disabled/>
+				
+	            </div>
+	           </div>
+	           </div>
+			   <div class="col-sm-12 margin-top15">
+			   				<div class="col-sm-12">
+			   			        <label for="" class="col-sm-4 control-label cust_label">Work Centre : <span class="fa fa-asterisk"></span></label>
+			   			        <div class="col-sm-8 my_form">
+			   						<select class="form-control" id="editWorkCentre"> </select> 
+			   			        </div>
+			   			    </div>
+			   			</div>
+			
             <div class="col-sm-12 margin-top15">
             <div class="col-sm-12">
 	            <label class="col-sm-4 control-label cust_label">Station Type : <span class="fa fa-asterisk"></span></label>
@@ -293,14 +331,7 @@ label {
 		            </div>
 	            </div>
             </div>
-			<div class="col-sm-12 margin-top15">
-				<div class="col-sm-12">
-			        <label for="" class="col-sm-4 control-label cust_label">Allocated Work Centre : <span class="fa fa-asterisk"></span></label>
-			        <div class="col-sm-8 my_form">
-						<select class="form-control" id="editWorkCentre"> </select> 
-			        </div>
-			    </div>
-			</div>
+			
             <div class="col-sm-12 margin-top15">
 	            
             </div>
