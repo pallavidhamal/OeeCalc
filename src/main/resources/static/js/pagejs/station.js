@@ -4,13 +4,15 @@ var editProdID = "";
 var editId ="";
 var tableData = $('#stationList').DataTable();
 var apiName="";
+var StationApiName="";
 var editWcId="";
+var editUnitId="";
 
 $(document).ready(function(){
 	
 		 if(role=="AA" || role=="MAU")
 		 {
-		 	apiName="all";
+		 	StationApiName="all";
 		 }
 		 							
 		 if(role=="PLU")
@@ -22,10 +24,10 @@ $(document).ready(function(){
 				 var unitArray = unitString.split("#")
 				 unitid = unitArray[0];
 				 
-				  apiName="getStationByUnit/"+unitid;
+				  StationApiName="getStationByUnit/"+unitid;
 		 }
 	
-	getStationList(apiName);
+	getStationList(StationApiName);
 		
 });
 			
@@ -134,7 +136,8 @@ $(document).on("click", ".edit-button", function(e){
 		
 				var data = result.payload;
 				console.log("------response data----------",data);
-
+				editUnitId=result.payload.unit.id;
+				
 				editWcId=result.payload.workcenter.id;
 				apiName="getWorkcenterByUnit/"+result.payload.unit.id;
 				getWorkCentreList("edit",apiName);
@@ -465,7 +468,7 @@ $(document).on("click", "#addStationData", function(e){
 						
 						if(result.status=="CREATED"){
 							
-							getStationList();
+							getStationList(StationApiName);
 							
 							$("#add_station").modal("hide");
 						// $('#myTbody').empty();
@@ -514,6 +517,7 @@ $(document).on("click", "#editStationData", function(e){
 				 stationtypeid 		: $('#editStationType').val(),
 				 uomid				: $('#editUom').val(),
 				 workcenterid		: $('#editWorkCentre').val(),
+				 unitid:			editUnitId,
 
 			};
 				 
@@ -538,8 +542,7 @@ $(document).on("click", "#editStationData", function(e){
 						
 						if(result.payload==true){
 							
-							
-							getStationList();
+							getStationList(StationApiName);
 							$("#edit_station").modal("hide");
 							
 							
@@ -599,7 +602,7 @@ $(document).on("click", ".delete-button", function()
 							console.log("delete result==="+result);
 							
 							if(result.payload==true){
-								getStationList();
+								getStationList(StationApiName);
 								
 							}
 					   },

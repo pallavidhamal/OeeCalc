@@ -7,6 +7,7 @@
 			var setupapiName="";
 			var editWcId="";
 			var editStationId="";
+			var editUnitId="";
 			
 			$(document).ready(function(){
 				
@@ -388,7 +389,7 @@ $(document).on("click", "#addSetup", function(e){
 						
 						if(result.status=="CREATED"){
 							
-							getSetUpList();
+							getSetUpList(setupapiName);
 							
 							$("#add_setup").modal("hide");
 						// $('#myTbody').empty();
@@ -444,6 +445,7 @@ $(document).on("click", ".edit-button", function(){
 	
 					success: function(result) {
 						
+						editUnitId=result.payload.unitid;
 						editWcId=result.payload.workcenterid;
 						apiName="getWorkcenterByUnit/"+result.payload.unitid;
 						getWorkCentreList("edit",apiName);
@@ -486,7 +488,7 @@ $(document).on("click", ".edit-button", function(){
 								 name				: $('#editsetupname').val(),
 								 cycletime				: $('#editsetuptime').val(),
 								 workcenterid		: $('#editWorkCentre').val(),
-								 
+								 unitid				: editUnitId,
 							};
 								 
 						 	console.log("====data==dataVal===",dataVal);
@@ -510,10 +512,9 @@ $(document).on("click", ".edit-button", function(){
 										
 										if(result.payload==true){
 											
-											getSetUpList();
+											getSetUpList(setupapiName);
 											
 											$("#edit_setup").modal("hide");
-										// $('#myTbody').empty();
 											
 										}else if(result.result==false){
 											
@@ -521,12 +522,31 @@ $(document).on("click", ".edit-button", function(){
 											
 										}
 										
-										
-						
-									   }
-							});
-						}
-				});  // add setup
+										},
+									error: function (error) {
+							             console.log(error);
+								   		 if (error.status == 401) {
+									    	  window.location.href =  contextPath;
+									      } else {
+									    	if( error.responseJSON != undefined){
+												errmssge=error.responseJSON.status;	
+											
+												if (error.responseJSON.status=="500"){
+													console.log("in errr");
+													 errorBlock("#error_block", error.responseJSON.message);
+												}else{
+												 	 errorBlock("#error_block", error.responseJSON.errors.message);
+												}
+											}
+											else{
+									   	  		console.log("Server Error! Please contact administrator");
+									   	  		errorBlock("#error_block", "Server Error! Please contact administrator");
+									     	}
+								     	}
+							        },
+								});
+							}
+					});
 				
 				
 $(document).on("click", ".delete-button", function()
@@ -556,7 +576,7 @@ $(document).on("click", ".delete-button", function()
 								console.log("delete result==="+result);
 								
 								if(result.payload==true){
-									getSetUpList();
+									getSetUpList(setupapiName);
 									
 								}else if(result.result==false){
 									
