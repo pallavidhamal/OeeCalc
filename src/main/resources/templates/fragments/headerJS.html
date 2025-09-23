@@ -95,59 +95,11 @@
  
  <style>
 	
-	/* Match Bootstrap 3.3.4 form-control look */
-	.select2-container--default .select2-selection--single {
-	  height: 34px;                /* match .form-control height */
-	  border: 1px solid #ccc;      /* Bootstrap input border */
-	  border-radius: 4px;          /* rounded corners */
-	  padding: 6px 12px;           /* vertical + horizontal padding */
-	  font-size: 14px;             /* Bootstrap default font size */
-	  line-height: 1.42857143;
-	  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-	  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-	}
-
-	/* Focus state */
-	.select2-container--default .select2-selection--single:focus,
-	.select2-container--default .select2-selection--single:active,
-	.select2-container--default.select2-container--open .select2-selection--single {
-	  border-color: #66afe9;
-	  outline: 0;
-	  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
-	}
-
-	/* Arrow icon inside the select */
-	.select2-container--default .select2-selection--single .select2-selection__arrow {
-	  height: 32px;                /* center align arrow */
-	  right: 8px;
-	}
-
-	/* Dropdown results panel */
-	.select2-container--default .select2-results>.select2-results__options {
-	  max-height: 250px;           /* scroll for large lists */
-	  overflow-y: auto;
-	  font-size: 14px;
-	}
-
-	/* Highlighted option */
-	.select2-container--default .select2-results__option--highlighted[aria-selected] {
-	  background-color: #337ab7;   /* Bootstrap primary */
-	  color: white;
-	}
-
-	/* Placeholder style */
-	.select2-container--default .select2-selection--single .select2-selection__placeholder {
-	  color: #999;
-	}
-
-	/* Clear button (X) style */
-	.select2-container--default .select2-selection--single .select2-selection__clear {
-	  color: #aaa;
-	  margin-right: 5px;
-	  font-size: 16px;
-	}
-	.select2-container--default .select2-selection--single .select2-selection__clear:hover {
-	  color: #333;
+	.scrollable-div {
+	  width: auto;
+	  height: auto;
+	  border: 1px solid black;
+	  overflow: auto; 
 	}
 	
  </style>

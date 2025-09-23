@@ -223,17 +223,31 @@
 		       contentType: false,
 		       data: null,
 		       success: function (response) {
+				
+				console.log("====response====",response);
+				
 					$("#addItem").empty();
 					$("#editItem").empty();
 					$("#addItem").append('<option value="0">  Select item </option>');
 					$("#editItem").append('<option value="0">  Select item </option>');
 
 		           for (i = 0; i < response.payload.length; ++i) {
-		               $("#addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemcode}</option>`);
+		               $("#addItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemcode} ( ${response.payload[i].itemdesc} )</option>`);
 					   
-					   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemcode}</option>`);
+					   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemcode} ( ${response.payload[i].itemdesc} )</option>`);
 					   
 		           }
+		           
+		           $('#addItem').select2({
+				      placeholder: 'Select a Item',
+				      allowClear: true,
+				     // width: 'resolve' // adjusts to container
+				    });
+				    $('#editItem').select2({
+				      placeholder: 'Select a Item',
+				      allowClear: true,
+				     // width: 'resolve' // adjusts to container
+				    });
 		       },
 
 		       error: function (error) {
@@ -468,9 +482,12 @@ $(document).on("click", ".edit-button", function(){
 						$('#editsetupname').val(result.payload.name);
 						$('#editsetuptime').val(result.payload.cycletime);
 						
-						$("#editItem").val(result.payload.itemid);
+					//	$("#editItem").val(result.payload.itemid);
+						$('#editItem').val(result.payload.itemid).trigger('change');
+						
 						$("#editStation").val(result.payload.stationid);
 						$("#editUnit").val(result.payload.unit);
+						
 						
 						
 						}

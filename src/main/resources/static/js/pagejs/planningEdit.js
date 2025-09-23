@@ -120,6 +120,13 @@ $(document).ready(function(){
        		ajaxerrormsg(error);
 	    },
 	})
+
+
+$(".addItem").select2({
+	      placeholder: 'Select a Machine',
+	      allowClear: true,
+	     // width: 'resolve' // adjusts to container
+	    });
 	
 	//end get data for plan edit
 	
@@ -302,7 +309,7 @@ $('.add_item_add_row').on('click',function(){
       $('#addplanningBbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
 //		+'<td class="table_input"><select class="form-control addStation"  id="selMachine'+count+'" rocnt = "'+count+'">	</select> </td>'
 //		+'<td class="table_input"><select class="form-control addShift"  id="selShift'+count+'" rocnt = "'+count+'" >	</select> </td>'
-		+'<td class="table_input"><select class="form-control addItem"  id="addselItem'+count+'" rocnt = "'+count+'">	</select> </td>'
+		+'<td class="table_input"><select class="form-control addItem"  style="width:100%"  id="addselItem'+count+'" rocnt = "'+count+'">	</select> </td>'
 		+'<td class="table_input"><select class="form-control addSetup"  id="addselSetUp'+count+'" rocnt = "'+count+'" >	</select> </td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line addtxtSetUptime integer" rocnt = "'+count+'" id="addsetUptime'+count+'"></td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line addtxtCycletime integer" rocnt = "'+count+'" id="addcycletime'+count+'" disabled></td>'
@@ -315,6 +322,7 @@ $('.add_item_add_row').on('click',function(){
 	  +'</tr>');
 	  
 	  
+	  
 	 // alert(machinesOptions);
 	  
 	 // $("#selMachine"+count).append(machinesOptions);
@@ -323,6 +331,12 @@ $('.add_item_add_row').on('click',function(){
 	  
 	  
 	  $("#selSetUp"+count).append('<option value=' + 0+ '>  - Select Setup - </option>');
+	  
+	  $(".addItem").select2({
+	      placeholder: 'Select a Machine',
+	      allowClear: true,
+	     // width: 'resolve' // adjusts to container
+	    });
 	  
 	  count++;
 	  
@@ -1227,7 +1241,7 @@ function EmptyModal()
 				 $('#editplanningBbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
 		//		+'<td class="table_input"><select class="form-control addStation"  id="selMachine'+count+'" rocnt = "'+count+'">	</select> </td>'
 		//		+'<td class="table_input"><select class="form-control addShift"  id="selShift'+count+'" rocnt = "'+count+'" >	</select> </td>'
-				+'<td class="table_input"><select class="form-control editItem"  id="editselItem'+count+'" rocnt = "'+count+'">'+itemOptions+'</select> </td>'
+				+'<td class="table_input"><select class="form-control editItem"   style="width:100%"   id="editselItem'+count+'" rocnt = "'+count+'">'+itemOptions+'</select> </td>'
 				+'<td class="table_input"><select class="form-control editSetup"  id="editselSetUp'+count+'" rocnt = "'+count+'" >'+shiftOptions+'</select> </td>'
 				+'<td class="table_input"><input type="text" class="form-control width80 line edittxtSetUptime integer" rocnt = "'+count+'" id="editsetUptime'+count+'"></td>'
 				+'<td class="table_input"><input type="text" class="form-control width80 line edittxtCycletime integer" rocnt = "'+count+'" id="editcycletime'+count+'" disabled></td>'
@@ -1239,9 +1253,18 @@ function EmptyModal()
 		
 			  +'</tr>');
 			  
+			  $(".editItem").select2({
+			      placeholder: 'Select a Machine',
+			      allowClear: true,
+			     // width: 'resolve' // adjusts to container
+			    });
+			  
 			  var itemid  = $("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(1).find("input").eq(0).val();
 			  var setupid = $("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(2).find("input").eq(0).val()
-			  $("#editselItem"+count).val(itemid);
+			  //$("#editselItem"+count).val(itemid);
+			  $("#editselItem"+count).val(itemid).trigger('change');
+			  
+			  
 			  
 			  getAndSetSetups("#editselSetUp"+count,editstationidId,itemid,setupid);
 			  
@@ -1252,6 +1275,8 @@ function EmptyModal()
 			  $("#editplannedMins"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(6).text()));
 			  $("#edittimeUtilised"+count).val(jQuery.trim($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(7).find("input").eq(0).val()));
 			  $("#editItemId"+count).val($("#planningBbody").find('tr.'+$(this).attr("viewid")).eq(i).find('td').eq(9).find("input").eq(0).val());
+			  
+			  
 			  
 			  
 			  count++;
@@ -1442,7 +1467,7 @@ $('.edit_item_add_row').on('click',function(){
       $('#editplanningBbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
 //		+'<td class="table_input"><select class="form-control addStation"  id="selMachine'+count+'" rocnt = "'+count+'">	</select> </td>'
 //		+'<td class="table_input"><select class="form-control addShift"  id="selShift'+count+'" rocnt = "'+count+'" >	</select> </td>'
-		+'<td class="table_input"><select class="form-control editItem"  id="editselItem'+count+'" rocnt = "'+count+'">	</select> </td>'
+		+'<td class="table_input"><select class="form-control editItem"  style="width:100%"  id="editselItem'+count+'" rocnt = "'+count+'">	</select> </td>'
 		+'<td class="table_input"><select class="form-control editSetup"  id="editselSetUp'+count+'" rocnt = "'+count+'" >	</select> </td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line edittxtSetUptime integer" rocnt = "'+count+'" id="editsetUptime'+count+'"></td>'
 		+'<td class="table_input"><input type="text" class="form-control width80 line edittxtCycletime integer" rocnt = "'+count+'" id="editcycletime'+count+'" disabled></td>'
@@ -1454,7 +1479,11 @@ $('.edit_item_add_row').on('click',function(){
 
 	  +'</tr>');
 	  
-	  
+	   $(".editItem").select2({
+			      placeholder: 'Select a Machine',
+			      allowClear: true,
+			     // width: 'resolve' // adjusts to container
+			    });
 	 // alert(machinesOptions);
 	  
 	 // $("#selMachine"+count).append(machinesOptions);
@@ -1882,4 +1911,6 @@ function getMachinesByWc(wsid) {
        }
    });
 }
+
+
 

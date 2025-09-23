@@ -176,59 +176,50 @@ function getUnitList(divId){
 
 			    
 			    		tableData = $('#lossSummaryList').DataTable( {
-				
+						//  responsive: true,
 			    			dom: 'Blfrtip',   
 			    			buttons: ['excel', 'print'],
-						 	 destroy: true,
-		    				 data: data,
-							 
-							 "columnDefs": [{
-							         "targets": "_all",
-							         "defaultContent": ""
-							     }],
-
-							  columns: [
-							{ "data": "stationname" },
-							{ "data": "totPlannedMins",
-								render: function (data, type, row) {
+						 	destroy: true,
+		    				data: data,
+							columnDefs: [{
+						         "targets": "_all",
+						         "defaultContent": ""
+						     }],
+							columns: [
+								{ "data": "stationname" },
+								{ "data": "totPlannedMins",
+									render: function (data, type, row) {
 					            	return data.toFixed(2);
-				           		}, 
-			           		},
-						    { "data": "availabilityMachinebreakdown" },
-							
-							{ "data":  null,
-					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availabilityMachinebreakdown / data.totPlannedMins)*100 ;
-						            	return setupPer.toFixed(2);
-					           		},
-					         },
-						    { "data": "availabilitySetupchange" },
-							{ "data":  null,
-					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availabilitySetupchange / data.totPlannedMins)*100 ;
-						            	return setupPer.toFixed(2);
-					           		},
-					         },
-							
-							
-							{ "data": "availabilityNomaterial" },
-							
-							{ "data":  null,
-					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availabilityNomaterial / data.totPlannedMins)*100 ;
-						            	return setupPer.toFixed(2);
-					           		},
-					         },
-							
-							
-						    { "data": "availabilityNolabour" },
-							
-							{ "data":  null,
-					           		render: function (data, type, row) {
-					               	   var setupPer = (data.availabilityNomaterial / data.totPlannedMins)*100 ;
-						            	return setupPer.toFixed(2);
-					           		},
-					         },
+					           		}, 
+				           		},
+							    { "data": "availabilityMachinebreakdown" },
+								{ "data":  null,
+						           		render: function (data, type, row) {
+						               	   var setupPer = (data.availabilityMachinebreakdown / data.totPlannedMins)*100 ;
+							            	return setupPer.toFixed(2);
+						           		},
+						         },
+							    { "data": "availabilitySetupchange" },
+								{ "data":  null,
+						           		render: function (data, type, row) {
+						               	   var setupPer = (data.availabilitySetupchange / data.totPlannedMins)*100 ;
+							            	return setupPer.toFixed(2);
+						           		},
+						         },
+								{ "data": "availabilityNomaterial" },
+								{ "data":  null,
+						           		render: function (data, type, row) {
+						               	   var setupPer = (data.availabilityNomaterial / data.totPlannedMins)*100 ;
+							            	return setupPer.toFixed(2);
+						           		},
+						         },
+							    { "data": "availabilityNolabour" },
+								{ "data":  null,
+						           		render: function (data, type, row) {
+						               	   var setupPer = (data.availabilityNomaterial / data.totPlannedMins)*100 ;
+							            	return setupPer.toFixed(2);
+						           		},
+						         },
 							
 						    { "data": "availabilityInpectiontime" },
 							

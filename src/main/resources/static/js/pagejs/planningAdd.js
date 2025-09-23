@@ -62,8 +62,6 @@ $(document).ready(function(){
 		// getShiftTime();	
 	});
 		
-		
-		
 				
 	$('#addSelMachine').on('change', function (e) 
 	{
@@ -88,7 +86,62 @@ $(document).ready(function(){
 		}
 	});	
 	
-	$(document).on("change", ".addStation", function () 
+	
+	
+
+	$('.table_add_link').on('click',function(){
+						
+//	SelectBoxNotAllowedNullVal
+	
+		if(SelectBoxNotAllowedNullVal($("#addSelMachine"),"Machine","#error_block"))
+		{
+	
+	
+		console.log("-------------table_add_link----this---------",$("#planningBbody").find('tr').length);
+	
+	//count = $("#planningBbody").find('tr').length;
+	
+      	$('#planningBbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
+			+'<td class="table_input"><select class="form-control addItem"  style="width:100%;" id="selItem'+count+'" rocnt = "'+count+'">	</select> </td>'
+			+'<td class="table_input"><select class="form-control addSetup" style="width:100%;"   id="selSetUp'+count+'" rocnt = "'+count+'" >	</select> </td>'
+			+'<td class="table_input"><input type="text" class="form-control width80 line txtSetUptime integer" rocnt = "'+count+'" id="setUptime'+count+'"></td>'
+			+'<td class="table_input"><input type="text" class="form-control width80 line txtCycletime integer" rocnt = "'+count+'" id="cycletime'+count+'" disabled></td>'
+			+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+count+'" id="plannedQty'+count+'"></td>'
+			+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedMins"  rocnt = "'+count+'" id="plannedMins'+count+'" disabled></td>'
+			+'<td class="table_input"><input type="text" class="form-control width80 line txtTimeUtilised integer" rocnt = "'+count+'" id="timeUtilised'+count+'" disabled></td>'
+			+'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>'
+		+'</tr>');
+	  
+		  $("#selMachine"+count).append(machinesOptions);
+		  $("#selItem"+count).append(itemOptions);
+		  $("#selShift"+count).append(shiftOptions);
+		  
+		  $("#selSetUp"+count).append('<option value=' + 0+ '>  - Select Setup - </option>');
+		  
+		  
+		  $("#selItem"+count).select2({
+			      placeholder: 'Select a Item',
+			      allowClear: true,
+			     // width: 'resolve' // adjusts to container
+			    });
+			    
+
+		  count++;
+		  
+	  }//validation if
+	  
+	});  //end add row
+	
+	$("#selItem0").select2({
+      placeholder: 'Select a Item',
+      allowClear: true,
+     // width: 'resolve' // adjusts to container
+    });
+	
+});
+
+
+$(document).on("change", ".addStation", function () 
 	{
 		 var optionSelected = $("option:selected", this);
 	     stationid = this.value;
@@ -222,42 +275,6 @@ $(document).ready(function(){
 		var minsVal = (( mins / $("#timePershift").val() ) * 100 ).toFixed(2)
 		$("#addmachineTimeUtilised").val(minsVal );
 	}
-	
-
-	$('.table_add_link').on('click',function(){
-						
-//	SelectBoxNotAllowedNullVal
-	
-		if(SelectBoxNotAllowedNullVal($("#addSelMachine"),"Machine","#error_block"))
-		{
-	
-	
-		console.log("-------------table_add_link----this---------",$("#planningBbody").find('tr').length);
-	
-	//count = $("#planningBbody").find('tr').length;
-	
-      	$('#planningBbody').append('<tr class="tr_clone" roCnt = "'+count+'">'
-			+'<td class="table_input"><select class="form-control addItem"  id="selItem'+count+'" rocnt = "'+count+'">	</select> </td>'
-			+'<td class="table_input"><select class="form-control addSetup"  id="selSetUp'+count+'" rocnt = "'+count+'" >	</select> </td>'
-			+'<td class="table_input"><input type="text" class="form-control width80 line txtSetUptime integer" rocnt = "'+count+'" id="setUptime'+count+'"></td>'
-			+'<td class="table_input"><input type="text" class="form-control width80 line txtCycletime integer" rocnt = "'+count+'" id="cycletime'+count+'" disabled></td>'
-			+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty integer" rocnt = "'+count+'" id="plannedQty'+count+'"></td>'
-			+'<td class="table_input"><input type="text" class="form-control width80 line txtPlannedMins"  rocnt = "'+count+'" id="plannedMins'+count+'" disabled></td>'
-			+'<td class="table_input"><input type="text" class="form-control width80 line txtTimeUtilised integer" rocnt = "'+count+'" id="timeUtilised'+count+'" disabled></td>'
-			+'<td class="table_input"><a href="#" class="deleteRow"><i class="fa fa-minus"></i></a></td>'
-		+'</tr>');
-	  
-		  $("#selMachine"+count).append(machinesOptions);
-		  $("#selItem"+count).append(itemOptions);
-		  $("#selShift"+count).append(shiftOptions);
-		  
-		  $("#selSetUp"+count).append('<option value=' + 0+ '>  - Select Setup - </option>');
-		  
-		  count++;
-		  
-	  }//validation if
-	  
-	});  //end add row
 
 	$(document).on("click", ".deleteRow", function(e){	
 
@@ -433,14 +450,14 @@ $(document).ready(function(){
 	
 	
 	
-	$(document).on("click", ".delete-button", function(e){
-	
-		var trClass = $(this).attr("stid");
-		console.log("trClass--"+trClass);
-		var trSelector="tr."+trClass;
-		$(trSelector).remove();
-	
-	});
+$(document).on("click", ".delete-button", function(e){
+
+	var trClass = $(this).attr("stid");
+	console.log("trClass--"+trClass);
+	var trSelector="tr."+trClass;
+	$(trSelector).remove();
+
+});
 	
 	
 $(document).on("click", ".edit-button", function(e){
@@ -687,6 +704,12 @@ function getMachinesByWc(wsid){
 					machinesOptions=machinesOptions+`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`;
 	           }
 			   $("#addSelMachine").append(machinesOptions);
+			   
+	   		  	$("#addSelMachine").select2({
+			      placeholder: 'Select a Machine',
+			      allowClear: true,
+			     // width: 'resolve' // adjusts to container
+			    });
 	       },
 			 error: function (error) {
 				  ajaxerrormsg(error)
@@ -806,80 +829,80 @@ function getShiftTime()
 }
 				
 				
-			//stationid,itemid
-				function getSetups(rowcount,stationid,itemid)
-				{
-					
+//stationid,itemid
+function getSetups(rowcount,stationid,itemid)
+{
+	
 
-					console.log(rowcount,stationid,itemid);
-										
-						$.ajax({
-						       type: "GET",
-						       url: server_url + `setup/getSetUpByStationItem/`+stationid +'/'+itemid,
-						       enctype: "application/json",
-						       headers: authHeader,
-						       processData: false,
-						       contentType: false,
-						       data: null,
-						       success: function (response) {
-								
-							//	'#product'+counter
-								$("#selSetUp"+rowcount).empty();
-							
-								
-									
-								//	$(".addShift").empty();
-								//	$("#editItem").empty();
-									$("#selSetUp"+rowcount).append('<option value="0">  Select Setup </option>');
-								//	$("#editItem").append('<option value="0">  Select item </option>');
-
-						           for (i = 0; i < response.payload.length; ++i) {
-						               $("#selSetUp"+rowcount).append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-									   
-									//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
-									   
-						           }
-						       },
-
-						       error: function (error) {
-						           ajaxerrormsg(error)
-						       },
-						   });
-				}				
+	console.log(rowcount,stationid,itemid);
+						
+		$.ajax({
+		       type: "GET",
+		       url: server_url + `setup/getSetUpByStationItem/`+stationid +'/'+itemid,
+		       enctype: "application/json",
+		       headers: authHeader,
+		       processData: false,
+		       contentType: false,
+		       data: null,
+		       success: function (response) {
 				
-		function getCycletime(rowcount,setupid)
-				{
+			//	'#product'+counter
+				$("#selSetUp"+rowcount).empty();
+			
+				
 					
+				//	$(".addShift").empty();
+				//	$("#editItem").empty();
+					$("#selSetUp"+rowcount).append('<option value="0">  Select Setup </option>');
+				//	$("#editItem").append('<option value="0">  Select item </option>');
 
-					console.log(rowcount,setupid);
-										
-						$.ajax({
-						       type: "GET",
-						       url: server_url + `setup/get/`+setupid,
-						       enctype: "application/json",
-						       headers: authHeader,
-						       processData: false,
-						       contentType: false,
-						       data: null,
-						       success: function (response) {
+		           for (i = 0; i < response.payload.length; ++i) {
+		               $("#selSetUp"+rowcount).append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+					   
+					//   $("#editItem").append(`<option value="${response.payload[i].itemid}">${response.payload[i].itemdesc}</option>`);
+					   
+		           }
+		       },
+
+		       error: function (error) {
+		           ajaxerrormsg(error)
+		       },
+		   });
+}				
+				
+function getCycletime(rowcount,setupid)
+		{
+			
+
+			console.log(rowcount,setupid);
 								
-							//	'#product'+counter
-								$("#cycletime"+rowcount).empty();
+				$.ajax({
+				       type: "GET",
+				       url: server_url + `setup/get/`+setupid,
+				       enctype: "application/json",
+				       headers: authHeader,
+				       processData: false,
+				       contentType: false,
+				       data: null,
+				       success: function (response) {
+						
+					//	'#product'+counter
+						$("#cycletime"+rowcount).empty();
+					
+						
+						console.log("========response========",response)
 							
-								
-								console.log("========response========",response)
-									
-									$("#cycletime"+rowcount).val(response.payload.cycletime);
-								
-								calculateMinPlanned($("#setUptime"+rowcount).val(),response.payload.cycletime,$("#plannedQty"+rowcount).val(),rowcount);	
-									
-						       },
+							$("#cycletime"+rowcount).val(response.payload.cycletime);
+						
+						calculateMinPlanned($("#setUptime"+rowcount).val(),response.payload.cycletime,$("#plannedQty"+rowcount).val(),rowcount);	
+							
+				       },
 
-						       error: function (error) {
-						           ajaxerrormsg(error)
-						       },
-						   });
-				}	
+				       error: function (error) {
+				           ajaxerrormsg(error)
+				       },
+				   });
+		}	
 
 function ValidateMachine()
 {
@@ -904,92 +927,92 @@ function ValidateMachine()
 		
 function ValidateItem()
 {
-		$(".addItem").each(function() {
+	$(".addItem").each(function() {
+		
+		//console.log("in vali ValidateItem",$(this).val());
+					
+	//	if(validationSelectBox($(this).val(),"Item","#setupErrDiv"))
+			if(SelectBoxNotAllowedNullVal($(this),"Item","#error_block"))	
+	     {
 			
-			//console.log("in vali ValidateItem",$(this).val());
-						
-		//	if(validationSelectBox($(this).val(),"Item","#setupErrDiv"))
-				if(SelectBoxNotAllowedNullVal($(this),"Item","#error_block"))	
-		     {
-				
-		    	flag=true; 
-		    	console.log("iff-----");
-		     }
-			 else
-			 {
-				 flag=false;
-				 return flag;
-				 console.log("else-----");
-			 }
-		 });
-		return flag;
+	    	flag=true; 
+	    	console.log("iff-----");
+	     }
+		 else
+		 {
+			 flag=false;
+			 return flag;
+			 console.log("else-----");
+		 }
+	 });
+	return flag;
 }	
 
 
 function ValidateShift()
 {
-		$(".addShift").each(function() {
-			
-			console.log("in vali sel",$(this).val());
-						
-			//if(validationSelectBox($(this).val(),"Shift","#setupErrDiv"))
-				if(SelectBoxNotAllowedNullVal($(this),"Shift","#error_block"))
-		     {
-		    	flag=true; 
-		    	console.log("iff-----");
-		     }
-			 else
-			 {
-				 flag=false;
-				 return flag;
-				 console.log("else-----");
-			 }
-		 });
-		return flag;
+	$(".addShift").each(function() {
+		
+		console.log("in vali sel",$(this).val());
+					
+		//if(validationSelectBox($(this).val(),"Shift","#setupErrDiv"))
+			if(SelectBoxNotAllowedNullVal($(this),"Shift","#error_block"))
+	     {
+	    	flag=true; 
+	    	console.log("iff-----");
+	     }
+		 else
+		 {
+			 flag=false;
+			 return flag;
+			 console.log("else-----");
+		 }
+	 });
+	return flag;
 }	
 
 function ValidateSetup()
 {
-		$(".addSetup").each(function() {
-			
-			console.log("in vali sel",$(this).val());
-						
-			//if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
-			if(SelectBoxNotAllowedNullVal($(this),"Setup","#error_block"))	
-		     {
-		    	flag=true; 
-		    	console.log("iff-----");
-		     }
-			 else
-			 {
-				 flag=false;
-				 return flag;
-				 console.log("else-----");
-			 }
-		 });
-		return flag;
+	$(".addSetup").each(function() {
+		
+		console.log("in vali sel",$(this).val());
+					
+		//if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
+		if(SelectBoxNotAllowedNullVal($(this),"Setup","#error_block"))	
+	     {
+	    	flag=true; 
+	    	console.log("iff-----");
+	     }
+		 else
+		 {
+			 flag=false;
+			 return flag;
+			 console.log("else-----");
+		 }
+	 });
+	return flag;
 }
 
 
 function ValidateSetupTimeForBlank()  
 {
-		$(".txtSetUptime").each(function() {
-			
-			console.log("in vali sel",$(this).val());
-			
-		if(NotAllowedNullVal($(this),"Setup Time","#error_block"))
-		     {
-		    	flag=true; 
-		    	console.log("iff-----");
-		     }
-			 else
-			 {
-				 flag=false;
-				 return flag;
-				 console.log("else-----");
-			 }
-		 });
-		return flag;
+	$(".txtSetUptime").each(function() {
+		
+		console.log("in vali sel",$(this).val());
+		
+	if(NotAllowedNullVal($(this),"Setup Time","#error_block"))
+	     {
+	    	flag=true; 
+	    	console.log("iff-----");
+	     }
+		 else
+		 {
+			 flag=false;
+			 return flag;
+			 console.log("else-----");
+		 }
+	 });
+	return flag;
 }
 
 
@@ -998,76 +1021,76 @@ function ValidateSetupTimeForBlank()
 function ValidatePlannedQtyForBlank()  
 {
 	var flag=false;
-			$(".txtPlannedQty").each(function() {
-				
-				console.log("in vali sel txtPlannedQty",$(this).val());
-				
-				if(NotAllowedNullVal($(this),"Planned Quantity","#error_block"))
-				if(NotAllowedZeroVal($(this),"Planned Quantity","#error_block"))
-			     {
-					
-			    	flag=true; 
-			    	console.log("iff-----");
-			     }
-				 else
-				 {
-					 flag=false;
-					 return flag;
-					 console.log("else-----");
-				 }
-			 });
-			return flag;
-	}
+		$(".txtPlannedQty").each(function() {
+			
+		console.log("in vali sel txtPlannedQty",$(this).val());
+		
+		if(NotAllowedNullVal($(this),"Planned Quantity","#error_block"))
+		if(NotAllowedZeroVal($(this),"Planned Quantity","#error_block"))
+	     {
+			
+	    	flag=true; 
+	    	console.log("iff-----");
+	     }
+		 else
+		 {
+			 flag=false;
+			 return flag;
+			 console.log("else-----");
+		 }
+	 });
+	return flag;
+}
 
 	
 	
 	
-	function ValidatePlannedMinsForBlank()  
-	{
-				$(".txtPlannedMins").each(function() {
-					
-					console.log("in vali sel txtPlannedMins",$(this).val());
-					
-		//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
-					if(NotAllowedNullVal("#setupErrDiv","Planned Mins",$(this)))
-				     {
-				    	flag=true; 
-				    	console.log("iff-----");
-				     }
-					 else
-					 {
-						 flag=false;
-						 return flag;
-						 console.log("else-----");
-					 }
-				 });
-				return flag;
-		}
+function ValidatePlannedMinsForBlank()  
+{
+		$(".txtPlannedMins").each(function() {
+			
+			console.log("in vali sel txtPlannedMins",$(this).val());
+			
+//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
+			if(NotAllowedNullVal("#setupErrDiv","Planned Mins",$(this)))
+		     {
+		    	flag=true; 
+		    	console.log("iff-----");
+		     }
+			 else
+			 {
+				 flag=false;
+				 return flag;
+				 console.log("else-----");
+			 }
+		 });
+		return flag;
+}
 
 		
 	
 	
 function ValidateTimeUtilisedForBlank()  
 {
-			$(".txtTimeUtilised").each(function() {
-				
-				console.log("in vali sel txtPlannedMins",$(this).val());
-				
-	//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
-				if(NotAllowedNullVal("#setupErrDiv","Time Utilised",$(this)))
-			     {
-			    	flag=true; 
-			    	console.log("iff-----");
-			     }
-				 else
-				 {
-					 flag=false;
-					 return flag;
-					 console.log("else-----");
-				 }
-			 });
-			return flag;
-	}
+		$(".txtTimeUtilised").each(function() {
+			
+			console.log("in vali sel txtPlannedMins",$(this).val());
+			
+//			if(validationSelectBox($(this).val(),"Setup","#setupErrDiv"))
+			if(NotAllowedNullVal("#setupErrDiv","Time Utilised",$(this)))
+		     {
+		    	flag=true; 
+		    	console.log("iff-----");
+		     }
+			 else
+			 {
+				 flag=false;
+				 return flag;
+				 console.log("else-----");
+			 }
+		 });
+		return flag;
+}
 
 /*function ValidateTimeUtilisedForNum()
 {
@@ -1127,163 +1150,155 @@ function ValidateDupRow()
 	
 }
 
-		$(document).on("click", "#additemmodal", function(e)
-		{
-			EmptyModal();
-			if(SelectBoxNotAllowedNullVal($('#addUnit'),"Unit","#error_block"))
-					if(SelectBoxNotAllowedNullVal($('#addWorkCentre'),"WorkCenter","#error_block"))
-						if(NotAllowedNullVal($('#frmDate'),"From Date","#error_block"))
-								if(NotAllowedNullVal($('#toDate'),"To Date","#error_block"))
-									if(SelectBoxNotAllowedNullVal($('#addShift'),"Shift","#error_block"))
-										if(NotAllowedNullVal($('#timePershift'),"Time per shift ","#error_block"))
-											if(checkIfPlanPresent())
-											{
-											
-											}
-		});			
+$(document).on("click", "#additemmodal", function(e)
+{
+	EmptyModal();
+	if(SelectBoxNotAllowedNullVal($('#addUnit'),"Unit","#error_block"))
+			if(SelectBoxNotAllowedNullVal($('#addWorkCentre'),"WorkCenter","#error_block"))
+				if(NotAllowedNullVal($('#frmDate'),"From Date","#error_block"))
+						if(NotAllowedNullVal($('#toDate'),"To Date","#error_block"))
+							if(SelectBoxNotAllowedNullVal($('#addShift'),"Shift","#error_block"))
+								if(NotAllowedNullVal($('#timePershift'),"Time per shift ","#error_block"))
+									if(checkIfPlanPresent())
+									{
+									
+									}
+});			
 		
 		
-		function EmptyModal()
-		{
-			$("#po_table_modal").find("tr:gt(1)").remove();
-			
-			$("#addSelMachine").prop("selectedIndex", 0);
-			$("#addmachineTimeUtilised").val("");
-			$("#po_table_modal").find("tr").eq(1).find("td").eq(2).find("input[type='text']").val('');
-			$("#po_table_modal").find("tr").eq(1).find("td").eq(3).find("input[type='text']").val('');
-			$("#po_table_modal").find("tr").eq(1).find("td").eq(4).find("input[type='text']").val('');
-			$("#po_table_modal").find("tr").eq(1).find("td").eq(5).find("input[type='text']").val('');
-			$("#po_table_modal").find("tr").eq(1).find("td").eq(6).find("input[type='text']").val('');
-			$("#po_table_modal").find("tr").eq(1).find("td").eq(0).find("select").prop("selectedIndex", 0); 
-			$("#po_table_modal").find("tr").eq(1).find("td").eq(1).find("select").prop("selectedIndex", 0); 
-			
-		}
-		
-		function disablePlanningParameters()
-		{
-			$("#addUnit").prop("disabled", true);
-			$("#addWorkCentre").prop("disabled", true);
-			$("#frmDate").prop("disabled", true);
-			$("#toDate").prop("disabled", true);
-			$("#addShift").prop("disabled", true);
-			$("#timePershift").prop("disabled", true);
-			
-		}		
-		
-		
-		function MachineAlreadySelected(machineSelected,ErrDivName)	
-		{
-			
-				var firstColumnValues = [];
-				$('#addPlantList tr').each(function() {
-				    // Select the first <td> (or <th> if it's a header) in the current row
-				    var firstColumnText = $(this).find('td:first').text().trim(); 
-				    // If you have header cells (<th>) in the first column, use:
-				    // var firstColumnText = $(this).find('td:first, th:first').text(); 
-				    firstColumnValues.push(firstColumnText);
-				});
-				
-				console.log("machineSelected"+machineSelected.trim());
-				console.log("machines selected array--"+firstColumnValues);
-				console.log("firstColumnValues.indexOf(machineSelected)=====::"+firstColumnValues.indexOf(machineSelected));
-				
-			if(firstColumnValues.indexOf(machineSelected) == -1)
-				return true;
-			else
-			{
-				
-				errorBlock("#error_block", machineSelected +" is already selected");
-				return false;
-			}
-		}	
-		
-		
-		
-		function setFromDate()
-		{
-		var today = new Date();
-			   var dd = String(today.getDate()).padStart(2, '0');
-			   var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-			   var yyyy = today.getFullYear();
+function EmptyModal()
+{
+	$("#po_table_modal").find("tr:gt(1)").remove();
+	
+	$("#addSelMachine").prop("selectedIndex", 0);
+	$("#addmachineTimeUtilised").val("");
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(2).find("input[type='text']").val('');
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(3).find("input[type='text']").val('');
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(4).find("input[type='text']").val('');
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(5).find("input[type='text']").val('');
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(6).find("input[type='text']").val('');
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(0).find("select").prop("selectedIndex", 0); 
+	$("#po_table_modal").find("tr").eq(1).find("td").eq(1).find("select").prop("selectedIndex", 0); 
+	
+}
 
-			   var formattedToday = yyyy + '-' + mm + '-' + dd;
+function disablePlanningParameters()
+{
+	$("#addUnit").prop("disabled", true);
+	$("#addWorkCentre").prop("disabled", true);
+	$("#frmDate").prop("disabled", true);
+	$("#toDate").prop("disabled", true);
+	$("#addShift").prop("disabled", true);
+	$("#timePershift").prop("disabled", true);
+	
+}		
+		
+		
+function MachineAlreadySelected(machineSelected,ErrDivName)	{
+	
+		var firstColumnValues = [];
+		$('#addPlantList tr').each(function() {
+		    // Select the first <td> (or <th> if it's a header) in the current row
+		    var firstColumnText = $(this).find('td:first').text().trim(); 
+		    // If you have header cells (<th>) in the first column, use:
+		    // var firstColumnText = $(this).find('td:first, th:first').text(); 
+		    firstColumnValues.push(firstColumnText);
+		});
+		
+		console.log("machineSelected"+machineSelected.trim());
+		console.log("machines selected array--"+firstColumnValues);
+		console.log("firstColumnValues.indexOf(machineSelected)=====::"+firstColumnValues.indexOf(machineSelected));
+		
+	if(firstColumnValues.indexOf(machineSelected) == -1)
+		return true;
+	else
+	{
+		
+		errorBlock("#error_block", machineSelected +" is already selected");
+		return false;
+	}
+}	
+		
+		
+		
+function setFromDate(){
+var today = new Date();
+	   var dd = String(today.getDate()).padStart(2, '0');
+	   var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+	   var yyyy = today.getFullYear();
 
-			   // 2. Select the input element (replace '#yourDateInputId' with your actual ID or a more specific selector)
-			   // 3. Set the 'min' attribute
-			   $('#frmDate').attr('min', formattedToday);
-			   $('#toDate').attr('min', formattedToday);
+	   var formattedToday = yyyy + '-' + mm + '-' + dd;
+
+	   // 2. Select the input element (replace '#yourDateInputId' with your actual ID or a more specific selector)
+	   // 3. Set the 'min' attribute
+	   $('#frmDate').attr('min', formattedToday);
+	   $('#toDate').attr('min', formattedToday);
+
+}
 		
-		}
+function PercentLimit(value,Msg){
 		
-		function PercentLimit(value,Msg)	
-		{
-				
-			if(value < 100)
-				return true;
-			else
-			{
-				errorBlock("#error_block", Msg+" can not be more than 100")
-				return false;
-			}
-		}	
-		
-	function validateRows(tBodyId)
+	if(value < 100)
+		return true;
+	else
 	{
-		var tbodylen=$("#"+tBodyId).find("tr").length;
+		errorBlock("#error_block", Msg+" can not be more than 100")
+		return false;
+	}
+}	
 		
-		if(tbodylen > 0)
-			return true;
-		else
-		{
-			errorBlock("#error_block", "Add at least one row of item.");
-			return false;
-		}
-		
-		
-	}	
-		
-	function getAndSetSetups(divNameAndRowCount,stationid,itemid,setupid)
+function validateRows(tBodyId){
+	var tbodylen=$("#"+tBodyId).find("tr").length;
+	
+	if(tbodylen > 0)
+		return true;
+	else
 	{
+		errorBlock("#error_block", "Add at least one row of item.");
+		return false;
+	}
+	
+	
+}	
+		
+function getAndSetSetups(divNameAndRowCount,stationid,itemid,setupid){
 							
-
 	console.log(rowcount,stationid,itemid);
-						
-		$.ajax({
-		       type: "GET",
-		       url: server_url + `setup/getSetUpByStationItem/`+stationid +'/'+itemid,
-		       enctype: "application/json",
-		       headers: authHeader,
-		       processData: false,
-		       contentType: false,
-		       data: null,
-		       success: function (response) {
-				
-			//	'#product'+counter
-				$(divNameAndRowCount).empty();
-			
-					console.log("=======response=======",response);
-				
-					
-				//	$(".editShift").empty();
-				//	$("#editItem").empty();
-					$(divNameAndRowCount).append('<option value="0">  Select Setup </option>');
-				//	$("#editItem").append('<option value="0">  Select item </option>');
-
-		           for (i = 0; i < response.payload.length; ++i) {
-		               $(divNameAndRowCount).append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
-					   
-		           }
-		           
-		           $(divNameAndRowCount).val(setupid);
-		       },
-		       error: function (error) {
-		           ajaxerrormsg(error)
-		       }
-		   });
-	}		
+	$.ajax({
+       type: "GET",
+       url: server_url + `setup/getSetUpByStationItem/`+stationid +'/'+itemid,
+       enctype: "application/json",
+       headers: authHeader,
+       processData: false,
+       contentType: false,
+       data: null,
+       success: function (response) {
 		
-				
-});
+	//	'#product'+counter
+		$(divNameAndRowCount).empty();
+	
+			console.log("=======response=======",response);
+		
+			
+		//	$(".editShift").empty();
+		//	$("#editItem").empty();
+			$(divNameAndRowCount).append('<option value="0">  Select Setup </option>');
+		//	$("#editItem").append('<option value="0">  Select item </option>');
+
+           for (i = 0; i < response.payload.length; ++i) {
+               $(divNameAndRowCount).append(`<option value="${response.payload[i].id}">${response.payload[i].name}</option>`);
+			   
+           }
+           
+           $(divNameAndRowCount).val(setupid);
+       },
+       error: function (error) {
+           ajaxerrormsg(error)
+       }
+   });
+}		
+		
+
 
 
 function checkIfPlanPresent()
