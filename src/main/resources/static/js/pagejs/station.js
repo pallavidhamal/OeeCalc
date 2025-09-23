@@ -468,6 +468,8 @@ $(document).on("click", "#addStationData", function(e){
 						
 						if(result.status=="CREATED"){
 							
+							ajaxsuccessmsg( "New Station added sucessfully.");
+							
 							getStationList(StationApiName);
 							
 							$("#add_station").modal("hide");
@@ -542,6 +544,7 @@ $(document).on("click", "#editStationData", function(e){
 						
 						if(result.payload==true){
 							
+							ajaxsuccessmsg("Station edited sucessfully.");
 							getStationList(StationApiName);
 							$("#edit_station").modal("hide");
 							

@@ -144,6 +144,7 @@ $(document).on("click", "#purchaseAddAction", function(e){
 							
 							if(result.payload==true){
 								
+								ajaxsuccessmsg("New Item added sucessfully.");
 								getItemList();
 								
 								$("#add_item").modal("hide");
@@ -220,6 +221,7 @@ $(document).on("click", "#purchaseAddAction", function(e){
 							
 								if(result.payload==true){
 									
+									ajaxsuccessmsg("Item edited sucessfully.");
 									getItemList();
 									
 									$("#edit_item").modal("hide");

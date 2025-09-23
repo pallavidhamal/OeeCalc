@@ -39,10 +39,6 @@
 			//	getAllMachines(apiName);
 				getAllUoms();
 				
-				
-				
-				
-				
 				$('#addItem').select2({
 			      placeholder: 'Select a Item',
 			      allowClear: true,
@@ -53,14 +49,6 @@
 			
 			$(document).on("click", "#setupAddAction", function(e){
 				
-				/*console.log(" click on station Add Action");
-				
-				 $('#machintypeSel').empty();
-				 $('#uomSel').empty();
-				 $('#ponumber').empty();
-				 
-				 $('#addStationNumber').val('');*/
-				 
 				 getUnitList("add");
 				 
 				 if(role=="AA" || role=="MAU")
@@ -70,15 +58,10 @@
 				 							
 				 if(role=="PLU")
 				 {
-					
-					
 					var unitString = localStorage.getItem("set") ; 
-										
 					console.log("===========unitString============", unitString);
-					
 					 var unitArray = unitString.split("#")
 					 unitid = unitArray[0];
-					
 					 apiName="getWorkcenterByUnit/"+unitid;
 				 }
 				 
@@ -412,6 +395,7 @@ $(document).on("click", "#addSetup", function(e){
 						
 						if(result.status=="CREATED"){
 							
+							ajaxsuccessmsg("New Setup added sucessfully.");
 							getSetUpList(setupapiName);
 							
 							$("#add_setup").modal("hide");
@@ -538,6 +522,7 @@ $(document).on("click", ".edit-button", function(){
 										
 										if(result.payload==true){
 											
+											ajaxsuccessmsg("Setup edited sucessfully.");
 											getSetUpList(setupapiName);
 											
 											$("#edit_setup").modal("hide");
