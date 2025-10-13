@@ -39,7 +39,7 @@ $(document).ready(function(){
 		
 		console.log("===========planUnitId url============", planUnitId+"-wcid-"+planWcId+"planShiftId=="+planShiftId+"planStationId=="+planStationId+"plandate=="+plandate);
 
-		
+		console.log("planShiftId==========",planShiftId)
 		
 		if(planUnitId!="")
 		{
@@ -47,10 +47,13 @@ $(document).ready(function(){
 			$('#prodDate').val(plandate);	
 
 			//$('#prodDate').val(firstDayOfMonth1);	
-			unitid = planUnitId;					 
-			getWorkCentreList("add");
-			getUnitShifts();
-			
+			unitid = planUnitId;
+				console.log("==========unitid=========",unitid)		
+			if(unitid != undefined)	{
+				getWorkCentreList("add");
+				getUnitShifts();
+				console.log("==========unitid==if=======",unitid)		
+			}
 		}
 
 

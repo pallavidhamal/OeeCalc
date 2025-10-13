@@ -1866,11 +1866,34 @@ $(document).on("click", "#editItemDataInPlanningTable", function(e){
 		console.log("machines selected array--"+firstColumnValues);
 		console.log("firstColumnValues.indexOf(machineSelected)=====::"+firstColumnValues.indexOf(machineSelected));
 			
-		if(firstColumnValues.indexOf(machineSelected) == -1)
+			
+			
+			
+		if(firstColumnValues.indexOf(machineSelected) == -1){
+		
+			$("#addItemDataInPlanningTable").prop("disabled", false);
+			
+			$(".add_item_add_row").prop("disabled", false);
+			
+			$(".addItem").prop("disabled", false);
+			$(".addSetup").prop("disabled", false);
+			$(".addtxtSetUptime").prop("disabled", false);
+			$(".addtxtPlannedQty").prop("disabled", false);
+			
 			return true;
-		else
-		{
+		}else{
+			
+			$("#addItemDataInPlanningTable").prop("disabled", true);
+
+			$(".add_item_add_row").prop("disabled", true);
+
+			$(".addItem").prop("disabled", true);
+			$(".addSetup").prop("disabled", true);
+			$(".addtxtSetUptime").prop("disabled", true);
+			$(".addtxtPlannedQty").prop("disabled", true);
+			
 			errorBlock("#error_block", machineSelected +" is already selected");
+			
 			return false;
 		}
 	}	
