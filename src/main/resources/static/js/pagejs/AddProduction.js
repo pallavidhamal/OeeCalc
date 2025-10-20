@@ -41,8 +41,20 @@ $(document).ready(function(){
 
 		
 		
-		if(planUnitId!="")
+		if((planUnitId!="")&&(planUnitId!=undefined))
 		{
+			//$("#resetProduction").style.display = "block";
+
+			
+			$("#addUnit").prop("disabled", true);
+
+			$("#addWorkCenter").prop("disabled", true);
+			$('#addStation').prop("disabled", true);
+			$('#addShift').prop("disabled", true);
+			
+			
+			$('#prodDate').prop("disabled", true);
+			
 			
 			$('#prodDate').val(plandate);	
 
@@ -97,25 +109,80 @@ $(document).ready(function(){
 	
 	
 	$('#addUnit').on('change', function (e) {
+		
+		$('#planProdTbody').empty();
 	    var optionSelected = $("option:selected", this);
 	     unitid = this.value;
-		 
-		// $("#timePershift").val("");
-		//alert(unitid)
+		 $('#planProdTbody').empty();
 		getWorkCentreList("add");
-		
 		getUnitShifts();	
+		$("#addStation").empty();	
+		
+	});
+	
+	$('#prodDate').on('change', function (e) {
+	
+		$('#planProdTbody').empty();
+		wcenId=$('#addWorkCenter').val();
+		tunitid=$('#addUnit').val();
+		tshiftId=$('#addShift').val();
+		
+		$("#addStation").empty();	
+		
+		if((wcenId!=0)&&(tunitid!=0)&&(tshiftId!=0))
+		{		
+		 getMachinesByPlanFilter();
+		 }else{
+			alert("insuff filter");
+		 }
 		
 	});
 	
 	
+	
+	$('#addWorkCenter').on('change', function (e) {
+
+		$('#planProdTbody').empty();
+		wcenId=$('#addWorkCenter').val();
+		tunitid=$('#addUnit').val();
+		tshiftId=$('#addShift').val();
+		
+		tProdDt= $('#prodDate').val().trim();
+		
+		$("#addStation").empty();	
+		
+		if((tProdDt!="")&&(tunitid!=0)&&(tshiftId!=0)&&(wcenId!=0))
+		{		
+		 getMachinesByPlanFilter();
+		 }	 else{
+	 			alert("insuff filter");
+	 		 }
+		
+	});
+	
+	
+	
 	$('#addShift').on('change', function (e) {
 	   
-	// var optionSelected = $("option:selected", this);
-	// var wsid = this.value;
-	// alert();
+		
+	
 	 $('#planProdTbody').empty();
-	 getMachinesByPlanFilter();
+	 $("#addStation").empty();	
+	 
+	 wcenId=$('#addWorkCenter').val();
+	 	tunitid=$('#addUnit').val();
+	 	tshiftId=$('#addShift').val();
+	 	
+	 	tProdDt= $('#prodDate').val().trim();
+	 	
+	 	if((tProdDt!="")&&(tunitid!=0)&&(wcenId!=0)&&(tshiftId!=0))
+	 	{		
+	 	 getMachinesByPlanFilter();
+	 	 }	 else{
+	  			alert("insuff filter");
+	  		 }
+	 
+	 
 	 
 	// getShiftTime();	
 		
@@ -126,6 +193,8 @@ $(document).ready(function(){
 	
 	
 	$('#addStation').on('change', function (e) {
+		
+		$('#planProdTbody').empty();	
 		
 		var optionSelected = $("option:selected", this);
 		stationId = this.value;
@@ -165,6 +234,25 @@ $('.txtRejectedQty').on('change', function (e) {
 	
 })
 */
+
+$(document).on("click", "#resetProduction", function(e){
+	
+	
+	swal({
+		  text: "This will reset all filters and page data, please confirm?",
+		  buttons: [
+		   'Cancel',
+		    'Ok'
+
+		  ],
+		  }).then(function (isConfirm) {
+		      if(isConfirm){
+		      
+				window.location.href = "addProduction";	
+		}
+		})
+	
+});
 
  $(document).on('change', '.txtProducedQty', function() {
     // Code for dynamically created elements
@@ -439,7 +527,7 @@ function getAllMachines() {
 				}
 	        }
 		   $("#addShift").append(shiftOptions);
-		   if(planShiftId!=""){
+		   if((planShiftId!="")&&(planShiftId!=undefined)){
 		   		$('#planProdTbody').empty();
 		    	getMachinesByPlanFilter();
 		    }
