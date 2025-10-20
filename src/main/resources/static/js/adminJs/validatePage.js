@@ -1581,6 +1581,10 @@ $(document).on("change keyup input", "input.integer", function () {
   $(document).on("change keyup input", "input.toUpperCase", function () {	
 		$(this).val($(this).val().toUpperCase());
   });
-  $(document).on("change keyup input", "input.minZero", function () {
+/*  $(document).on("change keyup input", "input.minZero", function () {
+	(($(this).val() == "") ? $(this).val(0) : "" );
+});*/
+
+$(document).on("change keyup input", "input.minZero", function () {	
 	(($(this).val() == "") ? $(this).val(0) : "" );
 });

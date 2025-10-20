@@ -62,7 +62,7 @@ getPOList();
 
 });
 				
-$('#addUnit').on('change', function (e) {
+$(document).on("change", '#addUnit', function (e) {
     var optionSelected = $("option:selected", this);
      unitid = this.value;
 	getWorkCentreList("add");
@@ -70,7 +70,7 @@ $('#addUnit').on('change', function (e) {
 	getFilterProductionList();
 });
 
-$('#addWorkCenter').on('change', function (e) {
+$(document).on("change", '#addWorkCenter', function (e) {
 	 var optionSelected = $("option:selected", this);
 	 var wsid = this.value;
 	 getMachinesByWc(wsid);

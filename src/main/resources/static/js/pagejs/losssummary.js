@@ -178,7 +178,83 @@ function getUnitList(divId){
 			    		tableData = $('#lossSummaryList').DataTable( {
 						//  responsive: true,
 			    			dom: 'Blfrtip',   
-			    			buttons: ['excel', 'print'],
+			    			buttons: [
+								    {
+								      extend: 'excelHtml5',
+								      text: 'Export to Excel',
+								      title: null,  // disable default page title
+								      exportOptions: {
+								        columns: ':visible'
+								      },
+								      customize: function (xlsx) {
+								        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+								
+								        // --- Step 1: push down existing rows ---
+								        var downrows = 1;
+								        $('row', sheet).each(function () {
+								          var r = parseInt($(this).attr('r'));
+								          $(this).attr('r', r + downrows);
+								        });
+								        $('row c', sheet).each(function () {
+								          var r = $(this).attr('r');
+								          var row = parseInt(r.replace(/[A-Z]/g, ""));
+								          $(this).attr('r', r.replace(row, (row + downrows)));
+								        });
+								
+								        // --- Step 2: read first header row (with colspan) from HTML ---
+								        var headerRow = $('#lossSummaryList thead tr').first();
+								        var excelHeader = '<row r="1">';
+								        var mergeXml = '';
+								        var colIndex = 0; // Excel column index (A=1, B=2, ...)
+								
+								        headerRow.find('th').each(function () {
+								          var colspan = parseInt($(this).attr('colspan') || 1);
+								          var text = $(this).text().trim();
+								
+								          if (text) {
+								            // Convert column index to Excel letter (A,B,...AA,AB...)
+								            function colLetter(n) {
+								              var s = "", t;
+								              while (n > 0) {
+								                t = (n - 1) % 26;
+								                s = String.fromCharCode(65 + t) + s;
+								                n = Math.floor((n - t) / 26);
+								              }
+								              return s;
+								            }
+								
+								            var startCol = colLetter(colIndex);
+								            var endCol = colLetter(colIndex + colspan - 1);
+								
+								            // add header cell
+								            excelHeader +=
+								              '<c t="inlineStr" r="' + startCol + '1"><is><t>' + text + '</t></is></c>';
+								
+								            // add merge if colspan > 1
+								            if (colspan > 1) {
+								              mergeXml += '<mergeCell ref="' + startCol + '1:' + endCol + '1"/>';
+								            }
+								          }
+								          colIndex += colspan;
+								        });
+								
+								        excelHeader += '</row>';
+								
+								        // --- Step 3: inject dynamic header into sheet ---
+								        sheet.childNodes[0].childNodes[1].innerHTML =
+								          excelHeader + sheet.childNodes[0].childNodes[1].innerHTML;
+								
+								        // --- Step 4: inject mergeCells dynamically ---
+								        var mergeCells = sheet.getElementsByTagName('mergeCells')[0];
+								        if (!mergeCells) {
+								          mergeCells = sheet.createElement('mergeCells');
+								          sheet.childNodes[0].appendChild(mergeCells);
+								        }
+								        mergeCells.innerHTML = mergeXml;
+								        mergeCells.setAttribute('count', (mergeXml.match(/mergeCell/g) || []).length);
+								      }
+								    }
+								  ],
 						 	destroy: true,
 		    				data: data,
 							columnDefs: [{

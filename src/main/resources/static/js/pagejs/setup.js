@@ -133,7 +133,7 @@
 									{ "data": "workcenter" },
 									{ "data": "item" },
 									{ "data": "itemdesc" },
-									{ "data": "station" },
+									{ "data": "stationtype" },
 			    				    { "data": "name" },
 									{ "data": "cycletime" },											
 									{ "data": "uom" },											
@@ -360,7 +360,7 @@ $(document).on("click", "#addSetup", function(e){
 	if(SelectBoxNotAllowedNullVal($('#addItem'),"Item","#error_block"))
 		if(SelectBoxNotAllowedNullVal($('#addStation'),"Station","#error_block"))
 		  if(NotAllowedNullVal($('#setupname'),"set up","#error_block"))
-			if(NotAllowedNullVal($('#setuptime'),"set up time ","#error_block"))
+			if(NotAllowedNullVal($('#setuptime'),"Cycle time ","#error_block"))
 				{
 		 
 		 var dataVal = {
@@ -487,7 +487,7 @@ $(document).on("click", ".edit-button", function(){
 					if(SelectBoxNotAllowedNullVal($('#editItem'),"Item","#error_block"))
 							if(SelectBoxNotAllowedNullVal($('#editStation'),"Station","#error_block"))
 							  if(NotAllowedNullVal($('#editsetupname'),"set up","#error_block"))
-								if(NotAllowedNullVal($('#editsetuptime'),"set up time ","#error_block"))										
+								if(NotAllowedNullVal($('#editsetuptime'),"Cycle time ","#error_block"))										
 								{
 						 
 						 var dataVal = {

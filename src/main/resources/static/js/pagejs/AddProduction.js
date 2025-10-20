@@ -39,7 +39,7 @@ $(document).ready(function(){
 		
 		console.log("===========planUnitId url============", planUnitId+"-wcid-"+planWcId+"planShiftId=="+planShiftId+"planStationId=="+planStationId+"plandate=="+plandate);
 
-		
+		console.log("planShiftId==========",planShiftId)
 		
 		if((planUnitId!="")&&(planUnitId!=undefined))
 		{
@@ -59,10 +59,13 @@ $(document).ready(function(){
 			$('#prodDate').val(plandate);	
 
 			//$('#prodDate').val(firstDayOfMonth1);	
-			unitid = planUnitId;					 
-			getWorkCentreList("add");
-			getUnitShifts();
-			
+			unitid = planUnitId;
+				console.log("==========unitid=========",unitid)		
+			if(unitid != undefined)	{
+				getWorkCentreList("add");
+				getUnitShifts();
+				console.log("==========unitid==if=======",unitid)		
+			}
 		}
 
 
@@ -565,9 +568,9 @@ function getShiftWorkItemList(){
 					+' <td class="table_input"><input type="hidden" class="form-control width80 line txtSetup " rocnt = "'+index1+'" id="setupId'+index1+'" value="'+value1.setupid+'"   disabled>'+ value1.setupname +' </td>'
 					+' <td class="table_input"><input type="text" class="form-control width80 line txtsetuptime" rocnt = "'+index1+'" id="setuptimeId'+index1+'" value="'+value1.setuptime+'"   disabled> </td>'
 					+' <td class="table_input"><input type="text" class="form-control width80 line txtcycletime" rocnt = "'+index1+'" id="cycletimeId'+index1+'" value="'+value1.cycletime+'"   disabled> </td>'
-					+' <td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal minZero" rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled><input type="hidden" class="form-control width80 line txtPlannedMins " rocnt = "'+index1+'" id="plannedMins'+index1+'" value="'+value1.plannedmins+'"   disabled></td>'
-					+' <td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal minZero" rocnt = "'+index1+'" id="producedQty'+index1+'" value ="0"></td>'
-					+' <td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal minZero"  rocnt = "'+index1+'" id="rejectedQty'+index1+'" value="0"></td>'
+					+' <td class="table_input"><input type="text" class="form-control width80 line txtPlannedQty decimal " rocnt = "'+index1+'" id="plannedQty'+index1+'" value="'+value1.plannedquantity+'"   disabled><input type="hidden" class="form-control width80 line txtPlannedMins " rocnt = "'+index1+'" id="plannedMins'+index1+'" value="'+value1.plannedmins+'"   disabled></td>'
+					+' <td class="table_input"><input type="text" class="form-control width80 line txtProducedQty decimal " rocnt = "'+index1+'" id="producedQty'+index1+'"  ></td>'
+					+' <td class="table_input"><input type="text" class="form-control width80 line txtRejectedQty decimal "  rocnt = "'+index1+'" id="rejectedQty'+index1+'"  ></td>'
 	
 				  +'</tr>');
 			}); 
