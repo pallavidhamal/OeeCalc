@@ -136,7 +136,7 @@ $(document).ready(function(){
 		{		
 		 getMachinesByPlanFilter();
 		 }else{
-			alert("insuff filter");
+			//alert("insuff filter");
 		 }
 		
 	});
@@ -158,7 +158,7 @@ $(document).ready(function(){
 		{		
 		 getMachinesByPlanFilter();
 		 }	 else{
-	 			alert("insuff filter");
+	 			//alert("insuff filter");
 	 		 }
 		
 	});
@@ -182,7 +182,7 @@ $(document).ready(function(){
 	 	{		
 	 	 getMachinesByPlanFilter();
 	 	 }	 else{
-	  			alert("insuff filter");
+	  			//alert("insuff filter");
 	  		 }
 	 
 	 
